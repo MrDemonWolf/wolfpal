@@ -1,0 +1,44 @@
+{
+  "name": "wolfpal",
+  "version": "1.0.0",
+  "description": "A wolf to guide you to your end goals by helping keep you on track weely, bi-weekly or even monthly and yearly goals.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "lint": "eslint . --ext .js --fix",
+    "format": "prettier-eslint --write $PWD/'**/*.{js,json}'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MrDemonWolf/wolfpal.git"
+  },
+  "keywords": [
+    "wolfpal"
+  ],
+  "author": "Nathan Henniges (MrDemonWolf)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MrDemonWolf/wolfpal/issues"
+  },
+  "homepage": "https://github.com/MrDemonWolf/wolfpal#readme",
+  "dependencies": {
+    "compression": "^1.7.4",
+    "consola": "^2.15.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "helmet": "^4.1.0",
+    "lusca": "^1.6.1",
+    "mongoose": "^5.10.0",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.7.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "nodemon": "^2.0.4",
+    "prettier-eslint-cli": "^5.0.0"
+  }
+}
