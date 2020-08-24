@@ -1,9 +1,9 @@
 {
   "title": "WolfPal",
-  "url": "mrdemonwolf.github.io/wolfpal",
+  "url": "https://mrdemonwolf.github.io/wolfpal/",
   "logo": {
-    "light": "/logo-light.svg",
-    "dark": "/logo-dark.svg"
+    "light": "/wolfpal/logo-light.svg",
+    "dark": "/wolfpal/logo-dark.svg"
   },
   "github": "mrdemonwolf/wolfpal",
   "twitter": "@mrdemonwolf"
