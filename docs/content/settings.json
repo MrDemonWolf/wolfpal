@@ -1,0 +1,10 @@
+{
+  "title": "WolfPal",
+  "url": "mrdemonwolf.github.io/wolfpal",
+  "logo": {
+    "light": "/logo-light.svg",
+    "dark": "/logo-dark.svg"
+  },
+  "github": "mrdemonwolf/wolfpal",
+  "twitter": "@mrdemonwolf"
+}
