@@ -5,6 +5,7 @@ const compression = require('compression');
 const helmet = require('helmet');
 const lusca = require('lusca');
 const mongoose = require('mongoose');
+const passport = require('passport');
 
 /**
  * Load environment variables from the .env file, where API keys and passwords are stored.
@@ -24,7 +25,7 @@ mongoose.set('useCreateIndex', true);
 mongoose.set('useNewUrlParser', true);
 mongoose.set('useUnifiedTopology', true);
 mongoose.connect(process.env.DATABASE_URI, {
-  useNewUrlParser: true,
+  useNewUrlParser: true
 });
 const db = mongoose.connection;
 
@@ -42,14 +43,14 @@ app.set('etag', false);
 app.use(helmet());
 app.use(compression());
 
-const corsOptions = {
-  origin: [process.env.WEB_URI, process.env.API_URI],
-};
+// const corsOptions = {
+//   origin: [process.env.WEB_URI, process.env.API_URI]
+// };
 
 switch (process.env.NODE_ENV) {
   case 'production':
     app.use(logger('combined'));
-    app.use(cors(corsOptions));
+    // app.use(cors(corsOptions));
     app.enable('trust proxy');
     app.set('trust proxy', 1);
     break;
@@ -58,9 +59,17 @@ switch (process.env.NODE_ENV) {
 }
 
 /**
+ * Passport middleware configuration.
+ */
+app.use(passport.initialize());
+require('./config/passport')(passport);
+
+/**
  * Primary app routes.
  */
-// const indexRoutes = require("./routes/inded");
+const authRoutes = require('./routes/auth');
+
+app.use('/auth', authRoutes);
 
 /**
  * Handle 404 errors
@@ -69,7 +78,7 @@ app.use((req, res, next) => {
   res.status(404);
   res.status(404).json({
     code: 404,
-    error: 'Whoops, this resource or route could not be found',
+    error: 'Whoops, this resource or route could not be found'
   });
 });
 
