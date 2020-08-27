@@ -4,11 +4,21 @@
   >
     <div class="container mx-auto px-6">
       <h2 class="text-4xl font-bold mb-2 text-white">
-        Let the Wolf guide you to what you dream of getting done. We all have
-        goals in life and keeping track of them can either be a paid or
-        overwellming
+        Welcome, {{ user.username }}
       </h2>
-      <h3 class="text-2xl mb-8 text-gray-200">Login today to get started.</h3>
+      <h3 class="text-2xl mb-8 text-gray-200">Create a new goal</h3>
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      user: {
+        username: 'MrDemonWolf',
+      },
+    }
+  },
+}
+</script>

@@ -1,12 +1,14 @@
 <template>
-  <header id="header" class="dark:bg-gray-700">
+  <header id="header" class="dark:bg-gray-900">
     <nav class="container mx-auto flex-wrap p-6 flex justify-between">
-      <div
-        class="flex items-center flex-no-shrink text-primary-500 dark:text-white"
+      <nuxt-link
+        active-class="false"
+        class="flex items-center flex-no-shrink text-primary-500 dark:text-primary-300"
+        to="/"
       >
         <Logo width="40px" height="40px" />
         <span class="font-semibold text-xl ml-2">{{ $config.title }}</span>
-      </div>
+      </nuxt-link>
       <div class="md:hidden flex items-center">
         <button
           class="px-3 py-2 border rounded text-primary-500 border-primary-500 hover:text-primary-400 hover:border-primary-400"
@@ -74,12 +76,8 @@ export default {
   },
   data() {
     return {
-      user: {
-        username: 'MrDemonWolf',
-      },
-      isAuthenticated: false,
+      isAuthenticated: true,
       mobileNavActive: false,
-      accountNavActive: false,
     }
   },
 

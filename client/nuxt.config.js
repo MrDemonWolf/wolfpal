@@ -77,14 +77,50 @@ export default {
     '@nuxtjs/axios',
     // Doc: https://pwa.nuxtjs.org/
     '@nuxtjs/pwa',
+    '@nuxtjs/auth-next',
     '@nuxtjs/svg',
   ],
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
-
+  axios: { proxy: true },
+  proxy: {
+    '/api/': {
+      target: 'http://localhost:8080',
+      pathRewrite: {
+        '^/api/': '/',
+      },
+    },
+  },
+  auth: {
+    strategies: {
+      local: {
+        scheme: 'refresh',
+        token: {
+          property: 'access_token',
+          maxAge: 1800,
+          // type: 'Bearer'
+        },
+        refreshToken: {
+          property: 'refresh_token',
+          data: 'refresh_token',
+          maxAge: 60 * 60 * 24 * 30,
+        },
+        user: {
+          property: 'user',
+          // autoFetch: true
+        },
+        endpoints: {
+          login: { url: '/api/auth/login', method: 'post' },
+          refresh: { url: '/auth/refresh', method: 'post' },
+          user: { url: '/auth/user', method: 'get' },
+          logout: { url: '/auth/logout', method: 'post' },
+        },
+        // autoLogout: false
+      },
+    },
+  },
   publicRuntimeConfig: {
     title: process.env.SITE_TITLE || 'WolfPal',
     copyright: process.env.COPYRIGHT || 'MrDemonWolf',

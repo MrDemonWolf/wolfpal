@@ -38,6 +38,7 @@ module.exports = {
       'responsive',
     ],
     backgroundImage: ['responsive', 'dark'],
+    gradientColorStops: ['responsive', 'dark'],
     borderColor: [
       'dark',
       'dark-focus',

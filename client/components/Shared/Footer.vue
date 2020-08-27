@@ -1,13 +1,15 @@
 <template>
-  <footer class="text-gray-700 body-font">
+  <footer class="text-gray-700 body-font dark:bg-gray-900 dark:text-white">
     <div
       class="container px-5 py-2 mx-auto flex items-center sm:flex-row flex-col"
     >
-      <p class="text-sm text-gray-500 sm:ml-4 sm:pl-4 sm:py-2 sm:mt-0 mt-4">
+      <p
+        class="text-sm text-gray-500 dark:text-gray-300 m:ml-4 sm:pl-4 sm:py-2 sm:mt-0 mt-4"
+      >
         &copy; {{ year }}
         <a
           :href="$config.copyrightLink"
-          class="text-gray-600 ml-1"
+          class="text-gray-600 ml-1 dark:text-gray-400"
           rel="noopener noreferrer"
           target="_blank"
         >
