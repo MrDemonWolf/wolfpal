@@ -4,21 +4,9 @@
   >
     <div class="container mx-auto px-6">
       <h2 class="text-4xl font-bold mb-2 text-white">
-        Welcome, {{ user.username }}
+        Welcome, {{ $auth.user.username }}
       </h2>
       <h3 class="text-2xl mb-8 text-gray-200">Create a new goal</h3>
     </div>
   </div>
 </template>
-
-<script>
-export default {
-  data() {
-    return {
-      user: {
-        username: 'MrDemonWolf',
-      },
-    }
-  },
-}
-</script>

@@ -28,7 +28,7 @@
         class="w-full md:flex md:items-center md:w-auto"
         :class="mobileNavActive ? 'block' : 'hidden'"
       >
-        <ul v-if="isAuthenticated" class="list-reset md:flex justify-end">
+        <ul v-if="$auth.loggedIn" class="list-reset md:flex justify-end">
           <li v-for="(link, text) in links" :key="text" :value="link">
             <nuxt-link
               class="inline-block md:inline-block no-underline hover:text-underline text-primary-500 hover:text-secondary-500 dark:text-white dark-hover:text-secondary-200 py-2 md:py-1 md:px-2 font-roboto"
@@ -53,7 +53,7 @@
             </nuxt-link>
           </li>
         </ul>
-        <AccountDropdown v-if="isAuthenticated" />
+        <AccountDropdown v-if="$auth.loggedIn" />
       </div>
     </nav>
   </header>
@@ -76,7 +76,6 @@ export default {
   },
   data() {
     return {
-      isAuthenticated: true,
       mobileNavActive: false,
     }
   },

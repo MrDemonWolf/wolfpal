@@ -68,8 +68,10 @@ require('./config/passport')(passport);
  * Primary app routes.
  */
 const authRoutes = require('./routes/auth');
+const accountRoutes = require('./routes/account');
 
 app.use('/auth', authRoutes);
+app.use('/account', accountRoutes);
 
 /**
  * Handle 404 errors

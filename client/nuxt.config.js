@@ -113,9 +113,9 @@ export default {
         },
         endpoints: {
           login: { url: '/api/auth/login', method: 'post' },
-          refresh: { url: '/auth/refresh', method: 'post' },
-          user: { url: '/auth/user', method: 'get' },
-          logout: { url: '/auth/logout', method: 'post' },
+          refresh: { url: '/api/auth/refresh', method: 'post' },
+          user: { url: '/api/account', method: 'get' },
+          logout: { url: '/api/auth/logout', method: 'post' },
         },
         // autoLogout: false
       },
