@@ -46,9 +46,9 @@
           <fa v-else :icon="['far', 'moon']" class="w-6 h-6 align-middle" />
         </div>
         <a
-          href="#"
           class="block px-4 py-3 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 dark:text-white dark-hover:text-white dark-hover:bg-gray-700"
           role="menuitem"
+          @click="logout"
         >
           Logout</a
         >
@@ -73,6 +73,9 @@ export default {
     this.popupItem = this.$el
   },
   methods: {
+    async logout() {
+      await this.$auth.logout()
+    },
     accountDropdown() {
       this.accountNavActive = !this.accountNavActive
     },

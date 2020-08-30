@@ -19,11 +19,12 @@
           </nuxt-link>
         </p>
       </div>
-      <Alert v-if="error" type="error" :message="error" />
+
+      <Alert v-if="error" type="danger" :message="error" />
       <Alert v-if="success" type="success" :message="success" />
       <form
-        class="bg-gray-200 mt-2 p-16 dark:bg-gray-200 rounded"
-        @submit.prevent="register"
+        class="bg-gray-200 mt-2 ml-1 mr-1 md:ml-0 md:mr-0 p-12 md:p-16 dark:bg-gray-200 rounded"
+        @submit.prevent="userRegister"
       >
         <div class="mb-3">
           <input
@@ -31,10 +32,14 @@
             aria-label="Username"
             name="username"
             type="text"
+            :class="{ 'border-red-500': errors.username }"
             class="inline-block w-full px-3 py-2 rounded border border-gray-400 focus:border-blue-500 bg-white text-gray-900 appearance-nonerounded focus:outline-none"
             placeholder="Usernames"
-            required
+            novalidate
           />
+          <span v-if="errors.username" class="text-red-500">{{
+            errors.username
+          }}</span>
         </div>
         <div class="mb-3">
           <input
@@ -42,10 +47,14 @@
             aria-label="Email address"
             name="email"
             type="email"
+            :class="{ 'border-red-500': errors.email }"
             class="inline-block w-full px-3 py-2 rounded border border-gray-400 focus:border-blue-500 bg-white text-gray-900 appearance-nonerounded focus:outline-none"
             placeholder="Email address"
-            required
+            novalidate
           />
+          <span v-if="errors.email" class="text-red-500">{{
+            errors.email
+          }}</span>
         </div>
         <div class="mb-3">
           <input
@@ -53,10 +62,14 @@
             aria-label="Password"
             name="password"
             type="password"
+            :class="{ 'border-red-500': errors.password }"
             class="inline-block w-full px-3 py-2 rounded border border-gray-400 focus:border-blue-500 bg-white text-gray-900 appearance-nonerounded focus:outline-none"
             placeholder="Password"
-            required
+            novalidate
           />
+          <span v-if="errors.password" class="text-red-500">{{
+            errors.password
+          }}</span>
         </div>
 
         <div class="mt-6 flex items-center justify-between">
@@ -90,36 +103,36 @@ export default {
   components: { Alert },
   data() {
     return {
-      email: '',
-      username: '',
-      password: '',
+      register: {
+        email: '',
+        username: '',
+        password: '',
+      },
       error: null,
+      errors: { username: null, email: null, password: null },
       success: null,
     }
   },
   methods: {
-    async register() {
+    async userRegister() {
       try {
         const response = await this.$axios.post('/api/auth/register', {
-          username: this.username,
-          email: this.email,
-          password: this.password,
+          username: this.register.username,
+          email: this.register.email,
+          password: this.register.password,
         })
         this.success = response.data.message
         if (this.error) {
           this.error = null
         }
-        setTimeout(() => {
-          this.success = null
-        }, 1000 * 10)
       } catch (e) {
+        if (e.response.data.errors) {
+          return (this.errors = e.response.data.errors)
+        }
         this.error = e.response.data.error
         if (this.success) {
           this.success = null
         }
-        setTimeout(() => {
-          this.error = null
-        }, 1000 * 10)
       }
     },
   },

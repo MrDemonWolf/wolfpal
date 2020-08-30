@@ -1,70 +1,4 @@
 {
-  "AppColorSwitcher": {
-    "description": "Auto imported from components/global/app/AppColorSwitcher.vue"
-  },
-  "LazyAppColorSwitcher": {
-    "description": "Auto imported from components/global/app/AppColorSwitcher.vue"
-  },
-  "AppCopyButton": {
-    "description": "Auto imported from components/global/app/AppCopyButton.vue"
-  },
-  "LazyAppCopyButton": {
-    "description": "Auto imported from components/global/app/AppCopyButton.vue"
-  },
-  "AppDropdown": {
-    "description": "Auto imported from components/global/app/AppDropdown.vue"
-  },
-  "LazyAppDropdown": {
-    "description": "Auto imported from components/global/app/AppDropdown.vue"
-  },
-  "AppFooter": {
-    "description": "Auto imported from components/global/app/AppFooter.vue"
-  },
-  "LazyAppFooter": {
-    "description": "Auto imported from components/global/app/AppFooter.vue"
-  },
-  "AppGithubLink": {
-    "description": "Auto imported from components/global/app/AppGithubLink.vue"
-  },
-  "LazyAppGithubLink": {
-    "description": "Auto imported from components/global/app/AppGithubLink.vue"
-  },
-  "AppHeader": {
-    "description": "Auto imported from components/global/app/AppHeader.vue"
-  },
-  "LazyAppHeader": {
-    "description": "Auto imported from components/global/app/AppHeader.vue"
-  },
-  "AppLangSwitcher": {
-    "description": "Auto imported from components/global/app/AppLangSwitcher.vue"
-  },
-  "LazyAppLangSwitcher": {
-    "description": "Auto imported from components/global/app/AppLangSwitcher.vue"
-  },
-  "AppNav": {
-    "description": "Auto imported from components/global/app/AppNav.vue"
-  },
-  "LazyAppNav": {
-    "description": "Auto imported from components/global/app/AppNav.vue"
-  },
-  "AppPrevNext": {
-    "description": "Auto imported from components/global/app/AppPrevNext.vue"
-  },
-  "LazyAppPrevNext": {
-    "description": "Auto imported from components/global/app/AppPrevNext.vue"
-  },
-  "AppSearch": {
-    "description": "Auto imported from components/global/app/AppSearch.vue"
-  },
-  "LazyAppSearch": {
-    "description": "Auto imported from components/global/app/AppSearch.vue"
-  },
-  "AppToc": {
-    "description": "Auto imported from components/global/app/AppToc.vue"
-  },
-  "LazyAppToc": {
-    "description": "Auto imported from components/global/app/AppToc.vue"
-  },
   "Alert": {
     "description": "Auto imported from components/global/base/Alert.vue"
   },
@@ -226,5 +160,71 @@
   },
   "LazyIconXCircle": {
     "description": "Auto imported from components/global/icons/IconXCircle.vue"
+  },
+  "AppColorSwitcher": {
+    "description": "Auto imported from components/global/app/AppColorSwitcher.vue"
+  },
+  "LazyAppColorSwitcher": {
+    "description": "Auto imported from components/global/app/AppColorSwitcher.vue"
+  },
+  "AppCopyButton": {
+    "description": "Auto imported from components/global/app/AppCopyButton.vue"
+  },
+  "LazyAppCopyButton": {
+    "description": "Auto imported from components/global/app/AppCopyButton.vue"
+  },
+  "AppDropdown": {
+    "description": "Auto imported from components/global/app/AppDropdown.vue"
+  },
+  "LazyAppDropdown": {
+    "description": "Auto imported from components/global/app/AppDropdown.vue"
+  },
+  "AppFooter": {
+    "description": "Auto imported from components/global/app/AppFooter.vue"
+  },
+  "LazyAppFooter": {
+    "description": "Auto imported from components/global/app/AppFooter.vue"
+  },
+  "AppGithubLink": {
+    "description": "Auto imported from components/global/app/AppGithubLink.vue"
+  },
+  "LazyAppGithubLink": {
+    "description": "Auto imported from components/global/app/AppGithubLink.vue"
+  },
+  "AppHeader": {
+    "description": "Auto imported from components/global/app/AppHeader.vue"
+  },
+  "LazyAppHeader": {
+    "description": "Auto imported from components/global/app/AppHeader.vue"
+  },
+  "AppLangSwitcher": {
+    "description": "Auto imported from components/global/app/AppLangSwitcher.vue"
+  },
+  "LazyAppLangSwitcher": {
+    "description": "Auto imported from components/global/app/AppLangSwitcher.vue"
+  },
+  "AppNav": {
+    "description": "Auto imported from components/global/app/AppNav.vue"
+  },
+  "LazyAppNav": {
+    "description": "Auto imported from components/global/app/AppNav.vue"
+  },
+  "AppPrevNext": {
+    "description": "Auto imported from components/global/app/AppPrevNext.vue"
+  },
+  "LazyAppPrevNext": {
+    "description": "Auto imported from components/global/app/AppPrevNext.vue"
+  },
+  "AppSearch": {
+    "description": "Auto imported from components/global/app/AppSearch.vue"
+  },
+  "LazyAppSearch": {
+    "description": "Auto imported from components/global/app/AppSearch.vue"
+  },
+  "AppToc": {
+    "description": "Auto imported from components/global/app/AppToc.vue"
+  },
+  "LazyAppToc": {
+    "description": "Auto imported from components/global/app/AppToc.vue"
   }
 }

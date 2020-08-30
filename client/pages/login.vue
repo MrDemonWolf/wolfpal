@@ -1,7 +1,7 @@
 <template>
   <div class="h-80 flex items-center justify-center bg-gray-50 py-12">
     <div class="max-w-md w-full">
-      <div>
+      <div class="mb-8">
         <h2
           class="mt-6 text-center text-3xl leading-9 font-extrabold text-blue-900 dark:text-white"
         >
@@ -19,7 +19,13 @@
           </nuxt-link>
         </p>
       </div>
-      <form class="bg-gray-100 mt-8 p-16" @submit.prevent="userLogin">
+
+      <Alert v-if="error" type="danger" :message="error" />
+      <Alert v-if="success" type="success" :message="success" />
+      <form
+        class="bg-gray-200 mt-2 ml-1 mr-1 md:ml-0 md:mr-0 p-12 md:p-16 dark:bg-gray-200 rounded"
+        @submit.prevent="userLogin"
+      >
         <input
           class="rounded-md shadow-sm mb-1"
           type="hidden"
@@ -32,10 +38,14 @@
             aria-label="Email address"
             name="email"
             type="email"
+            :class="{ 'border-red-500': errors.email }"
             class="iinline-block w-full px-3 py-2 rounded border border-gray-400 focus:border-blue-500 bg-white text-gray-900 appearance-nonerounded focus:outline-none"
             placeholder="Email address"
-            required
+            novalidate
           />
+          <span v-if="errors.email" class="text-red-500">{{
+            errors.email
+          }}</span>
         </div>
         <div class="mb-3">
           <input
@@ -43,10 +53,14 @@
             aria-label="Password"
             name="password"
             type="password"
+            :class="{ 'border-red-500': errors.password }"
             class="inline-block w-full px-3 py-2 rounded border border-gray-400 focus:border-blue-500 bg-white text-gray-900 appearance-nonerounded focus:outline-none"
             placeholder="Password"
-            required
+            novalidate
           />
+          <span v-if="errors.password" class="text-red-500">{{
+            errors.password
+          }}</span>
         </div>
 
         <div class="mt-6 flex items-center justify-between">
@@ -95,17 +109,25 @@ export default {
         email: '',
         password: '',
       },
+      error: null,
+      errors: { email: null, password: null },
+      success: null,
     }
   },
   methods: {
     async userLogin() {
       try {
-        const response = await this.$auth.loginWith('local', {
+        await this.$auth.loginWith('local', {
           data: this.login,
         })
-        console.log(response)
-      } catch (err) {
-        console.log(err)
+      } catch (e) {
+        if (e.response.data.errors) {
+          return (this.errors = e.response.data.errors)
+        }
+        this.error = e.response.data.error
+        if (this.success) {
+          this.success = null
+        }
       }
     },
   },

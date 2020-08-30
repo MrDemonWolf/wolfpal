@@ -122,7 +122,7 @@ router.post('/login', async (req, res) => {
       });
     }
 
-    const vailidPassword = user.verifyPassword(password);
+    const vailidPassword = await user.verifyPassword(password);
 
     if (!vailidPassword) {
       return res.status(400).json({
