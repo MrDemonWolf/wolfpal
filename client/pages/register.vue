@@ -28,7 +28,7 @@
       >
         <div class="mb-3">
           <input
-            v-model="username"
+            v-model="register.username"
             aria-label="Username"
             name="username"
             type="text"
@@ -43,7 +43,7 @@
         </div>
         <div class="mb-3">
           <input
-            v-model="email"
+            v-model="register.email"
             aria-label="Email address"
             name="email"
             type="email"
@@ -58,7 +58,7 @@
         </div>
         <div class="mb-3">
           <input
-            v-model="password"
+            v-model="register.password"
             aria-label="Password"
             name="password"
             type="password"

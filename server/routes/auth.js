@@ -231,13 +231,13 @@ router.post('/logout', isSessionValid, async (req, res) => {
       .split(' ')
       .slice(1)
       .toString();
-    const tokenHash = sha512(token);
+    const accessTokenHash = sha512(token);
 
     /**
      * Finds and removes the session from the database by marking it as revoked
      */
     await Session.findOneAndUpdate(
-      { tokenHash },
+      { accessTokenHash },
       {
         isRevoked: true
       },
