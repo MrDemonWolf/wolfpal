@@ -1,12 +1,16 @@
 <template>
-  <div
-    class="py-48 md:py-64 bg-gradient-to-r from-primary-400 to-primary-500 dark:from-gray-400 dark:to-primary-500"
-  >
+  <div class="py-12 md:py-16">
     <div class="container mx-auto px-6">
-      <h2 class="text-4xl font-bold mb-2 text-white">
-        Welcome, {{ $auth.user.username }}
-      </h2>
-      <h3 class="text-2xl mb-8 text-gray-200">Create a new goal</h3>
+      <div class="sm:grid sm:h-32 sm:grid-flow-row sm:gap-4 sm:grid-cols-3">
+        <div
+          class="flex flex-col justify-center px-4 py-4 bg-white border border-gray-300 rounded"
+        >
+          <div>
+            <p class="text-3xl font-semibold text-center text-gray-800">43</p>
+            <p class="text-lg text-center text-gray-500">Complated Goals</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>

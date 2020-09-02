@@ -10,14 +10,11 @@ export default {
   components: {
     WeeklyGoals,
   },
-  data() {
-    return {
-      goals: [
-        { name: 'Pick up friend from airport.', isCompleted: true },
-        { name: 'Cook Dinner for friend', isCompleted: false },
-        { name: 'Go to bed around 9pm', isCompleted: false },
-      ],
-    }
+  async asyncData({ error, $axios, $auth, store }) {
+    const { data } = await $axios.get('/api/goals/weekly').catch((err) => {
+      error({ statusCode: 400, message: err.error })
+    })
+    return { goals: data.goals }
   },
 }
 </script>

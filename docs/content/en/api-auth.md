@@ -167,6 +167,12 @@ Allows a user to refresh their login token with a new one
 | Authorization | string | JWT refresh token.                |
 | Content-Type  | string | application/x-www-form-urlencoded |
 
+#### Headers
+
+| Field         | Type   | Description        |
+| :------------ | :----- | :----------------- |
+| refresh_token | string | JWT refresh token. |
+
 #### Example
 
 <code-group>
@@ -174,7 +180,8 @@ Allows a user to refresh their login token with a new one
 
 ```sh
 curl --location --request POST 'https://www.example.com/api/auth/refresh' \
---header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjEwYjBkMjEwZDZhNzBiZTE0OTdkZTEiLCJpc3MiOiJodHRwczovL2ZlZmE0M2RkZDVjYi5uZ3Jvay5pbyIsImlhdCI6MTU5NDkyOTQzNSwiZXhwIjoxNTk1MDE1ODM1fQ.l401E4dWB39VNhJwIyvKPHVoD-fVzV2eXnCvK6UkvQY'
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--data-urlencode 'refresh_token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjEwYjBkMjEwZDZhNzBiZTE0OTdkZTEiLCJpc3MiOiJodHRwczovL2ZlZmE0M2RkZDVjYi5uZ3Jvay5pbyIsImlhdCI6MTU5NDkyOTQzNSwiZXhwIjoxNTk1MDE1ODM1fQ.l401E4dWB39VNhJwIyvKPHVoD-fVzV2eXnCvK6UkvQY' \
 ```
 
   </code-block>

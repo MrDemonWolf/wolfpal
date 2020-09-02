@@ -7,7 +7,7 @@
         <h1 class="text-grey-darkest">Todo List</h1>
         <form class="flex mt-4" @submit.prevent="addGoal">
           <input
-            v-model="newGoal.name"
+            v-model="newGoal.title"
             class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-900"
             placeholder="Add Todo"
           />
@@ -26,11 +26,12 @@
             "
             class="w-full"
           >
-            {{ goal.name }}
+            {{ goal.title }}
           </p>
           <button
             v-show="!goal.isCompleted"
             class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green-500 border-green-500 hover:bg-green-500"
+            @click="complateGoal(index)"
           >
             Done
           </button>
@@ -51,23 +52,27 @@ export default {
   props: {
     goals: {
       type: Array,
-      required: true,
+      default: () => [],
     },
   },
   data() {
     return {
-      newGoal: { name: '', isCompleted: false },
+      newGoal: { title: '', isCompleted: false },
     }
   },
   methods: {
-    addGoal(e) {
-      if (this.newGoal.name.length > 0) {
+    async addGoal(e) {
+      if (this.newGoal.title.length > 0) {
+        await this.$axios.post('/api/goals/weekly', this.newGoal)
         this.goals.push(this.newGoal)
-        this.newGoal = { name: '', isCompleted: false }
+        this.newGoal = { title: '', isCompleted: false }
       }
     },
     removeGoal(index, e) {
       this.$delete(this.goals, index)
+    },
+    complateGoal(index, e) {
+      this.goals[index].isCompleted = true
     },
   },
 }

@@ -99,17 +99,18 @@ export default {
         scheme: 'refresh',
         token: {
           property: 'access_token',
-          maxAge: 1800,
-          // type: 'Bearer'
+          // maxAge: 1000 * 60 * 30,
+          maxAge: 1000 * 60,
+          type: 'Bearer',
         },
         refreshToken: {
           property: 'refresh_token',
           data: 'refresh_token',
-          maxAge: 60 * 60 * 24 * 30,
+          maxAge: 1000 * 60 * 60 * 24,
         },
         user: {
           property: 'user',
-          // autoFetch: true
+          autoFetch: true,
         },
         endpoints: {
           login: { url: '/api/auth/login', method: 'post' },

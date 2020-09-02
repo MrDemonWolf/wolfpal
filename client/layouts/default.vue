@@ -20,7 +20,12 @@ export default {
   data() {
     return {
       title: 'MrDemonWolf',
-      links: {},
+      links: [
+        {
+          url: '/goals/weekly',
+          text: 'Weekly',
+        },
+      ],
     }
   },
 }

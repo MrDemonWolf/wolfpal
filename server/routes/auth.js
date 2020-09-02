@@ -176,7 +176,8 @@ router.post('/login', async (req, res) => {
  * @method POST
  * @description Allows a user to refresh their login token with a new one
  */
-router.post('/refresh', requireAuth, isRefreshValid, async (req, res) => {
+// router.post('/refresh', requireAuth, isRefreshValid, async (req, res) => {
+router.post('/refresh', isRefreshValid, async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
     /**

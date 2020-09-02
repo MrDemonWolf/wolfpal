@@ -1,23 +1,14 @@
 const moment = require('moment');
 const sha512 = require('js-sha512');
 const Session = require('../models/Session');
+const User = require('../models/User');
 
 module.exports = async (req, res, next) => {
   try {
     /**
-     * Get the refresh token from the headers and make it readblae
-     */
-    const { authorization } = req.headers;
-
-    const refreshToken = authorization
-      .split(' ')
-      .slice(1)
-      .toString();
-
-    /**
      * Hash the token to check in the database if it's still valid
      */
-    const refreshTokenHash = sha512(refreshToken);
+    const refreshTokenHash = sha512(req.body.refresh_token);
 
     const refreshTokenValid = await Session.findOne({
       refreshTokenHash,
@@ -27,6 +18,11 @@ module.exports = async (req, res, next) => {
       isRevoked: { $ne: true }
     });
 
+    const user = await User.findById(refreshTokenValid.user).select(
+      '-password -__v'
+    );
+
+    req.user = user;
     /**
      * If it's valid then move on.
      */
