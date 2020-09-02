@@ -15,7 +15,7 @@
             class="ont-bold text-indigo-600 dark:text-blue-300 hover:text-indigo-500 transition ease-in-out duration-150"
             to="/register"
           >
-            register for a account
+            create a account
           </nuxt-link>
         </p>
       </div>

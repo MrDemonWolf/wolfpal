@@ -89,7 +89,7 @@ export default {
 </script>
 <style lang="postcss" scoped>
 .dark-mode .nuxt-link-active {
-  @apply text-blue-700;
+  @apply text-primary-300;
 }
 
 .nuxt-link-active {

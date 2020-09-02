@@ -34,7 +34,7 @@
             type="text"
             :class="{ 'border-red-500': errors.username }"
             class="inline-block w-full px-3 py-2 rounded border border-gray-400 focus:border-blue-500 bg-white text-gray-900 appearance-nonerounded focus:outline-none"
-            placeholder="Usernames"
+            placeholder="Username"
             novalidate
           />
           <span v-if="errors.username" class="text-red-500">{{
@@ -71,7 +71,18 @@
             errors.password
           }}</span>
         </div>
-
+        <div class="mt-6 flex items-center">
+          <input
+            id="accept_terms"
+            type="checkbox"
+            class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
+          />
+          <label
+            for="accept_terms"
+            class="ml-2block text-sm leading-5 text-gray-900"
+            >I agree to the Terms and Conditions
+          </label>
+        </div>
         <div class="mt-6 flex items-center justify-between">
           <div class="text-sm leading-5">
             <nuxt-link
