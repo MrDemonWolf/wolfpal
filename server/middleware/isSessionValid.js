@@ -17,10 +17,10 @@ module.exports = async (req, res, next) => {
     /**
      * Hash the token to check in the database if it's still valid
      */
-    const tokenHash = sha512(token);
+    const accessTokenHash = sha512(token);
 
     const tokenValid = await Session.findOne({
-      tokenHash,
+      accessTokenHash,
       expireAt: {
         $gt: moment()
       },
@@ -33,6 +33,7 @@ module.exports = async (req, res, next) => {
     if (tokenValid) {
       return next();
     }
+    console.log(tokenValid);
     res.status(401).send('Unauthorized');
   } catch (err) {
     console.log(err);

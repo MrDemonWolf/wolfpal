@@ -122,7 +122,7 @@ router.post('/login', async (req, res) => {
       });
     }
 
-    const vailidPassword = user.verifyPassword(password);
+    const vailidPassword = await user.verifyPassword(password);
 
     if (!vailidPassword) {
       return res.status(400).json({
@@ -176,7 +176,8 @@ router.post('/login', async (req, res) => {
  * @method POST
  * @description Allows a user to refresh their login token with a new one
  */
-router.post('/refresh', requireAuth, isRefreshValid, async (req, res) => {
+// router.post('/refresh', requireAuth, isRefreshValid, async (req, res) => {
+router.post('/refresh', isRefreshValid, async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
     /**
@@ -231,13 +232,13 @@ router.post('/logout', isSessionValid, async (req, res) => {
       .split(' ')
       .slice(1)
       .toString();
-    const tokenHash = sha512(token);
+    const accessTokenHash = sha512(token);
 
     /**
      * Finds and removes the session from the database by marking it as revoked
      */
     await Session.findOneAndUpdate(
-      { tokenHash },
+      { accessTokenHash },
       {
         isRevoked: true
       },

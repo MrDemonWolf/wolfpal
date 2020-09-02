@@ -28,12 +28,12 @@
         class="w-full md:flex md:items-center md:w-auto"
         :class="mobileNavActive ? 'block' : 'hidden'"
       >
-        <ul v-if="isAuthenticated" class="list-reset md:flex justify-end">
-          <li v-for="(link, text) in links" :key="text" :value="link">
+        <ul v-if="$auth.loggedIn" class="list-reset md:flex justify-end">
+          <li v-for="(link, index) in links" :key="index">
             <nuxt-link
-              class="inline-block md:inline-block no-underline hover:text-underline text-primary-500 hover:text-secondary-500 dark:text-white dark-hover:text-secondary-200 py-2 md:py-1 md:px-2 font-roboto"
-              :to="link"
-              >{{ text }}</nuxt-link
+              class="inline-block md:inline-block no-underline hover:text-underline text-primary-500 hover:text-secondary-500 dark:text-white dark-hover:text-secondary-200 py-2 md:py-1 md:px-2 font-roboto text-xl"
+              :to="link.url"
+              >{{ link.text }}</nuxt-link
             >
           </li>
         </ul>
@@ -47,13 +47,13 @@
           </li>
           <li>
             <nuxt-link
-              class="inline-block no-underline text-primary-500 hover:text-secondary-500 dark:text-white dark-hover:text-secondary-200 py-2 md:py-1 md:px-2 font-roboto"
+              class="inline-block no-underline text-primary-500 hover:text-secondary-500 dark:text-white dark-hover:text-secondary-200 py-2 md:py-1 md:px-2 font-roboto text-xl"
               to="/login"
               >Login
             </nuxt-link>
           </li>
         </ul>
-        <AccountDropdown v-if="isAuthenticated" />
+        <AccountDropdown v-if="$auth.loggedIn" />
       </div>
     </nav>
   </header>
@@ -70,13 +70,12 @@ export default {
 
   props: {
     links: {
-      type: Object,
+      type: Array,
       required: true,
     },
   },
   data() {
     return {
-      isAuthenticated: true,
       mobileNavActive: false,
     }
   },
@@ -90,7 +89,7 @@ export default {
 </script>
 <style lang="postcss" scoped>
 .dark-mode .nuxt-link-active {
-  @apply text-blue-700;
+  @apply text-primary-300;
 }
 
 .nuxt-link-active {

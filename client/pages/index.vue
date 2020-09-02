@@ -1,6 +1,6 @@
 <template>
-  <NotSignedInJumbotron v-if="isAuthenticated" />
-  <SignedInJumbotron v-else />
+  <SignedInJumbotron v-if="$auth.loggedIn" />
+  <NotSignedInJumbotron v-else />
 </template>
 
 <script>

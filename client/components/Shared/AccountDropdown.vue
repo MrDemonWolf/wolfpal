@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isAuthenticated" class="relative inline-block text-left md:block">
+  <div class="relative inline-block text-left md:block">
     <button
       v-click-outside="accountDropdownHide"
       type="button"
@@ -7,7 +7,7 @@
       @keydown.esc="accountDropdownHide"
       @click.prevent="accountDropdown"
     >
-      {{ user.username }}
+      {{ $auth.user.username }}
       <fa
         :icon="['fas', 'caret-down']"
         class="ml-2"
@@ -46,11 +46,10 @@
           <fa v-else :icon="['far', 'moon']" class="w-6 h-6 align-middle" />
         </div>
         <a
-          href="#"
           class="block px-4 py-3 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 dark:text-white dark-hover:text-white dark-hover:bg-gray-700"
           role="menuitem"
+          @click="logout"
         >
-          <fa :icon="['fas', 'unlock']" class="w-6 h-6 align-middle" />
           Logout</a
         >
       </div>
@@ -66,10 +65,6 @@ export default {
   },
   data() {
     return {
-      user: {
-        username: 'MrDemonWolf',
-      },
-      isAuthenticated: true,
       accountNavActive: false,
     }
   },
@@ -78,6 +73,9 @@ export default {
     this.popupItem = this.$el
   },
   methods: {
+    async logout() {
+      await this.$auth.logout()
+    },
     accountDropdown() {
       this.accountNavActive = !this.accountNavActive
     },
