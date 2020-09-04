@@ -31,7 +31,7 @@
         <ul v-if="$auth.loggedIn" class="list-reset md:flex justify-end">
           <li v-for="(link, index) in links" :key="index">
             <nuxt-link
-              class="inline-block md:inline-block no-underline hover:text-underline text-primary-500 hover:text-secondary-500 dark:text-white dark-hover:text-secondary-200 py-2 md:py-1 md:px-2 font-roboto text-xl"
+              class="inline-block no-underline hover:text-underline text-primary-500 hover:text-secondary-500 dark:text-white dark-hover:text-secondary-200 py-2 md:py-1 md:px-2 font-roboto text-xl"
               :to="link.url"
               >{{ link.text }}</nuxt-link
             >
@@ -47,7 +47,7 @@
           </li>
           <li>
             <nuxt-link
-              class="inline-block no-underline text-primary-500 hover:text-secondary-500 dark:text-white dark-hover:text-secondary-200 py-2 md:py-1 md:px-2 font-roboto text-xl"
+              class="inline-block no-underline hover:text-underline text-primary-500 hover:text-secondary-500 dark:text-white dark-hover:text-secondary-200 py-2 md:py-1 md:px-2 font-roboto text-xl"
               to="/login"
               >Login
             </nuxt-link>
@@ -93,6 +93,6 @@ export default {
 }
 
 .nuxt-link-active {
-  @apply text-red-700;
+  @apply text-primary-800;
 }
 </style>
