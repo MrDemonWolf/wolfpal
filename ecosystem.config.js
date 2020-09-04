@@ -4,12 +4,14 @@ module.exports = {
       name: "WolfPal [Client]",
       exec_mode: "cluster",
       instances: "max", // Or a number of instances
-      script: "./client/node_modules/nuxt/bin/nuxt.js",
+      cwd: "./client/",
+      script: "./node_modules/nuxt/bin/nuxt.js",
       args: "start",
     },
     {
       name: "WolfPal [Server]",
-      script: "./server/index.js",
+      cwd: "./server/",
+      script: "./index.js",
       // Options reference: https://pm2.keymetrics.io/docs/usage/application-declaration/
       exec_mode: "cluster",
       ignore_watch: "[”[/\\]./”, “node_modules”]",
