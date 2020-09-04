@@ -3,14 +3,12 @@
     "name": "releases___en",
     "path": "/releases",
     "component": "/home/mrdem/Projects/personal/WolfPal/docs/node_modules/@nuxt/content-theme-docs/src/pages/releases.vue",
-    "chunkName": "pages/releases",
-    "_name": "_72717bcc"
+    "chunkName": "pages/releases"
   },
   {
     "name": "all___en",
     "path": "/*",
     "component": "/home/mrdem/Projects/personal/WolfPal/docs/node_modules/@nuxt/content-theme-docs/src/pages/_.vue",
-    "chunkName": "pages/_",
-    "_name": "_2e76e001"
+    "chunkName": "pages/_"
   }
 ]
