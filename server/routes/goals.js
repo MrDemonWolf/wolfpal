@@ -57,6 +57,28 @@ router.post('/weekly', requireAuth, isSessionValid, async (req, res) => {
 });
 
 /**
+ * @route /goals/weekly/:goal_id/complete
+ * @method PUT
+ * @description Allows a logged in user to complete a weekly goal as complete
+ */
+router.put(
+  '/weekly/:goal_id/complete',
+  requireAuth,
+  isSessionValid,
+  async (req, res) => {
+    try {
+      const weeklyGoal = await WeeklyGoals.findById(req.params.goal_id);
+      weeklyGoal.isCompleted = !weeklyGoal.isCompleted;
+      await weeklyGoal.save();
+      res.status(200).json({ code: 200, isCompleted: weeklyGoal.isCompleted });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ code: 500, error: 'Internal Server Error' });
+    }
+  }
+);
+
+/**
  * @route /goals/weekly
  * @method DELETE
  * @description Allows a logged in user to delete a weekly goal
