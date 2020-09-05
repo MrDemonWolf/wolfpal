@@ -31,7 +31,7 @@
           <button
             v-show="!goal.isCompleted"
             class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green-500 border-green-500 hover:bg-green-500"
-            @click="complateGoal(index)"
+            @click="toggleCompleteGoal(index)"
           >
             Done
           </button>
@@ -64,8 +64,11 @@ export default {
     async addGoal(e) {
       if (this.newGoal.title.length > 0) {
         try {
-          await this.$axios.post('/api/goals/weekly', this.newGoal)
-          this.goals.push(this.newGoal)
+          const response = await this.$axios.post(
+            '/api/goals/weekly',
+            this.newGoal
+          )
+          this.goals.push(response.data.weeklyGoal)
           this.newGoal = { title: '', isCompleted: false }
         } catch (err) {
           this.newGoal = { title: '', isCompleted: false }
@@ -81,8 +84,15 @@ export default {
         console.log(err)
       }
     },
-    complateGoal(index, e) {
-      this.goals[index].isCompleted = true
+    async toggleCompleteGoal(index, e) {
+      try {
+        await this.$axios.put(
+          `/api/goals/weekly/${this.goals[index]._id}/complete`
+        )
+        this.goals[index].isCompleted = true
+      } catch (err) {
+        console.log(err)
+      }
     },
   },
 }
