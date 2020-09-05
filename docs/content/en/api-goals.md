@@ -111,7 +111,7 @@ curl --location --request POST 'https://www.example.com/api/goals/weekly' \
 
 ## Complete Weekly Goal
 
-Allows a logged in user to mark a weekly goal as complete
+Allows a logged in user to complete a weekly goal as complete
 
 #### Path
 
