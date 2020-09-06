@@ -1,9 +1,3 @@
-export { default as Alert } from '../../node_modules/@nuxt/content-theme-docs/src/components/global/base/Alert.vue'
-export { default as Badge } from '../../node_modules/@nuxt/content-theme-docs/src/components/global/base/Badge.vue'
-export { default as CodeBlock } from '../../node_modules/@nuxt/content-theme-docs/src/components/global/base/CodeBlock.vue'
-export { default as CodeGroup } from '../../node_modules/@nuxt/content-theme-docs/src/components/global/base/CodeGroup.vue'
-export { default as CodeSandbox } from '../../node_modules/@nuxt/content-theme-docs/src/components/global/base/CodeSandbox.vue'
-export { default as List } from '../../node_modules/@nuxt/content-theme-docs/src/components/global/base/List.vue'
 export { default as AppColorSwitcher } from '../../node_modules/@nuxt/content-theme-docs/src/components/global/app/AppColorSwitcher.vue'
 export { default as AppCopyButton } from '../../node_modules/@nuxt/content-theme-docs/src/components/global/app/AppCopyButton.vue'
 export { default as AppDropdown } from '../../node_modules/@nuxt/content-theme-docs/src/components/global/app/AppDropdown.vue'
@@ -15,6 +9,12 @@ export { default as AppNav } from '../../node_modules/@nuxt/content-theme-docs/s
 export { default as AppPrevNext } from '../../node_modules/@nuxt/content-theme-docs/src/components/global/app/AppPrevNext.vue'
 export { default as AppSearch } from '../../node_modules/@nuxt/content-theme-docs/src/components/global/app/AppSearch.vue'
 export { default as AppToc } from '../../node_modules/@nuxt/content-theme-docs/src/components/global/app/AppToc.vue'
+export { default as Alert } from '../../node_modules/@nuxt/content-theme-docs/src/components/global/base/Alert.vue'
+export { default as Badge } from '../../node_modules/@nuxt/content-theme-docs/src/components/global/base/Badge.vue'
+export { default as CodeBlock } from '../../node_modules/@nuxt/content-theme-docs/src/components/global/base/CodeBlock.vue'
+export { default as CodeGroup } from '../../node_modules/@nuxt/content-theme-docs/src/components/global/base/CodeGroup.vue'
+export { default as CodeSandbox } from '../../node_modules/@nuxt/content-theme-docs/src/components/global/base/CodeSandbox.vue'
+export { default as List } from '../../node_modules/@nuxt/content-theme-docs/src/components/global/base/List.vue'
 export { default as BuiltWithNuxtDark } from '../../node_modules/@nuxt/content-theme-docs/src/components/global/icons/BuiltWithNuxtDark.vue'
 export { default as BuiltWithNuxtLight } from '../../node_modules/@nuxt/content-theme-docs/src/components/global/icons/BuiltWithNuxtLight.vue'
 export { default as IconArrowLeft } from '../../node_modules/@nuxt/content-theme-docs/src/components/global/icons/IconArrowLeft.vue'
@@ -37,12 +37,6 @@ export { default as IconTwitter } from '../../node_modules/@nuxt/content-theme-d
 export { default as IconX } from '../../node_modules/@nuxt/content-theme-docs/src/components/global/icons/IconX.vue'
 export { default as IconXCircle } from '../../node_modules/@nuxt/content-theme-docs/src/components/global/icons/IconXCircle.vue'
 
-export const LazyAlert = import('../../node_modules/@nuxt/content-theme-docs/src/components/global/base/Alert.vue' /* webpackChunkName: "components/global/base/Alert" */).then(c => c.default || c)
-export const LazyBadge = import('../../node_modules/@nuxt/content-theme-docs/src/components/global/base/Badge.vue' /* webpackChunkName: "components/global/base/Badge" */).then(c => c.default || c)
-export const LazyCodeBlock = import('../../node_modules/@nuxt/content-theme-docs/src/components/global/base/CodeBlock.vue' /* webpackChunkName: "components/global/base/CodeBlock" */).then(c => c.default || c)
-export const LazyCodeGroup = import('../../node_modules/@nuxt/content-theme-docs/src/components/global/base/CodeGroup.vue' /* webpackChunkName: "components/global/base/CodeGroup" */).then(c => c.default || c)
-export const LazyCodeSandbox = import('../../node_modules/@nuxt/content-theme-docs/src/components/global/base/CodeSandbox.vue' /* webpackChunkName: "components/global/base/CodeSandbox" */).then(c => c.default || c)
-export const LazyList = import('../../node_modules/@nuxt/content-theme-docs/src/components/global/base/List.vue' /* webpackChunkName: "components/global/base/List" */).then(c => c.default || c)
 export const LazyAppColorSwitcher = import('../../node_modules/@nuxt/content-theme-docs/src/components/global/app/AppColorSwitcher.vue' /* webpackChunkName: "components/global/app/AppColorSwitcher" */).then(c => c.default || c)
 export const LazyAppCopyButton = import('../../node_modules/@nuxt/content-theme-docs/src/components/global/app/AppCopyButton.vue' /* webpackChunkName: "components/global/app/AppCopyButton" */).then(c => c.default || c)
 export const LazyAppDropdown = import('../../node_modules/@nuxt/content-theme-docs/src/components/global/app/AppDropdown.vue' /* webpackChunkName: "components/global/app/AppDropdown" */).then(c => c.default || c)
@@ -54,6 +48,12 @@ export const LazyAppNav = import('../../node_modules/@nuxt/content-theme-docs/sr
 export const LazyAppPrevNext = import('../../node_modules/@nuxt/content-theme-docs/src/components/global/app/AppPrevNext.vue' /* webpackChunkName: "components/global/app/AppPrevNext" */).then(c => c.default || c)
 export const LazyAppSearch = import('../../node_modules/@nuxt/content-theme-docs/src/components/global/app/AppSearch.vue' /* webpackChunkName: "components/global/app/AppSearch" */).then(c => c.default || c)
 export const LazyAppToc = import('../../node_modules/@nuxt/content-theme-docs/src/components/global/app/AppToc.vue' /* webpackChunkName: "components/global/app/AppToc" */).then(c => c.default || c)
+export const LazyAlert = import('../../node_modules/@nuxt/content-theme-docs/src/components/global/base/Alert.vue' /* webpackChunkName: "components/global/base/Alert" */).then(c => c.default || c)
+export const LazyBadge = import('../../node_modules/@nuxt/content-theme-docs/src/components/global/base/Badge.vue' /* webpackChunkName: "components/global/base/Badge" */).then(c => c.default || c)
+export const LazyCodeBlock = import('../../node_modules/@nuxt/content-theme-docs/src/components/global/base/CodeBlock.vue' /* webpackChunkName: "components/global/base/CodeBlock" */).then(c => c.default || c)
+export const LazyCodeGroup = import('../../node_modules/@nuxt/content-theme-docs/src/components/global/base/CodeGroup.vue' /* webpackChunkName: "components/global/base/CodeGroup" */).then(c => c.default || c)
+export const LazyCodeSandbox = import('../../node_modules/@nuxt/content-theme-docs/src/components/global/base/CodeSandbox.vue' /* webpackChunkName: "components/global/base/CodeSandbox" */).then(c => c.default || c)
+export const LazyList = import('../../node_modules/@nuxt/content-theme-docs/src/components/global/base/List.vue' /* webpackChunkName: "components/global/base/List" */).then(c => c.default || c)
 export const LazyBuiltWithNuxtDark = import('../../node_modules/@nuxt/content-theme-docs/src/components/global/icons/BuiltWithNuxtDark.vue' /* webpackChunkName: "components/global/icons/BuiltWithNuxtDark" */).then(c => c.default || c)
 export const LazyBuiltWithNuxtLight = import('../../node_modules/@nuxt/content-theme-docs/src/components/global/icons/BuiltWithNuxtLight.vue' /* webpackChunkName: "components/global/icons/BuiltWithNuxtLight" */).then(c => c.default || c)
 export const LazyIconArrowLeft = import('../../node_modules/@nuxt/content-theme-docs/src/components/global/icons/IconArrowLeft.vue' /* webpackChunkName: "components/global/icons/IconArrowLeft" */).then(c => c.default || c)

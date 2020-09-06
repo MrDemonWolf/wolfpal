@@ -1,18 +1,18 @@
 <template>
-  <div
-    class="h-100 w-full flex items-center justify-center bg-teal-lightest font-sans"
-  >
-    <div class="bg-white rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg">
+  <div class="h-100 w-full flex items-center justify-center font-sans">
+    <div
+      class="dark:bg-gray-300 rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg"
+    >
       <div class="mb-4">
         <h1 class="text-grey-darkest">Todo List</h1>
         <form class="flex mt-4" @submit.prevent="addGoal">
           <input
             v-model="newGoal.title"
-            class="shadow appearance-none border rounded w-full py-2 px-3 mr-4 text-grey-900"
+            class="shadow appearance-none focus:outline-none rounded w-full py-2 px-3 mr-4 text-grey-900"
             placeholder="Add Todo"
           />
           <button
-            class="flex-no-shrink p-2 border-2 rounded text-teal-500 border-teal-500 hover:text-white hover:bg-teal-500"
+            class="flex-no-shrink p-2 border-2 rounded text-primary-500 border-primary-500 hover:text-white hover:bg-primary-500"
           >
             Add
           </button>
@@ -31,7 +31,7 @@
           <button
             v-show="!goal.isCompleted"
             class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green-500 border-green-500 hover:bg-green-500"
-            @click="complateGoal(index)"
+            @click="toggleCompleteGoal(index)"
           >
             Done
           </button>
@@ -63,16 +63,36 @@ export default {
   methods: {
     async addGoal(e) {
       if (this.newGoal.title.length > 0) {
-        await this.$axios.post('/api/goals/weekly', this.newGoal)
-        this.goals.push(this.newGoal)
-        this.newGoal = { title: '', isCompleted: false }
+        try {
+          const response = await this.$axios.post(
+            '/api/goals/weekly',
+            this.newGoal
+          )
+          this.goals.push(response.data.weeklyGoal)
+          this.newGoal = { title: '', isCompleted: false }
+        } catch (err) {
+          this.newGoal = { title: '', isCompleted: false }
+          console.log(err)
+        }
       }
     },
-    removeGoal(index, e) {
-      this.$delete(this.goals, index)
+    async removeGoal(index, e) {
+      try {
+        await this.$axios.delete(`/api/goals/weekly/${this.goals[index]._id}`)
+        this.$delete(this.goals, index)
+      } catch (err) {
+        console.log(err)
+      }
     },
-    complateGoal(index, e) {
-      this.goals[index].isCompleted = true
+    async toggleCompleteGoal(index, e) {
+      try {
+        await this.$axios.put(
+          `/api/goals/weekly/${this.goals[index]._id}/complete`
+        )
+        this.goals[index].isCompleted = true
+      } catch (err) {
+        console.log(err)
+      }
     },
   },
 }

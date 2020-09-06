@@ -12,8 +12,8 @@
         >
           Or
           <nuxt-link
-            class="font-bold text-indigo-600 dark:text-blue-300 hover:text-indigo-500 transition ease-in-out duration-150"
-            to="/register"
+            class="font-bold text-indigo-600 dark:text-blue-300 hover:text-indigo-500 dark-hover:text-blue-400 transition ease-in-out duration-150"
+            to="/login"
           >
             login in to your account
           </nuxt-link>
@@ -23,7 +23,7 @@
       <Alert v-if="error" type="danger" :message="error" />
       <Alert v-if="success" type="success" :message="success" />
       <form
-        class="bg-gray-200 mt-2 ml-1 mr-1 md:ml-0 md:mr-0 p-12 md:p-16 dark:bg-gray-200 rounded"
+        class="bg-gray-100 mt-2 ml-1 mr-1 md:ml-0 md:mr-0 p-12 md:p-16 dark:bg-gray-200 rounded"
         @submit.prevent="userRegister"
       >
         <div class="mb-3">
@@ -33,7 +33,7 @@
             name="username"
             type="text"
             :class="{ 'border-red-500': errors.username }"
-            class="inline-block w-full px-3 py-2 rounded border border-gray-400 focus:border-blue-500 bg-white text-gray-900 appearance-nonerounded focus:outline-none"
+            class="inline-block w-full px-3 py-2 rounded border border-gray-500 focus:border-blue-500 bg-white placeholder-gray-600 appearance-nonerounded focus:outline-none"
             placeholder="Username"
             novalidate
           />
@@ -48,7 +48,7 @@
             name="email"
             type="email"
             :class="{ 'border-red-500': errors.email }"
-            class="inline-block w-full px-3 py-2 rounded border border-gray-400 focus:border-blue-500 bg-white text-gray-900 appearance-nonerounded focus:outline-none"
+            class="inline-block w-full px-3 py-2 rounded border border-gray-500 focus:border-blue-500 bg-white placeholder-gray-600 appearance-nonerounded focus:outline-none"
             placeholder="Email address"
             novalidate
           />
@@ -63,7 +63,7 @@
             name="password"
             type="password"
             :class="{ 'border-red-500': errors.password }"
-            class="inline-block w-full px-3 py-2 rounded border border-gray-400 focus:border-blue-500 bg-white text-gray-900 appearance-nonerounded focus:outline-none"
+            class="inline-block w-full px-3 py-2 rounded border border-gray-500 focus:border-blue-500 bg-white placeholder-gray-600 appearance-nonerounded focus:outline-none"
             placeholder="Password"
             novalidate
           />
@@ -71,27 +71,26 @@
             errors.password
           }}</span>
         </div>
-        <div class="mt-6 flex items-center">
+        <div class="mb-3 flex items-center">
           <input
             id="accept_terms"
             type="checkbox"
-            class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
+            class="form-checkbox h-4 w-4"
           />
           <label
             for="accept_terms"
-            class="ml-2block text-sm leading-5 text-gray-900"
+            class="ml-2 block text-sm leading-5 text-indigo-600"
             >I agree to the Terms and Conditions
           </label>
         </div>
-        <div class="mt-6 flex items-center justify-between">
-          <div class="text-sm leading-5">
-            <nuxt-link
-              class="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150"
-              to="/forgot-password"
-            >
-              Forgot your password?
-            </nuxt-link>
-          </div>
+
+        <div class="flex items-center justify-between">
+          <nuxt-link
+            class="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150"
+            to="/forgot-password"
+          >
+            Forgot Password?
+          </nuxt-link>
         </div>
 
         <div class="mt-6">

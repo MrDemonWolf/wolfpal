@@ -12,7 +12,7 @@
         >
           Or
           <nuxt-link
-            class="ont-bold text-indigo-600 dark:text-blue-300 hover:text-indigo-500 transition ease-in-out duration-150"
+            class="ont-bold text-indigo-600 dark:text-blue-300 dark-hover:text-blue-400 hover:text-indigo-500 transition ease-in-out duration-150"
             to="/register"
           >
             create a account
@@ -23,7 +23,7 @@
       <Alert v-if="error" type="danger" :message="error" />
       <Alert v-if="success" type="success" :message="success" />
       <form
-        class="bg-gray-200 mt-2 ml-1 mr-1 md:ml-0 md:mr-0 p-12 md:p-16 dark:bg-gray-200 rounded"
+        class="bg-gray-100 mt-2 ml-1 mr-1 md:ml-0 md:mr-0 p-12 md:p-16 dark:bg-gray-200 rounded"
         @submit.prevent="userLogin"
       >
         <input
@@ -39,7 +39,7 @@
             name="email"
             type="email"
             :class="{ 'border-red-500': errors.email }"
-            class="iinline-block w-full px-3 py-2 rounded border border-gray-400 focus:border-blue-500 bg-white text-gray-900 appearance-nonerounded focus:outline-none"
+            class="inline-block w-full px-3 py-2 rounded border border-gray-500 focus:border-blue-500 bg-white placeholder-gray-600 appearance-nonerounded focus:outline-none"
             placeholder="Email address"
             novalidate
           />
@@ -54,7 +54,7 @@
             name="password"
             type="password"
             :class="{ 'border-red-500': errors.password }"
-            class="inline-block w-full px-3 py-2 rounded border border-gray-400 focus:border-blue-500 bg-white text-gray-900 appearance-nonerounded focus:outline-none"
+            class="inline-block w-full px-3 py-2 rounded border border-gray-500 focus:border-blue-500 bg-white placeholder-gray-600 appearance-nonerounded focus:outline-none"
             placeholder="Password"
             novalidate
           />
@@ -63,31 +63,14 @@
           }}</span>
         </div>
 
-        <div class="mt-6 flex items-center justify-between">
-          <div class="flex items-center">
-            <input
-              id="remember_me"
-              type="checkbox"
-              class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out"
-            />
-            <label
-              for="remember_me"
-              class="ml-2 block text-sm leading-5 text-gray-900"
-            >
-              Remember me
-            </label>
-          </div>
-
-          <div class="text-sm leading-5">
-            <a
-              href="#"
-              class="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150"
-            >
-              Forgot your password?
-            </a>
-          </div>
+        <div class="mt-2 flex items-center justify-between">
+          <a
+            href="#"
+            class="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150"
+          >
+            Forgot Password?
+          </a>
         </div>
-
         <div class="mt-6">
           <button
             type="submit"

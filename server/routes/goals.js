@@ -24,7 +24,7 @@ const requireAuth = passport.authenticate('jwt', {
 /**
  * @route /goals/weekly
  * @method GET
- * @description Allows a logged in user to get their account details.
+ * @description Allows a logged in user to get weekly goals
  */
 router.get('/weekly', requireAuth, isSessionValid, async (req, res) => {
   try {
@@ -39,7 +39,7 @@ router.get('/weekly', requireAuth, isSessionValid, async (req, res) => {
 /**
  * @route /goals/weekly
  * @method POST
- * @description Allows a logged in user to get their account details.
+ * @description Allows a logged in user create a new weekly goal.
  */
 router.post('/weekly', requireAuth, isSessionValid, async (req, res) => {
   try {
@@ -55,5 +55,47 @@ router.post('/weekly', requireAuth, isSessionValid, async (req, res) => {
     res.status(500).json({ code: 500, error: 'Internal Server Error' });
   }
 });
+
+/**
+ * @route /goals/weekly/:goal_id/complete
+ * @method PUT
+ * @description Allows a logged in user to complete a weekly goal as complete
+ */
+router.put(
+  '/weekly/:goal_id/complete',
+  requireAuth,
+  isSessionValid,
+  async (req, res) => {
+    try {
+      const weeklyGoal = await WeeklyGoals.findById(req.params.goal_id);
+      weeklyGoal.isCompleted = !weeklyGoal.isCompleted;
+      await weeklyGoal.save();
+      res.status(200).json({ code: 200, isCompleted: weeklyGoal.isCompleted });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ code: 500, error: 'Internal Server Error' });
+    }
+  }
+);
+
+/**
+ * @route /goals/weekly
+ * @method DELETE
+ * @description Allows a logged in user to delete a weekly goal
+ */
+router.delete(
+  '/weekly/:goal_id',
+  requireAuth,
+  isSessionValid,
+  async (req, res) => {
+    try {
+      await WeeklyGoals.findByIdAndDelete(req.params.goal_id);
+      res.status(200).json({ code: 200, message: 'Goal has been removed.' });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ code: 500, error: 'Internal Server Error' });
+    }
+  }
+);
 
 module.exports = router;
