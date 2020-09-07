@@ -7,7 +7,7 @@ const router = express.Router();
  * Load MongoDB models.
  */
 const User = require('../models/User');
-const WeeklyGoals = require('../models/Goals/Weekly');
+const WeeklyGoal = require('../models/Goals/Weekly');
 
 /**
  * Load middlewares
@@ -28,7 +28,7 @@ const requireAuth = passport.authenticate('jwt', {
  */
 router.get('/weekly', requireAuth, isSessionValid, async (req, res) => {
   try {
-    const weeklyGoals = await WeeklyGoals.find({ user: req.user.id });
+    const weeklyGoals = await WeeklyGoal.find({ user: req.user.id });
     res.status(200).json({ code: 200, goals: weeklyGoals });
   } catch (err) {
     console.log(err);
@@ -44,7 +44,7 @@ router.get('/weekly', requireAuth, isSessionValid, async (req, res) => {
 router.post('/weekly', requireAuth, isSessionValid, async (req, res) => {
   try {
     const { title } = req.body;
-    const weeklyGoal = new WeeklyGoals({
+    const weeklyGoal = new WeeklyGoal({
       user: req.user.id,
       title
     });
@@ -67,7 +67,7 @@ router.put(
   isSessionValid,
   async (req, res) => {
     try {
-      const weeklyGoal = await WeeklyGoals.findById(req.params.goal_id);
+      const weeklyGoal = await WeeklyGoal.findById(req.params.goal_id);
       weeklyGoal.isCompleted = !weeklyGoal.isCompleted;
       await weeklyGoal.save();
       res.status(200).json({ code: 200, isCompleted: weeklyGoal.isCompleted });
@@ -89,7 +89,7 @@ router.delete(
   isSessionValid,
   async (req, res) => {
     try {
-      await WeeklyGoals.findByIdAndDelete(req.params.goal_id);
+      await WeeklyGoal.findByIdAndDelete(req.params.goal_id);
       res.status(200).json({ code: 200, message: 'Goal has been removed.' });
     } catch (err) {
       console.log(err);
