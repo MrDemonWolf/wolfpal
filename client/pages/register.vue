@@ -1,107 +1,125 @@
 <template>
-  <div class="h-80 flex items-center justify-center py-12">
-    <div class="max-w-md w-full">
-      <div class="mb-8">
-        <h2
-          class="mt-6 text-center text-3xl leading-9 font-extrabold text-blue-900 dark:text-white"
-        >
-          Create a account
-        </h2>
-        <p
-          class="mt-2 text-center text-sm leading-5 text-gray-600 dark:text-white"
-        >
-          Or
-          <nuxt-link
-            class="font-bold text-indigo-600 dark:text-blue-300 hover:text-indigo-500 dark-hover:text-blue-400 transition ease-in-out duration-150"
-            to="/login"
-          >
-            login in to your account
-          </nuxt-link>
-        </p>
-      </div>
-
-      <Alert v-if="error" type="danger" :message="error" />
-      <Alert v-if="success" type="success" :message="success" />
-      <form
-        class="bg-gray-100 mt-2 ml-1 mr-1 md:ml-0 md:mr-0 p-12 md:p-16 dark:bg-gray-200 rounded"
-        @submit.prevent="userRegister"
+  <div
+    class="h-80 bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8"
+  >
+    <div class="sm:mx-auto sm:w-full sm:max-w-md">
+      <img
+        class="mx-auto h-12 w-auto"
+        src="/img/logos/workflow-mark-on-white.svg"
+        alt="Workflow"
+      />
+      <h2
+        class="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900"
       >
-        <div class="mb-3">
-          <input
-            v-model="register.username"
-            aria-label="Username"
-            name="username"
-            type="text"
-            :class="{ 'border-red-500': errors.username }"
-            class="inline-block w-full px-3 py-2 rounded border border-gray-500 focus:border-blue-500 bg-white placeholder-gray-600 appearance-nonerounded focus:outline-none"
-            placeholder="Username"
-            novalidate
-          />
-          <span v-if="errors.username" class="text-red-500">{{
-            errors.username
-          }}</span>
-        </div>
-        <div class="mb-3">
-          <input
-            v-model="register.email"
-            aria-label="Email address"
-            name="email"
-            type="email"
-            :class="{ 'border-red-500': errors.email }"
-            class="inline-block w-full px-3 py-2 rounded border border-gray-500 focus:border-blue-500 bg-white placeholder-gray-600 appearance-nonerounded focus:outline-none"
-            placeholder="Email address"
-            novalidate
-          />
-          <span v-if="errors.email" class="text-red-500">{{
-            errors.email
-          }}</span>
-        </div>
-        <div class="mb-3">
-          <input
-            v-model="register.password"
-            aria-label="Password"
-            name="password"
-            type="password"
-            :class="{ 'border-red-500': errors.password }"
-            class="inline-block w-full px-3 py-2 rounded border border-gray-500 focus:border-blue-500 bg-white placeholder-gray-600 appearance-nonerounded focus:outline-none"
-            placeholder="Password"
-            novalidate
-          />
-          <span v-if="errors.password" class="text-red-500">{{
-            errors.password
-          }}</span>
-        </div>
-        <div class="mb-3 flex items-center">
-          <input
-            id="accept_terms"
-            type="checkbox"
-            class="form-checkbox h-4 w-4"
-          />
-          <label
-            for="accept_terms"
-            class="ml-2 block text-sm leading-5 text-indigo-600"
-            >I agree to the Terms and Conditions
-          </label>
-        </div>
+        Create a account
+      </h2>
+      <p class="mt-2 text-center text-sm leading-5 text-gray-600 max-w">
+        Or
+        <nuxt-link
+          class="font-medium text-primary-600 hover:text-primary-500 focus:outline-none focus:underline transition ease-in-out duration-150"
+          to="/login"
+        >
+          login in to your account
+        </nuxt-link>
+      </p>
+    </div>
 
-        <div class="flex items-center justify-between">
-          <nuxt-link
-            class="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150"
-            to="/forgot-password"
-          >
-            Forgot Password?
-          </nuxt-link>
-        </div>
+    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+      <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+        <Alert v-if="error" type="danger" :message="error" />
+        <Alert v-if="success" type="success" :message="success" />
+        <form @submit.prevent="userRegister">
+          <div>
+            <label
+              for="username"
+              class="block text-sm font-medium leading-5 text-gray-700"
+            >
+              Username
+            </label>
+            <div class="mt-1 rounded-md shadow-sm">
+              <input
+                v-model="register.username"
+                aria-label="Username"
+                name="username"
+                type="text"
+                :class="{ 'border-red-500': errors.username }"
+                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                novalidate
+              />
+            </div>
+            <span v-if="errors.username" class="text-red-500">{{
+              errors.username
+            }}</span>
+          </div>
 
-        <div class="mt-6">
-          <button
-            type="submit"
-            class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
-          >
-            Create account
-          </button>
-        </div>
-      </form>
+          <div class="mt-6">
+            <label
+              for="email"
+              class="block text-sm font-medium leading-5 text-gray-700"
+            >
+              Email
+            </label>
+            <div class="mt-1 rounded-md shadow-sm">
+              <input
+                v-model="register.email"
+                aria-label="Email address"
+                name="email"
+                type="email"
+                :class="{ 'border-red-500': errors.email }"
+                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                novalidate
+              />
+            </div>
+            <span v-if="errors.email" class="text-red-500">{{
+              errors.email
+            }}</span>
+          </div>
+          <div class="mt-6">
+            <label
+              for="password"
+              class="block text-sm font-medium leading-5 text-gray-700"
+            >
+              Password
+            </label>
+            <div class="mt-1 rounded-md shadow-sm">
+              <input
+                v-model="register.password"
+                aria-label="Password"
+                name="password"
+                type="password"
+                :class="{ 'border-red-500': errors.password }"
+                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                novalidate
+              />
+            </div>
+            <span v-if="errors.password" class="text-red-500">{{
+              errors.password
+            }}</span>
+          </div>
+
+          <div class="mt-6 flex items-center justify-between">
+            <div class="text-sm leading-5">
+              <nuxt-link
+                class="font-medium text-primary-600 hover:text-primary-500 focus:outline-none focus:underline transition ease-in-out duration-150"
+                to="/forgot-password"
+              >
+                Forgot your password?
+              </nuxt-link>
+            </div>
+          </div>
+
+          <div class="mt-6">
+            <span class="block w-full rounded-md shadow-sm">
+              <button
+                type="submit"
+                class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
+              >
+                Create account
+              </button>
+            </span>
+          </div>
+        </form>
+      </div>
     </div>
   </div>
 </template>

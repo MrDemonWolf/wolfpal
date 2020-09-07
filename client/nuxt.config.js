@@ -45,7 +45,7 @@ export default {
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
    */
-  components: true,
+  // components: true,
   /*
    ** Nuxt.js dev-modules
    */
@@ -62,7 +62,7 @@ export default {
         component: 'fa',
         icons: {
           regular: ['faSun', 'faMoon'],
-          solid: ['faCaretDown'],
+          solid: ['faCaretDown', 'faPlus', 'faTrash'],
         },
       },
     ],

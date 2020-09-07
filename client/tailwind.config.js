@@ -57,6 +57,12 @@ module.exports = {
         '.h-80': {
           height: '80vh',
         },
+        '.h-85': {
+          height: '85vh',
+        },
+        '.h-90': {
+          height: '90vh',
+        },
       }
 
       addUtilities(newUtilities)

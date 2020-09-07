@@ -3,7 +3,7 @@
     <button
       v-click-outside="accountDropdownHide"
       type="button"
-      class="py-2 md:py-1 md:px-2 text-xl focus:outline-none justify-center w-full font-bold text-primary-500 dark:text-primary-300 transition ease-in-out duration-150 font-roboto"
+      class="py-2 md:py-1 md:px-2 text-xl focus:outline-none justify-center w-full font-bold text-primary-800 dark:text-primary-300 transition ease-in-out duration-150 font-roboto"
       @keydown.esc="accountDropdownHide"
       @click.prevent="accountDropdown"
     >

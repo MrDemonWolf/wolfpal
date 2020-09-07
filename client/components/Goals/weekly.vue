@@ -1,20 +1,27 @@
 <template>
-  <div class="h-100 w-full flex items-center justify-center font-sans">
+  <div class="h-100 w-full flex items-center justify-center font-roboto">
     <div
-      class="dark:bg-gray-300 rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg"
+      class="bg-white dark:bg-gray-300 rounded shadow p-6 m-4 w-full lg:w-3/4 lg:max-w-lg"
     >
       <div class="mb-4">
-        <h1 class="text-grey-darkest">Todo List</h1>
+        <h1 class="text-primary-900 font-extrabold text-xl text-center">
+          Weekly Goals
+        </h1>
         <form class="flex mt-4" @submit.prevent="addGoal">
           <input
             v-model="newGoal.title"
             class="shadow appearance-none focus:outline-none rounded w-full py-2 px-3 mr-4 text-grey-900"
-            placeholder="Add Todo"
+            placeholder="Add new goal"
           />
           <button
             class="flex-no-shrink p-2 border-2 rounded text-primary-500 border-primary-500 hover:text-white hover:bg-primary-500"
           >
-            Add
+            <fa
+              :icon="['fas', 'plus']"
+              width="1.5rem"
+              height="1.5rem"
+              class="ml-1 mr-1"
+            />
           </button>
         </form>
       </div>
@@ -39,7 +46,12 @@
             class="flex-no-shrink p-2 ml-2 border-2 rounded text-red-500 border-red-500 hover:text-white hover:bg-red-500"
             @click="removeGoal(index)"
           >
-            Remove
+            <fa
+              :icon="['fas', 'trash']"
+              width="1.5rem"
+              height="1.5rem"
+              class="ml-1 mr-1"
+            />
           </button>
         </div>
       </div>
