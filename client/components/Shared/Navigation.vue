@@ -1,5 +1,5 @@
 <template>
-  <header id="header" class="bg-gray-200 dark:bg-gray-900">
+  <header id="header" class="bg-white dark:bg-gray-900">
     <nav class="container mx-auto flex-wrap p-6 flex justify-between">
       <nuxt-link
         active-class="false"

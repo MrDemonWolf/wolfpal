@@ -1,6 +1,6 @@
 <template>
   <footer
-    class="bg-gray-200 text-primary-400 body-font dark:bg-gray-900 dark:text-white"
+    class="bg-white text-primary-400 body-font dark:bg-gray-900 dark:text-white"
   >
     <div
       class="container px-5 py-2 mx-auto flex items-center sm:flex-row flex-col"

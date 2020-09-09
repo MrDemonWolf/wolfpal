@@ -20,38 +20,54 @@
       :class="accountNavActive ? 'block' : 'hidden'"
     >
       <div
-        class="bg-white dark:bg-gray-800 rounded border-gray-500 border-2 border border-opacity-25"
+        class="rounded-md shadow-xs bg-white dark:bg-gray-300 rounded border-gray-500 border-2 border border-opacity-25"
         role="menu"
         aria-orientation="vertical"
         aria-labelledby="options-menu"
       >
-        <div
-          class="block px-4 py-3 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 dark:text-white dark-hover:text-white dark-hover:bg-gray-700"
-          aria-label="Color Mode"
-          role="menuitem"
-          @click="
-            $colorMode.value === 'dark'
-              ? ($colorMode.preference = 'light')
-              : ($colorMode.preference = 'dark')
-          "
-        >
-          <span>{{
-            $colorMode.value === 'dark' ? 'Dark Mode' : 'Light Mode'
-          }}</span>
-          <fa
-            v-if="$colorMode.value === 'light'"
-            :icon="['far', 'sun']"
-            class="w-6 h-6 align-middle"
-          />
-          <fa v-else :icon="['far', 'moon']" class="w-6 h-6 align-middle" />
+        <div class="px-4 py-3">
+          <p class="text-sm leading-5 inline">Role:</p>
+          <p class="text-sm leading-5 font-medium text-gray-900 inline">
+            Owner
+          </p>
         </div>
-        <a
-          class="block px-4 py-3 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-gray-900 dark:text-white dark-hover:text-white dark-hover:bg-gray-700"
-          role="menuitem"
-          @click="logout"
-        >
-          Logout</a
-        >
+        <div class="border-t border-gray-100"></div>
+        <div class="py-1">
+          <a
+            href="#"
+            class="block px-4 py-3 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-white dark-hover:text-white dark-hover:bg-gray-500"
+            >Account settings</a
+          >
+          <a
+            href="#"
+            class="block px-4 py-3 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-white dark-hover:text-white dark-hover:bg-gray-500"
+            >Admin</a
+          >
+          <div
+            class="block px-4 py-3 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-white dark-hover:text-white dark-hover:bg-gray-500"
+            aria-label="Color Mode"
+            role="menuitem"
+            @click="
+              $colorMode.value === 'dark'
+                ? ($colorMode.preference = 'light')
+                : ($colorMode.preference = 'dark')
+            "
+          >
+            <span>{{
+              $colorMode.value === 'dark' ? 'Light Mode' : 'Dark Mode'
+            }}</span>
+          </div>
+        </div>
+        <div class="border-t border-gray-100"></div>
+        <div class="py-1">
+          <a
+            class="block px-4 py-3 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-white dark-hover:text-white dark-hover:bg-gray-500"
+            role="menuitem"
+            @click="logout"
+          >
+            Sign out
+          </a>
+        </div>
       </div>
     </div>
   </div>

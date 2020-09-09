@@ -3,20 +3,17 @@
     class="h-80 bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8"
   >
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
-      <img
-        class="mx-auto h-12 w-auto"
-        src="/img/logos/workflow-mark-on-white.svg"
-        alt="Workflow"
-      />
-      <h2
-        class="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900"
+      <h1
+        class="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900 dark:text-white"
       >
         Create a account
-      </h2>
-      <p class="mt-2 text-center text-sm leading-5 text-gray-600 max-w">
+      </h1>
+      <p
+        class="mt-2 text-center text-sm leading-5 text-gray-600 max-w dark:text-gray-200"
+      >
         Or
         <nuxt-link
-          class="font-medium text-primary-600 hover:text-primary-500 focus:outline-none focus:underline transition ease-in-out duration-150"
+          class="font-medium text-primary-600 hover:text-primary-500 focus:outline-none focus:underline transition ease-in-out duration-150 dark:text-primary-300"
           to="/login"
         >
           login in to your account
@@ -25,19 +22,22 @@
     </div>
 
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-      <div class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+      <div
+        class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 dark:bg-gray-200"
+      >
         <Alert v-if="error" type="danger" :message="error" />
         <Alert v-if="success" type="success" :message="success" />
         <form @submit.prevent="userRegister">
           <div>
             <label
               for="username"
-              class="block text-sm font-medium leading-5 text-gray-700"
+              class="block text-sm font-medium leading-5 text-gray-700 dark:text-gray-800"
             >
               Username
             </label>
             <div class="mt-1 rounded-md shadow-sm">
               <input
+                id="username"
                 v-model="register.username"
                 aria-label="Username"
                 name="username"
@@ -55,12 +55,13 @@
           <div class="mt-6">
             <label
               for="email"
-              class="block text-sm font-medium leading-5 text-gray-700"
+              class="block text-sm font-medium leading-5 text-gray-700 dark:text-gray-800"
             >
               Email
             </label>
             <div class="mt-1 rounded-md shadow-sm">
               <input
+                id="email"
                 v-model="register.email"
                 aria-label="Email address"
                 name="email"
@@ -77,12 +78,13 @@
           <div class="mt-6">
             <label
               for="password"
-              class="block text-sm font-medium leading-5 text-gray-700"
+              class="block text-sm font-medium leading-5 text-gray-700 dark:text-gray-800"
             >
               Password
             </label>
             <div class="mt-1 rounded-md shadow-sm">
               <input
+                id="password"
                 v-model="register.password"
                 aria-label="Password"
                 name="password"
