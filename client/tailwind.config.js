@@ -57,6 +57,9 @@ module.exports = {
         '.h-80': {
           height: '80vh',
         },
+        '.h-84': {
+          height: '84vh',
+        },
         '.h-85': {
           height: '85vh',
         },
@@ -81,5 +84,6 @@ module.exports = {
   },
   future: {
     removeDeprecatedGapUtilities: true,
+    purgeLayersByDefault: true,
   },
 }

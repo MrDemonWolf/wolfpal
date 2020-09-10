@@ -20,7 +20,7 @@
       :class="accountNavActive ? 'block' : 'hidden'"
     >
       <div
-        class="rounded-md shadow-xs bg-white dark:bg-gray-300 rounded border-gray-500 border-2 border border-opacity-25"
+        class="rounded-md shadow-xs bg-white dark:bg-gray-100 rounded border-gray-500 border-2 border border-opacity-25"
         role="menu"
         aria-orientation="vertical"
         aria-labelledby="options-menu"
@@ -35,16 +35,16 @@
         <div class="py-1">
           <a
             href="#"
-            class="block px-4 py-3 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-white dark-hover:text-white dark-hover:bg-gray-500"
+            class="block px-4 py-3 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-white dark-hover:text-black dark-hover:bg-gray-300"
             >Account settings</a
           >
           <a
             href="#"
-            class="block px-4 py-3 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-white dark-hover:text-white dark-hover:bg-gray-500"
+            class="block px-4 py-3 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-white dark-hover:text-black dark-hover:bg-gray-300"
             >Admin</a
           >
           <div
-            class="block px-4 py-3 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-white dark-hover:text-white dark-hover:bg-gray-500"
+            class="block px-4 py-3 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-white dark-hover:text-black dark-hover:bg-gray-300"
             aria-label="Color Mode"
             role="menuitem"
             @click="
@@ -61,7 +61,7 @@
         <div class="border-t border-gray-100"></div>
         <div class="py-1">
           <a
-            class="block px-4 py-3 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-white dark-hover:text-white dark-hover:bg-gray-500"
+            class="block px-4 py-3 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-white dark-hover:text-v dark-hover:bg-gray-300"
             role="menuitem"
             @click="logout"
           >

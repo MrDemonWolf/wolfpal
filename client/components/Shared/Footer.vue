@@ -16,6 +16,27 @@
           {{ $config.copyright }}
         </a>
       </p>
+      <div
+        class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start"
+      >
+        <button
+          class="py-2 md:py-1 md:px-2 focus:outline-none"
+          aria-label="Color Mode"
+          @click="
+            $colorMode.value === 'dark'
+              ? ($colorMode.preference = 'light')
+              : ($colorMode.preference = 'dark')
+          "
+        >
+          <fa
+            v-if="$colorMode.value === 'light'"
+            :icon="['far', 'sun']"
+            width="1.25rem"
+            height="1.25rem"
+          />
+          <fa v-else :icon="['far', 'moon']" width="1.25rem" height="1.25rem" />
+        </button>
+      </div>
     </div>
   </footer>
 </template>

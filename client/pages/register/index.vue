@@ -6,7 +6,7 @@
       <h1
         class="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900 dark:text-white"
       >
-        Login in to your account
+        Create a account
       </h1>
       <p
         class="mt-2 text-center text-sm leading-5 text-gray-600 max-w dark:text-gray-200"
@@ -14,21 +14,45 @@
         Or
         <nuxt-link
           class="font-medium text-primary-600 hover:text-primary-500 focus:outline-none focus:underline transition ease-in-out duration-150 dark:text-primary-300"
-          to="/register"
+          to="/login"
         >
-          create a account
+          login in to your account
         </nuxt-link>
       </p>
     </div>
 
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+      <Alert v-if="error" type="danger" :message="error" />
+      <Alert v-if="success" type="success" :message="success" />
       <div
         class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 dark:bg-gray-200"
       >
-        <Alert v-if="error" type="danger" :message="error" />
-        <Alert v-if="success" type="success" :message="success" />
-        <form @submit.prevent="userLogin">
+        <form @submit.prevent="userRegister">
           <div>
+            <label
+              for="username"
+              class="block text-sm font-medium leading-5 text-gray-700 dark:text-gray-800"
+            >
+              Username
+            </label>
+            <div class="mt-1 rounded-md shadow-sm">
+              <input
+                id="username"
+                v-model="register.username"
+                aria-label="Username"
+                name="username"
+                type="text"
+                :class="{ 'border-red-500': errors.username }"
+                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                novalidate
+              />
+            </div>
+            <span v-if="errors.username" class="text-red-500">{{
+              errors.username
+            }}</span>
+          </div>
+
+          <div class="mt-6">
             <label
               for="email"
               class="block text-sm font-medium leading-5 text-gray-700 dark:text-gray-800"
@@ -38,7 +62,7 @@
             <div class="mt-1 rounded-md shadow-sm">
               <input
                 id="email"
-                v-model="login.email"
+                v-model="register.email"
                 aria-label="Email address"
                 name="email"
                 type="email"
@@ -61,7 +85,7 @@
             <div class="mt-1 rounded-md shadow-sm">
               <input
                 id="password"
-                v-model="login.password"
+                v-model="register.password"
                 aria-label="Password"
                 name="password"
                 type="password"
@@ -92,7 +116,7 @@
                 type="submit"
                 class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
               >
-                Sign in
+                Create account
               </button>
             </span>
           </div>
@@ -103,24 +127,34 @@
 </template>
 
 <script>
+import Alert from '@/components/Shared/Alert'
+
 export default {
+  components: { Alert },
   data() {
     return {
-      login: {
+      register: {
         email: '',
+        username: '',
         password: '',
       },
       error: null,
-      errors: { email: null, password: null },
+      errors: { username: null, email: null, password: null },
       success: null,
     }
   },
   methods: {
-    async userLogin() {
+    async userRegister() {
       try {
-        await this.$auth.loginWith('local', {
-          data: this.login,
+        const response = await this.$axios.post('/api/auth/register', {
+          username: this.register.username,
+          email: this.register.email,
+          password: this.register.password,
         })
+        this.success = response.data.message
+        if (this.error) {
+          this.error = null
+        }
       } catch (e) {
         if (e.response.data.errors) {
           return (this.errors = e.response.data.errors)
