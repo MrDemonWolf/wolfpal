@@ -27,6 +27,10 @@ export const routerOptions = {
     component: _72717bcc,
     name: "releases___en"
   }, {
+    path: "/",
+    component: _2e76e001,
+    name: "index___en"
+  }, {
     path: "/*",
     component: _2e76e001,
     name: "all___en"

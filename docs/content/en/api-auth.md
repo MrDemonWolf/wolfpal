@@ -73,7 +73,7 @@ Allows a user to login with their account.
 | Field    | Type   | Description                     |
 | :------- | :----- | :------------------------------ |
 | email    | string | Email of the current account.   |
-| password | string | Password of the current account |
+| password | string | Password of the current account. |
 
 #### Example
 

@@ -2,16 +2,6 @@ import Vue from 'vue'
 
 const globalComponents = {
   AppColorSwitcher: () => import('../../node_modules/@nuxt/content-theme-docs/src/components/global/app/AppColorSwitcher.vue' /* webpackChunkName: "components/global/app/AppColorSwitcher" */).then(c => c.default || c),
-  AppCopyButton: () => import('../../node_modules/@nuxt/content-theme-docs/src/components/global/app/AppCopyButton.vue' /* webpackChunkName: "components/global/app/AppCopyButton" */).then(c => c.default || c),
-  AppDropdown: () => import('../../node_modules/@nuxt/content-theme-docs/src/components/global/app/AppDropdown.vue' /* webpackChunkName: "components/global/app/AppDropdown" */).then(c => c.default || c),
-  AppFooter: () => import('../../node_modules/@nuxt/content-theme-docs/src/components/global/app/AppFooter.vue' /* webpackChunkName: "components/global/app/AppFooter" */).then(c => c.default || c),
-  AppGithubLink: () => import('../../node_modules/@nuxt/content-theme-docs/src/components/global/app/AppGithubLink.vue' /* webpackChunkName: "components/global/app/AppGithubLink" */).then(c => c.default || c),
-  AppHeader: () => import('../../node_modules/@nuxt/content-theme-docs/src/components/global/app/AppHeader.vue' /* webpackChunkName: "components/global/app/AppHeader" */).then(c => c.default || c),
-  AppLangSwitcher: () => import('../../node_modules/@nuxt/content-theme-docs/src/components/global/app/AppLangSwitcher.vue' /* webpackChunkName: "components/global/app/AppLangSwitcher" */).then(c => c.default || c),
-  AppNav: () => import('../../node_modules/@nuxt/content-theme-docs/src/components/global/app/AppNav.vue' /* webpackChunkName: "components/global/app/AppNav" */).then(c => c.default || c),
-  AppPrevNext: () => import('../../node_modules/@nuxt/content-theme-docs/src/components/global/app/AppPrevNext.vue' /* webpackChunkName: "components/global/app/AppPrevNext" */).then(c => c.default || c),
-  AppSearch: () => import('../../node_modules/@nuxt/content-theme-docs/src/components/global/app/AppSearch.vue' /* webpackChunkName: "components/global/app/AppSearch" */).then(c => c.default || c),
-  AppToc: () => import('../../node_modules/@nuxt/content-theme-docs/src/components/global/app/AppToc.vue' /* webpackChunkName: "components/global/app/AppToc" */).then(c => c.default || c),
   Alert: () => import('../../node_modules/@nuxt/content-theme-docs/src/components/global/base/Alert.vue' /* webpackChunkName: "components/global/base/Alert" */).then(c => c.default || c),
   Badge: () => import('../../node_modules/@nuxt/content-theme-docs/src/components/global/base/Badge.vue' /* webpackChunkName: "components/global/base/Badge" */).then(c => c.default || c),
   CodeBlock: () => import('../../node_modules/@nuxt/content-theme-docs/src/components/global/base/CodeBlock.vue' /* webpackChunkName: "components/global/base/CodeBlock" */).then(c => c.default || c),
