@@ -23,17 +23,10 @@ const isSessionValid = require('../middleware/isSessionValid');
 const isRefreshValid = require('../middleware/isRefreshTokenValid');
 
 /**
- * Require authentication middleware.
- */
-const requireAuth = passport.authenticate('jwt', {
-  session: false
-});
-
-/**
  * Load input validators.
  */
-const validateRegisterInput = require('../validation/register');
-const validateLoginInput = require('../validation/login');
+const validateRegisterInput = require('../validation/auth/register');
+const validateLoginInput = require('../validation/auth/login');
 
 /**
  * @route /auth/register
@@ -50,6 +43,7 @@ router.post('/register', async (req, res) => {
     if (!isValid) {
       return res.status(400).json({ code: 400, errors });
     }
+
     const { username, email, password } = req.body;
 
     /**
@@ -158,8 +152,10 @@ router.post('/login', async (req, res) => {
       user: user.id,
       expireAt: moment().add('24', 'h')
     });
+
     await session.save();
-    res.json({
+
+    res.status(200).json({
       code: 200,
       access_token: accessToken,
       refresh_token: refreshToken,
@@ -208,7 +204,7 @@ router.post('/refresh', isRefreshValid, async (req, res) => {
       expireAt: moment().add('24', 'h')
     });
     await session.save();
-    res.json({
+    res.status(200).json({
       code: 200,
       access_token: accessToken,
       refresh_token: refreshToken
@@ -244,7 +240,7 @@ router.post('/logout', isSessionValid, async (req, res) => {
       },
       { $safe: true }
     );
-    res.json({
+    res.status(200).json({
       code: 200,
       message: 'You are now logged out.'
     });
