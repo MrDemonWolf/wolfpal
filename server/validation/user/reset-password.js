@@ -14,15 +14,17 @@ module.exports = data => {
     errors.password = 'Password must be between 8 and 56 characters long';
   }
 
-  if (data.password === data.comfirmPassword) {
+  if (data.password !== data.comfirmPassword) {
     errors.password = 'Both passwords must match.';
     errors.comfirmPassword = 'Both passwords must match.';
   }
+
   if (Validator.isEmpty(data.password)) {
     errors.password = 'Password is required.';
   }
+
   if (Validator.isEmpty(data.comfirmPassword)) {
-    errors.comfirmPassword = 'Password is required.';
+    errors.comfirmPassword = 'You must comfirm your new password.';
   }
 
   return {

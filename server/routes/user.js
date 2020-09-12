@@ -95,7 +95,7 @@ router.post('/reset-password/:reset_token', async (req, res) => {
     if (!user) {
       return res.status(400).json({
         code: 400,
-        error: 'Either your reset token has expired or already has been used.'
+        error: 'Either your reset link has expired or already has been used.'
       });
     }
     /**
