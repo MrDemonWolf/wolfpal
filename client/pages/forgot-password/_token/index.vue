@@ -73,7 +73,7 @@
             <div class="text-sm leading-5">
               <nuxt-link
                 class="font-medium text-primary-600 hover:text-primary-500 focus:outline-none focus:underline transition ease-in-out duration-150"
-                to="/forgot-password/resend"
+                to="/forgot-password"
               >
                 Resend password reset?
               </nuxt-link>
