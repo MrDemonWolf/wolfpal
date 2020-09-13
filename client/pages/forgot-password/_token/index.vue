@@ -12,7 +12,11 @@
 
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
       <Alert v-if="error" type="danger" :message="error" />
-      <Alert v-if="success" type="success" :message="success" />
+      <Alert
+        v-if="success"
+        type="success"
+        :message="`${success} You will be redirected in a few moments....`"
+      />
       <div
         class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 dark:bg-gray-200"
       >
@@ -115,9 +119,12 @@ export default {
           `/api/user/reset-password/${this.$route.params.token}`,
           this.forgotPassword
         )
-        console.log(response)
+        this.success = response.data.message
+        this.error = null
+        this.errors = { password: null, comfirmPassword: null }
+
+        setTimeout(() => this.$router.push({ path: '/login' }), 1000 * 5)
       } catch (e) {
-        console.log(e.response.data)
         if (e.response.data.error) {
           this.error = e.response.data.error
           this.errors = { password: null, comfirmPassword: null }
@@ -125,6 +132,7 @@ export default {
           this.errors = e.response.data.errors
           this.error = null
         }
+        this.success = null
       }
     },
   },
