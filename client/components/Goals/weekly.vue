@@ -117,10 +117,22 @@ export default {
     },
     async removeGoal(index, e) {
       try {
-        await this.$axios.delete(`/api/goals/weekly/${this.goals[index]._id}`)
+        const response = await this.$axios.delete(
+          `/api/goals/weekly/${this.goals[index]._id}`
+        )
         this.$delete(this.goals, index)
-      } catch (err) {
-        console.log(err)
+        this.$toast.success(response.data.message, {
+          position: 'bottom-right',
+        })
+      } catch (e) {
+        if (!e.response) {
+          return this.$toast.error('Oops.. Something Went Wrong..', {
+            position: 'bottom-right',
+          })
+        }
+        this.$toast.error(e.response.data.error, {
+          position: 'bottom-right',
+        })
       }
     },
     async toggleCompleteGoal(index, e) {
@@ -128,10 +140,24 @@ export default {
         const response = await this.$axios.put(
           `/api/goals/weekly/${this.goals[index]._id}/complete`
         )
-        console.log(response)
         this.goals[index].isCompleted = response.data.isCompleted
-      } catch (err) {
-        console.log(err)
+        this.$toast.success(
+          `Goal has been marked as ${
+            response.data.isCompleted ? 'completed' : 'not completed'
+          }`,
+          {
+            position: 'bottom-right',
+          }
+        )
+      } catch (e) {
+        if (!e.response) {
+          return this.$toast.error('Oops.. Something Went Wrong..', {
+            position: 'bottom-right',
+          })
+        }
+        this.$toast.error(e.response.data.error, {
+          position: 'bottom-right',
+        })
       }
     },
   },

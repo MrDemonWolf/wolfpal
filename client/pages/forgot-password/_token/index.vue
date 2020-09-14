@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="h-80 bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8"
-  >
+  <div class="h-80 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
     <div class="sm:mx-auto sm:w-full sm:max-w-md">
       <h1
         class="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900 dark:text-white"
@@ -105,8 +103,12 @@ export default {
   data() {
     return {
       forgotPassword: {
-        password: null,
-        comfirmPassword: null,
+        password: '',
+        comfirmPassword: '',
+        device: {
+          os: '',
+          browser: '',
+        },
       },
       error: null,
       errors: { password: null, comfirmPassword: null },
@@ -116,6 +118,10 @@ export default {
   methods: {
     async resetPassword(e) {
       try {
+        this.forgotPassword.device = {
+          os: this.$ua.os(),
+          browser: this.$ua.browser(),
+        }
         const response = await this.$axios.post(
           `/api/user/reset-password/${this.$route.params.token}`,
           this.forgotPassword

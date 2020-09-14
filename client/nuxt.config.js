@@ -87,6 +87,7 @@ export default {
     '@nuxtjs/svg',
     // Doc: https://github.com/shakee93/vue-toasted
     '@nuxtjs/toast',
+    'nuxt-user-agent',
   ],
   /*
    ** Axios module configuration
