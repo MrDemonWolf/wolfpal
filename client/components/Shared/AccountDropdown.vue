@@ -8,12 +8,7 @@
       @click.prevent="accountDropdown"
     >
       {{ $auth.user.username }}
-      <fa
-        :icon="['fas', 'caret-down']"
-        class="ml-2"
-        width="1.25rem"
-        height="1.25rem"
-      />
+      <fa :icon="['fas', 'caret-down']" class="ml-2 w-5 h-5" />
     </button>
     <div
       class="origin-top-left md:origin-top-right absolute left-0 md:right-0 w-30 md:w-50"
@@ -31,18 +26,18 @@
             Owner
           </p>
         </div>
-        <div class="border-t border-gray-100"></div>
+        <div class="border-t border-gray-200 dark:border-gray-300"></div>
         <div class="py-1">
-          <a
+          <!-- <a
             href="#"
             class="block px-4 py-3 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-white dark-hover:text-black dark-hover:bg-gray-300"
             >Account settings</a
-          >
-          <a
+          > -->
+          <!-- <a
             href="#"
             class="block px-4 py-3 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-white dark-hover:text-black dark-hover:bg-gray-300"
             >Admin</a
-          >
+          > -->
           <div
             class="block px-4 py-3 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-white dark-hover:text-black dark-hover:bg-gray-300"
             aria-label="Color Mode"
@@ -58,7 +53,7 @@
             }}</span>
           </div>
         </div>
-        <div class="border-t border-gray-100"></div>
+        <div class="border-t border-gray-200 dark:border-gray-300"></div>
         <div class="py-1">
           <a
             class="block px-4 py-3 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-white dark-hover:text-v dark-hover:bg-gray-300"

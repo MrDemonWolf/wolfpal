@@ -13,7 +13,7 @@
     }}</span>
     <fa
       v-if="$colorMode.value === 'light'"
-      :icon="['far', 'sun']"
+      :icon="['fas', 'sun']"
       class="w-6 h-6 align-middle"
     />
     <fa v-else :icon="['far', 'moon']" class="w-6 h-6 align-middle" />

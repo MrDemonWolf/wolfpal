@@ -30,11 +30,10 @@
         >
           <fa
             v-if="$colorMode.value === 'light'"
-            :icon="['far', 'sun']"
-            width="1.25rem"
-            height="1.25rem"
+            :icon="['fas', 'sun']"
+            class="w-5 h-5"
           />
-          <fa v-else :icon="['far', 'moon']" width="1.25rem" height="1.25rem" />
+          <fa v-else class="w-5 h-5" :icon="['far', 'moon']" />
         </button>
       </div>
     </div>

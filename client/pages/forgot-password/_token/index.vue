@@ -11,11 +11,12 @@
     </div>
 
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-      <Alert v-if="error" type="danger" :message="error" />
+      <Alert v-if="error" type="danger" :message="error" class="mb-4" />
       <Alert
         v-if="success"
         type="success"
         :message="`${success} You will be redirected in a few moments....`"
+        class="mb-4"
       />
       <div
         class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 dark:bg-gray-200"

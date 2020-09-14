@@ -6,13 +6,17 @@ const router = express.Router();
 /**
  * Load MongoDB models.
  */
-const User = require('../models/User');
 const WeeklyGoal = require('../models/Goals/Weekly');
 
 /**
  * Load middlewares
  */
 const isSessionValid = require('../middleware/isSessionValid');
+
+/**
+ * Load input validators.
+ */
+const validateNewWeeklyGoalInput = require('../validation/goals/weekly/newGoal');
 
 /**
  * Require authentication middleware.
@@ -43,13 +47,24 @@ router.get('/weekly', requireAuth, isSessionValid, async (req, res) => {
  */
 router.post('/weekly', requireAuth, isSessionValid, async (req, res) => {
   try {
+    /**
+     * validate the goal important for title
+     */
+    const { errors, isValid } = validateNewWeeklyGoalInput(req.body);
+
+    if (!isValid) {
+      return res.status(400).json({ code: 400, errors });
+    }
+
     const { title } = req.body;
     const weeklyGoal = new WeeklyGoal({
       user: req.user.id,
       title
     });
     await weeklyGoal.save();
-    res.status(200).json({ code: 200, weeklyGoal });
+    res
+      .status(200)
+      .json({ code: 200, weeklyGoal, message: 'Added weekly goal.' });
   } catch (err) {
     console.log(err);
     res.status(500).json({ code: 500, error: 'Internal Server Error' });

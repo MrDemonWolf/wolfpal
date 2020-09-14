@@ -28,7 +28,7 @@
       </svg>
     </div>
     <div class="relative pt-6 md:pt-12 pb-12 sm:pb-32">
-      <div class="mt-8 sm:mt-16 md:mt-20 lg:mt-24">
+      <div class="mt-16 sm:mt-8 md:mt-6 lg:mt-24">
         <div class="mx-auto max-w-screen-xl">
           <div class="lg:grid lg:grid-cols-12 lg:gap-8">
             <div
@@ -57,8 +57,18 @@
               >
                 <div class="px-4 py-8 sm:px-10">
                   <div class="mt-6">
-                    <Alert v-if="success" type="success" :message="success" />
-                    <Alert v-if="error" type="danger" :message="error" />
+                    <Alert
+                      v-if="success"
+                      type="success"
+                      :message="success"
+                      class="mb-4"
+                    />
+                    <Alert
+                      v-if="error"
+                      type="danger"
+                      :message="error"
+                      class="mb-4"
+                    />
                     <form class="space-y-6" @submit.prevent="userRegister">
                       <div>
                         <label for="username" class="sr-only"> Username </label>

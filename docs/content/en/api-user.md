@@ -64,12 +64,61 @@ Allows a register user to use token to reset password.
 | :----------- | :----- | :-------------------------------- |
 | Content-Type | string | application/x-www-form-urlencoded |
 
+#### Params
+
+| Field       | Type   | Description              |
+| :---------- | :----- | :----------------------- |
+| reset_token | string | Token to reset password. |
+
 #### Body
 
 | Field           | Type   | Description                              |
 | :-------------- | :----- | :--------------------------------------- |
 | password        | string | New password of current account.         |
 | comfirmPassword | string | Comfirm new password of current account. |
+
+#### Example
+
+<code-group>
+  <code-block label="Request" active>
+
+```sh
+curl --location --request POST 'https://www.example.com/api/user/reset-password/:reset_token' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--data-urlencode 'password=user@mrdemonwolf.github.io' \
+--data-urlencode 'comfirmPassword=user@mrdemonwolf.github.io' \
+```
+
+  </code-block>
+  <code-block label="Response
+">
+
+```json
+
+```
+
+  </code-block>
+</code-group>
+
+## Ac Password
+
+Allows a register user to use token to reset password.
+
+#### Path
+
+`POST /activate-account/:activate_token`
+
+#### Headers
+
+| Field        | Type   | Description                       |
+| :----------- | :----- | :-------------------------------- |
+| Content-Type | string | application/x-www-form-urlencoded |
+
+#### Params
+
+| Field          | Type   | Description                |
+| :------------- | :----- | :------------------------- |
+| activate_token | string | Token to activate account. |
 
 #### Example
 

@@ -136,4 +136,42 @@ router.post('/reset-password/:reset_token', async (req, res) => {
   }
 });
 
+/**
+ * @route /user/activate-account/:activate_token
+ * @description Allows a register user to activate their account with token.
+ */
+router.put('/activate-account/:activate_token', async (req, res) => {
+  try {
+    /**
+     * Get the user by there email
+     */
+    const user = await User.findOne({
+      emailVerificationToken: req.params.activate_token,
+      emailVerificationTokenExpire: {
+        $gt: moment()
+      }
+    });
+
+    if (!user) {
+      return res.status(400).json({
+        code: 400,
+        error:
+          'Either your account activate link has expired or already has been used.'
+      });
+    }
+    user.emailVerificationToken = undefined;
+    user.emailVerificationTokenExpire = undefined;
+    user.emailVerified = true;
+
+    await user.save();
+    res.status(200).json({
+      code: 200,
+      message: "Your account is now activated and you're now able to login."
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ code: 500, error: 'Internal Server Error' });
+  }
+});
+
 module.exports = router;
