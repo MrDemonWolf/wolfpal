@@ -30,6 +30,7 @@ const validateResetPasswordInput = require('../validation/user/reset-password');
  * Load Email Templates.
  */
 const forgotPasswordTemplate = require('../emails/user/forgot-password');
+const resetPasswordTemplate = require('../emails/user/reset-password');
 
 /**
  * @route /user/forgot-password
@@ -74,6 +75,7 @@ router.post('/forgot-password', async (req, res) => {
     };
 
     if (process.env.NODE_ENV !== 'test') await sendgrid.send(msg);
+
     res.status(200).json({
       code: 200,
       message: `An Email has been sent to ${email} with further instructions on how to reset your password. Please check your email account.`
@@ -115,6 +117,28 @@ router.post('/reset-password/:reset_token', async (req, res) => {
         error: 'Either your reset link has expired or already has been used.'
       });
     }
+
+    const ipInfo = {
+      city: req.ipInfo.city,
+      state: req.ipInfo.region,
+      country: req.ipInfo.country,
+      ip: req.ipInfo.ip,
+      localhost: req.ipInfo.error
+    };
+    const device = {
+      os: req.body.device.os ? req.body.device.os : 'null',
+      browser: req.body.device.browser ? req.body.device.browser : 'null'
+    };
+    const emailTemplate = resetPasswordTemplate(ipInfo, device);
+
+    const msg = {
+      to: user.email,
+      from: `${process.env.EMAIL_FROM} <noreply@${process.env.EMAIL_DOMAIN}>`,
+      subject: `Your password has been changed on ${process.env.SITE_TITLE}`,
+      html: emailTemplate.html
+    };
+
+    if (process.env.NODE_ENV !== 'test') await sendgrid.send(msg);
     /**
      * Sets the token and expire date to undfined which removes them
      * from the database
