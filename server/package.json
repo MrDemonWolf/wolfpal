@@ -7,7 +7,8 @@
     "start": "node index.js",
     "dev": "nodemon index.js",
     "lint": "eslint . --ext .js --fix",
-    "format": "prettier-eslint --write $PWD/'**/*.{js,json}'"
+    "format": "prettier-eslint --write $PWD/'**/*.{js,json}'",
+    "test": "cross-env NODE_ENV=test mocha tests --exit"
   },
   "repository": {
     "type": "git",
@@ -23,16 +24,20 @@
   },
   "homepage": "https://github.com/MrDemonWolf/wolfpal#readme",
   "dependencies": {
+    "@sendgrid/mail": "^7.2.5",
     "bcrypt": "^5.0.0",
     "compression": "^1.7.4",
     "consola": "^2.15.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-ip": "^1.0.4",
+    "express-useragent": "^1.0.15",
     "helmet": "^4.1.0",
     "js-sha512": "^0.8.0",
     "jsonwebtoken": "^8.5.1",
     "lusca": "^1.6.1",
+    "mjml": "^4.6.3",
     "moment": "^2.27.0",
     "mongoose": "^5.10.0",
     "morgan": "^1.10.0",
@@ -43,11 +48,13 @@
     "validator": "^13.1.1"
   },
   "devDependencies": {
+    "cross-env": "^7.0.2",
     "eslint": "^7.7.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-promise": "^4.2.1",
     "nodemon": "^2.0.4",
-    "prettier-eslint-cli": "^5.0.0"
+    "prettier-eslint-cli": "^5.0.0",
+    "supertest": "^4.0.2"
   }
 }

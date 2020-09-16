@@ -15,7 +15,7 @@
         ? 'bg-blue-200 text-blue-800'
         : ''
     "
-    class="font-light p-4 rounded mb-4"
+    class="font-light p-4 rounded"
   >
     {{ message }}
   </div>

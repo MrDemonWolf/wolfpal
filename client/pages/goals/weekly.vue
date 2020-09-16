@@ -7,6 +7,7 @@
 <script>
 import WeeklyGoals from '@/components/Goals/weekly'
 export default {
+  middleware: 'auth',
   components: {
     WeeklyGoals,
   },

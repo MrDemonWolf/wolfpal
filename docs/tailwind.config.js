@@ -3,20 +3,21 @@ module.exports = {
     extend: {
       colors: {
         primary: {
-          100: "#E6FAF2",
-          200: "#BFF3E0",
-          300: "#99EBCD",
-          400: "#4DDCA7",
-          500: "#00CD81",
-          600: "#00B974",
-          700: "#007B4D",
-          800: "#005C3A",
-          900: "#003E27"
+          100: "#EDF1F9",
+          200: "#D1DBF0",
+          300: "#B6C5E7",
+          400: "#7F9AD4",
+          500: "#486EC2",
+          600: "#4163AF",
+          700: "#2B4274",
+          800: "#203257",
+          900: "#16213A"
         }
       }
     }
   },
   future: {
-    removeDeprecatedGapUtilities: true
+    removeDeprecatedGapUtilities: true,
+    purgeLayersByDefault: true
   }
 };

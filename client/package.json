@@ -15,8 +15,13 @@
     "@nuxtjs/auth-next": "^5.0.0-1595976864.509d9d6",
     "@nuxtjs/axios": "^5.12.2",
     "@nuxtjs/pwa": "^3.0.0-beta.20",
+    "@nuxtjs/toast": "^3.3.1",
+    "@tailwindcss/ui": "^0.6.0",
     "nuxt": "^2.14.0",
-    "vue-click-outside": "^1.1.0"
+    "nuxt-user-agent": "^1.2.2",
+    "vue-click-outside": "^1.1.0",
+    "vue-content-loader": "^0.2.3",
+    "vue-loading-overlay": "^3.4.0"
   },
   "devDependencies": {
     "@fortawesome/free-brands-svg-icons": "^5.14.0",

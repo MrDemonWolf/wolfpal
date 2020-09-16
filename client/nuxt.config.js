@@ -45,7 +45,7 @@ export default {
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
    */
-  components: true,
+  // components: true,
   /*
    ** Nuxt.js dev-modules
    */
@@ -61,8 +61,8 @@ export default {
       {
         component: 'fa',
         icons: {
-          regular: ['faSun', 'faMoon'],
-          solid: ['faCaretDown'],
+          regular: ['faMoon'],
+          solid: ['faCaretDown', 'faPlus', 'faTrash', 'faSun', 'faCheck'],
         },
       },
     ],
@@ -85,6 +85,9 @@ export default {
     '@nuxtjs/pwa',
     '@nuxtjs/auth-next',
     '@nuxtjs/svg',
+    // Doc: https://github.com/shakee93/vue-toasted
+    '@nuxtjs/toast',
+    'nuxt-user-agent',
   ],
   /*
    ** Axios module configuration
@@ -132,6 +135,21 @@ export default {
     title: process.env.SITE_TITLE || 'WolfPal',
     copyright: process.env.COPYRIGHT || 'MrDemonWolf',
     copyrightLink: process.env.COPYRIGHT_LINK || 'https://www.mrdemonwolf.me',
+  },
+
+  /*
+   ** Toast configuration
+   */
+  toast: {
+    position: 'top-right',
+    duration: 6500,
+  },
+
+  /**
+   * purgeCSS configuration
+   */
+  purgeCSS: {
+    whitelist: ['dark-mode'],
   },
   /*
    ** Build configuration

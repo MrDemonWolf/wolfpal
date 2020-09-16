@@ -6,13 +6,17 @@ const router = express.Router();
 /**
  * Load MongoDB models.
  */
-const User = require('../models/User');
-const WeeklyGoals = require('../models/Goals/Weekly');
+const WeeklyGoal = require('../models/Goals/Weekly');
 
 /**
  * Load middlewares
  */
 const isSessionValid = require('../middleware/isSessionValid');
+
+/**
+ * Load input validators.
+ */
+const validateNewWeeklyGoalInput = require('../validation/goals/weekly/newGoal');
 
 /**
  * Require authentication middleware.
@@ -28,7 +32,7 @@ const requireAuth = passport.authenticate('jwt', {
  */
 router.get('/weekly', requireAuth, isSessionValid, async (req, res) => {
   try {
-    const weeklyGoals = await WeeklyGoals.find({ user: req.user.id });
+    const weeklyGoals = await WeeklyGoal.find({ user: req.user.id });
     res.status(200).json({ code: 200, goals: weeklyGoals });
   } catch (err) {
     console.log(err);
@@ -43,13 +47,24 @@ router.get('/weekly', requireAuth, isSessionValid, async (req, res) => {
  */
 router.post('/weekly', requireAuth, isSessionValid, async (req, res) => {
   try {
+    /**
+     * validate the goal important for title
+     */
+    const { errors, isValid } = validateNewWeeklyGoalInput(req.body);
+
+    if (!isValid) {
+      return res.status(400).json({ code: 400, errors });
+    }
+
     const { title } = req.body;
-    const weeklyGoal = new WeeklyGoals({
+    const weeklyGoal = new WeeklyGoal({
       user: req.user.id,
       title
     });
     await weeklyGoal.save();
-    res.status(200).json({ code: 200, weeklyGoal });
+    res
+      .status(201)
+      .json({ code: 201, weeklyGoal, message: 'Added weekly goal.' });
   } catch (err) {
     console.log(err);
     res.status(500).json({ code: 500, error: 'Internal Server Error' });
@@ -67,7 +82,7 @@ router.put(
   isSessionValid,
   async (req, res) => {
     try {
-      const weeklyGoal = await WeeklyGoals.findById(req.params.goal_id);
+      const weeklyGoal = await WeeklyGoal.findById(req.params.goal_id);
       weeklyGoal.isCompleted = !weeklyGoal.isCompleted;
       await weeklyGoal.save();
       res.status(200).json({ code: 200, isCompleted: weeklyGoal.isCompleted });
@@ -89,7 +104,7 @@ router.delete(
   isSessionValid,
   async (req, res) => {
     try {
-      await WeeklyGoals.findByIdAndDelete(req.params.goal_id);
+      await WeeklyGoal.findByIdAndDelete(req.params.goal_id);
       res.status(200).json({ code: 200, message: 'Goal has been removed.' });
     } catch (err) {
       console.log(err);

@@ -52,16 +52,32 @@ module.exports = {
   },
   plugins: [
     require('tailwindcss-dark-mode')(),
+    require('@tailwindcss/ui')({
+      // See https://tailwindui.com/documentation#configuring-sidebar-breakpoints
+      // Turning this off for now. This may be buggy as it makes the hero sections like the "with wide angled image on right" look funky
+      // https://tailwindui.com/components/marketing/sections/heroes
+      // layout: 'sidebar',
+    }),
     plugin(function ({ addUtilities }) {
       const newUtilities = {
         '.h-80': {
           height: '80vh',
+        },
+        '.h-84': {
+          height: '84vh',
+        },
+        '.h-85': {
+          height: '85vh',
+        },
+        '.h-90': {
+          height: '90vh',
         },
       }
 
       addUtilities(newUtilities)
     }),
   ],
+
   purge: {
     // Learn more on https://tailwindcss.com/docs/controlling-file-size/#removing-unused-css
     enabled: process.env.NODE_ENV === 'production',
@@ -75,5 +91,6 @@ module.exports = {
   },
   future: {
     removeDeprecatedGapUtilities: true,
+    purgeLayersByDefault: true,
   },
 }

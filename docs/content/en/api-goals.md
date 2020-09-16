@@ -102,7 +102,8 @@ curl --location --request POST 'https://www.example.com/api/goals/weekly' \
     "createdAt": "2020-09-04T17:54:35.461Z",
     "updatedAt": "2020-09-04T17:54:35.461Z",
     "__v": 0
-  }
+  },
+  "message": "Added weekly goal."
 }
 ```
 

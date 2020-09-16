@@ -9,6 +9,8 @@ import '../node_modules/@nuxtjs/tailwindcss/lib/files/tailwind.css'
 
 import '../node_modules/@nuxt/content-theme-docs/src/assets/css/main.css'
 
+import '../node_modules/@nuxt/content-theme-docs/src/assets/css/main.dev.css'
+
 import '../node_modules/prism-themes/themes/prism-material-oceanic.css'
 
 import _6f6c098b from '../node_modules/@nuxt/content-theme-docs/src/layouts/default.vue'

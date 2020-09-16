@@ -1,15 +1,19 @@
 const express = require('express');
-const passport = require('passport');
 const { customAlphabet } = require('nanoid');
 const moment = require('moment');
 const sha512 = require('js-sha512');
 const jwt = require('jsonwebtoken');
+const sendgrid = require('../config/sendgrid');
 
 const router = express.Router();
 
-const urlFriendyAlphabet =
-  '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-
+/**
+ * Setup nanoid
+ */
+const emailVerificationToken = customAlphabet(
+  '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_',
+  32
+);
 /**
  * Load MongoDB models.
  */
@@ -23,17 +27,15 @@ const isSessionValid = require('../middleware/isSessionValid');
 const isRefreshValid = require('../middleware/isRefreshTokenValid');
 
 /**
- * Require authentication middleware.
- */
-const requireAuth = passport.authenticate('jwt', {
-  session: false
-});
-
-/**
  * Load input validators.
  */
-const validateRegisterInput = require('../validation/register');
-const validateLoginInput = require('../validation/login');
+const validateRegisterInput = require('../validation/auth/register');
+const validateLoginInput = require('../validation/auth/login');
+
+/**
+ * Load Email Templates.
+ */
+const activateAccountTemplate = require('../emails/auth/activate-account');
 
 /**
  * @route /auth/register
@@ -50,6 +52,7 @@ router.post('/register', async (req, res) => {
     if (!isValid) {
       return res.status(400).json({ code: 400, errors });
     }
+
     const { username, email, password } = req.body;
 
     /**
@@ -75,19 +78,26 @@ router.post('/register', async (req, res) => {
       email,
       password
     });
-    const emailVerificationToken = customAlphabet(urlFriendyAlphabet, 32);
 
     newUser.emailVerificationToken = emailVerificationToken();
     newUser.emailVerificationTokenExpire = moment().add('3', 'h');
 
-    /**
-     * TODO send email verification token to the email.
-     */
-
     await newUser.save();
 
-    res.json({
-      code: 200,
+    const emailTemplate = activateAccountTemplate(
+      newUser.emailVerificationToken
+    );
+
+    const msg = {
+      to: newUser.email,
+      from: `${process.env.EMAIL_FROM} <noreply@${process.env.EMAIL_DOMAIN}>`,
+      subject: `Activate your account on ${process.env.SITE_TITLE}`,
+      html: emailTemplate.html
+    };
+
+    if (process.env.NODE_ENV !== 'test') await sendgrid.send(msg);
+    res.status(201).json({
+      code: 201,
       message: 'Please confirm your email address to complete the registration.'
     });
   } catch (err) {
@@ -158,8 +168,10 @@ router.post('/login', async (req, res) => {
       user: user.id,
       expireAt: moment().add('24', 'h')
     });
+
     await session.save();
-    res.json({
+
+    res.status(200).json({
       code: 200,
       access_token: accessToken,
       refresh_token: refreshToken,
@@ -176,7 +188,6 @@ router.post('/login', async (req, res) => {
  * @method POST
  * @description Allows a user to refresh their login token with a new one
  */
-// router.post('/refresh', requireAuth, isRefreshValid, async (req, res) => {
 router.post('/refresh', isRefreshValid, async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
@@ -208,7 +219,7 @@ router.post('/refresh', isRefreshValid, async (req, res) => {
       expireAt: moment().add('24', 'h')
     });
     await session.save();
-    res.json({
+    res.status(200).json({
       code: 200,
       access_token: accessToken,
       refresh_token: refreshToken
@@ -244,7 +255,7 @@ router.post('/logout', isSessionValid, async (req, res) => {
       },
       { $safe: true }
     );
-    res.json({
+    res.status(200).json({
       code: 200,
       message: 'You are now logged out.'
     });

@@ -1,5 +1,5 @@
 <template>
-  <header id="header" class="dark:bg-gray-900">
+  <header id="header" class="bg-white dark:bg-gray-900">
     <nav class="container mx-auto flex-wrap p-6 flex justify-between">
       <nuxt-link
         active-class="false"
@@ -31,7 +31,7 @@
         <ul v-if="$auth.loggedIn" class="list-reset md:flex justify-end">
           <li v-for="(link, index) in links" :key="index">
             <nuxt-link
-              class="inline-block no-underline hover:text-underline text-primary-500 hover:text-secondary-500 dark:text-white dark-hover:text-secondary-200 py-2 md:py-1 md:px-2 font-roboto text-xl"
+              class="inline-block no-underline hover:text-underline text-black hover:text-gray-800 dark:text-white dark-hover:text-primary-200 py-2 md:py-1 md:px-2 font-roboto text-xl"
               :to="link.url"
               >{{ link.text }}</nuxt-link
             >
@@ -40,14 +40,14 @@
         <ul v-else class="list-reset md:flex justify-end">
           <li>
             <nuxt-link
-              class="inline-block no-underline text-primary-500 hover:text-secondary-500 py-2 md:py-1 md:px-2 dark:text-white font-roboto text-xl"
+              class="inline-block no-underline hover:text-underline text-primary-500 hover:text-primary-600 dark:text-white dark-hover:text-primary-200 py-2 md:py-1 md:px-2 font-roboto text-xl"
               to="/register"
               >Register
             </nuxt-link>
           </li>
           <li>
             <nuxt-link
-              class="inline-block no-underline hover:text-underline text-primary-500 hover:text-secondary-500 dark:text-white dark-hover:text-secondary-200 py-2 md:py-1 md:px-2 font-roboto text-xl"
+              class="inline-block no-underline hover:text-underline text-primary-500 hover:text-primary-600 dark:text-white dark-hover:text-primary-200 py-2 md:py-1 md:px-2 font-roboto text-xl"
               to="/login"
               >Login
             </nuxt-link>
@@ -93,6 +93,6 @@ export default {
 }
 
 .nuxt-link-active {
-  @apply text-primary-800;
+  @apply text-primary-600;
 }
 </style>

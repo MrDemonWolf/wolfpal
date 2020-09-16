@@ -70,10 +70,10 @@ Allows a user to login with their account.
 
 #### Body
 
-| Field    | Type   | Description                     |
-| :------- | :----- | :------------------------------ |
-| email    | string | Email of the current account.   |
-| password | string | Password of the current account |
+| Field    | Type   | Description                      |
+| :------- | :----- | :------------------------------- |
+| email    | string | Email of the current account.    |
+| password | string | Password of the current account. |
 
 #### Example
 
@@ -118,7 +118,7 @@ Allows a user to refresh their login token with a new one
 | Authorization | string | JWT refresh token.                |
 | Content-Type  | string | application/x-www-form-urlencoded |
 
-#### Headers
+#### Body
 
 | Field         | Type   | Description        |
 | :------------ | :----- | :----------------- |

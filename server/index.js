@@ -6,6 +6,7 @@ const helmet = require('helmet');
 const lusca = require('lusca');
 const mongoose = require('mongoose');
 const passport = require('passport');
+const expressip = require('express-ip');
 
 /**
  * Load environment variables from the .env file, where API keys and passwords are stored.
@@ -42,6 +43,7 @@ app.use(express.urlencoded({ extended: true }));
 app.set('etag', false);
 app.use(helmet());
 app.use(compression());
+app.use(expressip().getIpInfoMiddleware);
 
 // const corsOptions = {
 //   origin: [process.env.WEB_URI, process.env.API_URI]
@@ -68,12 +70,16 @@ require('./config/passport')(passport);
  * Primary app routes.
  */
 const authRoutes = require('./routes/auth');
+const userRoutes = require('./routes/user');
 const accountRoutes = require('./routes/account');
 const goalsRoutes = require('./routes/goals');
+const analyticsRoutes = require('./routes/analytics');
 
 app.use('/auth', authRoutes);
+app.use('/user', userRoutes);
 app.use('/account', accountRoutes);
 app.use('/goals', goalsRoutes);
+app.use('/analytics', analyticsRoutes);
 
 /**
  * Handle 404 errors
