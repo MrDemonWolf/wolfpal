@@ -52,7 +52,7 @@ curl --location --request POST 'https://www.example.com/api/user/forgot-password
 
 ## Reset Password
 
-Allows a register user to use token to reset password.
+Allows a register user to request a password reset email.
 
 #### Path
 
@@ -100,9 +100,9 @@ curl --location --request POST 'https://www.example.com/api/user/reset-password/
   </code-block>
 </code-group>
 
-## Ac Password
+## Activate account
 
-Allows a register user to use token to reset password.
+Allows a register user to activate their account with token.
 
 #### Path
 

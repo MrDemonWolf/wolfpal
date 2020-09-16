@@ -24,7 +24,7 @@ const requireAuth = passport.authenticate('jwt', {
 /**
  * @route /analytics
  * @method GET
- * @description Allows a logged in user to get analytics on weekly goals
+ * @description Allows a logged in user to get analytics on all goals.
  */
 
 router.get('/', requireAuth, isSessionValid, async (req, res) => {

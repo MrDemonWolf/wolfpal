@@ -8,20 +8,36 @@
           <div class="px-4 py-5 sm:p-6">
             <content-loader
               v-if="loading.weekly"
-              :width="340"
-              :height="84"
+              :width="277.33"
+              :height="61"
               :speed="2"
               primary-color="#f3f3f3"
               secondary-color="#ecebeb"
             >
-              <rect x="0" y="0" rx="3" ry="3" width="67" height="11" />
-              <rect x="76" y="0" rx="3" ry="3" width="140" height="11" />
-              <rect x="127" y="48" rx="3" ry="3" width="53" height="11" />
-              <rect x="187" y="48" rx="3" ry="3" width="72" height="11" />
-              <rect x="18" y="48" rx="3" ry="3" width="100" height="11" />
-              <rect x="0" y="71" rx="3" ry="3" width="37" height="11" />
-              <rect x="18" y="23" rx="3" ry="3" width="140" height="11" />
-              <rect x="166" y="23" rx="3" ry="3" width="173" height="11" />
+              <rect
+                x="-1.5"
+                y="0.27"
+                rx="0"
+                ry="0"
+                width="202.64639999999997"
+                height="22.032"
+              />
+              <rect
+                x="-0.5"
+                y="32.27"
+                rx="0"
+                ry="0"
+                width="98.01"
+                height="28.75"
+              />
+              <rect
+                x="189.5"
+                y="32.27"
+                rx="0"
+                ry="0"
+                width="70"
+                height="28.75"
+              />
             </content-loader>
             <StatCard
               v-if="!loading.weekly"
@@ -34,20 +50,36 @@
           <div class="px-4 py-5 sm:p-6">
             <content-loader
               v-if="loading.weekly"
-              :width="340"
-              :height="84"
+              :width="277.33"
+              :height="61"
               :speed="2"
               primary-color="#f3f3f3"
               secondary-color="#ecebeb"
             >
-              <rect x="0" y="0" rx="3" ry="3" width="67" height="11" />
-              <rect x="76" y="0" rx="3" ry="3" width="140" height="11" />
-              <rect x="127" y="48" rx="3" ry="3" width="53" height="11" />
-              <rect x="187" y="48" rx="3" ry="3" width="72" height="11" />
-              <rect x="18" y="48" rx="3" ry="3" width="100" height="11" />
-              <rect x="0" y="71" rx="3" ry="3" width="37" height="11" />
-              <rect x="18" y="23" rx="3" ry="3" width="140" height="11" />
-              <rect x="166" y="23" rx="3" ry="3" width="173" height="11" />
+              <rect
+                x="-1.5"
+                y="0.27"
+                rx="0"
+                ry="0"
+                width="202.64639999999997"
+                height="22.032"
+              />
+              <rect
+                x="-0.5"
+                y="32.27"
+                rx="0"
+                ry="0"
+                width="98.01"
+                height="28.75"
+              />
+              <rect
+                x="189.5"
+                y="32.27"
+                rx="0"
+                ry="0"
+                width="70"
+                height="28.75"
+              />
             </content-loader>
             <StatCard
               v-if="!loading.weekly"
