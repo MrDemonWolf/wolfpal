@@ -1,16 +1,127 @@
 <template>
-  <div class="py-12 md:py-16">
+  <div class="py-8">
     <div class="container mx-auto px-6">
-      <div class="sm:grid sm:h-32 sm:grid-flow-row sm:gap-4 sm:grid-cols-3">
-        <div
-          class="flex flex-col justify-center px-4 py-4 bg-white border border-gray-300 rounded"
-        >
-          <div>
-            <p class="text-3xl font-semibold text-center text-gray-800">43</p>
-            <p class="text-lg text-center text-gray-500">Complated Goals</p>
+      <div
+        class="mt-5 grid grid-cols-1 rounded-lg bg-white overflow-hidden shadow md:grid-cols-3"
+      >
+        <div>
+          <div class="px-4 py-5 sm:p-6">
+            <content-loader
+              v-if="loading.weekly"
+              :width="340"
+              :height="84"
+              :speed="2"
+              primary-color="#f3f3f3"
+              secondary-color="#ecebeb"
+            >
+              <rect x="0" y="0" rx="3" ry="3" width="67" height="11" />
+              <rect x="76" y="0" rx="3" ry="3" width="140" height="11" />
+              <rect x="127" y="48" rx="3" ry="3" width="53" height="11" />
+              <rect x="187" y="48" rx="3" ry="3" width="72" height="11" />
+              <rect x="18" y="48" rx="3" ry="3" width="100" height="11" />
+              <rect x="0" y="71" rx="3" ry="3" width="37" height="11" />
+              <rect x="18" y="23" rx="3" ry="3" width="140" height="11" />
+              <rect x="166" y="23" rx="3" ry="3" width="173" height="11" />
+            </content-loader>
+            <StatCard
+              v-if="!loading.weekly"
+              title="Completed Weekly Goals"
+              :from="analytics.weekly.completed"
+            />
           </div>
         </div>
+        <!-- <div class="border-t border-gray-200 md:border-0 md:border-l">
+          <div class="px-4 py-5 sm:p-6">
+            <content-loader
+              v-if="loading.weekly"
+              :width="340"
+              :height="84"
+              :speed="2"
+              primary-color="#f3f3f3"
+              secondary-color="#ecebeb"
+            >
+              <rect x="0" y="0" rx="3" ry="3" width="67" height="11" />
+              <rect x="76" y="0" rx="3" ry="3" width="140" height="11" />
+              <rect x="127" y="48" rx="3" ry="3" width="53" height="11" />
+              <rect x="187" y="48" rx="3" ry="3" width="72" height="11" />
+              <rect x="18" y="48" rx="3" ry="3" width="100" height="11" />
+              <rect x="0" y="71" rx="3" ry="3" width="37" height="11" />
+              <rect x="18" y="23" rx="3" ry="3" width="140" height="11" />
+              <rect x="166" y="23" rx="3" ry="3" width="173" height="11" />
+            </content-loader>
+            <StatCard
+              v-if="!loading.weekly"
+              title="Completed Weekly Goals"
+              :from="analytics.weekly.completed"
+            />
+          </div>
+        </div> -->
+        <!-- <div class="border-t border-gray-200 md:border-0 md:border-l">
+          <div class="px-4 py-5 sm:p-6">
+            <content-loader
+              v-if="loading.weekly"
+              :width="340"
+              :height="84"
+              :speed="2"
+              primary-color="#f3f3f3"
+              secondary-color="#ecebeb"
+            >
+              <rect x="0" y="0" rx="3" ry="3" width="67" height="11" />
+              <rect x="76" y="0" rx="3" ry="3" width="140" height="11" />
+              <rect x="127" y="48" rx="3" ry="3" width="53" height="11" />
+              <rect x="187" y="48" rx="3" ry="3" width="72" height="11" />
+              <rect x="18" y="48" rx="3" ry="3" width="100" height="11" />
+              <rect x="0" y="71" rx="3" ry="3" width="37" height="11" />
+              <rect x="18" y="23" rx="3" ry="3" width="140" height="11" />
+              <rect x="166" y="23" rx="3" ry="3" width="173" height="11" />
+            </content-loader>
+            <StatCard
+              v-if="!loading.weekly"
+              title="Completed Weekly Goals"
+              :from="analytics.weekly.completed"
+            />
+          </div>
+        </div> -->
       </div>
     </div>
   </div>
 </template>
+
+<script>
+import StatCard from '@/components/Shared/StatCard'
+import { ContentLoader } from 'vue-content-loader'
+
+export default {
+  components: {
+    StatCard,
+    ContentLoader,
+  },
+
+  data() {
+    return {
+      analytics: {
+        weekly: {
+          completed: 0,
+        },
+      },
+      loading: {
+        weekly: true,
+      },
+    }
+  },
+
+  mounted() {
+    this.getAnalytics()
+  },
+
+  methods: {
+    async getAnalytics() {
+      const { data } = await this.$axios.get('/api/analytics').catch((err) => {
+        this.error({ statusCode: 400, message: err.error })
+      })
+      this.loading.weekly = false
+      this.analytics = data
+    },
+  },
+}
+</script>
