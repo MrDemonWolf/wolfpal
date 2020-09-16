@@ -87,7 +87,7 @@ router.post('/forgot-password', async (req, res) => {
       html: emailTemplate.html
     };
 
-    // if (process.env.NODE_ENV !== 'test') await sendgrid.send(msg);
+    if (process.env.NODE_ENV !== 'test') await sendgrid.send(msg);
 
     res.status(200).json({
       code: 200,

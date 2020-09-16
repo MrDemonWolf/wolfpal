@@ -1,15 +1,15 @@
 <template>
-  <SignedInJumbotron v-if="$auth.loggedIn" />
+  <SignedInDashboard v-if="$auth.loggedIn" />
   <NotSignedInJumbotron v-else />
 </template>
 
 <script>
 import NotSignedInJumbotron from '@/components/Landing/NotSignedInJumbotron'
-import SignedInJumbotron from '@/components/Landing/SignedInJumbotron'
+import SignedInDashboard from '@/components/Landing/SignedInDashboard'
 export default {
   components: {
     NotSignedInJumbotron,
-    SignedInJumbotron,
+    SignedInDashboard,
   },
 }
 </script>
