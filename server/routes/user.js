@@ -60,8 +60,21 @@ router.post('/forgot-password', async (req, res) => {
       });
     }
 
+    const lastChanged = moment().diff(
+      moment(user.passwordResetTokenExpire),
+      'minutes'
+    );
+
+    if (lastChanged <= 5 && lastChanged <= -5) {
+      return res.status(429).json({
+        code: 429,
+        error:
+          'You either requested or changed your password recently.  Please try again later.'
+      });
+    }
+
     user.passwordResetToken = await passwordResetToken();
-    user.passwordResetTokenExpire = moment().add('3', 'h');
+    user.passwordResetTokenExpire = moment().add('15', 'm');
 
     await user.save();
 
@@ -74,7 +87,7 @@ router.post('/forgot-password', async (req, res) => {
       html: emailTemplate.html
     };
 
-    if (process.env.NODE_ENV !== 'test') await sendgrid.send(msg);
+    // if (process.env.NODE_ENV !== 'test') await sendgrid.send(msg);
 
     res.status(200).json({
       code: 200,

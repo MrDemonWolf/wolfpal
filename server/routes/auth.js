@@ -80,8 +80,8 @@ router.post('/register', async (req, res) => {
 
     await newUser.save();
 
-    res.json({
-      code: 200,
+    res.status(201).json({
+      code: 201,
       message: 'Please confirm your email address to complete the registration.'
     });
   } catch (err) {

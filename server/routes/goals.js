@@ -63,8 +63,8 @@ router.post('/weekly', requireAuth, isSessionValid, async (req, res) => {
     });
     await weeklyGoal.save();
     res
-      .status(200)
-      .json({ code: 200, weeklyGoal, message: 'Added weekly goal.' });
+      .status(201)
+      .json({ code: 201, weeklyGoal, message: 'Added weekly goal.' });
   } catch (err) {
     console.log(err);
     res.status(500).json({ code: 500, error: 'Internal Server Error' });
