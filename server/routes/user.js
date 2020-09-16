@@ -48,6 +48,7 @@ router.post('/forgot-password', async (req, res) => {
     }
 
     const { email } = req.body;
+
     /**
      * Get the user by there email
      */
@@ -60,6 +61,9 @@ router.post('/forgot-password', async (req, res) => {
       });
     }
 
+    /**
+     * Last changed date
+     */
     const lastChanged = moment().diff(
       moment(user.passwordResetTokenExpire),
       'minutes'
@@ -131,6 +135,9 @@ router.post('/reset-password/:reset_token', async (req, res) => {
       });
     }
 
+    /**
+     * Get the IP details and place it in a object
+     */
     const ipInfo = {
       city: req.ipInfo.city,
       state: req.ipInfo.region,
@@ -138,10 +145,15 @@ router.post('/reset-password/:reset_token', async (req, res) => {
       ip: req.ipInfo.ip,
       localhost: req.ipInfo.error
     };
+
+    /**
+     * Device Details in a object
+     */
     const device = {
       os: req.body.device.os ? req.body.device.os : 'null',
       browser: req.body.device.browser ? req.body.device.browser : 'null'
     };
+
     const emailTemplate = resetPasswordTemplate(ipInfo, device);
 
     const msg = {
@@ -152,6 +164,7 @@ router.post('/reset-password/:reset_token', async (req, res) => {
     };
 
     if (process.env.NODE_ENV !== 'test') await sendgrid.send(msg);
+
     /**
      * Sets the token and expire date to undfined which removes them
      * from the database
@@ -201,8 +214,8 @@ router.put('/activate-account/:activate_token', async (req, res) => {
     user.emailVerified = true;
 
     await user.save();
-    res.status(200).json({
-      code: 200,
+    res.status(201).json({
+      code: 201,
       message: "Your account is now activated and you're now able to login."
     });
   } catch (err) {

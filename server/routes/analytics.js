@@ -7,7 +7,7 @@ const router = express.Router();
  * Load MongoDB models.
  */
 const User = require('../models/User');
-const WeeklyGoal = require('../models/User');
+const WeeklyGoal = require('../models/Goals/Weekly');
 
 /**
  * Load middlewares
@@ -22,7 +22,7 @@ const requireAuth = passport.authenticate('jwt', {
 });
 
 /**
- * @route /analytics/weekly
+ * @route /analytics
  * @method GET
  * @description Allows a logged in user to get analytics on weekly goals
  */
@@ -30,13 +30,69 @@ const requireAuth = passport.authenticate('jwt', {
 router.get('/', requireAuth, isSessionValid, async (req, res) => {
   try {
     /**
-     * Get the current user data and remove sensitive data
+     * Get the weekly goal data
      */
-    const user = await User.findById(req.user.id).select(
-      '-password -__v -twoFactorSecret -emailVerificationToken -emailVerificationTokenExpire'
-    );
+    const weeklyGoals = await WeeklyGoal.find({
+      user: req.user.id
+    }).countDocuments();
 
-    res.status(200).json({ code: 200, user });
+    const weeklyCompleted = await WeeklyGoal.find({
+      user: req.user.id,
+      isCompleted: { $ne: false }
+    }).countDocuments();
+
+    const weeklyNotCompleted = await WeeklyGoal.find({
+      user: req.user.id,
+      isCompleted: { $ne: true }
+    }).countDocuments();
+
+    res.status(200).json({
+      code: 200,
+      weekly: {
+        completed: weeklyCompleted,
+        notCompleted: weeklyNotCompleted,
+        total: weeklyGoals
+      }
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ code: 500, error: 'Internal Server Error' });
+  }
+});
+
+/**
+ * @route /analytics/weekly
+ * @method GET
+ * @description Allows a logged in user to get analytics on weekly goals
+ */
+
+router.get('/weekly', requireAuth, isSessionValid, async (req, res) => {
+  try {
+    /**
+     * Get the weekly goal data
+     */
+    const weeklyGoals = await WeeklyGoal.find({
+      user: req.user.id
+    }).countDocuments();
+
+    const weeklyCompleted = await WeeklyGoal.find({
+      user: req.user.id,
+      isCompleted: { $ne: false }
+    }).countDocuments();
+
+    const weeklyNotCompleted = await WeeklyGoal.find({
+      user: req.user.id,
+      isCompleted: { $ne: true }
+    }).countDocuments();
+
+    res.status(200).json({
+      code: 200,
+      weekly: {
+        completed: weeklyCompleted,
+        notCompleted: weeklyNotCompleted,
+        total: weeklyGoals
+      }
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json({ code: 500, error: 'Internal Server Error' });
