@@ -14,6 +14,7 @@ const emailVerificationToken = customAlphabet(
   '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_',
   32
 );
+
 /**
  * Load MongoDB models.
  */
@@ -96,6 +97,7 @@ router.post('/register', async (req, res) => {
     };
 
     if (process.env.NODE_ENV !== 'test') await sendgrid.send(msg);
+
     res.status(201).json({
       code: 201,
       message: 'Please confirm your email address to complete the registration.'

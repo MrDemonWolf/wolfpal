@@ -19,6 +19,10 @@ const passwordResetToken = customAlphabet(
   '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_',
   64
 );
+const emailVerificationToken = customAlphabet(
+  '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_',
+  32
+);
 
 /**
  * Load input validators.
@@ -31,6 +35,7 @@ const validateResetPasswordInput = require('../validation/user/reset-password');
  */
 const forgotPasswordTemplate = require('../emails/user/forgot-password');
 const resetPasswordTemplate = require('../emails/user/reset-password');
+const activateAccountTemplate = require('../emails/auth/activate-account');
 
 /**
  * @route /user/forgot-password
@@ -217,6 +222,52 @@ router.put('/activate-account/:activate_token', async (req, res) => {
     res.status(201).json({
       code: 201,
       message: "Your account is now activated and you're now able to login."
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ code: 500, error: 'Internal Server Error' });
+  }
+});
+
+/**
+ * @route /user/activate-account/resend
+ * @description Allows a register user resend account activate token to tehir email.
+ */
+router.post('/activate-account/resend', async (req, res) => {
+  try {
+    /**
+     * Get the user by there email
+     */
+    const user = await User.findOne({
+      emailVerified: { $ne: true },
+      email: req.body.email
+    });
+
+    if (!user) {
+      return res.status(409).json({
+        code: 409,
+        error: 'Your account already activated.'
+      });
+    }
+
+    user.emailVerificationToken = await emailVerificationToken();
+    user.emailVerificationTokenExpire = moment().add('3', 'h');
+
+    await user.save();
+
+    const emailTemplate = activateAccountTemplate(user.emailVerificationToken);
+
+    const msg = {
+      to: user.email,
+      from: `${process.env.EMAIL_FROM} <noreply@${process.env.EMAIL_DOMAIN}>`,
+      subject: `Activate your account on ${process.env.SITE_TITLE}`,
+      html: emailTemplate.html
+    };
+
+    if (process.env.NODE_ENV !== 'test') await sendgrid.send(msg);
+    res.status(201).json({
+      code: 201,
+      message: 'Please confirm your email address to complete the registration.'
     });
   } catch (err) {
     console.log(err);
