@@ -25,7 +25,7 @@
       <div
         class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 dark:bg-gray-200"
       >
-        <form @submit.prevent="userActivateAccount">
+        <form @submit.prevent="userResendActivateAccount">
           <div>
             <label
               for="email"
@@ -36,7 +36,7 @@
             <div class="mt-1 rounded-md shadow-sm">
               <input
                 id="email"
-                v-model="activateAccount.email"
+                v-model="resendActivateAccount.email"
                 aria-label="Email address"
                 name="email"
                 type="email"
@@ -70,10 +70,11 @@
 import Alert from '@/components/Shared/Alert'
 
 export default {
+  middleware: ['alreadyAuthenticated'],
   components: { Alert },
   data() {
     return {
-      activateAccount: {
+      resendActivateAccount: {
         email: '',
       },
       error: null,
@@ -82,11 +83,11 @@ export default {
     }
   },
   methods: {
-    async userActivateAccount() {
+    async userResendActivateAccount() {
       try {
         const response = await this.$axios.post(
-          '/api/user/activate-account',
-          this.activateAccount
+          '/api/user/activate-account/resend',
+          this.resendActivateAccount
         )
         this.success = response.data.message
         if (this.error) {

@@ -243,10 +243,12 @@ router.post('/activate-account/resend', async (req, res) => {
       email: req.body.email
     });
 
+    console.log(req.body);
+
     if (!user) {
       return res.status(409).json({
         code: 409,
-        error: 'Your account already activated.'
+        error: 'Your account already activated or there is no such account.'
       });
     }
 

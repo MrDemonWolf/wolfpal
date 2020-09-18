@@ -7,6 +7,7 @@
         Login in to your account
       </h1>
       <p
+        v-if="$config.registration"
         class="mt-2 text-center text-sm leading-5 text-gray-600 max-w dark:text-gray-200"
       >
         Or
@@ -104,6 +105,7 @@
 import Alert from '@/components/Shared/Alert'
 
 export default {
+  middleware: ['alreadyAuthenticated'],
   components: { Alert },
   data() {
     return {

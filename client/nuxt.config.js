@@ -133,8 +133,10 @@ export default {
   },
   publicRuntimeConfig: {
     title: process.env.SITE_TITLE || 'WolfPal',
-    copyright: process.env.COPYRIGHT || 'MrDemonWolf',
-    copyrightLink: process.env.COPYRIGHT_LINK || 'https://www.mrdemonwolf.me',
+    copyright: process.env.COPYRIGHT || 'WolfPal',
+    copyrightLink:
+      process.env.COPYRIGHT_LINK || 'https://www.mrdemonwolf.github.io/wolfpal',
+    registration: process.env.REGISTRATION || true,
   },
 
   /*

@@ -46,6 +46,7 @@
             />
           </div>
         </div>
+        <!--  This will be added once we add more stats this is just so we know how it would look like with two more status -->
         <!-- <div class="border-t border-gray-200 md:border-0 md:border-l">
           <div class="px-4 py-5 sm:p-6">
              <StatCard

@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="h-80 bg-gray-50 flex flex-col justify-center py-12 sm:px-6 lg:px-8"
-  >
+  <div class="h-80 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
     <loading
       :active.sync="loader.isLoading"
       :can-cancel="false"
@@ -39,6 +37,7 @@ import 'vue-loading-overlay/dist/vue-loading.css'
 import Alert from '@/components/Shared/Alert'
 
 export default {
+  middleware: ['alreadyAuthenticated'],
   loading: false,
   components: { Alert, Loading },
   data() {
