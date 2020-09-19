@@ -20,11 +20,11 @@ git:
 # branches:
 #   only:
 #     - master
-
+i
 
 install:
-  - if [ "$TO_TEST" = "FRONTEND" ]; then cd $TRAVIS_BUILD_DIR && cd client && npm install; fi
-  - if [ "$TO_TEST" = "BACKEND" ]; then cd $TRAVIS_BUILD_DIR  && cd server && npm install; fi
+  - if [ "$TO_TEST" = "FRONTEND" ]; then cd $TRAVIS_BUILD_DIR && cd client && npm i; fi
+  - if [ "$TO_TEST" = "BACKEND" ]; then cd $TRAVIS_BUILD_DIR  && cd server && npm i; fi
 
 
 script:
