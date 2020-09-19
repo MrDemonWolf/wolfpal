@@ -23,10 +23,10 @@ git:
 
 
 install:
-  - if [ "$TO_TEST" = "FRONTEND" ]; then cd client && npm install; fi
-  - if [ "$TO_TEST" = "BACKEND" ]; then cd server && npm install; fi
+  - if [ "$TO_TEST" = "FRONTEND" ]; then cd ~  && cd client && npm install; fi
+  - if [ "$TO_TEST" = "BACKEND" ]; then cd ~  && cd server && npm install; fi
 
 
 script:
-  - if [ "$TO_TEST" = "FRONTEND" ]; then cd client && npm run test; fi
-  - if [ "$TO_TEST" = "BACKEND" ]; then cd server && npm run test; fi
+  - if [ "$TO_TEST" = "FRONTEND" ]; then cd ~  && cd client && npm run test; fi
+  - if [ "$TO_TEST" = "BACKEND" ]; then cd ~  && cd server && npm run test; fi
