@@ -1,4 +1,3 @@
-export { default as AppColorSwitcher } from '../../node_modules/@nuxt/content-theme-docs/src/components/global/app/AppColorSwitcher.vue'
 export { default as Alert } from '../../node_modules/@nuxt/content-theme-docs/src/components/global/base/Alert.vue'
 export { default as Badge } from '../../node_modules/@nuxt/content-theme-docs/src/components/global/base/Badge.vue'
 export { default as CodeBlock } from '../../node_modules/@nuxt/content-theme-docs/src/components/global/base/CodeBlock.vue'
@@ -26,6 +25,7 @@ export { default as IconTranslate } from '../../node_modules/@nuxt/content-theme
 export { default as IconTwitter } from '../../node_modules/@nuxt/content-theme-docs/src/components/global/icons/IconTwitter.vue'
 export { default as IconX } from '../../node_modules/@nuxt/content-theme-docs/src/components/global/icons/IconX.vue'
 export { default as IconXCircle } from '../../node_modules/@nuxt/content-theme-docs/src/components/global/icons/IconXCircle.vue'
+export { default as AppColorSwitcher } from '../../node_modules/@nuxt/content-theme-docs/src/components/global/app/AppColorSwitcher.vue'
 export { default as AppCopyButton } from '../../node_modules/@nuxt/content-theme-docs/src/components/app/AppCopyButton.vue'
 export { default as AppDropdown } from '../../node_modules/@nuxt/content-theme-docs/src/components/app/AppDropdown.vue'
 export { default as AppFooter } from '../../node_modules/@nuxt/content-theme-docs/src/components/app/AppFooter.vue'
@@ -37,7 +37,6 @@ export { default as AppPrevNext } from '../../node_modules/@nuxt/content-theme-d
 export { default as AppSearch } from '../../node_modules/@nuxt/content-theme-docs/src/components/app/AppSearch.vue'
 export { default as AppToc } from '../../node_modules/@nuxt/content-theme-docs/src/components/app/AppToc.vue'
 
-export const LazyAppColorSwitcher = import('../../node_modules/@nuxt/content-theme-docs/src/components/global/app/AppColorSwitcher.vue' /* webpackChunkName: "components/global/app/AppColorSwitcher" */).then(c => c.default || c)
 export const LazyAlert = import('../../node_modules/@nuxt/content-theme-docs/src/components/global/base/Alert.vue' /* webpackChunkName: "components/global/base/Alert" */).then(c => c.default || c)
 export const LazyBadge = import('../../node_modules/@nuxt/content-theme-docs/src/components/global/base/Badge.vue' /* webpackChunkName: "components/global/base/Badge" */).then(c => c.default || c)
 export const LazyCodeBlock = import('../../node_modules/@nuxt/content-theme-docs/src/components/global/base/CodeBlock.vue' /* webpackChunkName: "components/global/base/CodeBlock" */).then(c => c.default || c)
@@ -65,6 +64,7 @@ export const LazyIconTranslate = import('../../node_modules/@nuxt/content-theme-
 export const LazyIconTwitter = import('../../node_modules/@nuxt/content-theme-docs/src/components/global/icons/IconTwitter.vue' /* webpackChunkName: "components/global/icons/IconTwitter" */).then(c => c.default || c)
 export const LazyIconX = import('../../node_modules/@nuxt/content-theme-docs/src/components/global/icons/IconX.vue' /* webpackChunkName: "components/global/icons/IconX" */).then(c => c.default || c)
 export const LazyIconXCircle = import('../../node_modules/@nuxt/content-theme-docs/src/components/global/icons/IconXCircle.vue' /* webpackChunkName: "components/global/icons/IconXCircle" */).then(c => c.default || c)
+export const LazyAppColorSwitcher = import('../../node_modules/@nuxt/content-theme-docs/src/components/global/app/AppColorSwitcher.vue' /* webpackChunkName: "components/global/app/AppColorSwitcher" */).then(c => c.default || c)
 export const LazyAppCopyButton = import('../../node_modules/@nuxt/content-theme-docs/src/components/app/AppCopyButton.vue' /* webpackChunkName: "components/app/AppCopyButton" */).then(c => c.default || c)
 export const LazyAppDropdown = import('../../node_modules/@nuxt/content-theme-docs/src/components/app/AppDropdown.vue' /* webpackChunkName: "components/app/AppDropdown" */).then(c => c.default || c)
 export const LazyAppFooter = import('../../node_modules/@nuxt/content-theme-docs/src/components/app/AppFooter.vue' /* webpackChunkName: "components/app/AppFooter" */).then(c => c.default || c)
