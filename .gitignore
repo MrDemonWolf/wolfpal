@@ -52,3 +52,5 @@ lib-cov
 pids
 logs
 results
+
+.travis.yml.test

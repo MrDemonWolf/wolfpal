@@ -1,0 +1,32 @@
+notifications:
+  email: false
+
+language: node_js
+node_js:
+  - 12
+
+matrix:
+  include:
+      env: TO_TEST=FRONTEND
+      env: TO_TEST=BACKEND
+
+cache: npm
+
+services: mongodb
+
+git:
+  quiet: true
+
+branches:
+  only:
+    - master
+
+
+install:
+  - if [ "$TO_TEST" = "FRONTEND" ]; then cd client && npm install; fi
+  - if [ "$TO_TEST" = "BACKEND" ]; then cd server && npm install; fi
+
+
+script:
+  - if [ "$TO_TEST" = "FRONTEND" ]; then cd client && npm run test; fi
+  - if [ "$TO_TEST" = "BACKEND" ]; then cd server && npm run test; fi
