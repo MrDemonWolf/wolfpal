@@ -9,12 +9,11 @@
 
 # What is WolfPal?
 
-## Getting started
+<!-- ## Getting started
 
 ### Client
 
-### Server
-
+### Server -->
 
 ## Changelog
 

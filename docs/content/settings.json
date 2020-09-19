@@ -5,6 +5,7 @@
     "light": "/wolfpal/logo-text.svg",
     "dark": "/wolfpal/logo-text-dark.svg"
   },
-  "github": "mrdemonwolf/wolfpal",
-  "twitter": "@mrdemonwolf"
+  "github": "MrDemonWOlf/wolfpal",
+  "twitter": "MrDemonWolf",
+  "defaultBranch": "master"
 }

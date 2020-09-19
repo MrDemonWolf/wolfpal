@@ -168,15 +168,24 @@ export default {
       }
       this.$loading.finish()
     },
-
     errorChanged () {
-      if (this.nuxt.err && this.$loading) {
-        if (this.$loading.fail) {
-          this.$loading.fail(this.nuxt.err)
+      if (this.nuxt.err) {
+        if (this.$loading) {
+          if (this.$loading.fail) {
+            this.$loading.fail(this.nuxt.err)
+          }
+          if (this.$loading.finish) {
+            this.$loading.finish()
+          }
         }
-        if (this.$loading.finish) {
-          this.$loading.finish()
+
+        let errorLayout = (NuxtError.options || NuxtError).layout;
+
+        if (typeof errorLayout === 'function') {
+          errorLayout = errorLayout(this.context)
         }
+
+        this.setLayout(errorLayout)
       }
     },
 
