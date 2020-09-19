@@ -23,7 +23,7 @@ git:
 
 
 install:
-  - if [ "$TO_TEST" = "FRONTEND" ]; then cd ~  && cd client && npm install; fi
+  - if [ "$TO_TEST" = "FRONTEND" ]; then pwd && cd ~  && cd client && npm install; fi
   - if [ "$TO_TEST" = "BACKEND" ]; then cd ~  && cd server && npm install; fi
 
 
