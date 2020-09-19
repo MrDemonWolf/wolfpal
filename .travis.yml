@@ -17,9 +17,9 @@ services: mongodb
 git:
   quiet: true
 
-branches:
-  only:
-    - master
+# branches:
+#   only:
+#     - master
 
 
 install:
