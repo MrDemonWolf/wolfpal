@@ -128,6 +128,7 @@
 import Alert from '@/components/Shared/Alert'
 
 export default {
+  middleware: ['alreadyAuthenticated', 'registration'],
   components: { Alert },
   data() {
     return {

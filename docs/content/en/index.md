@@ -15,7 +15,7 @@ A wolf to guide you to your end goals by helping keep you on track weely, bi-wee
 
 <list :items="features"></list>
 
-## Videos
+<!-- ## Videos
 
 Demonstration of using `$content` and `<nuxt-content>` to display Markdown pages:
 
@@ -31,4 +31,4 @@ Using `$content()` on a directory to list, filter and search content:
   <source src="https://res.cloudinary.com/nuxt/video/upload/q_auto/v1588095794/nuxt-content-movies_c0cq9p.webm" type="video/webm" />
   <source src="https://res.cloudinary.com/nuxt/video/upload/q_auto/v1588095794/nuxt-content-movies_c0cq9p.mp4" type="video/mp4" />
   <source src="https://res.cloudinary.com/nuxt/video/upload/q_auto/v1588095794/nuxt-content-movies_c0cq9p.ogv" type="video/ogg" />
-</video>
+</video> -->

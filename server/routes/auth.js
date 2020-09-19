@@ -14,6 +14,7 @@ const emailVerificationToken = customAlphabet(
   '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_',
   32
 );
+
 /**
  * Load MongoDB models.
  */
@@ -23,9 +24,9 @@ const Session = require('../models/Session');
 /**
  * Load middlewares
  */
-const isSessionValid = require('../middleware/isSessionValid');
-const isRefreshValid = require('../middleware/isRefreshTokenValid');
-
+const isSessionValid = require('../middleware/auth/isSessionValid');
+const isRefreshValid = require('../middleware/auth/isRefreshTokenValid');
+const isRegistration = require('../middleware/auth/isRegistration');
 /**
  * Load input validators.
  */
@@ -42,7 +43,7 @@ const activateAccountTemplate = require('../emails/auth/activate-account');
  * @method POST
  * @description Allows a user to register for a account.
  */
-router.post('/register', async (req, res) => {
+router.post('/register', isRegistration, async (req, res) => {
   try {
     /**
      * Validdate the user important for username,email,password
@@ -96,6 +97,7 @@ router.post('/register', async (req, res) => {
     };
 
     if (process.env.NODE_ENV !== 'test') await sendgrid.send(msg);
+
     res.status(201).json({
       code: 201,
       message: 'Please confirm your email address to complete the registration.'

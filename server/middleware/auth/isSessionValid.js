@@ -1,6 +1,6 @@
 const moment = require('moment');
 const sha512 = require('js-sha512');
-const Session = require('../models/Session');
+const Session = require('../../models/Session');
 
 module.exports = async (req, res, next) => {
   try {
@@ -33,7 +33,6 @@ module.exports = async (req, res, next) => {
     if (tokenValid) {
       return next();
     }
-    console.log(tokenValid);
     res.status(401).send('Unauthorized');
   } catch (err) {
     console.log(err);

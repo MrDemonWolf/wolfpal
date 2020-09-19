@@ -51,7 +51,10 @@
                 </p>
               </div>
             </div>
-            <div class="mt-12 sm:mt-16 lg:mt-0 lg:col-span-6">
+            <div
+              v-if="$config.registration"
+              class="mt-12 sm:mt-16 lg:mt-0 lg:col-span-6"
+            >
               <div
                 class="bg-white sm:max-w-md sm:w-full sm:mx-auto sm:rounded-lg sm:overflow-hidden dark:bg-gray-500"
               >

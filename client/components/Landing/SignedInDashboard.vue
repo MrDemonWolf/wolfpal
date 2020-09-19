@@ -8,19 +8,19 @@
           <div class="px-4 py-5 sm:p-6">
             <content-loader
               v-if="loading.weekly"
+              :height="60"
               :width="277.33"
-              :height="61"
               :speed="2"
-              primary-color="#f3f3f3"
-              secondary-color="#ecebeb"
+              primary-color="#edf1f9"
+              secondary-color="#486ec2"
             >
               <rect
                 x="-1.5"
                 y="0.27"
                 rx="0"
                 ry="0"
-                width="202.64639999999997"
-                height="22.032"
+                width="202.65"
+                height="22.03"
               />
               <rect
                 x="-0.5"
@@ -30,14 +30,14 @@
                 width="98.01"
                 height="28.75"
               />
-              <rect
+              <!-- <rect
                 x="189.5"
                 y="32.27"
                 rx="0"
                 ry="0"
-                width="70"
-                height="28.75"
-              />
+                width="90.12"
+                height="29"
+              /> -->
             </content-loader>
             <StatCard
               v-if="!loading.weekly"
@@ -46,42 +46,10 @@
             />
           </div>
         </div>
+        <!--  This will be added once we add more stats this is just so we know how it would look like with two more status -->
         <!-- <div class="border-t border-gray-200 md:border-0 md:border-l">
           <div class="px-4 py-5 sm:p-6">
-            <content-loader
-              v-if="loading.weekly"
-              :width="277.33"
-              :height="61"
-              :speed="2"
-              primary-color="#f3f3f3"
-              secondary-color="#ecebeb"
-            >
-              <rect
-                x="-1.5"
-                y="0.27"
-                rx="0"
-                ry="0"
-                width="202.64639999999997"
-                height="22.032"
-              />
-              <rect
-                x="-0.5"
-                y="32.27"
-                rx="0"
-                ry="0"
-                width="98.01"
-                height="28.75"
-              />
-              <rect
-                x="189.5"
-                y="32.27"
-                rx="0"
-                ry="0"
-                width="70"
-                height="28.75"
-              />
-            </content-loader>
-            <StatCard
+             <StatCard
               v-if="!loading.weekly"
               title="Completed Weekly Goals"
               :from="analytics.weekly.completed"
@@ -148,11 +116,15 @@ export default {
 
   methods: {
     async getAnalytics() {
-      const { data } = await this.$axios.get('/api/analytics').catch((err) => {
-        this.error({ statusCode: 400, message: err.error })
-      })
-      this.loading.weekly = false
-      this.analytics = data
+      await this.$axios
+        .get('/api/analytics')
+        .then((res) => {
+          this.analytics = res.data
+          this.loading.weekly = false
+        })
+        .catch((err) => {
+          this.error({ statusCode: 400, message: err.error })
+        })
     },
   },
 }

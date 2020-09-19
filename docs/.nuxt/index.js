@@ -14,12 +14,12 @@ import { createStore } from './store.js'
 /* Plugins */
 
 import nuxt_plugin_plugin_5a5085de from 'nuxt_plugin_plugin_5a5085de' // Source: ./components/plugin.js (mode: 'all')
-import nuxt_plugin_pluginrouting_3fb17e52 from 'nuxt_plugin_pluginrouting_3fb17e52' // Source: ./nuxt-i18n/plugin.routing.js (mode: 'all')
-import nuxt_plugin_pluginmain_51765e5d from 'nuxt_plugin_pluginmain_51765e5d' // Source: ./nuxt-i18n/plugin.main.js (mode: 'all')
 import nuxt_plugin_workbox_bdca53e0 from 'nuxt_plugin_workbox_bdca53e0' // Source: ./workbox.js (mode: 'client')
 import nuxt_plugin_nuxticons_6f789858 from 'nuxt_plugin_nuxticons_6f789858' // Source: ./nuxt-icons.js (mode: 'all')
 import nuxt_plugin_pluginclient_1e40325a from 'nuxt_plugin_pluginclient_1e40325a' // Source: ./content/plugin.client.js (mode: 'client')
 import nuxt_plugin_pluginserver_f80cb83c from 'nuxt_plugin_pluginserver_f80cb83c' // Source: ./content/plugin.server.js (mode: 'server')
+import nuxt_plugin_pluginrouting_3fb17e52 from 'nuxt_plugin_pluginrouting_3fb17e52' // Source: ./nuxt-i18n/plugin.routing.js (mode: 'all')
+import nuxt_plugin_pluginmain_51765e5d from 'nuxt_plugin_pluginmain_51765e5d' // Source: ./nuxt-i18n/plugin.main.js (mode: 'all')
 import nuxt_plugin_pluginserver_4b39dbc8 from 'nuxt_plugin_pluginserver_4b39dbc8' // Source: ./color-mode/plugin.server.js (mode: 'server')
 import nuxt_plugin_pluginclient_34ff2b80 from 'nuxt_plugin_pluginclient_34ff2b80' // Source: ./color-mode/plugin.client.js (mode: 'client')
 import nuxt_plugin_markdown_667a7ee3 from 'nuxt_plugin_markdown_667a7ee3' // Source: ../node_modules/@nuxt/content-theme-docs/src/plugins/markdown (mode: 'all')
@@ -79,7 +79,7 @@ async function createApp(ssrContext, config = {}) {
   // here we inject the router and store to all child components,
   // making them available everywhere as `this.$router` and `this.$store`.
   const app = {
-    head: {"meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"mobile-web-app-capable","name":"mobile-web-app-capable","content":"yes"},{"hid":"apple-mobile-web-app-title","name":"apple-mobile-web-app-title","content":"wolfpal"},{"hid":"description","name":"description","content":"## Setup"},{"hid":"theme-color","name":"theme-color","content":"#7F8CCC"},{"hid":"og:type","name":"og:type","property":"og:type","content":"website"},{"hid":"og:title","name":"og:title","property":"og:title","content":"wolfpal"},{"hid":"og:site_name","name":"og:site_name","property":"og:site_name","content":"wolfpal"},{"hid":"og:description","name":"og:description","property":"og:description","content":"## Setup"}],"link":[{"rel":"manifest","href":"\u002Fwolfpal\u002F_nuxt\u002Fmanifest.9d32e2de.json"},{"rel":"shortcut icon","href":"\u002Fwolfpal\u002F_nuxt\u002Ficons\u002Ficon_64x64.6560d9.png"},{"rel":"apple-touch-icon","href":"\u002Fwolfpal\u002F_nuxt\u002Ficons\u002Ficon_512x512.6560d9.png","sizes":"512x512"},{"rel":"dns-prefetch","href":"https:\u002F\u002Ffonts.gstatic.com\u002F"},{"rel":"preconnect","href":"https:\u002F\u002Ffonts.gstatic.com\u002F","crossorigin":true},{"rel":"stylesheet","href":"https:\u002F\u002Ffonts.googleapis.com\u002Fcss2?family=DM+Sans&family=DM+Mono"}],"style":[],"script":[{"hid":"nuxt-color-mode-script","innerHTML":"!function (){\"use strict\";var e=window,t=document,s=t.documentElement,n=[\"dark\",\"light\"],a=function(e){for(var s=e+\"=\",n=t.cookie.split(\";\"),a=0;a\u003Cn.length;a++){for(var o=n[a];\" \"===o.charAt(0);)o=o.substring(1,o.length);if(0===o.indexOf(s))return o.substring(s.length,o.length)}return null}(\"nuxt-color-mode\")||\"system\",o=\"system\"===a?i():a;function r(e){var t=e+\"-mode\";s.classList?s.classList.add(t):s.className+=\" \"+t}function c(t){return e.matchMedia(\"(prefers-color-scheme\"+t+\")\")}function i(){if(e.matchMedia&&\"not all\"!==c(\"\").media)for(var t of n)if(c(\":\"+t).matches)return t;return\"light\"}r(o),e[\"__NUXT_COLOR_MODE__\"]={preference:a,value:o,getColorScheme:i,addClass:r,removeClass:function(e){var t=e+\"-mode\";s.classList?s.classList.remove(t):s.className=s.className.replace(new RegExp(t,\"g\"),\"\")}}}();\n","pbody":true}],"__dangerouslyDisableSanitizersByTagID":{"nuxt-color-mode-script":["innerHTML"]},"title":"wolfpal","htmlAttrs":{"lang":"en"}},
+    head: {"meta":[{"charset":"utf-8"},{"name":"viewport","content":"width=device-width, initial-scale=1"},{"hid":"mobile-web-app-capable","name":"mobile-web-app-capable","content":"yes"},{"hid":"apple-mobile-web-app-title","name":"apple-mobile-web-app-title","content":"wolfpal"},{"hid":"description","name":"description","content":"## Setup"},{"hid":"theme-color","name":"theme-color","content":"#48bb78"},{"hid":"og:type","name":"og:type","property":"og:type","content":"website"},{"hid":"og:title","name":"og:title","property":"og:title","content":"wolfpal"},{"hid":"og:site_name","name":"og:site_name","property":"og:site_name","content":"wolfpal"},{"hid":"og:description","name":"og:description","property":"og:description","content":"## Setup"}],"link":[{"rel":"manifest","href":"\u002Fwolfpal\u002F_nuxt\u002Fmanifest.94a692db.json"},{"rel":"shortcut icon","href":"\u002Fwolfpal\u002F_nuxt\u002Ficons\u002Ficon_64x64.1ee296.png"},{"rel":"apple-touch-icon","href":"\u002Fwolfpal\u002F_nuxt\u002Ficons\u002Ficon_512x512.1ee296.png","sizes":"512x512"},{"rel":"dns-prefetch","href":"https:\u002F\u002Ffonts.gstatic.com\u002F"},{"rel":"preconnect","href":"https:\u002F\u002Ffonts.gstatic.com\u002F","crossorigin":true},{"rel":"stylesheet","href":"https:\u002F\u002Ffonts.googleapis.com\u002Fcss2?family=DM+Sans&family=DM+Mono"}],"style":[],"script":[{"hid":"nuxt-color-mode-script","innerHTML":"!function (){\"use strict\";var e=window,s=document,t=s.documentElement,n=[\"dark\",\"light\"],o=function(e){for(var t=e+\"=\",n=s.cookie.split(\";\"),o=0;o\u003Cn.length;o++){for(var a=n[o];\" \"===a.charAt(0);)a=a.substring(1,a.length);if(0===a.indexOf(t))return a.substring(t.length,a.length)}return null}(\"nuxt-color-mode\")||\"system\",a=\"system\"===o?c():o;function i(e){var s=\"\"+e+\"-mode\";t.classList?t.classList.add(s):t.className+=\" \"+s}function r(s){return e.matchMedia(\"(prefers-color-scheme\"+s+\")\")}function c(){if(e.matchMedia&&\"not all\"!==r(\"\").media)for(var s of n)if(r(\":\"+s).matches)return s;return\"light\"}i(a),e[\"__NUXT_COLOR_MODE__\"]={preference:o,value:a,getColorScheme:c,addClass:i,removeClass:function(e){var s=\"\"+e+\"-mode\";t.classList?t.classList.remove(s):t.className=t.className.replace(new RegExp(s,\"g\"),\"\")}}}();\n","pbody":true}],"__dangerouslyDisableSanitizersByTagID":{"nuxt-color-mode-script":["innerHTML"]},"title":"wolfpal","htmlAttrs":{"lang":"en"}},
 
     store,
     router,
@@ -212,14 +212,6 @@ async function createApp(ssrContext, config = {}) {
     await nuxt_plugin_plugin_5a5085de(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_pluginrouting_3fb17e52 === 'function') {
-    await nuxt_plugin_pluginrouting_3fb17e52(app.context, inject)
-  }
-
-  if (typeof nuxt_plugin_pluginmain_51765e5d === 'function') {
-    await nuxt_plugin_pluginmain_51765e5d(app.context, inject)
-  }
-
   if (process.client && typeof nuxt_plugin_workbox_bdca53e0 === 'function') {
     await nuxt_plugin_workbox_bdca53e0(app.context, inject)
   }
@@ -234,6 +226,14 @@ async function createApp(ssrContext, config = {}) {
 
   if (process.server && typeof nuxt_plugin_pluginserver_f80cb83c === 'function') {
     await nuxt_plugin_pluginserver_f80cb83c(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_pluginrouting_3fb17e52 === 'function') {
+    await nuxt_plugin_pluginrouting_3fb17e52(app.context, inject)
+  }
+
+  if (typeof nuxt_plugin_pluginmain_51765e5d === 'function') {
+    await nuxt_plugin_pluginmain_51765e5d(app.context, inject)
   }
 
   if (process.server && typeof nuxt_plugin_pluginserver_4b39dbc8 === 'function') {

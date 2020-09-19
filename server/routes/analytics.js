@@ -12,7 +12,7 @@ const WeeklyGoal = require('../models/Goals/Weekly');
 /**
  * Load middlewares
  */
-const isSessionValid = require('../middleware/isSessionValid');
+const isSessionValid = require('../middleware/auth/isSessionValid');
 
 /**
  * Require authentication middleware.

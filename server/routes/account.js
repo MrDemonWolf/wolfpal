@@ -11,7 +11,7 @@ const User = require('../models/User');
 /**
  * Load middlewares
  */
-const isSessionValid = require('../middleware/isSessionValid');
+const isSessionValid = require('../middleware/auth/isSessionValid');
 
 /**
  * Require authentication middleware.

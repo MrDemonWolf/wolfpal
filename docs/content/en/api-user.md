@@ -106,7 +106,7 @@ Allows a register user to activate their account with token.
 
 #### Path
 
-`POST /activate-account/:activate_token`
+`PUT /activate-account/:activate_token`
 
 #### Headers
 
@@ -126,10 +126,7 @@ Allows a register user to activate their account with token.
   <code-block label="Request" active>
 
 ```sh
-curl --location --request POST 'https://www.example.com/api/user/reset-password/:reset_token' \
---header 'Content-Type: application/x-www-form-urlencoded' \
---data-urlencode 'password=user@mrdemonwolf.github.io' \
---data-urlencode 'comfirmPassword=user@mrdemonwolf.github.io' \
+curl --location --request PUT 'https://www.example.com/api/user/activate-account/:activate_token' \
 ```
 
   </code-block>
@@ -137,7 +134,53 @@ curl --location --request POST 'https://www.example.com/api/user/reset-password/
 ">
 
 ```json
+{
+  "code": 201,
+  "message": "Your account is now activated and you're now able to login."
+}
+```
 
+  </code-block>
+</code-group>
+
+## Resend Activate account
+
+Allows a register user resend account activate token to tehir email.
+
+#### Path
+
+`POST /activate-account/resend`
+
+#### Headers
+
+| Field        | Type   | Description                       |
+| :----------- | :----- | :-------------------------------- |
+| Content-Type | string | application/x-www-form-urlencoded |
+
+#### Body
+
+| Field | Type   | Description               |
+| :---- | :----- | :------------------------ |
+| email | string | Email of current account. |
+
+#### Example
+
+<code-group>
+  <code-block label="Request" active>
+
+```sh
+curl --location --request POST 'https://www.example.com/api/user/activate-account/:activate_token' \
+```
+
+  </code-block>
+  <code-block label="Response
+">
+
+```json
+{
+  "code": 201,
+  "message": "Please confirm your email address to complete the registration."
+}
 ```
 
   </code-block>

@@ -40,6 +40,7 @@
         <ul v-else class="list-reset md:flex justify-end">
           <li>
             <nuxt-link
+              v-if="$config.registration"
               class="inline-block no-underline hover:text-underline text-primary-500 hover:text-primary-600 dark:text-white dark-hover:text-primary-200 py-2 md:py-1 md:px-2 font-roboto text-xl"
               to="/register"
               >Register

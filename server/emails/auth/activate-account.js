@@ -41,11 +41,6 @@ module.exports = token =>
             Activate
           </mj-button>
         </mj-column>
-        <mj-column>
-          <mj-button href="${process.env.WEBSITE}/delete-account/${token}" font-family="Helvetica" background-color="#486EC2" color="white">
-            Delete Account
-          </mj-button>
-        </mj-column>
       </mj-section>
     </mj-wrapper>
   </mj-body>
