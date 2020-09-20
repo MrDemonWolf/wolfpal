@@ -50,7 +50,7 @@ describe('Goals 🥅', () => {
         .send({
           title: 'Get WolfPal done.'
         })
-        .expect(200)
+        .expect(201)
         .expect('Content-Type', /json/)
         .end((err, res) => {
           if (err) {
