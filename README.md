@@ -5,7 +5,7 @@
 ![GitHub release](https://img.shields.io/github/release/mrdemonwolf/wolfpal.svg?style=for-the-badge)
 [![GitHub last commit](https://img.shields.io/github/last-commit/mrdemonwolf/wolfpal.svg?logo=git&style=for-the-badge)](https://github.com/mrdemonwolf/share)
 [![Trello](https://img.shields.io/badge/Project%20Progress-blue?style=for-the-badge&logo=trello)](https://trello.com/b/8C90NPe5 "Follow the project progress here.")
-![Travis (.com)](https://img.shields.io/travis/com/mrdemonwolf/share?style=for-the-badge)
+![Travis (.com)](https://img.shields.io/travis/com/mrdemonwolf/wolfpal?style=for-the-badge)
 
 # What is WolfPal?
 
