@@ -37,7 +37,7 @@ describe('🔐 Auth:', () => {
           email: testAccounts.user.email,
           password: testAccounts.user.password
         })
-        .expect(200)
+        .expect(201)
         .end(async (err, res) => {
           if (err) {
             return done(err);
