@@ -37,7 +37,7 @@ describe('🔐 Auth:', () => {
           email: testAccounts.user.email,
           password: testAccounts.user.password
         })
-        .expect(200)
+        .expect(201)
         .end(async (err, res) => {
           if (err) {
             return done(err);
@@ -63,7 +63,7 @@ describe('🔐 Auth:', () => {
           email: testAccounts.admin.email,
           password: testAccounts.admin.password
         })
-        .expect(200)
+        .expect(201)
         .end(async (err, res) => {
           if (err) {
             return done(err);
@@ -91,7 +91,7 @@ describe('🔐 Auth:', () => {
           email: testAccounts.owner.email,
           password: testAccounts.owner.password
         })
-        .expect(200)
+        .expect(201)
         .end(async (err, res) => {
           if (err) {
             return done(err);

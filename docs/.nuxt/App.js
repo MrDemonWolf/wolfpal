@@ -7,7 +7,13 @@ import NuxtBuildIndicator from './components/nuxt-build-indicator'
 
 import '../node_modules/@nuxtjs/tailwindcss/lib/files/tailwind.css'
 
+import '../node_modules/@nuxtjs/tailwindcss/lib/files/tailwind.css'
+
 import '../node_modules/@nuxt/content-theme-docs/src/assets/css/main.css'
+
+import '../node_modules/@nuxt/content-theme-docs/src/assets/css/main.dev.css'
+
+import '../node_modules/prism-themes/themes/prism-material-oceanic.css'
 
 import '../node_modules/@nuxt/content-theme-docs/src/assets/css/main.dev.css'
 
