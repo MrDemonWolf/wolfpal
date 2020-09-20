@@ -98,7 +98,7 @@ export default {
   axios: { proxy: true },
   proxy: {
     '/api/': {
-      target: 'http://localhost:8080',
+      target: process.env.API_URI || 'https://localhost:8080',
       pathRewrite: {
         '^/api/': '/',
       },
