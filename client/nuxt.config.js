@@ -64,7 +64,15 @@ export default {
         component: 'fa',
         icons: {
           regular: ['faMoon'],
-          solid: ['faCaretDown', 'faPlus', 'faTrash', 'faSun', 'faCheck'],
+          solid: [
+            'faCaretDown',
+            'faPlus',
+            'faTrash',
+            'faSun',
+            'faCheck',
+            'faSkull',
+            'faCog',
+          ],
         },
       },
     ],
@@ -73,6 +81,7 @@ export default {
       {
         families: {
           Roboto: [100, 300, 400, 500, 700, 900],
+          Montserrat: [100, 300, 400, 500, 700, 900],
         },
       },
     ],
@@ -98,7 +107,7 @@ export default {
   axios: { proxy: true },
   proxy: {
     '/api/': {
-      target: process.env.API_URI || 'https://localhost:8080',
+      target: process.env.API_URI || 'http://localhost:8080',
       pathRewrite: {
         '^/api/': '/',
       },
@@ -110,14 +119,13 @@ export default {
         scheme: 'refresh',
         token: {
           property: 'access_token',
-          // maxAge: 1000 * 60 * 30,
-          maxAge: 1000 * 60,
+          maxAge: 1000 * 60 * 5, //  5 mins
           type: 'Bearer',
         },
         refreshToken: {
           property: 'refresh_token',
           data: 'refresh_token',
-          maxAge: 1000 * 60 * 60 * 24,
+          maxAge: 1000 * 60 * 60 * 24 * 14, // Two Weeks
         },
         user: {
           property: 'user',

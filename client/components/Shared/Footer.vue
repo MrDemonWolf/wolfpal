@@ -5,11 +5,11 @@
     <div
       class="container px-5 py-2 mx-auto flex items-center sm:flex-row flex-col"
     >
-      <p class="text-md m:ml-4 sm:pl-4 sm:py-2 sm:mt-0 mt-4">
+      <p class="text-md m:ml-4 sm:pl-4 sm:py-2 md:mt-2 sm:block hidden">
         &copy; {{ year }}
         <a
           :href="$config.copyrightLink"
-          class="text-primary-500 ml-1 dark:text-gray-400 hover:text-primary-700 dark-hover:text-gray-500"
+          class="text-primary-500 ml-1 dark:text-gray-400 hover:text-primary-700 dark-hover:text-gray-50"
           rel="noopener noreferrer"
           target="_blank"
         >
@@ -17,7 +17,7 @@
         </a>
       </p>
       <div
-        class="inline-flex sm:ml-auto sm:mt-0 mt-4 justify-center sm:justify-start"
+        class="inline-flex sm:ml-auto md:mt-2 justify-center sm:justify-start"
       >
         <button
           class="py-2 md:py-1 md:px-2 focus:outline-none"

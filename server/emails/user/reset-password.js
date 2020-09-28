@@ -1,4 +1,3 @@
-/* eslint-disable indent */
 const mjml = require('mjml');
 
 /**

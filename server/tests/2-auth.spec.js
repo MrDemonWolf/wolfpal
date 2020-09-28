@@ -11,7 +11,6 @@ const testAccounts = require('./data/testAccounts');
 /**
  * Create a empty object for creds to be used later
  */
-// eslint-disable-next-line prefer-const
 let creds = {
   user: {
     accessToken: '',

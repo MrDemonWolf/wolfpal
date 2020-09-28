@@ -152,12 +152,12 @@ router.post('/login', async (req, res) => {
     };
 
     const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
-      expiresIn: '30m'
+      expiresIn: '5m'
     });
     const accessTokenHash = sha512(accessToken);
 
     const refreshToken = jwt.sign(payload, process.env.JWT_SECRET, {
-      expiresIn: '24h'
+      expiresIn: '14d'
     });
     const refreshTokenHash = sha512(refreshToken);
 
@@ -168,7 +168,7 @@ router.post('/login', async (req, res) => {
       accessTokenHash,
       refreshTokenHash,
       user: user.id,
-      expireAt: moment().add('24', 'h')
+      expireAt: moment().add('14', 'd')
     });
 
     await session.save();
@@ -202,12 +202,12 @@ router.post('/refresh', isRefreshValid, async (req, res) => {
     };
 
     const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
-      expiresIn: '30m'
+      expiresIn: '5m'
     });
     const accessTokenHash = sha512(accessToken);
 
     const refreshToken = jwt.sign(payload, process.env.JWT_SECRET, {
-      expiresIn: '24h'
+      expiresIn: '14d'
     });
     const refreshTokenHash = sha512(refreshToken);
 
@@ -218,7 +218,7 @@ router.post('/refresh', isRefreshValid, async (req, res) => {
       accessTokenHash,
       refreshTokenHash,
       user: user.id,
-      expireAt: moment().add('24', 'h')
+      expireAt: moment().add('14', 'd')
     });
     await session.save();
     res.status(200).json({
