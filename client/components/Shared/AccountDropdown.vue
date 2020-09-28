@@ -15,7 +15,7 @@
       :class="accountNavActive ? 'block' : 'hidden'"
     >
       <div
-        class="rounded-md shadow-xs bg-white dark:bg-gray-100 rounded border-gray-500 border-2 border border-opacity-25"
+        class="rounded-md shadow-xs bg-white dark:bg-gray-100 border-gray-500 border-2 border-opacity-25"
         role="menu"
         aria-orientation="vertical"
         aria-labelledby="options-menu"

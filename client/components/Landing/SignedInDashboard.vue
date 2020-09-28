@@ -1,36 +1,35 @@
 <template>
-  <div class="py-8">
-    <div class="container mx-auto px-6">
-      <div
-        class="mt-5 grid grid-cols-1 rounded-lg bg-white overflow-hidden shadow md:grid-cols-3"
-      >
-        <div>
-          <div class="px-4 py-5 sm:p-6">
-            <content-loader
-              v-if="loading.weekly"
-              :height="60"
-              :width="277.33"
-              :speed="2"
-              primary-color="#edf1f9"
-              secondary-color="#486ec2"
-            >
-              <rect
-                x="-1.5"
-                y="0.27"
-                rx="0"
-                ry="0"
-                width="202.65"
-                height="22.03"
-              />
-              <rect
-                x="-0.5"
-                y="32.27"
-                rx="0"
-                ry="0"
-                width="98.01"
-                height="28.75"
-              />
-              <!-- <rect
+  <div class="container mx-auto px-6">
+    <div
+      class="mt-5 grid grid-cols-1 rounded-lg bg-white overflow-hidden shadow md:grid-cols-3"
+    >
+      <div>
+        <div class="px-4 py-5 sm:p-6">
+          <content-loader
+            v-if="loading.weekly"
+            :height="60"
+            :width="277.33"
+            :speed="2"
+            primary-color="#edf1f9"
+            secondary-color="#486ec2"
+          >
+            <rect
+              x="-1.5"
+              y="0.27"
+              rx="0"
+              ry="0"
+              width="202.65"
+              height="22.03"
+            />
+            <rect
+              x="-0.5"
+              y="32.27"
+              rx="0"
+              ry="0"
+              width="98.01"
+              height="28.75"
+            />
+            <!-- <rect
                 x="189.5"
                 y="32.27"
                 rx="0"
@@ -38,16 +37,16 @@
                 width="90.12"
                 height="29"
               /> -->
-            </content-loader>
-            <StatCard
-              v-if="!loading.weekly"
-              title="Completed Weekly Goals"
-              :from="analytics.weekly.completed"
-            />
-          </div>
+          </content-loader>
+          <StatCard
+            v-if="!loading.weekly"
+            title="Completed Weekly Goals"
+            :from="analytics.weekly.completed"
+          />
         </div>
-        <!--  This will be added once we add more stats this is just so we know how it would look like with two more status -->
-        <!-- <div class="border-t border-gray-200 md:border-0 md:border-l">
+      </div>
+      <!--  This will be added once we add more stats this is just so we know how it would look like with two more status -->
+      <!-- <div class="border-t border-gray-200 md:border-0 md:border-l">
           <div class="px-4 py-5 sm:p-6">
              <StatCard
               v-if="!loading.weekly"
@@ -56,7 +55,7 @@
             />
           </div>
         </div> -->
-        <!-- <div class="border-t border-gray-200 md:border-0 md:border-l">
+      <!-- <div class="border-t border-gray-200 md:border-0 md:border-l">
           <div class="px-4 py-5 sm:p-6">
             <content-loader
               v-if="loading.weekly"
@@ -82,7 +81,6 @@
             />
           </div>
         </div> -->
-      </div>
     </div>
   </div>
 </template>

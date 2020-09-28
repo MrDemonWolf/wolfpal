@@ -1,73 +1,58 @@
 <template>
-  <div class="h-100 w-full flex items-center justify-center font-roboto">
-    <div
-      class="bg-white dark:bg-gray-200 rounded shadow p-6 m-4 w-full lg:w-3/5"
-    >
-      <h1 class="text-primary-900 font-extrabold text-2xl text-center">
-        Weekly Goals
-      </h1>
-      <Alert v-if="error" type="danger" :message="error" class="mt-4 mb-4" />
-      <Alert
-        v-if="success"
-        type="success"
-        :message="success"
-        class="mt-4 mb-4"
-      />
-      <div class="mb-4">
-        <form class="flex mt-4" @submit.prevent="addGoal">
-          <input
-            v-model="newGoal.title"
-            aria-label="Add a new goal"
-            name="newGoalTitle"
-            type="text"
-            class="shadow appearance-none focus:outline-none rounded w-full py-2 px-3 mr-4 text-grey-900"
-            placeholder="Add new goal"
-            novalidate
+  <div class="bg-white dark:bg-gray-200 rounded shadow p-6 m-4">
+    <h1 class="text-primary-900 font-extrabold text-2xl text-center">
+      Weekly Goals
+    </h1>
+    <Alert v-if="error" type="danger" :message="error" class="mt-4 mb-4" />
+    <Alert v-if="success" type="success" :message="success" class="mt-4 mb-4" />
+    <div class="mb-4">
+      <form class="flex mt-4" @submit.prevent="addGoal">
+        <input
+          v-model="newGoal.title"
+          aria-label="Add a new goal"
+          name="newGoalTitle"
+          type="text"
+          class="shadow appearance-none focus:outline-none rounded w-full py-2 px-3 mr-4 text-grey-900"
+          placeholder="Add new goal"
+          novalidate
+        />
+        <button
+          type="submit"
+          class="flex-no-shrink p-2 border-2 rounded text-primary-500 border-primary-500 hover:text-white hover:bg-primary-500"
+        >
+          <fa :icon="['fas', 'plus']" class="ml-1 mr-1 w-6 h-6 align-middle" />
+        </button>
+      </form>
+    </div>
+    <div v-for="(goal, index) in goals" :key="index">
+      <div class="flex mb-4 items-center">
+        <p
+          :class="{ 'text-green-500 dark:text-green-900': goal.isCompleted }"
+          class="w-full text-gray-900 text-lg"
+        >
+          {{ goal.title }}
+        </p>
+        <button
+          :class="{
+            'border-green-500': goal.isCompleted,
+            'border-gray-600 dark:border-gray-700': !goal.isCompleted,
+          }"
+          class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green-500 hover:bg-green-500 hover:border-green-500 dark-hover:border-green-500 toggle-complete-goal focus:outline-none"
+          @click="toggleCompleteGoal(index)"
+        >
+          <fa
+            :class="{ invisible: !goal.isCompleted }"
+            :icon="['fas', 'check']"
+            class="ml-1 mr-1 w-6 h-6 align-middle"
           />
-          <button
-            type="submit"
-            class="flex-no-shrink p-2 border-2 rounded text-primary-500 border-primary-500 hover:text-white hover:bg-primary-500"
-          >
-            <fa
-              :icon="['fas', 'plus']"
-              class="ml-1 mr-1 w-6 h-6 align-middle"
-            />
-          </button>
-        </form>
-      </div>
-      <div v-for="(goal, index) in goals" :key="index">
-        <div class="flex mb-4 items-center">
-          <p
-            :class="{ 'text-green-500 dark:text-green-900': goal.isCompleted }"
-            class="w-full text-gray-900 text-lg"
-          >
-            {{ goal.title }}
-          </p>
-          <button
-            :class="{
-              'border-green-500': goal.isCompleted,
-              'border-gray-600 dark:border-gray-700': !goal.isCompleted,
-            }"
-            class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green-500 hover:bg-green-500 hover:border-green-500 dark-hover:border-green-500 toggle-complete-goal focus:outline-none"
-            @click="toggleCompleteGoal(index)"
-          >
-            <fa
-              :class="{ invisible: !goal.isCompleted }"
-              :icon="['fas', 'check']"
-              class="ml-1 mr-1 w-6 h-6 align-middle"
-            />
-          </button>
+        </button>
 
-          <button
-            class="flex-no-shrink p-2 ml-2 border-2 rounded text-red-500 border-red-500 hover:text-white hover:bg-red-500 focus:outline-none"
-            @click="removeGoal(index)"
-          >
-            <fa
-              :icon="['fas', 'trash']"
-              class="ml-1 mr-1 w-6 h-6 align-middle"
-            />
-          </button>
-        </div>
+        <button
+          class="flex-no-shrink p-2 ml-2 border-2 rounded text-red-500 border-red-500 hover:text-white hover:bg-red-500 focus:outline-none"
+          @click="removeGoal(index)"
+        >
+          <fa :icon="['fas', 'trash']" class="ml-1 mr-1 w-6 h-6 align-middle" />
+        </button>
       </div>
     </div>
   </div>
