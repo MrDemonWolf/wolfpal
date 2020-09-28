@@ -1,4 +1,3 @@
-/* eslint-disable no-param-reassign */
 const Validator = require('validator');
 const isEmpty = require('../../../utils/is-empty');
 
