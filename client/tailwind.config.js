@@ -73,6 +73,15 @@ module.exports = {
         '.h-90': {
           height: '90vh',
         },
+        '.text-7xl': {
+          'font-size': '5rem',
+        },
+        '.text-8xl': {
+          'font-size': '6rem',
+        },
+        '.text-9xl': {
+          'font-size': '7rem',
+        },
       }
 
       addUtilities(newUtilities)

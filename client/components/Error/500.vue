@@ -6,17 +6,17 @@
           <div class="ml-16">
             <fa
               :icon="['fas', 'cog']"
-              class="fa-4x fa-spin"
+              class="text-6xl fa-spin"
               transform="down-5  right-2"
             />
             <fa
               :icon="['fas', 'cog']"
-              class="fa-3x fa-spin"
+              class="text-5xl fa-spin"
               transform="down-20 left-2"
             />
             <fa
               :icon="['fas', 'cog']"
-              class="fa-5x fa-spin"
+              class="text-8xl fa-spin"
               transform="left-7 down-2"
             />
           </div>

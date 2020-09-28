@@ -14,8 +14,8 @@
     <fa
       v-if="$colorMode.value === 'light'"
       :icon="['fas', 'sun']"
-      class="w-6 h-6 align-middle"
+      class="w-6 h-6 text-2xl align-middle"
     />
-    <fa v-else :icon="['far', 'moon']" class="w-6 h-6 align-middle" />
+    <fa v-else :icon="['far', 'moon']" class="w-6 h-6 text-2xl align-middle" />
   </div>
 </template>

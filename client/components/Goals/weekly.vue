@@ -20,7 +20,10 @@
           type="submit"
           class="flex-no-shrink p-2 border-2 rounded text-primary-500 border-primary-500 hover:text-white hover:bg-primary-500"
         >
-          <fa :icon="['fas', 'plus']" class="ml-1 mr-1 w-6 h-6 align-middle" />
+          <fa
+            :icon="['fas', 'plus']"
+            class="ml-1 mr-1 h-6 w-6 text-2xl align-middle"
+          />
         </button>
       </form>
     </div>
@@ -43,7 +46,7 @@
           <fa
             :class="{ invisible: !goal.isCompleted }"
             :icon="['fas', 'check']"
-            class="ml-1 mr-1 w-6 h-6 align-middle"
+            class="ml-1 mr-1 h-6 w-6 text-2xl align-middle"
           />
         </button>
 
@@ -51,7 +54,10 @@
           class="flex-no-shrink p-2 ml-2 border-2 rounded text-red-500 border-red-500 hover:text-white hover:bg-red-500 focus:outline-none"
           @click="removeGoal(index)"
         >
-          <fa :icon="['fas', 'trash']" class="ml-1 mr-1 w-6 h-6 align-middle" />
+          <fa
+            :icon="['fas', 'trash']"
+            class="ml-1 mr-1 h-6 w-6 text-xl align-middle"
+          />
         </button>
       </div>
     </div>

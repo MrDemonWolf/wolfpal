@@ -8,7 +8,7 @@
       @click.prevent="accountDropdown"
     >
       {{ $auth.user.username }}
-      <fa :icon="['fas', 'caret-down']" class="ml-2 w-5 h-5" />
+      <fa :icon="['fas', 'caret-down']" class="ml-2 w-5 h-5 align-middle" />
     </button>
     <div
       class="origin-top-left md:origin-top-right absolute left-0 md:right-0 w-30 md:w-50"
