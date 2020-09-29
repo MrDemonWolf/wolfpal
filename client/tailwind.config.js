@@ -28,6 +28,14 @@ module.exports = {
         roboto: ['Roboto', 'sans-serif'],
         montserrat: ['Montserrat', 'sans-serif'],
       },
+      borderStyles: {
+        styles: true, // defaults to false
+        colors: true, // defaults to false
+      },
+    },
+    borderStyles: {
+      styles: true, // defaults to false
+      colors: true, // defaults to false
     },
   },
   variants: {
@@ -59,6 +67,7 @@ module.exports = {
       // https://tailwindui.com/components/marketing/sections/heroes
       // layout: 'sidebar',
     }),
+    require('tailwindcss-border-styles')(),
     plugin(function ({ addUtilities }) {
       const newUtilities = {
         '.h-80': {
@@ -81,6 +90,21 @@ module.exports = {
         },
         '.text-9xl': {
           'font-size': '7rem',
+        },
+        '.border-6': {
+          'border-width': '6px',
+        },
+        '.border-l-6': {
+          'border-left-width': '6px',
+        },
+        '.border-r-6': {
+          'border-right-width': '6px',
+        },
+        '.border-t-6': {
+          'border-top-width': '6px',
+        },
+        '.border-b-6': {
+          'border-bottom-width': '6px',
         },
       }
 
