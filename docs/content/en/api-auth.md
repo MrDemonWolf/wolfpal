@@ -24,8 +24,8 @@ Allows a user to register for a account.
 | Field    | Type   | Description                  |
 | :------- | :----- | :--------------------------- |
 | username | string | Username of the new account. |
-| email    | string | email of the new account.    |
-| password | string | password of the new account. |
+| email    | string | Email of the new account.    |
+| password | string | Password of the new account. |
 
 #### Example
 
@@ -113,10 +113,9 @@ Allows a user to refresh their login token with a new one
 
 #### Headers
 
-| Field         | Type   | Description                       |
-| :------------ | :----- | :-------------------------------- |
-| Authorization | string | JWT refresh token.                |
-| Content-Type  | string | application/x-www-form-urlencoded |
+| Field        | Type   | Description                       |
+| :----------- | :----- | :-------------------------------- |
+| Content-Type | string | application/x-www-form-urlencoded |
 
 #### Body
 

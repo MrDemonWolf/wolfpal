@@ -19,7 +19,7 @@ module.exports = async (req, res, next) => {
     });
 
     const user = await User.findById(refreshTokenValid.user).select(
-      '-password -__v'
+      '-password '
     );
 
     req.user = user;

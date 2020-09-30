@@ -31,7 +31,7 @@ router.get('/', requireAuth, isSessionValid, async (req, res) => {
      * Get the current user data and remove sensitive data
      */
     const user = await User.findById(req.user.id).select(
-      '-password -__v -twoFactorSecret -emailVerificationToken -emailVerificationTokenExpire'
+      '-password -twoFactorSecret -emailVerificationToken -emailVerificationTokenExpire'
     );
 
     res.status(200).json({ code: 200, user });

@@ -23,5 +23,8 @@ export default theme({
     ],
     defaultLocale: "en"
   },
+  content: {
+    liveEdit: false
+  },
   buildModules: []
 });
