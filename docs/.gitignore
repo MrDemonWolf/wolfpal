@@ -1,9 +1,0 @@
-# other
-.nuxt
-dist
-.vscode
-.idea
-.eslintrc
-
-# @nuxtjs/pwa
-sw.*
