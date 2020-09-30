@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import NuxtContent from './nuxt-content.dev'
+import NuxtContent from './nuxt-content'
 import QueryBuilder from './query-builder'
 
 Vue.component(NuxtContent.name, NuxtContent)

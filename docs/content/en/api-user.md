@@ -52,7 +52,7 @@ curl --location --request POST 'https://www.example.com/api/user/forgot-password
 
 ## Reset Password
 
-Allows a register user to request a password reset email.
+Allows a register user to use password reset token to chaneg their password.
 
 #### Path
 
@@ -106,7 +106,7 @@ Allows a register user to activate their account with token.
 
 #### Path
 
-`PUT /activate-account/:activate_token`
+`PUT /activate-account/`
 
 #### Headers
 
@@ -145,7 +145,7 @@ curl --location --request PUT 'https://www.example.com/api/user/activate-account
 
 ## Resend Activate account
 
-Allows a register user resend account activate token to tehir email.
+Allows a register user resend account activate token to their email.
 
 #### Path
 
