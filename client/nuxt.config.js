@@ -34,6 +34,9 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
+
+  loading: false,
+
   /*
    ** Global CSS
    */
