@@ -1,31 +1,20 @@
 <template>
   <div class="h-80 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
-    <div class="sm:mx-auto sm:w-full sm:max-w-md">
-      <h1
-        class="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900 dark:text-white"
-      >
-        Forgot your password?
-      </h1>
-      <p
-        class="mt-2 text-center text-sm leading-5 text-gray-600 max-w dark:text-gray-200"
-      >
-        Or
-        <nuxt-link
-          class="font-medium text-primary-600 hover:text-primary-500 focus:outline-none focus:underline transition ease-in-out duration-150 dark:text-primary-300"
-          to="/login"
-        >
-          Login in to your account
-        </nuxt-link>
-      </p>
-    </div>
-
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
       <Alert v-if="error" type="danger" :message="error" class="mb-4" />
       <Alert v-if="success" type="success" :message="success" class="mb-4" />
       <div
         class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 dark:bg-gray-200"
       >
-        <form @submit.prevent="userForgotPassword">
+        <h1 class="font-bold font-roboto text-3xl text-primary-500 text-center">
+          Forgot Password
+        </h1>
+
+        <p class="mt-4 font-montserrat leading-5">
+          Please fill in the email address you used to register. You'll receive
+          an email with instructions on how to reset your password.
+        </p>
+        <form class="mt-4" @submit.prevent="userForgotPassword">
           <div>
             <label
               for="email"
@@ -56,11 +45,22 @@
                 type="submit"
                 class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
               >
-                Reset Password
+                Submit
               </button>
             </span>
           </div>
         </form>
+        <div class="mt-6 flex items-center justify-between">
+          <div class="text-sm leading-5">
+            Remembered your password?
+            <nuxt-link
+              class="font-medium text-primary-600 hover:text-primary-500 focus:outline-none focus:underline transition ease-in-out duration-150"
+              to="/login"
+            >
+              Sign in here
+            </nuxt-link>
+          </div>
+        </div>
       </div>
     </div>
   </div>

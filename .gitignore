@@ -88,3 +88,7 @@ sw.*
 
 # Vim swap files
 *.swp
+
+# Custom
+# This is for the test file in the client
+client/pages/test.vue
