@@ -1,11 +1,21 @@
 <template>
   <div
-    class="circle-loader mb-12 border-6 border-solid border-black border-opacity-25 border-l-green-400 relative inline-block align-top w-28 h-28"
-    :class="{ 'load-complete border-green-400 border-opacity-100': loading }"
+    class="circle-loader border-6 border-solid relative inline-block align-top w-24 h-24"
+    :class="{
+      'border-l-opacity-100 border-l-primary-400': loading,
+      'border-black border-opacity-25 ': !loading,
+      'load-complete border-opacity-100 border-green-400': success && !loading,
+      'load-complete border-opacity-100 border-red-500': !success && !loading,
+    }"
   >
     <div
-      class="checkmark draw"
-      :class="{ block: loading, hidden: !loading }"
+      class="draw"
+      :class="{
+        block: !loading,
+        hidden: loading,
+        checkmark: success,
+        x: !success,
+      }"
     ></div>
   </div>
 </template>
@@ -19,8 +29,18 @@
   animation: none;
   transition: border 500ms ease-out;
 }
+.x:before {
+  content: ' ';
+  transform: rotate(45deg);
+  @apply h-14 w-2 bg-red-500 left-10 top-4 absolute opacity-100;
+}
+.x:after {
+  content: ' ';
+  transform: rotate(-45deg);
+  @apply h-14 w-2 bg-red-500 left-10 top-4 absolute opacity-100;
+}
 .checkmark:after {
-  @apply h-13 w-5 border-r-6 border-r-solid border-r-green-400 border-t-6 border-t-solid border-t-green-400 left-7 top-14 absolute opacity-100;
+  @apply h-12 w-5 border-r-6 border-r-solid border-r-green-400 border-t-6 border-t-solid border-t-green-400 left-5 top-12 absolute opacity-100;
   transform-origin: left top;
   content: '';
 }
@@ -39,26 +59,35 @@
     transform: rotate(360deg);
   }
 }
+
+/* Use apply here h-13 w-5 */
+
 @keyframes checkmark {
   0% {
-    height: 0;
-    width: 0;
-    opacity: 1;
+    @apply h-0 w-0 opacity-0;
   }
   20% {
-    height: 0;
-    width: 1.75em;
-    opacity: 1;
+    @apply h-0 w-4 opacity-100;
   }
   40% {
-    height: 3.5em;
-    width: 1.75em;
-    opacity: 1;
+    @apply h-8 w-4 opacity-100;
   }
   100% {
-    height: 3.5em;
-    width: 1.75em;
-    opacity: 1;
+    @apply h-12 w-5 opacity-100;
+  }
+}
+@keyframes x {
+  0% {
+    @apply h-0 w-0 opacity-0;
+  }
+  20% {
+    @apply h-0 w-4 opacity-100;
+  }
+  40% {
+    @apply h-8 w-4 opacity-100;
+  }
+  100% {
+    @apply h-12 w-5 opacity-100;
   }
 }
 </style>
@@ -68,7 +97,11 @@ export default {
   props: {
     loading: {
       type: Boolean,
-      default: false,
+      default: true,
+    },
+    success: {
+      type: Boolean,
+      default: true,
     },
   },
 }
