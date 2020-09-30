@@ -221,7 +221,7 @@ router.put('/activate-account/:activate_token', async (req, res) => {
     await user.save();
     res.status(201).json({
       code: 201,
-      message: "Your account is now activated and you're now able to login."
+      message: `Good job! Your account is now activated and you can start using ${process.env.SITE_TITLE}.`
     });
   } catch (err) {
     console.log(err);
