@@ -1,6 +1,6 @@
-<!-- <p align="center">
+<p align="center">
     <img src="logo.png"/>
-</p> -->
+</p>
 
 ![GitHub release](https://img.shields.io/github/release/mrdemonwolf/wolfpal.svg?include_prereleases&style=for-the-badge)
 [![GitHub last commit](https://img.shields.io/github/last-commit/mrdemonwolf/wolfpal.svg?logo=git&style=for-the-badge)](https://github.com/mrdemonwolf/share)
@@ -8,6 +8,10 @@
 ![Travis (.com)](https://img.shields.io/travis/mrdemonwolf/wolfpal?style=for-the-badge)
 
 # What is WolfPal?
+
+A wolf to guide you to your end goals by helping keep you on track weely, bi-weekly or even monthly and yearly goals.
+
+This was made as a fun fullstack project.  Needed a tool like this for my personal life.
 
 <!-- ## Getting started
 
