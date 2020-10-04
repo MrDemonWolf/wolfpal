@@ -41,4 +41,7 @@ router.get('/', requireAuth, isSessionValid, async (req, res) => {
   }
 });
 
+/**
+ * @route /account/email-change
+ */
 module.exports = router;
