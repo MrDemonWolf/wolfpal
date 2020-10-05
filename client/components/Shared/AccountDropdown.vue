@@ -29,10 +29,10 @@
         <div class="border-t border-gray-200 dark:border-gray-300"></div>
         <div class="py-1">
           <nuxt-link
-            to="/settings"
+            to="/account"
             class="block px-4 py-3 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-white dark-hover:text-black dark-hover:bg-gray-300"
           >
-            Settings</nuxt-link
+            My Account</nuxt-link
           >
           <!-- <a
             href="#"
