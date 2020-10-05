@@ -23,16 +23,17 @@
         <div class="px-4 py-3">
           <p class="text-sm leading-5 inline">Role:</p>
           <p class="text-sm leading-5 font-medium text-gray-900 inline">
-            Owner
+            {{ $auth.user.role | capitalize }}
           </p>
         </div>
         <div class="border-t border-gray-200 dark:border-gray-300"></div>
         <div class="py-1">
-          <!-- <a
-            href="#"
+          <nuxt-link
+            to="/settings"
             class="block px-4 py-3 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-white dark-hover:text-black dark-hover:bg-gray-300"
-            >Account settings</a
-          > -->
+          >
+            Settings</nuxt-link
+          >
           <!-- <a
             href="#"
             class="block px-4 py-3 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-white dark-hover:text-black dark-hover:bg-gray-300"

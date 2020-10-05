@@ -7,7 +7,7 @@ category: API
 
 ## Account
 
-Allows a user to get account details
+Allows a logged in user to get their account details.
 
 #### Path
 
@@ -15,15 +15,10 @@ Allows a user to get account details
 
 #### Headers
 
-| Field        | Type   | Description                       |
-| :----------- | :----- | :-------------------------------- |
-| Content-Type | string | application/x-www-form-urlencoded |
-
-#### Body
-
-| Field         | Type   | Description       |
-| :------------ | :----- | :---------------- |
-| Authorization | string | JWT access token. |
+| Field         | Type   | Description                       |
+| :------------ | :----- | :-------------------------------- |
+| Content-Type  | string | application/x-www-form-urlencoded |
+| Authorization | string | JWT access token.                 |
 
 #### Example
 
@@ -31,7 +26,7 @@ Allows a user to get account details
   <code-block label="Request" active>
 
 ```sh
-curl --location --request GET 'http://localhost:8080/account' \
+curl --location --request GET 'https://www.example.com/api/account' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjRiZmYxMjEwMzdlNDI0YTE3YTNlYmMiLCJpYXQiOjE1OTkyNDE1OTMsImV4cCI6MTU5OTI0MzM5M30.FuLUNEc_lE8jI2KEur0KsQzZFjIh5kymnLdR0Udycxk'
 ```
 
@@ -54,6 +49,96 @@ curl --location --request GET 'http://localhost:8080/account' \
     "updatedAt": "2020-09-07T17:37:33.526Z",
     "slug": "mrdemonwolf"
   }
+}
+```
+
+  </code-block>
+</code-group>
+
+## Email Change
+
+Allows a logged in user to change their email
+
+#### Path
+
+`POST /account/email-change`
+
+#### Headers
+
+| Field         | Type   | Description                       |
+| :------------ | :----- | :-------------------------------- |
+| Content-Type  | string | application/x-www-form-urlencoded |
+| Authorization | string | JWT access token.                 |
+
+#### Body
+
+| Field | Type   | Description        |
+| :---- | :----- | :----------------- |
+| email | string | New account email. |
+
+#### Example
+
+<code-group>
+  <code-block label="Request" active>
+
+```sh
+curl --location --request POST 'https://www.example.com/api/account/email-change' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjdiMmMwYjMwNmI2NTE4MGQyYjAyZGYiLCJpYXQiOjE2MDE5MDg4NjAsImV4cCI6MTYwMTkwOTE2MH0.5fhqZJH_29mpFneOySnAmOQsZj0nI7Su9-zJ1fNQZuM' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--data-urlencode 'email=nathan@example.com'
+```
+
+  </code-block>
+  <code-block label="Response
+">
+
+```json
+{
+  "code": 200,
+  "message": "Please check your new email address to complate the email change."
+}
+```
+
+  </code-block>
+</code-group>
+
+## Email Change with Token
+
+Allow a logged in user to change their email with email verify token.
+
+#### Path
+
+`PUT /account/email-change/:email_token`
+
+#### Headers
+
+| Field        | Type   | Description                       |
+| :----------- | :----- | :-------------------------------- |
+| Content-Type | string | application/x-www-form-urlencoded |
+
+#### Params
+
+| Field       | Type   | Description         |
+| :---------- | :----- | :------------------ |
+| email_token | string | Email change token. |
+
+#### Example
+
+<code-group>
+  <code-block label="Request" active>
+
+```sh
+curl --location --request PUT 'https://www.example.com/api/account/email-change/:email_token' \
+```
+
+  </code-block>
+  <code-block label="Response
+">
+
+```json
+{
+  "code": 200,
+  "message": "Please check your new email address to complate the email change."
 }
 ```
 

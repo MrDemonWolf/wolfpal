@@ -267,9 +267,10 @@ router.post('/activate-account/resend', async (req, res) => {
     };
 
     if (process.env.NODE_ENV !== 'test') await sendgrid.send(msg);
+
     res.status(201).json({
       code: 201,
-      message: 'Please confirm your email address to complete the registration.'
+      message: 'Please check your email address to complete the registration.'
     });
   } catch (err) {
     console.log(err);

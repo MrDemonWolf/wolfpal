@@ -74,17 +74,6 @@
             }}</span>
           </div>
 
-          <div class="mt-6 flex items-center justify-between">
-            <div class="text-sm leading-5">
-              <nuxt-link
-                class="font-medium text-primary-600 hover:text-primary-500 focus:outline-none focus:underline transition ease-in-out duration-150"
-                to="/forgot-password"
-              >
-                Forgot your password?
-              </nuxt-link>
-            </div>
-          </div>
-
           <div class="mt-6">
             <span class="block w-full rounded-md shadow-sm">
               <button
@@ -96,6 +85,24 @@
             </span>
           </div>
         </form>
+        <div class="mt-6 flex items-center justify-between">
+          <div class="text-sm leading-5">
+            <nuxt-link
+              class="font-medium text-primary-600 hover:text-primary-500 focus:outline-none focus:underline transition ease-in-out duration-150"
+              to="/forgot-password"
+            >
+              Forgot your password?
+            </nuxt-link>
+          </div>
+          <div class="text-sm leading-5">
+            <nuxt-link
+              class="font-medium text-primary-600 hover:text-primary-500 focus:outline-none focus:underline transition ease-in-out duration-150"
+              to="/activate-account"
+            >
+              Resend account activation?
+            </nuxt-link>
+          </div>
+        </div>
       </div>
     </div>
   </div>
