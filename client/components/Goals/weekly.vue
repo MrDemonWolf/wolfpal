@@ -1,6 +1,6 @@
 <template>
-  <div class="bg-white dark:bg-gray-200 rounded shadow p-6 m-4">
-    <h1 class="text-primary-900 font-extrabold text-2xl text-center">
+  <div class="p-6 m-4 bg-white rounded shadow dark:bg-gray-200">
+    <h1 class="text-2xl font-extrabold text-center text-primary-900">
       Weekly Goals
     </h1>
     <Alert v-if="error" type="danger" :message="error" class="mt-4 mb-4" />
@@ -12,26 +12,26 @@
           aria-label="Add a new goal"
           name="newGoalTitle"
           type="text"
-          class="shadow appearance-none focus:outline-none rounded w-full py-2 px-3 mr-4 text-grey-900"
+          class="w-full px-3 py-2 mr-4 rounded shadow appearance-none focus:outline-none text-grey-900"
           placeholder="Add new goal"
           novalidate
         />
         <button
           type="submit"
-          class="flex-no-shrink p-2 border-2 rounded text-primary-500 border-primary-500 hover:text-white hover:bg-primary-500"
+          class="p-2 border-2 rounded flex-no-shrink text-primary-500 border-primary-500 hover:text-white hover:bg-primary-500"
         >
           <fa
             :icon="['fas', 'plus']"
-            class="ml-1 mr-1 h-6 w-6 text-2xl align-middle"
+            class="w-6 h-6 ml-1 mr-1 text-2xl align-middle"
           />
         </button>
       </form>
     </div>
     <div v-for="(goal, index) in goals" :key="index">
-      <div class="flex mb-4 items-center">
+      <div class="flex items-center mb-4">
         <p
           :class="{ 'text-green-500 dark:text-green-900': goal.isCompleted }"
-          class="w-full text-gray-900 text-lg"
+          class="w-full text-lg text-gray-900"
         >
           {{ goal.title }}
         </p>
@@ -40,23 +40,23 @@
             'border-green-500': goal.isCompleted,
             'border-gray-600 dark:border-gray-700': !goal.isCompleted,
           }"
-          class="flex-no-shrink p-2 ml-4 mr-2 border-2 rounded hover:text-white text-green-500 hover:bg-green-500 hover:border-green-500 dark-hover:border-green-500 toggle-complete-goal focus:outline-none"
+          class="p-2 ml-4 mr-2 text-green-500 border-2 rounded flex-no-shrink hover:text-white hover:bg-green-500 hover:border-green-500 dark-hover:border-green-500 toggle-complete-goal focus:outline-none"
           @click="toggleCompleteGoal(index)"
         >
           <fa
             :class="{ invisible: !goal.isCompleted }"
             :icon="['fas', 'check']"
-            class="ml-1 mr-1 h-6 w-6 text-2xl align-middle"
+            class="w-6 h-6 ml-1 mr-1 text-2xl align-middle"
           />
         </button>
 
         <button
-          class="flex-no-shrink p-2 ml-2 border-2 rounded text-red-500 border-red-500 hover:text-white hover:bg-red-500 focus:outline-none"
+          class="p-2 ml-2 text-red-500 border-2 border-red-500 rounded flex-no-shrink hover:text-white hover:bg-red-500 focus:outline-none"
           @click="removeGoal(index)"
         >
           <fa
             :icon="['fas', 'trash']"
-            class="ml-1 mr-1 h-6 w-6 text-xl align-middle"
+            class="w-6 h-6 ml-1 mr-1 text-xl align-middle"
           />
         </button>
       </div>

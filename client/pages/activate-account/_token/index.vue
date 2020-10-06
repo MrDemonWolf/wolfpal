@@ -1,8 +1,8 @@
 <template>
-  <div class="h-80 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+  <div class="flex flex-col justify-center py-12 h-80 sm:px-6 lg:px-8">
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
       <div
-        class="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10 dark:bg-gray-200"
+        class="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10 dark:bg-gray-200"
       >
         <div class="text-center">
           <CircleLoaderCheckmark
@@ -11,18 +11,18 @@
           />
         </div>
         <h1
-          class="mt-8 font-bold font-roboto text-3xl text-primary-500 text-center"
+          class="mt-8 text-3xl font-bold text-center font-roboto text-primary-500"
         >
           Email Confirmation
         </h1>
 
-        <p v-if="!loader.loading" class="mt-4 font-montserrat leading-5">
+        <p v-if="!loader.loading" class="mt-4 leading-5 font-montserrat">
           {{ loader.message }}
         </p>
         <div class="mt-6">
           <div v-if="loader.success" class="text-sm leading-5">
             <nuxt-link
-              class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
+              class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-primary-600 hover:bg-primary-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700"
               to="/login"
             >
               Login
@@ -30,7 +30,7 @@
           </div>
           <div v-else class="text-sm leading-5">
             <nuxt-link
-              class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary-600 hover:bg-primary-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
+              class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-primary-600 hover:bg-primary-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700"
               to="/activate-account"
             >
               Resend activation link?

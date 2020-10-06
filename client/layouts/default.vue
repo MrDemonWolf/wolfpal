@@ -4,7 +4,7 @@
     <main
       id="content"
       role="main"
-      class="bg-gray-100 dark:bg-gray-800 flex-grow"
+      class="flex-grow bg-gray-100 dark:bg-gray-800"
     >
       <Nuxt />
     </main>

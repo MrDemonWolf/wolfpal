@@ -3,13 +3,13 @@
     class="bg-white text-primary-400 body-font dark:bg-gray-900 dark:text-white"
   >
     <div
-      class="container px-5 py-2 mx-auto flex items-center sm:flex-row flex-col"
+      class="container flex flex-col items-center px-5 py-2 mx-auto sm:flex-row"
     >
-      <p class="text-md m:ml-4 sm:pl-4 sm:py-2 md:mt-2 sm:block hidden">
+      <p class="hidden text-md m:ml-4 sm:pl-4 sm:py-2 md:mt-2 sm:block">
         &copy; {{ year }}
         <a
           :href="$config.copyrightLink"
-          class="text-primary-500 ml-1 dark:text-gray-400 hover:text-primary-700 dark-hover:text-gray-50"
+          class="ml-1 text-primary-500 dark:text-gray-400 hover:text-primary-700 dark-hover:text-gray-50"
           rel="noopener noreferrer"
           target="_blank"
         >
@@ -17,7 +17,7 @@
         </a>
       </p>
       <div
-        class="inline-flex sm:ml-auto md:mt-2 justify-center sm:justify-start"
+        class="inline-flex justify-center sm:ml-auto md:mt-2 sm:justify-start"
       >
         <button
           class="py-2 md:py-1 md:px-2 focus:outline-none"

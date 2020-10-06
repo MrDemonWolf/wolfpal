@@ -1,15 +1,16 @@
 <template>
-  <div class="md:grid md:grid-cols-2 md:gap-6">
-    <div class="mt-5 md:mt-0 md:col-span-2">
-      <h3 class="text-lg font-medium leading-6 text-gray-900">Profile</h3>
+  <div>
+    <div class="mt-5 md:mt-0">
+      <h3 class="text-lg font-medium leading-6 text-gray-900">
+        Personal Information
+      </h3>
       <p class="text-sm leading-5 text-gray-500">
-        This information will be displayed publicly so be careful what you
-        share.
+        Use a permanent address where you can receive mail.
       </p>
     </div>
-    <div class="mt-5 md:mt-0 md:col-span-2">
-      <form action="#" method="POST">
-        <div class="shadow overflow-hidden sm:rounded-md">
+    <div class="mt-6 md:mt-3 md:col-span-2">
+      <form @submit.prevent="changePersonalInformation">
+        <div class="overflow-hidden shadow sm:rounded-md">
           <div class="px-4 py-5 bg-white sm:p-6">
             <div class="grid grid-cols-6 gap-6">
               <div class="col-span-6 sm:col-span-3">
@@ -20,7 +21,7 @@
                 >
                 <input
                   id="first_name"
-                  class="mt-1 form-input block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                  class="block w-full px-3 py-2 mt-1 transition duration-150 ease-in-out border border-gray-300 rounded-md shadow-sm form-input focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                 />
               </div>
 
@@ -32,7 +33,7 @@
                 >
                 <input
                   id="last_name"
-                  class="mt-1 form-input block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                  class="block w-full px-3 py-2 mt-1 transition duration-150 ease-in-out border border-gray-300 rounded-md shadow-sm form-input focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                 /> -->
               </div>
 
@@ -44,14 +45,23 @@
                 >
                 <input
                   id="email_address"
-                  class="mt-1 form-input block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                  class="block w-full px-3 py-2 mt-1 transition duration-150 ease-in-out border border-gray-300 rounded-md shadow-sm form-input focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                 />
+                <p class="mt-2 text-sm text-primary-500">
+                  Your new e-mail address{{ newEmail }} has not yet been
+                  comfirmed.
+                  <span
+                    class="cursor-pointer text-primary-400 hover:text-primary-600"
+                    submit
+                    >Resend confirmation email?</span
+                  >
+                </p>
               </div>
             </div>
           </div>
-          <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+          <div class="px-4 py-3 text-right bg-gray-50 sm:px-6">
             <button
-              class="py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 shadow-sm hover:bg-indigo-500 focus:outline-none focus:shadow-outline-blue active:bg-indigo-600 transition duration-150 ease-in-out"
+              class="px-4 py-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:shadow-outline-blue active:bg-indigo-600"
             >
               Save
             </button>
