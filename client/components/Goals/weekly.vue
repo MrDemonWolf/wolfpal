@@ -68,7 +68,6 @@
 import Alert from '@/components/Shared/Alert'
 
 export default {
-  loading: false,
   components: { Alert },
   props: {
     goals: {
@@ -96,12 +95,12 @@ export default {
           position: 'bottom-right',
         })
       } catch (e) {
-        if (!e.response) {
-          return this.$toast.error('Oops.. Something Went Wrong..', {
+        if (e.response && e.response.data && e.response.data.error) {
+          return this.$toast.error('Goal is required.', {
             position: 'bottom-right',
           })
         }
-        this.$toast.error('Goal is required.', {
+        this.$toast.error('Oops.. Something Went Wrong..', {
           position: 'bottom-right',
         })
       }
@@ -116,12 +115,12 @@ export default {
           position: 'bottom-right',
         })
       } catch (e) {
-        if (!e.response) {
-          return this.$toast.error('Oops.. Something Went Wrong..', {
+        if (e.response && e.response.data && e.response.data.error) {
+          return this.$toast.error(e.response.data.error, {
             position: 'bottom-right',
           })
         }
-        this.$toast.error(e.response.data.error, {
+        this.$toast.error('Oops.. Something Went Wrong..', {
           position: 'bottom-right',
         })
       }
@@ -141,12 +140,12 @@ export default {
           }
         )
       } catch (e) {
-        if (!e.response) {
-          return this.$toast.error('Oops.. Something Went Wrong..', {
+        if (e.response && e.response.data && e.response.data.error) {
+          return this.$toast.error(e.response.data.error, {
             position: 'bottom-right',
           })
         }
-        this.$toast.error(e.response.data.error, {
+        this.$toast.error('Oops.. Something Went Wrong..', {
           position: 'bottom-right',
         })
       }
