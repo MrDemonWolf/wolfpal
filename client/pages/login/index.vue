@@ -39,10 +39,11 @@
                 id="email"
                 v-model="login.email"
                 aria-label="Email address"
+                placeholder="example@example.com"
                 name="email"
                 type="email"
                 :class="{ 'border-red-500': errors.email }"
-                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                class="mt-1 form-input block w-full py-2 px-3 border shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5 border-gray-300 rounded-md placeholder-gray-400"
                 novalidate
               />
             </div>
@@ -62,10 +63,11 @@
                 id="password"
                 v-model="login.password"
                 aria-label="Password"
+                placeholder="****************"
                 name="password"
                 type="password"
                 :class="{ 'border-red-500': errors.password }"
-                class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                class="mt-1 form-input block w-full py-2 px-3 border shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5 border-gray-300 rounded-md placeholder-gray-400"
                 novalidate
               />
             </div>
