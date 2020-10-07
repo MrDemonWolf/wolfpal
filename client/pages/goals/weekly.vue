@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto w-full lg:w-3/5">
+  <div class="container w-full mx-auto lg:w-3/5">
     <WeeklyGoals :goals="goals" />
   </div>
 </template>

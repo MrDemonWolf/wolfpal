@@ -1,6 +1,6 @@
 <template>
   <div
-    class="circle-loader border-6 border-solid relative inline-block align-top w-24 h-24"
+    class="relative inline-block w-24 h-24 align-top border-solid circle-loader border-6"
     :class="{
       'border-l-opacity-100 border-l-primary-400': loading,
       'border-black border-opacity-25 ': !loading,

@@ -31,7 +31,7 @@ Allows a logged in user to get analytics on all goals.
   <code-block label="Request" active>
 
 ```sh
-curl --location --request GET 'http://localhost:8080/analytics' \
+curl --location --request GET 'https://www.example.com/api/analytics' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjRiZmYxMjEwMzdlNDI0YTE3YTNlYmMiLCJpYXQiOjE1OTkyNDE1OTMsImV4cCI6MTU5OTI0MzM5M30.FuLUNEc_lE8jI2KEur0KsQzZFjIh5kymnLdR0Udycxk'
 ```
 
@@ -79,7 +79,7 @@ Allows a logged in user to get analytics on all goals.
   <code-block label="Request" active>
 
 ```sh
-curl --location --request GET 'http://localhost:8080/analytics/weekly' \
+curl --location --request GET 'https://www.example.com/api/analytics/weekly' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjRiZmYxMjEwMzdlNDI0YTE3YTNlYmMiLCJpYXQiOjE1OTkyNDE1OTMsImV4cCI6MTU5OTI0MzM5M30.FuLUNEc_lE8jI2KEur0KsQzZFjIh5kymnLdR0Udycxk'
 ```
 

@@ -56,7 +56,7 @@
               class="mt-12 sm:mt-16 lg:mt-0 lg:col-span-6"
             >
               <div
-                class="bg-white sm:max-w-md sm:w-full sm:mx-auto sm:rounded-lg sm:overflow-hidden dark:bg-gray-500"
+                class="bg-white sm:max-w-md sm:w-full sm:mx-auto sm:rounded-lg sm:overflow-hidden dark:bg-gray-300"
               >
                 <div class="px-4 py-8 sm:px-10">
                   <div class="mt-6">
@@ -84,7 +84,7 @@
                             type="text"
                             placeholder="Username"
                             :class="{ 'border-red-500': errors.username }"
-                            class="appearance-none block w-full px-3 py-2 border border-gray-400 rounded-md placeholder-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                            class="mt-1 form-input block w-full py-2 px-3 border shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5 border-gray-300 rounded-md placeholder-gray-400"
                             novalidate
                           />
                         </div>
@@ -104,7 +104,7 @@
                             type="email"
                             :class="{ 'border-red-500': errors.email }"
                             placeholder="Email"
-                            class="appearance-none block w-full px-3 py-2 border border-gray-400 rounded-md placeholder-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                            class="mt-1 form-input block w-full py-2 px-3 border shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5 border-gray-300 rounded-md placeholder-gray-400"
                             novalidate
                           />
                         </div>
@@ -124,7 +124,7 @@
                             type="password"
                             :class="{ 'border-red-500': errors.password }"
                             placeholder="Password"
-                            class="appearance-none block w-full px-3 py-2 border border-gray-400 rounded-md placeholder-gray-500 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                            class="mt-1 form-input block w-full py-2 px-3 border shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5 border-gray-300 rounded-md placeholder-gray-400"
                             novalidate
                           />
                         </div>
@@ -147,7 +147,7 @@
                   </div>
                 </div>
                 <div
-                  class="px-4 py-6 bg-gray-50 border-t-2 border-gray-200 sm:px-10 dark:bg-gray-400 dark:border-gray-500"
+                  class="px-4 py-6 bg-gray-50 border-t-2 border-gray-200 sm:px-10 dark:bg-gray-50 dark:border-gray-200"
                 >
                   <p class="text-xs leading-5 text-gray-500 dark:text-black">
                     By signing up, you agree to our

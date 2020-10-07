@@ -40,6 +40,7 @@ const UserSchema = new Schema(
       trim: true,
       lowercase: true
     },
+    emailChanged: Date,
     isBanned: {
       type: Boolean,
       default: false
