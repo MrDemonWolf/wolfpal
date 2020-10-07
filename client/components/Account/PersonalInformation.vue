@@ -26,7 +26,7 @@
               Your new e-mail address {{ newEmail }} has not yet been comfirmed.
               <span
                 class="cursor-pointer text-primary-400 hover:text-primary-600"
-                submit
+                @click="userResendEmailChange"
                 >Resend confirmation email?</span
               >
             </p>
@@ -71,6 +71,20 @@ export default {
             position: 'bottom-right',
           })
         }
+      }
+    },
+    async userResendEmailChange() {
+      try {
+        const response = await this.$axios.post(
+          '/api/account/email-change/resend'
+        )
+        this.$toast.success(response.data.message, {
+          position: 'bottom-right',
+        })
+      } catch (e) {
+        this.$toast.error('Oops.. Something Went Wrong..', {
+          position: 'bottom-right',
+        })
       }
     },
   },

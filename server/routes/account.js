@@ -138,6 +138,54 @@ router.post('/email-change', requireAuth, isSessionValid, async (req, res) => {
 });
 
 /**
+ * @route /account/email-change/resend
+ * @method POST
+ * @description Allows a logged in user to resend email change confirmation.
+ */
+router.post(
+  '/email-change/resend',
+  requireAuth,
+  isSessionValid,
+  async (req, res) => {
+    try {
+      const user = await User.findById(req.user.id);
+
+      if (!user.newEmail) {
+        return res.status(400).json({
+          code: 400,
+          error: 'You have not requsted a email change.'
+        });
+      }
+
+      user.emailVerificationToken = await emailVerificationToken();
+      user.emailVerificationTokenExpire = moment().add('3', 'h');
+
+      await user.save();
+
+      const emailTemplate = verifyNewEmailTemplate(user.emailVerificationToken);
+
+      const msg = {
+        to: user.newEmail,
+        from: `${process.env.EMAIL_FROM} <noreply@${process.env.EMAIL_DOMAIN}>`,
+        subject: `Verify your new email on ${process.env.SITE_TITLE}`,
+        html: emailTemplate.html
+      };
+
+      if (process.env.NODE_ENV !== 'test') await sendgrid.send(msg);
+
+      res.status(200).json({
+        code: 200,
+        message:
+          'Please check your new email address to complate the email change.'
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ code: 500, error: 'Internal Server Error' });
+    }
+  }
+);
+
+/**
  * @route /account/email-change/:email_token
  * @method PUT
  * @description Allow a logged in user to change their email with email verify token.
@@ -156,7 +204,7 @@ router.put('/email-change/:email_token', async (req, res) => {
       return res.status(400).json({
         code: 400,
         error:
-          'Either your account activate link has expired or already has been used.'
+          'Either your new email confirmation link has expired or already has been used.'
       });
     }
     user.emailVerificationToken = undefined;

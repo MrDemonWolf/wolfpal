@@ -3,43 +3,36 @@
     <button
       v-click-outside="accountDropdownHide"
       type="button"
-      class="py-2 md:py-1 md:px-2 text-xl focus:outline-none justify-center w-full font-bold text-primary-800 dark:text-primary-300 transition ease-in-out duration-150 font-roboto"
+      class="justify-center w-full py-2 text-xl font-bold transition duration-150 ease-in-out md:py-1 md:px-2 focus:outline-none text-primary-800 dark:text-primary-300 font-roboto"
       @keydown.esc="accountDropdownHide"
       @click.prevent="accountDropdown"
     >
       {{ $auth.user.username }}
-      <fa :icon="['fas', 'caret-down']" class="ml-2 w-5 h-5 align-middle" />
+      <fa :icon="['fas', 'caret-down']" class="w-5 h-5 ml-2 align-middle" />
     </button>
     <div
-      class="origin-top-left md:origin-top-right absolute left-0 md:right-0 w-30 md:w-50"
+      class="absolute left-0 origin-top-left md:origin-top-right md:right-0 w-30 md:w-50"
       :class="accountNavActive ? 'block' : 'hidden'"
     >
       <div
-        class="rounded-md shadow-xs bg-white dark:bg-gray-100 border-gray-500 border-2 border-opacity-25"
+        class="bg-white border-2 border-gray-500 border-opacity-25 rounded-md shadow-xs dark:bg-gray-100"
         role="menu"
         aria-orientation="vertical"
         aria-labelledby="options-menu"
       >
         <div class="px-4 py-3">
-          <p class="text-sm leading-5 inline">Role:</p>
-          <p class="text-sm leading-5 font-medium text-gray-900 inline">
+          <p class="inline text-sm leading-5">Role:</p>
+          <p class="inline text-sm font-medium leading-5 text-gray-900">
             {{ $auth.user.role | capitalize }}
           </p>
         </div>
         <div class="border-t border-gray-200 dark:border-gray-300"></div>
         <div class="py-1">
           <nuxt-link
-<<<<<<< HEAD
             to="/account"
             class="block px-4 py-3 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-white dark-hover:text-black dark-hover:bg-gray-300"
           >
             My Account</nuxt-link
-=======
-            to="/settings"
-            class="block px-4 py-3 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-white dark-hover:text-black dark-hover:bg-gray-300"
-          >
-            Settings</nuxt-link
->>>>>>> 12f48634b4be217aad61eaf4bc7e0b121863da59
           >
           <!-- <a
             href="#"
