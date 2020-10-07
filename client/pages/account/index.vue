@@ -40,6 +40,7 @@ import PersonalInformation from '@/components/Account/PersonalInformation'
 // import Notifications from '@/components/Account/Notifications'
 
 export default {
+  middleware: 'auth',
   components: {
     // Profile,
     PersonalInformation,

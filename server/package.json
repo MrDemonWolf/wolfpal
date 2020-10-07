@@ -37,6 +37,7 @@
     "js-sha512": "^0.8.0",
     "jsonwebtoken": "^8.5.1",
     "lusca": "^1.6.1",
+    "luxon": "^1.25.0",
     "mjml": "^4.6.3",
     "moment": "^2.27.0",
     "mongoose": "^5.10.0",
@@ -45,6 +46,7 @@
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "slugify": "^1.4.5",
+    "uninstall": "0.0.0",
     "validator": "^13.1.1"
   },
   "devDependencies": {

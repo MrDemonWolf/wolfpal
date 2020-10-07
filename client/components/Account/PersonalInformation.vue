@@ -8,56 +8,28 @@
         Use a permanent address where you can receive mail.
       </p>
     </div>
-    <div class="mt-6 md:mt-3 md:col-span-2">
+    <div class="mt-6 md:mt-3">
       <form @submit.prevent="changePersonalInformation">
         <div class="overflow-hidden shadow sm:rounded-md">
           <div class="px-4 py-5 bg-white sm:p-6">
-            <div class="grid grid-cols-6 gap-6">
-              <div class="col-span-6 sm:col-span-3">
-                <!-- <label
-                  for="first_name"
-                  class="block text-sm font-medium leading-5 text-gray-700"
-                  >First name</label
-                >
-                <input
-                  id="first_name"
-                  class="block w-full px-3 py-2 mt-1 transition duration-150 ease-in-out border border-gray-300 rounded-md shadow-sm form-input focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
-                />
-              </div>
-
-              <div class="col-span-6 sm:col-span-3">
-                <label
-                  for="last_name"
-                  class="block text-sm font-medium leading-5 text-gray-700"
-                  >Last name</label
-                >
-                <input
-                  id="last_name"
-                  class="block w-full px-3 py-2 mt-1 transition duration-150 ease-in-out border border-gray-300 rounded-md shadow-sm form-input focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
-                /> -->
-              </div>
-
-              <div class="col-span-6">
-                <label
-                  for="email_address"
-                  class="block text-sm font-medium leading-5 text-gray-700"
-                  >Email address</label
-                >
-                <input
-                  id="email_address"
-                  class="block w-full px-3 py-2 mt-1 transition duration-150 ease-in-out border border-gray-300 rounded-md shadow-sm form-input focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
-                />
-                <p class="mt-2 text-sm text-primary-500">
-                  Your new e-mail address{{ newEmail }} has not yet been
-                  comfirmed.
-                  <span
-                    class="cursor-pointer text-primary-400 hover:text-primary-600"
-                    submit
-                    >Resend confirmation email?</span
-                  >
-                </p>
-              </div>
-            </div>
+            <label
+              for="email_address"
+              class="block text-sm font-medium leading-5 text-gray-700"
+              >Email address</label
+            >
+            <input
+              id="email_address"
+              v-model="email"
+              class="block w-full px-3 py-2 mt-1 transition duration-150 ease-in-out border border-gray-300 rounded-md shadow-sm form-input focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+            />
+            <p v-if="newEmail" class="mt-2 text-sm text-primary-500">
+              Your new e-mail address {{ newEmail }} has not yet been comfirmed.
+              <span
+                class="cursor-pointer text-primary-400 hover:text-primary-600"
+                submit
+                >Resend confirmation email?</span
+              >
+            </p>
           </div>
           <div class="px-4 py-3 text-right bg-gray-50 sm:px-6">
             <button
@@ -82,7 +54,9 @@ export default {
   },
   methods: {
     async changePersonalInformation(e) {
-      if (this.email !== this.$auth.user.email) {
+      const email = this.email !== this.$auth.user.email
+      const newEmail = this.newEmail !== this.$auth.user.newEmail
+      if (email || newEmail) {
         try {
           const response = await this.$axios.post('/api/account/email-change', {
             email: this.email,
