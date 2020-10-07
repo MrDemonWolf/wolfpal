@@ -102,6 +102,45 @@ curl --location --request POST 'https://www.example.com/api/account/email-change
   </code-block>
 </code-group>
 
+## Email Change resend
+
+Allows a logged in user to resend email change confirmation.
+
+#### Path
+
+`POST /account/email-change/resend`
+
+#### Headers
+
+| Field         | Type   | Description                       |
+| :------------ | :----- | :-------------------------------- |
+| Content-Type  | string | application/x-www-form-urlencoded |
+| Authorization | string | JWT access token.                 |
+
+#### Example
+
+<code-group>
+  <code-block label="Request" active>
+
+```sh
+curl --location --request POST 'https://www.example.com/api/account/email-change/resend' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjdiMmMwYjMwNmI2NTE4MGQyYjAyZGYiLCJpYXQiOjE2MDE5MDg4NjAsImV4cCI6MTYwMTkwOTE2MH0.5fhqZJH_29mpFneOySnAmOQsZj0nI7Su9-zJ1fNQZuM' \
+```
+
+  </code-block>
+  <code-block label="Response
+">
+
+```json
+{
+  "code": 200,
+  "message": "Please check your new email address to complate the email change."
+}
+```
+
+  </code-block>
+</code-group>
+
 ## Email Change with Token
 
 Allow a logged in user to change their email with email verify token.
