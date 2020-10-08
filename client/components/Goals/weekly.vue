@@ -1,5 +1,5 @@
 <template>
-  <div class="p-6 m-4 bg-white rounded shadow dark:bg-gray-200">
+  <div class="p-6 m-4 rounded shadow bg-gray-50 dark:bg-gray-200">
     <h1 class="text-2xl font-extrabold text-center text-primary-900">
       Weekly Goals
     </h1>
