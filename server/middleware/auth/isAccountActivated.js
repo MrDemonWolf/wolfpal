@@ -2,12 +2,16 @@ const User = require('../../models/User');
 
 module.exports = async (req, res, next) => {
   try {
-    const isActivated = await User.findOne({
-      email: req.body.email,
-      emailVerified: { $ne: false }
-    });
+    const user = await User.findOne({ email: req.body.email });
 
-    if (isActivated) {
+    if (!user) {
+      return res.status(400).json({
+        code: 400,
+        error: 'Wrong email or password.'
+      });
+    }
+
+    if (user.emailVerified) {
       return next();
     }
     res.status(401).send({
