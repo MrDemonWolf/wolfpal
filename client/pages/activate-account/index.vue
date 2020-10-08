@@ -1,31 +1,20 @@
 <template>
   <div class="flex flex-col justify-center py-12 h-80 sm:px-6 lg:px-8">
-    <div class="sm:mx-auto sm:w-full sm:max-w-md">
-      <h1
-        class="mt-6 text-3xl font-extrabold leading-9 text-center text-gray-900 dark:text-white"
-      >
-        Resend account activation
-      </h1>
-      <p
-        class="mt-2 text-sm leading-5 text-center text-gray-600 max-w dark:text-gray-200"
-      >
-        Or
-        <nuxt-link
-          class="font-medium transition duration-150 ease-in-out text-primary-600 hover:text-primary-500 focus:outline-none focus:underline dark:text-primary-300"
-          to="/forgot-password"
-        >
-          Forgot your password?
-        </nuxt-link>
-      </p>
-    </div>
-
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
       <Alert v-if="error" type="danger" :message="error" class="mb-4" />
       <Alert v-if="success" type="success" :message="success" class="mb-4" />
       <div
         class="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10 dark:bg-gray-200"
       >
-        <form @submit.prevent="userResendActivateAccount">
+        <h1 class="text-3xl font-bold text-center font-roboto text-primary-500">
+          Activate Account
+        </h1>
+
+        <p class="mt-4 leading-5 font-montserrat">
+          Please fill in the email address you used to register. You'll receive
+          an email with link to activate your account.
+        </p>
+        <form class="mt-4" @submit.prevent="userResendActivateAccount">
           <div>
             <label
               for="email"
@@ -56,7 +45,7 @@
                 type="submit"
                 class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-primary-600 hover:bg-primary-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700"
               >
-                Resend activation
+                Submit
               </button>
             </span>
           </div>
