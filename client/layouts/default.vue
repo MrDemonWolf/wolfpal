@@ -4,8 +4,9 @@
     <main
       id="content"
       role="main"
-      class="flex-grow bg-gray-100 dark:bg-gray-800"
+      class="flex-grow bg-gray-200 dark:bg-gray-800"
     >
+      <OfflineBanner />
       <Nuxt />
     </main>
     <Footer />
@@ -14,11 +15,13 @@
 
 <script>
 import Navigation from '@/components/Shared/Navigation'
+import OfflineBanner from '@/components/Shared/OfflineBanner'
 import Footer from '@/components/Shared/Footer'
 
 export default {
   components: {
     Navigation,
+    OfflineBanner,
     Footer,
   },
   data() {
