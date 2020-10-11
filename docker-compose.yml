@@ -1,0 +1,45 @@
+version: "3.5"
+
+services:
+  server:
+    restart: always
+
+    build:
+      context: ./server
+      dockerfile: ./Dockerfile
+    env_file: ./server/.env
+    depends_on:
+      - mongodb
+    networks:
+      - wolfpal
+    ports:
+      - 8080:8080
+  mongodb:
+    image: mongo:latest
+    restart: always
+    volumes:
+      - wolfpal-mongodb-data:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: toor
+    networks:
+      - wolfpal
+  client:
+    restart: always
+    build:
+      context: ./client
+      dockerfile: ./Dockerfile
+    env_file: ./client/.env
+    depends_on:
+      - server
+    networks:
+      - wolfpal
+    ports:
+      - 3000:3000
+
+networks:
+  wolfpal:
+    name: wolfpal
+
+volumes:
+  wolfpal-mongodb-data:
