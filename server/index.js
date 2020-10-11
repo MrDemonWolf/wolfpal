@@ -109,7 +109,7 @@ db.once('open', () => {
     if (process.env.NODE_ENV !== 'test') {
       consola.log('----------------------------------------');
       consola.info(`Environment: ${app.get('env')}`);
-      consola.info(`App URL: http://localhost:${app.get('port')}`);
+      consola.info(`App URL: http://${app.get('host')}:${app.get('port')}`);
       consola.log('----------------------------------------');
     }
   });
