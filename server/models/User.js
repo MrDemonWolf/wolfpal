@@ -108,11 +108,16 @@ UserSchema.pre('save', function save(next) {
 UserSchema.methods.verifyPassword = async function verifyPassword(
   candidatePassword
 ) {
-  const isMatch = await bcrypt.compare(candidatePassword, this.password);
-  if (!isMatch) {
+  try {
+    const isMatch = await bcrypt.compare(candidatePassword, this.password);
+    if (!isMatch) {
+      return false;
+    }
+    return true;
+  } catch (err) {
+    console.log(err);
     return false;
   }
-  return true;
 };
 
 UserSchema.index(

@@ -1,4 +1,3 @@
-# Created by .ignore support plugin (hsz.mobi)
 ### Node template
 # Logs
 /logs
@@ -92,3 +91,6 @@ sw.*
 # Custom
 # This is for the test file in the client
 client/pages/test.vue
+
+# Docker Override
+docker-compose.override.yml

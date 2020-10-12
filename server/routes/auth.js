@@ -120,11 +120,13 @@ router.post('/login', isAccountActivated, async (req, res) => {
     /**
      * Validdate the user important for email,password.
      */
+
     const { errors, isValid } = validateLoginInput(req.body);
 
     if (!isValid) {
       return res.status(400).json({ code: 400, errors });
     }
+
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
