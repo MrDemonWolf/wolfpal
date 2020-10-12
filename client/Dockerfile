@@ -1,5 +1,7 @@
 FROM node:12.18.4-alpine as builder
 
+RUN apk add --no-cache g++ make python
+
 COPY package*.json ./
 
 RUN npm ci
