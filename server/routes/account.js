@@ -43,6 +43,7 @@ const validateEmailChangeInput = require('../validation/account/email-change');
  * Load Email Templates.
  */
 const verifyNewEmailTemplate = require('../emails/account/new-email');
+const changePasswordTemplate = require('../emails/account/change-password');
 
 /**
  * @route /account
@@ -190,39 +191,128 @@ router.post(
  * @method PUT
  * @description Allow a logged in user to change their email with email verify token.
  */
-router.put('/email-change/:email_token', async (req, res) => {
-  try {
-    /**
-     * Get the user by there email
-     */
-    const user = await User.findOne({
-      emailVerificationToken: req.params.email_token,
-      emailVerificationTokenExpire: { $gt: moment() }
-    });
-
-    if (!user) {
-      return res.status(400).json({
-        code: 400,
-        error:
-          'Either your new email confirmation link has expired or already has been used.'
+router.put(
+  '/email-change/:email_token',
+  requireAuth,
+  isSessionValid,
+  async (req, res) => {
+    try {
+      /**
+       * Get the user by their email token
+       */
+      const user = await User.findOne({
+        emailVerificationToken: req.params.email_token,
+        emailVerificationTokenExpire: { $gt: moment() }
       });
+
+      if (!user) {
+        return res.status(400).json({
+          code: 400,
+          error:
+            'Either your new email confirmation link has expired or already has been used.'
+        });
+      }
+      user.emailVerificationToken = undefined;
+      user.emailVerificationTokenExpire = undefined;
+      user.email = user.newEmail;
+      user.newEmail = undefined;
+      user.emailChanged = moment();
+
+      await user.save();
+
+      res.status(201).json({
+        code: 201,
+        message: 'Your email has been changed successfully.'
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ code: 500, error: 'Internal Server Error' });
     }
-    user.emailVerificationToken = undefined;
-    user.emailVerificationTokenExpire = undefined;
-    user.email = user.newEmail;
-    user.newEmail = undefined;
-    user.emailChanged = moment();
-
-    await user.save();
-
-    res.status(201).json({
-      code: 201,
-      message: 'Your email has been changed successfully.'
-    });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ code: 500, error: 'Internal Server Error' });
   }
-});
+);
+
+/**
+ * @route /account/change-password
+ * @method PUT
+ * @description Allows a logged in user to change their password.
+ */
+router.put(
+  '/change-password',
+  requireAuth,
+  isSessionValid,
+  async (req, res) => {
+    try {
+      /**
+       * Get the user.
+       */
+      const user = await User.findById(req.user.id);
+
+      const { oldPassword, newPassword } = req.body;
+
+      const isPasswordSame = await user.verifyPassword(newPassword);
+
+      if (isPasswordSame) {
+        return res.status(409).json({
+          code: 409,
+          error: "Your new password can't be the same as your old password."
+        });
+      }
+
+      const isMatch = await user.verifyPassword(oldPassword);
+
+      if (!isMatch) {
+        return res.status(409).json({
+          code: 409,
+          error: 'Wrong old password.'
+        });
+      }
+
+      user.password = newPassword;
+
+      await user.save();
+
+      await Session.deleteMany({
+        user: req.user.id
+      });
+
+      /**
+       * Get the IP details and place it in a object
+       */
+      const ipInfo = {
+        city: req.ipInfo.city,
+        state: req.ipInfo.region,
+        country: req.ipInfo.country,
+        ip: req.ipInfo.ip,
+        localhost: req.ipInfo.error
+      };
+
+      /**
+       * Device Details in a object
+       */
+      const device = {
+        os: req.body.device.os ? req.body.device.os : 'null',
+        browser: req.body.device.browser ? req.body.device.browser : 'null'
+      };
+
+      const emailTemplate = changePasswordTemplate(ipInfo, device);
+
+      const msg = {
+        to: user.email,
+        from: `${process.env.EMAIL_FROM} <noreply@${process.env.EMAIL_DOMAIN}>`,
+        subject: `Your password has been changed on ${process.env.SITE_TITLE}`,
+        html: emailTemplate.html
+      };
+
+      if (process.env.NODE_ENV !== 'test') await sendgrid.send(msg);
+      res.status(200).json({
+        code: 200,
+        message: 'Your password has been changed.'
+      });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ code: 500, error: 'Internal Server Error' });
+    }
+  }
+);
 
 module.exports = router;

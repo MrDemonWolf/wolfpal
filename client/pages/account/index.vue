@@ -21,6 +21,15 @@
       <PersonalInformation />
     </div>
 
+    <div class="hidden sm:block">
+      <div class="py-5">
+        <div class="border-t border-gray-300"></div>
+      </div>
+    </div>
+    <div class="my-0 sm:my-5">
+      <Security />
+    </div>
+
     <!-- <div class="hidden sm:block">
       <div class="py-5">
         <div class="border-t border-gray-300"></div>
@@ -35,12 +44,15 @@
 <script>
 // import Profile from '@/components/Account/Profile'
 import PersonalInformation from '@/components/Account/PersonalInformation'
+import Security from '@/components/Account/Security'
 // import Notifications from '@/components/Account/Notifications'
+
 export default {
   middleware: 'auth',
   components: {
     // Profile,
     PersonalInformation,
+    Security,
     // Notifications,
   },
 }

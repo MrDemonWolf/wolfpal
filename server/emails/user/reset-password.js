@@ -1,10 +1,10 @@
 const mjml = require('mjml');
 
 /**
- *  @param clientIp
- *  Token for the password reset
  *  @param ipInfo
- *
+ *  @description IP infomation
+ *  @param device
+ *  @description Device infomation
  */
 module.exports = (ipInfo, device) =>
   mjml(`<mjml>
@@ -21,7 +21,7 @@ module.exports = (ipInfo, device) =>
       <mj-section>
         <mj-column>
           <mj-text>
-            You are receiving this because you (or someone else) has changed your account paassword. If this was not you please contact the webmaster.
+            You are receiving this because you (or someone else) has changed your account password. If this was not you please contact the webmaster.
           </mj-text>
         </mj-column>
       </mj-section>
