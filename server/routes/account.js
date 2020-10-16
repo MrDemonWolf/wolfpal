@@ -254,7 +254,7 @@ router.put(
       if (isPasswordSame) {
         return res.status(409).json({
           code: 409,
-          error: "Your new password can't be the same as your old password."
+          errors: { newPassword: 'New password can not match old password.' }
         });
       }
 
@@ -263,7 +263,7 @@ router.put(
       if (!isMatch) {
         return res.status(409).json({
           code: 409,
-          error: 'Wrong old password.'
+          errors: { oldPassword: 'Wrong old password.' }
         });
       }
 
@@ -303,7 +303,8 @@ router.put(
         html: emailTemplate.html
       };
 
-      if (process.env.NODE_ENV !== 'test') await sendgrid.send(msg);
+      // if (process.env.NODE_ENV !== 'test') await sendgrid.send(msg);
+
       res.status(200).json({
         code: 200,
         message: 'Your password has been changed.'
