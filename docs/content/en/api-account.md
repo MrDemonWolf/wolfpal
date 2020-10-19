@@ -168,6 +168,7 @@ Allow a logged in user to change their email with email verify token.
 
 ```sh
 curl --location --request PUT 'https://www.example.com/api/account/email-change/:email_token' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjdiMmMwYjMwNmI2NTE4MGQyYjAyZGYiLCJpYXQiOjE2MDE5MDg4NjAsImV4cCI6MTYwMTkwOTE2MH0.5fhqZJH_29mpFneOySnAmOQsZj0nI7Su9-zJ1fNQZuM'
 ```
 
   </code-block>
@@ -178,6 +179,55 @@ curl --location --request PUT 'https://www.example.com/api/account/email-change/
 {
   "code": 200,
   "message": "Please check your new email address to complate the email change."
+}
+```
+
+  </code-block>
+</code-group>
+
+## Password Change
+
+Allows a logged in user to change their password.
+
+#### Path
+
+`PUT /account/change-password`
+
+#### Headers
+
+| Field         | Type   | Description                       |
+| :------------ | :----- | :-------------------------------- |
+| Content-Type  | string | application/x-www-form-urlencoded |
+| Authorization | string | JWT access token.                 |
+
+#### Body
+
+| Field       | Type   | Description               |
+| :---------- | :----- | :------------------------ |
+| oldPassword | string | Old Password for account  |
+| newPassword | string | New password for account. |
+
+#### Example
+
+<code-group>
+  <code-block label="Request" active>
+
+```sh
+curl --location --request PUT 'https://www.example.com/api//account/change-password' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjdiMmMwYjMwNmI2NTE4MGQyYjAyZGYiLCJpYXQiOjE2MDE5MDg4NjAsImV4cCI6MTYwMTkwOTE2MH0.5fhqZJH_29mpFneOySnAmOQsZj0nI7Su9-zJ1fNQZuM' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--data-urlencode 'oldPassword=password' \
+--data-urlencode 'newPassword=password123'
+```
+
+  </code-block>
+  <code-block label="Response
+">
+
+```json
+{
+  "code": 200,
+  "message": "Your password has been changed."
 }
 ```
 

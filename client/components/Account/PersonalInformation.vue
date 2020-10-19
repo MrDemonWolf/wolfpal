@@ -82,6 +82,11 @@ export default {
           position: 'bottom-right',
         })
       } catch (e) {
+        if (e.response && e.response.data && e.response.data.error) {
+          return this.$toast.error(e.response.data.error, {
+            position: 'bottom-right',
+          })
+        }
         this.$toast.error('Oops.. Something Went Wrong..', {
           position: 'bottom-right',
         })

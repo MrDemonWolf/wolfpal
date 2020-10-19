@@ -21,7 +21,7 @@ module.exports = (ipInfo, device) =>
       <mj-section>
         <mj-column>
           <mj-text>
-            You are receiving this because you (or someone else) has changed your account password. If this was not you please contact the webmaster.
+            You are receiving this because you changed your account password. If this was not you please contact the webmaster.
           </mj-text>
         </mj-column>
       </mj-section>
