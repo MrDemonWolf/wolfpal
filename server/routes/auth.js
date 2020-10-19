@@ -134,7 +134,7 @@ router.post('/login', isAccountActivated, async (req, res) => {
     if (!user) {
       return res.status(400).json({
         code: 400,
-        error: 'Wrong email or password.'
+        error: `Couldn't find your ${process.env.SITE_TITLE} Account`
       });
     }
 

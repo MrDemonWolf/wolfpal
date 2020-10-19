@@ -42,7 +42,7 @@
                 placeholder="example@example.com"
                 name="email"
                 type="email"
-                :class="{ 'border-red-500': errors.email }"
+                :class="{ 'border-red-500': errors.email || error }"
                 class="block w-full px-3 py-2 mt-1 placeholder-gray-400 transition duration-150 ease-in-out border border-gray-300 rounded-md shadow-sm form-input focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                 novalidate
               />
@@ -66,7 +66,7 @@
                 placeholder="****************"
                 name="password"
                 type="password"
-                :class="{ 'border-red-500': errors.password }"
+                :class="{ 'border-red-500': errors.password || error }"
                 class="block w-full px-3 py-2 mt-1 placeholder-gray-400 transition duration-150 ease-in-out border border-gray-300 rounded-md shadow-sm form-input focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                 novalidate
               />
@@ -135,7 +135,7 @@ export default {
         })
       } catch (e) {
         if (e.response.data.errors) {
-          return (this.errors = e.response.data.errors)
+          return (this.errors.messsage = e.response.data.errors)
         }
         this.error = e.response.data.error
         if (this.success) {
