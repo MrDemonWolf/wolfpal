@@ -1,7 +1,7 @@
 <template>
-  <div class="container mx-auto px-6">
+  <div class="container px-6 mx-auto">
     <div
-      class="mt-5 grid grid-cols-1 rounded-lg bg-white overflow-hidden shadow md:grid-cols-3"
+      class="grid grid-cols-1 mt-5 overflow-hidden bg-white rounded-lg shadow md:grid-cols-3"
     >
       <div>
         <div class="px-4 py-5 sm:p-6">
@@ -29,19 +29,17 @@
               width="98.01"
               height="28.75"
             />
-            <!-- <rect
-                x="189.5"
-                y="32.27"
-                rx="0"
-                ry="0"
-                width="90.12"
-                height="29"
-              /> -->
+            <rect x="189.5" y="32.27" rx="0" ry="0" width="90.12" height="29" />
           </content-loader>
           <StatCard
             v-if="!loading.weekly"
             title="Completed Weekly Goals"
             :from="analytics.weekly.completed"
+            from-text="out of"
+            :to="analytics.weekly.total"
+            :total="analytics.weekly.total"
+            iod="completed percent"
+            :increased="true"
           />
         </div>
       </div>
@@ -100,6 +98,8 @@ export default {
       analytics: {
         weekly: {
           completed: 0,
+          notCompleted: 0,
+          total: 0,
         },
       },
       loading: {
