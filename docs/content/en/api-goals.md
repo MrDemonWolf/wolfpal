@@ -1,7 +1,7 @@
 ---
 title: Goals
-description: "A wolf to guide you to your end goals by helping keep you on track weely, bi-weekly or even monthly and yearly goals."
-position: 7
+description: "A wlf to guide you to your end goals by helping keep you on track weely, bi-weekly or even monthly and yearly goals."
+position: 9
 category: API
 ---
 
