@@ -15,6 +15,14 @@ A wolf to guide you to your end goals by helping keep you on track weely, bi-wee
 
 <list :items="features"></list>
 
+## Issues
+
+Have a bug or an issue with this app? [Open a new issue](https://github.com/MrDemonWolf/wolfpal/issues) here on GitHub.
+
+## Contributing
+
+Want to contribute? Check out our [Code of Conduct]() and [Contributing]() docs. Please check issues [here](https://github.com/MrDemonWolf/wolfpal/issues)
+
 <!-- ## Videos
 
 Demonstration of using `$content` and `<nuxt-content>` to display Markdown pages:

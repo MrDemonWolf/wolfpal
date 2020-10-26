@@ -1,7 +1,7 @@
 ---
 title: Analytics
 description: "A wolf to guide you to your end goals by helping keep you on track weely, bi-weekly or even monthly and yearly goals."
-position: 7
+position: 8
 category: API
 ---
 
