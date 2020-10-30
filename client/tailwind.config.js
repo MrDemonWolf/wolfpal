@@ -4,8 +4,6 @@
  ** Docs: https://tailwindcss.com/docs/configuration
  ** Default: https://github.com/tailwindcss/tailwindcss/blob/master/stubs/defaultConfig.stub.js
  */
-const plugin = require('tailwindcss/plugin')
-
 module.exports = {
   theme: {
     // compatible with @nuxtjs/color-mode
@@ -24,13 +22,24 @@ module.exports = {
           900: '#16213A',
         },
       },
+      height: {
+        80: '80vh',
+        84: '84vh',
+        85: '85vh',
+        90: '90vh',
+        95: '95vh',
+      },
+      borderWidth: {
+        6: '6px',
+      },
+      fontSize: {
+        '7xl': '5rem',
+        '8xl': '6rem',
+        '9xl': '7rem',
+      },
       fontFamily: {
         roboto: ['Roboto', 'sans-serif'],
         montserrat: ['Montserrat', 'sans-serif'],
-      },
-      borderStyles: {
-        styles: true, // defaults to false
-        colors: true, // defaults to false
       },
     },
     borderStyles: {
@@ -76,48 +85,6 @@ module.exports = {
       // layout: 'sidebar',
     }),
     require('tailwindcss-border-styles')(),
-    plugin(function ({ addUtilities }) {
-      const newUtilities = {
-        '.h-80': {
-          height: '80vh',
-        },
-        '.h-84': {
-          height: '84vh',
-        },
-        '.h-85': {
-          height: '85vh',
-        },
-        '.h-90': {
-          height: '90vh',
-        },
-        '.text-7xl': {
-          'font-size': '5rem',
-        },
-        '.text-8xl': {
-          'font-size': '6rem',
-        },
-        '.text-9xl': {
-          'font-size': '7rem',
-        },
-        '.border-6': {
-          'border-width': '6px',
-        },
-        '.border-l-6': {
-          'border-left-width': '6px',
-        },
-        '.border-r-6': {
-          'border-right-width': '6px',
-        },
-        '.border-t-6': {
-          'border-top-width': '6px',
-        },
-        '.border-b-6': {
-          'border-bottom-width': '6px',
-        },
-      }
-
-      addUtilities(newUtilities)
-    }),
   ],
 
   purge: {

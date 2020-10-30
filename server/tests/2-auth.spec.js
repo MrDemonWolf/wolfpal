@@ -220,5 +220,4 @@ describe('🔐 Auth:', () => {
         });
     });
   });
-  describe('📧 Auth: email verification', () => {});
 });

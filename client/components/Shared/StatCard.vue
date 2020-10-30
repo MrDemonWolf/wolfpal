@@ -1,11 +1,11 @@
 <template>
   <dl>
-    <dt class="text-base font-normal leading-6 text-gray-900">
+    <dt class="text-base font-bold leading-6 text-gray-900">
       {{ title }}
     </dt>
     <dd class="flex items-baseline justify-between mt-1 md:block lg:flex">
       <div
-        class="flex items-baseline text-2xl font-semibold leading-8 text-indigo-600"
+        class="flex items-baseline text-2xl font-semibold leading-8 text-blue-500"
       >
         {{ from }}
         <span class="ml-2 text-sm font-medium leading-5 text-gray-500">

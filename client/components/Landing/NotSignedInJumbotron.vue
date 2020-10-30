@@ -1,8 +1,8 @@
 <template>
-  <div class="relative overflow-hidden h-84 bg-gray-800">
+  <div class="relative overflow-hidden bg-gray-800 h-95 sm:h-85">
     <div class="hidden sm:block sm:absolute sm:inset-0">
       <svg
-        class="absolute bottom-0 right-0 transform translate-x-1/2 mb-48 text-gray-700 lg:top-0 lg:mt-28 lg:mb-0 xl:transform-none xl:translate-x-0"
+        class="absolute bottom-0 right-0 mb-48 text-gray-700 transform translate-x-1/2 lg:top-0 lg:mt-28 lg:mb-0 xl:transform-none xl:translate-x-0"
         width="450"
         height="450"
         viewBox="0 0 450 450"
@@ -27,27 +27,25 @@
         />
       </svg>
     </div>
-    <div class="relative pt-6 md:pt-12 pb-12 sm:pb-32">
+    <div class="relative pt-6 pb-12 md:pt-12 sm:pb-32">
       <div class="mt-16 sm:mt-8 md:mt-6 lg:mt-24">
-        <div class="mx-auto max-w-screen-xl">
+        <div class="max-w-screen-xl mx-auto">
           <div class="lg:grid lg:grid-cols-12 lg:gap-8">
             <div
               class="px-4 sm:px-6 sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left lg:flex lg:items-center"
             >
               <div>
                 <h1
-                  class="mt-4 text-4xl tracking-tight leading-10 font-extrabold text-white sm:mt-5 sm:leading-none sm:text-6xl lg:mt-6 lg:text-5xl xl:text-6xl"
+                  class="mt-4 text-4xl font-extrabold leading-10 tracking-tight text-white sm:mt-5 sm:leading-none sm:text-6xl lg:mt-6 lg:text-5xl xl:text-6xl font-roboto"
                 >
-                  Reach your
+                  Welcome to
                   <br class="hidden md:inline" />
-                  <span class="text-primary-400"> full potential</span>
+                  <span class="text-primary-400"> {{ $config.title }}</span>
                 </h1>
                 <p
-                  class="mt-3 text-base text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl"
+                  class="mt-3 text-base text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl font-montserrat"
                 >
-                  Let the Wolf guide you to what you dream of getting done. We
-                  all have goals in life and keeping track of them can either be
-                  a pain and or overwellming.
+                  {{ $config.description }}
                 </p>
               </div>
             </div>
@@ -84,7 +82,7 @@
                             type="text"
                             placeholder="Username"
                             :class="{ 'border-red-500': errors.username }"
-                            class="mt-1 form-input block w-full py-2 px-3 border shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5 border-gray-300 rounded-md placeholder-gray-400"
+                            class="block w-full px-3 py-2 mt-1 placeholder-gray-400 transition duration-150 ease-in-out border border-gray-300 rounded-md shadow-sm form-input focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                             novalidate
                           />
                         </div>
@@ -104,7 +102,7 @@
                             type="email"
                             :class="{ 'border-red-500': errors.email }"
                             placeholder="Email"
-                            class="mt-1 form-input block w-full py-2 px-3 border shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5 border-gray-300 rounded-md placeholder-gray-400"
+                            class="block w-full px-3 py-2 mt-1 placeholder-gray-400 transition duration-150 ease-in-out border border-gray-300 rounded-md shadow-sm form-input focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                             novalidate
                           />
                         </div>
@@ -124,7 +122,7 @@
                             type="password"
                             :class="{ 'border-red-500': errors.password }"
                             placeholder="Password"
-                            class="mt-1 form-input block w-full py-2 px-3 border shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5 border-gray-300 rounded-md placeholder-gray-400"
+                            class="block w-full px-3 py-2 mt-1 placeholder-gray-400 transition duration-150 ease-in-out border border-gray-300 rounded-md shadow-sm form-input focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                             novalidate
                           />
                         </div>
@@ -137,7 +135,7 @@
                         <span class="block w-full rounded-md shadow-sm">
                           <button
                             type="submit"
-                            class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-primary-500 hover:bg-primary-600 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
+                            class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-primary-500 hover:bg-primary-600 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700"
                           >
                             Create your account
                           </button>
@@ -147,7 +145,7 @@
                   </div>
                 </div>
                 <div
-                  class="px-4 py-6 bg-gray-50 border-t-2 border-gray-200 sm:px-10 dark:bg-gray-50 dark:border-gray-200"
+                  class="px-4 py-6 border-t-2 border-gray-200 bg-gray-50 sm:px-10 dark:bg-gray-50 dark:border-gray-200"
                 >
                   <p class="text-xs leading-5 text-gray-500 dark:text-black">
                     By signing up, you agree to our
