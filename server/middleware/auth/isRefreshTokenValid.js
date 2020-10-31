@@ -18,15 +18,14 @@ module.exports = async (req, res, next) => {
       isRevoked: { $ne: true }
     });
 
-    const user = await User.findById(refreshTokenValid.user).select(
-      '-password '
-    );
-
-    req.user = user;
     /**
-     * If it's valid then move on.
+     * If it's valid then move on with setting the user object  on the request.
      */
     if (refreshTokenValid) {
+      const user = await User.findById(refreshTokenValid.user).select(
+        '-password'
+      );
+      req.user = user;
       return next();
     }
     res.status(401).send('Unauthorized');

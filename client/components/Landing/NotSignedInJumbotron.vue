@@ -1,5 +1,5 @@
 <template>
-  <div class="relative overflow-hidden bg-gray-800 h-95 sm:h-85">
+  <div class="relative overflow-hidden bg-gray-800 h-95 sm:h-80">
     <div class="hidden sm:block sm:absolute sm:inset-0">
       <svg
         class="absolute bottom-0 right-0 mb-48 text-gray-700 transform translate-x-1/2 lg:top-0 lg:mt-28 lg:mb-0 xl:transform-none xl:translate-x-0"

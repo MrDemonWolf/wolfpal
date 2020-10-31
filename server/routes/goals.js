@@ -50,10 +50,10 @@ router.post('/weekly', requireAuth, isSessionValid, async (req, res) => {
     /**
      * validate the goal important for title
      */
-    const { errors, isValid } = validateNewWeeklyGoalInput(req.body);
+    const { error, isValid } = validateNewWeeklyGoalInput(req.body);
 
     if (!isValid) {
-      return res.status(400).json({ code: 400, errors });
+      return res.status(400).json({ code: 400, error });
     }
 
     const { title } = req.body;
