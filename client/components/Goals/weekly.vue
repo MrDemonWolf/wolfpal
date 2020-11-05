@@ -40,7 +40,7 @@
         <button
           :class="{
             'border-green-500': goal.isCompleted,
-            'border-gray-600 dark:border-gray-700': !goal.isCompleted,
+            'border-gray-400 dark:border-gray-500': !goal.isCompleted,
           }"
           class="p-2 ml-4 mr-2 text-green-500 border-2 rounded flex-no-shrink hover:text-white hover:bg-green-500 hover:border-green-500 dark-hover:border-green-500 toggle-complete-goal focus:outline-none"
           @click="toggleCompleteGoal(index)"

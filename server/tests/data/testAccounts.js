@@ -13,5 +13,12 @@ module.exports = {
     username: 'ownermrdemonwolfgithubio',
     email: 'owner@mrdemonwolf.github.io',
     password: 'owner@mrdemonwolf.github.io'
+  },
+  extra: {
+    emailVerification: {
+      username: 'emailVerificationmrdemonwolfgithubio',
+      email: 'emailVerification@mrdemonwolf.github.io',
+      password: 'emailVerification@mrdemonwolf.github.io'
+    }
   }
 };

@@ -179,6 +179,30 @@ describe('🔐 Auth:', () => {
         });
     });
   });
+  describe('🔑 Refresh', () => {
+    it('should refresh user access token', done => {
+      request(server)
+        .post('/auth/refresh')
+        .send({
+          refresh_token: creds.user.refreshToken
+        })
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .end(async (err, res) => {
+          if (err) {
+            return done(err);
+          }
+          try {
+            creds.user.accessToken = res.body.access_token;
+            creds.user.refreshToken = res.body.refresh_token;
+            done();
+          } catch (err) {
+            return done(err);
+          }
+        });
+    });
+  });
+
   describe('🔒 logout', () => {
     it('should logout as user', done => {
       request(server)
@@ -190,7 +214,7 @@ describe('🔐 Auth:', () => {
           if (err) {
             return done(err);
           }
-          done(err);
+          done();
         });
     });
     it('should logout as admin', done => {
@@ -203,7 +227,7 @@ describe('🔐 Auth:', () => {
           if (err) {
             return done(err);
           }
-          done(err);
+          done();
         });
     });
     it('should logout as owner', done => {
@@ -216,7 +240,7 @@ describe('🔐 Auth:', () => {
           if (err) {
             return done(err);
           }
-          done(err);
+          done();
         });
     });
   });

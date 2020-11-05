@@ -5,6 +5,92 @@ position: 5
 category: API
 ---
 
+## Activate account
+
+Allows a register user to activate their account with token.
+
+#### Path
+
+`PUT /user/activate-account/`
+
+#### Headers
+
+| Field        | Type   | Description                       |
+| :----------- | :----- | :-------------------------------- |
+| Content-Type | string | application/x-www-form-urlencoded |
+
+#### Params
+
+| Field          | Type   | Description                |
+| :------------- | :----- | :------------------------- |
+| activate_token | string | Token to activate account. |
+
+#### Example
+
+<code-group>
+  <code-block label="Request" active>
+
+```sh
+curl --location --request PUT 'https://www.example.com/api/user/activate-account/:activate_token' \
+```
+
+  </code-block>
+  <code-block label="Response
+">
+
+```json
+{
+  "code": 201,
+  "message": "Your account is now activated and you're now able to login."
+}
+```
+
+  </code-block>
+</code-group>
+
+## Resend Activate account
+
+Allows a register user resend account activate token to their email.
+
+#### Path
+
+`POST /user/activate-account/resend`
+
+#### Headers
+
+| Field        | Type   | Description                       |
+| :----------- | :----- | :-------------------------------- |
+| Content-Type | string | application/x-www-form-urlencoded |
+
+#### Body
+
+| Field | Type   | Description               |
+| :---- | :----- | :------------------------ |
+| email | string | Email of current account. |
+
+#### Example
+
+<code-group>
+  <code-block label="Request" active>
+
+```sh
+# curl --location --request POST 'https://www.example.com/api/user/activate-account/:activate_token' \
+```
+
+  </code-block>
+  <code-block label="Response
+">
+
+```json
+{
+  "code": 201,
+  "message": "Please confirm your email address to complete the registration."
+}
+```
+
+  </code-block>
+</code-group>
+
 ## Forgot Password
 
 Allows a register user to request a password reset email.
@@ -95,92 +181,6 @@ curl --location --request POST 'https://www.example.com/api/user/reset-password/
 
 ```json
 
-```
-
-  </code-block>
-</code-group>
-
-## Activate account
-
-Allows a register user to activate their account with token.
-
-#### Path
-
-`PUT /activate-account/`
-
-#### Headers
-
-| Field        | Type   | Description                       |
-| :----------- | :----- | :-------------------------------- |
-| Content-Type | string | application/x-www-form-urlencoded |
-
-#### Params
-
-| Field          | Type   | Description                |
-| :------------- | :----- | :------------------------- |
-| activate_token | string | Token to activate account. |
-
-#### Example
-
-<code-group>
-  <code-block label="Request" active>
-
-```sh
-curl --location --request PUT 'https://www.example.com/api/user/activate-account/:activate_token' \
-```
-
-  </code-block>
-  <code-block label="Response
-">
-
-```json
-{
-  "code": 201,
-  "message": "Your account is now activated and you're now able to login."
-}
-```
-
-  </code-block>
-</code-group>
-
-## Resend Activate account
-
-Allows a register user resend account activate token to their email.
-
-#### Path
-
-`POST /activate-account/resend`
-
-#### Headers
-
-| Field        | Type   | Description                       |
-| :----------- | :----- | :-------------------------------- |
-| Content-Type | string | application/x-www-form-urlencoded |
-
-#### Body
-
-| Field | Type   | Description               |
-| :---- | :----- | :------------------------ |
-| email | string | Email of current account. |
-
-#### Example
-
-<code-group>
-  <code-block label="Request" active>
-
-```sh
-curl --location --request POST 'https://www.example.com/api/user/activate-account/:activate_token' \
-```
-
-  </code-block>
-  <code-block label="Response
-">
-
-```json
-{
-  "code": 201,
-  "message": "Please confirm your email address to complete the registration."
-}
 ```
 
   </code-block>
