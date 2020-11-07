@@ -59,9 +59,9 @@ describe('🧑 User:', () => {
       request(server)
         .post('/user/activate-account/resend')
         .send({
-          email: testAccounts.user.email
+          email: testAccounts.extra.emailVerification.email
         })
-        .expect(201)
+        .expect(200)
         .end(async (err, res) => {
           if (err) {
             return done(err);

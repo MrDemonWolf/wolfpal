@@ -219,8 +219,8 @@ router.put('/activate-account/:activate_token', async (req, res) => {
     user.emailVerified = true;
 
     await user.save();
-    res.status(201).json({
-      code: 201,
+    res.status(200).json({
+      code: 200,
       message: `Good job! Your account is now activated and you can start using ${process.env.SITE_TITLE}.`
     });
   } catch (err) {
@@ -242,8 +242,6 @@ router.post('/activate-account/resend', async (req, res) => {
       emailVerified: { $ne: true },
       email: req.body.email
     });
-
-    console.log(req.body);
 
     if (!user) {
       return res.status(409).json({
@@ -268,8 +266,8 @@ router.post('/activate-account/resend', async (req, res) => {
 
     if (process.env.NODE_ENV !== 'test') await sendgrid.send(msg);
 
-    res.status(201).json({
-      code: 201,
+    res.status(200).json({
+      code: 200,
       message: 'Please check your email address to complete the registration.'
     });
   } catch (err) {
