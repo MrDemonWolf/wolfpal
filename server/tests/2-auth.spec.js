@@ -11,7 +11,7 @@ const testAccounts = require('./data/testAccounts');
 /**
  * Create a empty object for creds to be used later
  */
-let creds = {
+const creds = {
   user: {
     accessToken: '',
     refreshToken: ''

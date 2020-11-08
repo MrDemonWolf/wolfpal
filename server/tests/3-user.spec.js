@@ -8,33 +8,14 @@ const User = require('../models/User');
  */
 const testAccounts = require('./data/testAccounts');
 
-/**
- * Create a empty object for creds to be used later
- */
-const creds = {
-  user: {
-    accessToken: '',
-    refreshToken: ''
-  },
-  admin: {
-    accessToken: '',
-    refreshToken: ''
-  },
-  owner: {
-    accessToken: '',
-    refreshToken: ''
-  },
-  extra: {
-    emailVerification: {
-      accessToken: '',
-      refreshToken: ''
-    }
-  }
-};
-
 const emailVerification = {
   emailVerificationToken: '',
   emailVerificationTokenExpire: ''
+};
+
+const passwordChange = {
+  passwordResetToken: '',
+  passwordResetTokenExpire: ''
 };
 
 describe('🧑 User:', () => {
@@ -99,11 +80,75 @@ describe('🧑 User:', () => {
     });
   });
   describe('😅 Reset Password', () => {
-    describe('📧 Reset Password: Forgot Password', () => {
-      // http://localhost:40919/wolfpal/#forgot-password
+    it('should create extra user for testing forgot password', done => {
+      request(server)
+        .post('/auth/register')
+        .send({
+          username: testAccounts.extra.passwordChange.username,
+          email: testAccounts.extra.passwordChange.email,
+          password: testAccounts.extra.passwordChange.password
+        })
+        .expect(201)
+        .end(async (err, res) => {
+          if (err) {
+            return done(err);
+          }
+          try {
+            const user = await User.findOne({
+              email: testAccounts.extra.passwordChange.email
+            });
+            user.emailVerified = true;
+            user.emailVerificationToken = undefined;
+            user.emailVerificationTokenExpire = undefined;
+            await user.save();
+            done();
+          } catch (err) {
+            done(err);
+          }
+        });
     });
-    describe('📧 Reset Password: Change Password with token', () => {
-      // http://localhost:40919/wolfpal/#forgot-password
+    it('should send user password reset token', done => {
+      request(server)
+        .post('/user/forgot-password')
+        .send({
+          email: testAccounts.extra.passwordChange.email
+        })
+        .expect(200)
+        .end(async (err, res) => {
+          if (err) {
+            return done(err);
+          }
+          try {
+            const user = await User.findOne({
+              email: testAccounts.extra.passwordChange.email
+            });
+            /**
+             * Asign the tokens to a variable to use later in the tests.
+             */
+            passwordChange.passwordResetToken = user.passwordResetToken;
+            passwordChange.passwordResetTokenExpire =
+              user.passwordResetTokenExpire;
+            done();
+          } catch (err) {
+            return done(err);
+          }
+        });
+    });
+    it('should change user password with password reset token', done => {
+      request(server)
+        .post(`/user/reset-password/${passwordChange.passwordResetToken}`)
+        .send({
+          password: testAccounts.extra.passwordChange.password2,
+          comfirmPassword: testAccounts.extra.passwordChange.password2
+        })
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .end(async (err, res) => {
+          if (err) {
+            return done(err);
+          }
+          done();
+        });
     });
   });
 });

@@ -155,8 +155,11 @@ router.post('/reset-password/:reset_token', async (req, res) => {
      * Device Details in a object
      */
     const device = {
-      os: req.body.device.os ? req.body.device.os : 'null',
-      browser: req.body.device.browser ? req.body.device.browser : 'null'
+      os: req.body.device && req.body.device.os ? req.body.device.os : 'null',
+      browser:
+        req.body.device && req.body.device.browser
+          ? req.body.device.browser
+          : 'null'
     };
 
     const emailTemplate = resetPasswordTemplate(ipInfo, device);
