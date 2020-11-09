@@ -1,7 +1,6 @@
 const request = require('supertest');
 
 const server = require('../index');
-const User = require('../models/User');
 
 /**
  * Load Configs
@@ -11,26 +10,60 @@ const testAccounts = require('./data/testAccounts');
 /**
  * Create a empty object for creds to be used later
  */
-let creds = {
+const creds = {
   user: {
-    accessToken: '',
-    refreshToken: ''
-  },
-  admin: {
-    accessToken: '',
-    refreshToken: ''
-  },
-  owner: {
     accessToken: '',
     refreshToken: ''
   }
 };
 
 describe('📈 Analytics:', () => {
-  describe('📧 Activate account: Get all analytics', () => {
-    // http://localhost:40919/wolfpal/#activate-account
+  it('should login as user', done => {
+    request(server)
+      .post('/auth/login')
+      .send({
+        email: testAccounts.user.email,
+        password: testAccounts.user.password
+      })
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(async (err, res) => {
+        if (err) {
+          return done(err);
+        }
+        try {
+          creds.user.accessToken = res.body.access_token;
+          creds.user.refreshToken = res.body.refresh_token;
+          done();
+        } catch (err) {
+          return done(err);
+        }
+      });
   });
-  describe('📧 Activate account: Get Weekly analytics', () => {
-    // http://localhost:40919/wolfpal/#activate-account
+  it('should  get analytics on all goals.', done => {
+    request(server)
+      .get('/analytics')
+      .set('Authorization', `Bearer ${creds.user.accessToken}`)
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(async (err, res) => {
+        if (err) {
+          return done(err);
+        }
+        done();
+      });
+  });
+  it('should  get analytics on weekly goals.', done => {
+    request(server)
+      .get('/analytics/weekly')
+      .set('Authorization', `Bearer ${creds.user.accessToken}`)
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(async (err, res) => {
+        if (err) {
+          return done(err);
+        }
+        done();
+      });
   });
 });
