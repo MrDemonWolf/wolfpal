@@ -6,7 +6,7 @@ const User = require('../models/User');
 /**
  * Load Configs
  */
-const testAccounts = require('./data/testAccounts');
+const testAccounts = require('./data/testAccounts.json');
 
 const emailVerification = {
   emailVerificationToken: '',

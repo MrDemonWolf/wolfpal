@@ -5,7 +5,7 @@ const server = require('../index');
 /**
  * Load Configs
  */
-const testAccounts = require('./data/testAccounts');
+const testAccounts = require('./data/testAccounts.json');
 
 /**
  * Create a empty object for creds to be used later
@@ -36,7 +36,7 @@ describe('📈 Analytics:', () => {
           creds.user.refreshToken = res.body.refresh_token;
           done();
         } catch (err) {
-          return done(err);
+          done(err);
         }
       });
   });

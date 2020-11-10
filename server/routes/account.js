@@ -220,8 +220,8 @@ router.put(
 
       await user.save();
 
-      res.status(201).json({
-        code: 201,
+      res.status(200).json({
+        code: 200,
         message: 'Your email has been changed successfully.'
       });
     } catch (err) {

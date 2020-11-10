@@ -5,7 +5,7 @@ const server = require('../index');
 /**
  * Load Configs
  */
-const testAccounts = require('./data/testAccounts');
+const testAccounts = require('./data/testAccounts.json');
 
 /**
  * Create a empty object for creds to be used later
@@ -75,6 +75,7 @@ describe('Goals 🥅', () => {
     });
     it('Mark weekly goal as complete', done => {
       request(server)
+        // eslint-disable-next-line no-underscore-dangle
         .put(`/goals/weekly/${this.weeklyGoal._id}/complete`)
         .set('Authorization', `Bearer ${creds.user.accessToken}`)
         .expect(200)
@@ -88,6 +89,7 @@ describe('Goals 🥅', () => {
     });
     it('Remove weekly goal', done => {
       request(server)
+        // eslint-disable-next-line no-underscore-dangle
         .delete(`/goals/weekly/${this.weeklyGoal._id}`)
         .set('Authorization', `Bearer ${creds.user.accessToken}`)
         .expect(200)

@@ -25,6 +25,12 @@
       "email": "pc@mrdemonwolf.github.io",
       "password": "pc@mrdemonwolf.github.io",
       "password2": "pc2@mrdemonwolf.github.io"
+    },
+    "account": {
+      "username": "accountmrdemonwolfgithubio",
+      "email": "account@mrdemonwolf.github.io",
+      "ec": "ec@mrdemonwolf.github.io",
+      "password": "account@mrdemonwolf.github.io"
     }
   }
 }
