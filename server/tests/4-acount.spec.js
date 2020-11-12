@@ -151,7 +151,21 @@ describe('💾 Account:', () => {
       });
   });
 
-  describe('✉ Account: Email Change resend', () => {});
-  describe('✉ Account: Email Change with token', () => {});
-  describe('🔑 Account: Password Change', () => {});
+  it('should change account password', done => {
+    request(server)
+      .put('/account/change-password')
+      .set('Authorization', `Bearer ${creds.extra.account.accessToken}`)
+      .send({
+        oldPassword: testAccounts.extra.account.password,
+        newPassword: testAccounts.extra.account.password2
+      })
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(async (err, res) => {
+        if (err) {
+          return done(err);
+        }
+        done();
+      });
+  });
 });

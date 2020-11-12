@@ -290,8 +290,11 @@ router.put(
        * Device Details in a object
        */
       const device = {
-        os: req.body.device.os ? req.body.device.os : 'null',
-        browser: req.body.device.browser ? req.body.device.browser : 'null'
+        os: req.body.device && req.body.device.os ? req.body.device.os : 'null',
+        browser:
+          req.body.device && req.body.device.browser
+            ? req.body.device.browser
+            : 'null'
       };
 
       const emailTemplate = changePasswordTemplate(ipInfo, device);
@@ -303,7 +306,7 @@ router.put(
         html: emailTemplate.html
       };
 
-      // if (process.env.NODE_ENV !== 'test') await sendgrid.send(msg);
+      if (process.env.NODE_ENV !== 'test') await sendgrid.send(msg);
 
       res.status(200).json({
         code: 200,
