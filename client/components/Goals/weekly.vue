@@ -1,6 +1,8 @@
 <template>
   <div class="p-6 m-4 rounded shadow bg-gray-50 dark:bg-gray-200">
-    <h1 class="text-2xl font-extrabold text-center text-primary-900">
+    <h1
+      class="text-2xl font-extrabold text-center text-primary-900 font-roboto"
+    >
       Weekly Goals
     </h1>
     <Alert v-if="error" type="danger" :message="error" class="mt-4 mb-4" />
@@ -30,15 +32,15 @@
     <div v-for="(goal, index) in goals" :key="index">
       <div class="flex items-center mb-4">
         <p
-          :class="{ 'text-green-500 dark:text-green-900': goal.isCompleted }"
-          class="w-full text-lg text-gray-900"
+          :class="{ 'text-green-500 dark:text-green-400': goal.isCompleted }"
+          class="w-full text-xl font-medium leading-5 text-gray-900 font-montserrat"
         >
           {{ goal.title }}
         </p>
         <button
           :class="{
             'border-green-500': goal.isCompleted,
-            'border-gray-600 dark:border-gray-700': !goal.isCompleted,
+            'border-gray-400 dark:border-gray-500': !goal.isCompleted,
           }"
           class="p-2 ml-4 mr-2 text-green-500 border-2 rounded flex-no-shrink hover:text-white hover:bg-green-500 hover:border-green-500 dark-hover:border-green-500 toggle-complete-goal focus:outline-none"
           @click="toggleCompleteGoal(index)"

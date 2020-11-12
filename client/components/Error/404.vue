@@ -3,21 +3,21 @@
     <div class="flex items-center">
       <fa
         :icon="['fas', 'skull']"
-        class="text-primary-500 text-6xl block m-auto"
+        class="block m-auto text-6xl text-primary-500 dark:text-gray-400"
       />
     </div>
     <h2
-      class="leading-10 text-center text-5xl font-bold font-roboto text-primary-500 dark:text-white mt-4"
+      class="mt-4 text-5xl font-bold leading-10 text-center font-roboto text-primary-500 dark:text-white"
     >
       We couldn't find that {{ type }}
     </h2>
-    <p class="mt-4 text-center font-montserrat text-black dark:text-white">
+    <p class="mt-4 text-center text-black font-montserrat dark:text-white">
       The {{ type }} you are looking for has either been moved or as dead as a
       doornail.
     </p>
-    <div class="mt-4 flex items-center">
+    <div class="flex items-center mt-4">
       <nuxt-link
-        class="block m-auto px-4 py-2 text-white bg-primary-500 hover:text-primary-500 hover:bg-white rounded transition ease-in-out duration-150 font-roboto font-bold"
+        class="block px-4 py-2 m-auto font-bold text-white transition duration-150 ease-in-out rounded bg-primary-500 hover:text-primary-500 hover:bg-white dark:bg-white dark:text-primary-500 dark-hover:text-white dark-hover:bg-primary-500 font-roboto"
         to="/"
       >
         Back Home

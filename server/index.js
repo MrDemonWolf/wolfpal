@@ -56,6 +56,8 @@ switch (process.env.NODE_ENV) {
     app.enable('trust proxy');
     app.set('trust proxy', 1);
     break;
+  case 'test':
+    break;
   default:
     app.use(logger('dev'));
 }

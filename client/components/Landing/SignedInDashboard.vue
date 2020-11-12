@@ -1,7 +1,7 @@
 <template>
   <div class="container px-6 mx-auto">
     <div
-      class="grid grid-cols-1 mt-5 overflow-hidden bg-white rounded-lg shadow md:grid-cols-3"
+      class="grid grid-cols-1 mt-5 overflow-hidden bg-white rounded-lg shadow dark:bg-gray-200 md:grid-cols-3"
     >
       <div>
         <div class="px-4 py-5 sm:p-6">

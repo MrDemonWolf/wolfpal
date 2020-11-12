@@ -1,5 +1,5 @@
-export default function ({ redirect }) {
-  if (!process.env.REGISTRATION) {
+export default function ({ redirect, $config }) {
+  if (!$config.registration) {
     return redirect('/')
   }
 }

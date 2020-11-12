@@ -55,11 +55,11 @@ curl --location --request GET 'https://www.example.com/api/analytics' \
 
 ## Weekly Goals
 
-Allows a logged in user to get analytics on all goals.
+Allows a logged in user to get analytics on weekly goals.
 
 #### Path
 
-`GET /analytics`
+`GET /analytics/weekly`
 
 #### Headers
 
