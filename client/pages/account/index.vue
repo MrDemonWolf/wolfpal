@@ -8,14 +8,14 @@
       Account Settings
     </h1>
 
-    <!-- <div class="my-0 sm:my-5">
+    <div class="my-0 sm:my-5">
       <Profile />
     </div>
     <div class="hidden sm:block">
       <div class="py-5">
         <div class="border-t border-gray-300"></div>
       </div>
-    </div> -->
+    </div>
 
     <div class="my-0 sm:my-5">
       <PersonalInformation />
@@ -30,30 +30,30 @@
       <Security />
     </div>
 
-    <!-- <div class="hidden sm:block">
+    <div class="hidden sm:block">
       <div class="py-5">
         <div class="border-t border-gray-300"></div>
       </div>
     </div>
     <div class="my-0 sm:my-5">
       <Notifications />
-    </div> -->
+    </div>
   </div>
 </template>
 
 <script>
-// import Profile from '@/components/Account/Profile'
+import Profile from '@/components/Account/Profile'
 import PersonalInformation from '@/components/Account/PersonalInformation'
 import Security from '@/components/Account/Security'
-// import Notifications from '@/components/Account/Notifications'
+import Notifications from '@/components/Account/Notifications'
 
 export default {
   middleware: 'auth',
   components: {
-    // Profile,
+    Profile,
     PersonalInformation,
     Security,
-    // Notifications,
+    Notifications,
   },
 }
 </script>

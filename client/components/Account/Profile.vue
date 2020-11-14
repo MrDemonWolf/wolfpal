@@ -7,32 +7,28 @@
         share.
       </p>
     </div>
-    <div class="mt-6 md:mt-3 md:col-span-2">
+    <div class="mt-6 md:mt-3">
       <form action="#" method="POST">
         <div class="shadow sm:rounded-md sm:overflow-hidden">
           <div class="px-4 py-5 bg-white sm:p-6">
-            <div class="grid grid-cols-3 gap-6">
-              <div class="col-span-3 sm:col-span-2">
-                <label
-                  for="username"
-                  class="block text-sm font-medium leading-5 text-gray-700"
-                >
-                  Username
-                </label>
-                <div class="mt-1 flex rounded-md shadow-sm">
-                  <input
-                    id="username"
-                    class="form-input flex-1 block w-full rounded-none rounded-r-md transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                    placeholder="Example"
-                  />
-                </div>
-              </div>
+            <label
+              for="username"
+              class="block text-sm font-medium leading-5 text-gray-700"
+            >
+              Username
+            </label>
+            <div class="flex mt-1 rounded-md shadow-sm">
+              <input
+                id="username"
+                class="flex-1 block w-full transition duration-150 ease-in-out rounded-none form-input rounded-r-md sm:text-sm sm:leading-5"
+                placeholder="Example"
+              />
             </div>
 
             <div class="mt-6">
               <label
                 for="about"
-                class="block text-sm leading-5 font-medium text-gray-700"
+                class="block text-sm font-medium leading-5 text-gray-700"
               >
                 About
               </label>
@@ -40,7 +36,7 @@
                 <textarea
                   id="about"
                   rows="3"
-                  class="form-textarea mt-1 block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                  class="block w-full mt-1 transition duration-150 ease-in-out form-textarea sm:text-sm sm:leading-5"
                   placeholder="you@example.com"
                 ></textarea>
               </div>
@@ -52,16 +48,16 @@
             <div class="mt-6">
               <label
                 for="photo"
-                class="block text-sm leading-5 font-medium text-gray-700"
+                class="block text-sm font-medium leading-5 text-gray-700"
               >
                 Photo
               </label>
-              <div class="mt-2 flex items-center">
+              <div class="flex items-center mt-2">
                 <span
-                  class="inline-block h-12 w-12 rounded-full overflow-hidden bg-gray-100"
+                  class="inline-block w-12 h-12 overflow-hidden bg-gray-100 rounded-full"
                 >
                   <svg
-                    class="h-full w-full text-gray-300"
+                    class="w-full h-full text-gray-300"
                     fill="currentColor"
                     viewBox="0 0 24 24"
                   >
@@ -73,7 +69,7 @@
                 <span class="ml-5 rounded-md shadow-sm">
                   <button
                     type="button"
-                    class="py-2 px-3 border border-gray-300 rounded-md text-sm leading-4 font-medium text-gray-700 hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800 transition duration-150 ease-in-out"
+                    class="px-3 py-2 text-sm font-medium leading-4 text-gray-700 transition duration-150 ease-in-out border border-gray-300 rounded-md hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800"
                   >
                     Change
                   </button>
@@ -81,11 +77,11 @@
               </div>
             </div>
           </div>
-          <div class="px-4 py-3 bg-gray-50 text-right sm:px-6">
+          <div class="px-4 py-3 text-right bg-gray-50 sm:px-6">
             <span class="inline-flex rounded-md shadow-sm">
               <button
                 type="submit"
-                class="inline-flex justify-center py-2 px-4 border border-transparent text-sm leading-5 font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
+                class="inline-flex justify-center px-4 py-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700"
               >
                 Save
               </button>
