@@ -57,6 +57,17 @@ const UserSchema = new Schema(
       enum: ['owner', 'admin', 'user'],
       default: 'user'
     },
+    notifications: {
+      email: {
+        goals: {
+          weekly: {
+            type: Boolean,
+            default: false
+          }
+        }
+      }
+    },
+
     lastLogin: Date,
     lastLoginIP: String
   },

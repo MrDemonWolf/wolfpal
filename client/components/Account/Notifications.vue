@@ -12,7 +12,7 @@
           <div class="px-4 py-5 bg-white sm:p-6">
             <fieldset>
               <legend class="text-base font-medium leading-6 text-gray-900">
-                By Email
+                Email
               </legend>
               <div class="mt-4">
                 <div class="flex items-start">
@@ -20,16 +20,16 @@
                     <input
                       id="weeklyGoals"
                       type="checkbox"
-                      class="w-4 h-4 text-indigo-600 transition duration-150 ease-in-out form-checkbox"
+                      class="w-4 h-4 transition duration-150 ease-in-out text-primary-500 form-checkbox"
                     />
                   </div>
                   <div class="text-sm leading-5 pl-7">
                     <label for="weeklyGoals" class="font-medium text-gray-700"
-                      >Weekly Goals</label
+                      >Weekly</label
                     >
                     <p class="text-gray-500">
-                      Laboris nostrud magna esse voluptate eiusmod commodo ea
-                      elit eu aliqua cillum est sint.
+                      Received notifications number of completed weekly goals
+                      with percent.
                     </p>
                   </div>
                 </div>
@@ -38,7 +38,7 @@
           </div>
           <div class="px-4 py-3 text-right bg-gray-50 sm:px-6">
             <button
-              class="px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:shadow-outline-blue focus:bg-indigo-500 active:bg-indigo-600"
+              class="inline-flex justify-center px-4 py-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-primary-600 hover:bg-primary-500 focus:outline-none focus:border-primary-700"
             >
               Save
             </button>

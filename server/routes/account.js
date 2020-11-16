@@ -37,7 +37,9 @@ const requireAuth = passport.authenticate('jwt', {
 /**
  * Load input validators.
  */
-const validateEmailChangeInput = require('../validation/account/email-change');
+const validateChangeEmailInput = require('../validation/account/change-email');
+const validateChangePasswordInput = require('../validation/account/change-password');
+const validateChangeUsernameInput = require('../validation/account/change-email');
 
 /**
  * Load Email Templates.
@@ -67,16 +69,16 @@ router.get('/', requireAuth, isSessionValid, async (req, res) => {
 });
 
 /**
- * @route /account/email-change
+ * @route /account/change-email
  * @method POST
  * @description Allows a logged in user to change their email
  */
-router.post('/email-change', requireAuth, isSessionValid, async (req, res) => {
+router.post('/change-email', requireAuth, isSessionValid, async (req, res) => {
   try {
     /**
      * Validdate the user important for username,email,password
      */
-    const { errors, isValid } = validateEmailChangeInput(req.body);
+    const { errors, isValid } = validateChangeEmailInput(req.body);
 
     if (!isValid) {
       return res.status(400).json({ code: 400, errors });
@@ -139,12 +141,12 @@ router.post('/email-change', requireAuth, isSessionValid, async (req, res) => {
 });
 
 /**
- * @route /account/email-change/resend
+ * @route /account/change-email/resend
  * @method POST
  * @description Allows a logged in user to resend email change confirmation.
  */
 router.post(
-  '/email-change/resend',
+  '/change-email/resend',
   requireAuth,
   isSessionValid,
   async (req, res) => {
@@ -187,12 +189,12 @@ router.post(
 );
 
 /**
- * @route /account/email-change/:email_token
+ * @route /account/change-email/:email_token
  * @method PUT
  * @description Allow a logged in user to change their email with email verify token.
  */
 router.put(
-  '/email-change/:email_token',
+  '/change-email/:email_token',
   requireAuth,
   isSessionValid,
   async (req, res) => {
@@ -243,6 +245,16 @@ router.put(
   async (req, res) => {
     try {
       /**
+       * Validdate the user input oldPassword,newPassword
+       */
+      const { errors, isValid } = validateChangePasswordInput(req.body);
+
+      if (!isValid) {
+        return res.status(400).json({ code: 400, errors });
+      }
+
+      const { email } = req.body;
+      /**
        * Get the user.
        */
       const user = await User.findById(req.user.id);
@@ -254,7 +266,9 @@ router.put(
       if (isPasswordSame) {
         return res.status(409).json({
           code: 409,
-          errors: { newPassword: 'New password can not match old password.' }
+          errors: {
+            newPassword: 'New password can not match old password.'
+          }
         });
       }
 
@@ -318,5 +332,45 @@ router.put(
     }
   }
 );
+
+/**
+ * @route /account/username
+ * @method PUT
+ * @description Allows logged in user to change their username
+ */
+router.put('/change-username', requireAuth, isSessionValid, async (req, res) => {
+  try {
+    /**
+     * Validdate the user input oldPassword,newPassword
+     */
+    const { errors, isValid } = validateChangeUsernameInput(req.body);
+
+    if (!isValid) {
+      return res.status(400).json({ code: 400, errors });
+    }
+
+    const user = await User.findById(req.user.id);
+
+    const { username } = req.body;
+
+    const isAlready = await User.findOne({ username });
+
+    if (!isAlready) {
+      user.username = username;
+      await user.save();
+      return res.status(200).json({
+        code: 200,
+        message: `Your username has been changed to ${user.username}`
+      });
+    }
+    res.status(409).json({
+      code: 409,
+      error: `${username} is currently not available.`
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ code: 500, error: 'Internal Server Error' });
+  }
+});
 
 module.exports = router;

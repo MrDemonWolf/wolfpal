@@ -40,7 +40,11 @@ export default {
    ** Plugins to load before mounting the App
    ** https://nuxtjs.org/guide/plugins
    */
-  plugins: [{ src: '~/plugins/filters' }, { src: '~/plugins/percentageCal' }],
+  plugins: [
+    { src: '~/plugins/filters' },
+    { src: '~/plugins/percentageCal' },
+    { src: '~/plugins/is-empty' },
+  ],
   /*
    ** Auto import components
    ** See https://nuxtjs.org/api/configuration-components
@@ -139,6 +143,15 @@ export default {
       },
     },
   },
+
+  /*
+   ** Toast configuration
+   */
+  toast: {
+    position: 'top-right',
+    duration: 6500,
+  },
+
   publicRuntimeConfig: {
     title: process.env.SITE_TITLE || 'WolfPal',
     description:
@@ -150,20 +163,13 @@ export default {
     registration: process.env.REGISTRATION || true,
   },
 
-  /*
-   ** Toast configuration
-   */
-  toast: {
-    position: 'top-right',
-    duration: 6500,
-  },
-
   /**
    * purgeCSS configuration
    */
   purgeCSS: {
     whitelist: ['dark-mode'],
   },
+
   /*
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/
