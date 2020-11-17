@@ -4,24 +4,13 @@ const isEmpty = require('../../utils/is-empty');
 module.exports = data => {
   const errors = {};
 
-  data.username = !isEmpty(data.username) ? data.username : '';
+  data.email = !isEmpty(data.email) ? data.email : '';
 
-  if (Validator.isEmpty(data.username)) {
-    errors.username = 'Username is required.';
+  if (!Validator.isEmail(data.email)) {
+    errors.email = 'Email is invalid.';
   }
-
-  if (
-    !Validator.isWhitelisted(
-      data.username,
-      '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
-    )
-  ) {
-    errors.username =
-      'Username is invalid. Must only contain numbers or letters.';
-  }
-
-  if (!Validator.isLength(data.username, { min: 3, max: 28 })) {
-    errors.username = 'Username must be between 3 and 28 characters long';
+  if (Validator.isEmpty(data.email)) {
+    errors.email = 'Email is required.';
   }
 
   return {

@@ -39,7 +39,7 @@ const requireAuth = passport.authenticate('jwt', {
  */
 const validateChangeEmailInput = require('../validation/account/change-email');
 const validateChangePasswordInput = require('../validation/account/change-password');
-const validateChangeUsernameInput = require('../validation/account/change-email');
+const validateChangeUsernameInput = require('../validation/account/change-username');
 
 /**
  * Load Email Templates.
