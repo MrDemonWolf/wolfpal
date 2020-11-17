@@ -74,12 +74,14 @@ require('./config/passport')(passport);
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
 const accountRoutes = require('./routes/account');
+const notificationsRoutes = require('./routes/notifications');
 const goalsRoutes = require('./routes/goals');
 const analyticsRoutes = require('./routes/analytics');
 
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
 app.use('/account', accountRoutes);
+app.use('/notifications', notificationsRoutes);
 app.use('/goals', goalsRoutes);
 app.use('/analytics', analyticsRoutes);
 

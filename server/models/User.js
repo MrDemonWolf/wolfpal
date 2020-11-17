@@ -59,11 +59,9 @@ const UserSchema = new Schema(
     },
     notifications: {
       email: {
-        goals: {
-          weekly: {
-            type: Boolean,
-            default: false
-          }
+        weeklyGoals: {
+          type: Boolean,
+          default: false
         }
       }
     },

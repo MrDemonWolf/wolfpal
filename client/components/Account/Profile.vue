@@ -25,9 +25,11 @@
                   'border-red-500': changeUsername.errors.username || error,
                 }"
                 class="flex-1 block w-full transition duration-150 ease-in-out rounded-none form-input rounded-r-md sm:text-sm sm:leading-5"
-                placeholder="Example"
               />
             </div>
+            <span v-if="changeUsername.errors.username" class="text-red-500">{{
+              changeUsername.errors.username
+            }}</span>
           </div>
           <div class="px-4 py-3 text-right bg-gray-50 sm:px-6">
             <span class="inline-flex rounded-md shadow-sm">
@@ -74,7 +76,7 @@ export default {
           })
         } catch (e) {
           if (e.response && e.response.data && e.response.data.errors) {
-            this.changePassword.errors = e.response.data.errors
+            this.changeUsername.errors = e.response.data.errors
           } else {
             this.$toast.error('Oops.. Something Went Wrong..', {
               position: 'bottom-right',

@@ -7,7 +7,7 @@
       </p>
     </div>
     <div class="mt-6 md:mt-3 md:col-span-2">
-      <form action="#" method="POST">
+      <form @submit.prevent="changeNotificationsSettings">
         <div class="overflow-hidden shadow sm:rounded-md">
           <div class="px-4 py-5 bg-white sm:p-6">
             <fieldset>
@@ -19,13 +19,14 @@
                   <div class="absolute flex items-center h-5">
                     <input
                       id="weeklyGoals"
+                      v-model="changeNotificationsEmail.weeklyGoals"
                       type="checkbox"
                       class="w-4 h-4 transition duration-150 ease-in-out text-primary-500 form-checkbox"
                     />
                   </div>
                   <div class="text-sm leading-5 pl-7">
                     <label for="weeklyGoals" class="font-medium text-gray-700"
-                      >Weekly</label
+                      >Weekly Goals</label
                     >
                     <p class="text-gray-500">
                       Received notifications number of completed weekly goals
@@ -48,3 +49,47 @@
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      changeNotificationsEmail: {
+        weeklyGoals: this.$auth.user.notifications.email.weeklyGoals,
+        errors: { weeklyGoals: null },
+      },
+      error: null,
+      success: null,
+    }
+  },
+  methods: {
+    async changeNotificationsSettings(e) {
+      const email = {
+        weekly:
+          this.$auth.user.notifications.email.weeklyGoals !==
+          this.changeNotificationsEmail.weeklyGoals,
+      }
+
+      if (email.weekly) {
+        try {
+          const response = await this.$axios.put('/api/notifications/email', {
+            weeklyGoals: this.changeNotificationsEmail.weeklyGoals,
+          })
+          await this.$auth.fetchUser()
+          this.$toast.success(response.data.message, {
+            position: 'bottom-right',
+          })
+        } catch (e) {
+          if (e.response && e.response.data && e.response.data.errors) {
+            this.changeUsername.errors = e.response.data.errors
+          } else {
+            this.$toast.error('Oops.. Something Went Wrong..', {
+              position: 'bottom-right',
+            })
+          }
+        }
+      }
+    },
+  },
+}
+</script>

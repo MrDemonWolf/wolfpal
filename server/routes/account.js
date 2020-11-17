@@ -338,39 +338,44 @@ router.put(
  * @method PUT
  * @description Allows logged in user to change their username
  */
-router.put('/change-username', requireAuth, isSessionValid, async (req, res) => {
-  try {
-    /**
-     * Validdate the user input oldPassword,newPassword
-     */
-    const { errors, isValid } = validateChangeUsernameInput(req.body);
+router.put(
+  '/change-username',
+  requireAuth,
+  isSessionValid,
+  async (req, res) => {
+    try {
+      /**
+       * Validdate the user input oldPassword,newPassword
+       */
+      const { errors, isValid } = validateChangeUsernameInput(req.body);
 
-    if (!isValid) {
-      return res.status(400).json({ code: 400, errors });
-    }
+      if (!isValid) {
+        return res.status(400).json({ code: 400, errors });
+      }
 
-    const user = await User.findById(req.user.id);
+      const user = await User.findById(req.user.id);
 
-    const { username } = req.body;
+      const { username } = req.body;
 
-    const isAlready = await User.findOne({ username });
+      const isAlready = await User.findOne({ username });
 
-    if (!isAlready) {
-      user.username = username;
-      await user.save();
-      return res.status(200).json({
-        code: 200,
-        message: `Your username has been changed to ${user.username}`
+      if (!isAlready) {
+        user.username = username;
+        await user.save();
+        return res.status(200).json({
+          code: 200,
+          message: `Your username has been changed to ${user.username}`
+        });
+      }
+      res.status(409).json({
+        code: 409,
+        error: `${username} is currently not available.`
       });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ code: 500, error: 'Internal Server Error' });
     }
-    res.status(409).json({
-      code: 409,
-      error: `${username} is currently not available.`
-    });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ code: 500, error: 'Internal Server Error' });
   }
-});
+);
 
 module.exports = router;
