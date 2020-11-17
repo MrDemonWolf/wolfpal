@@ -26,6 +26,25 @@ const requireAuth = passport.authenticate('jwt', {
 const validateEmail = require('../validation/notifications/email');
 
 /**
+ * @route /notifications
+ * @method GET
+ * @description Allows logged in user to get current notifications preferences
+ */
+router.get('/', requireAuth, isSessionValid, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+
+    res.status(200).json({
+      code: 200,
+      notifications: user.notifications
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ code: 500, error: 'Internal Server Error' });
+  }
+});
+
+/**
  * @route /notifications/email
  * @method PUT
  * @description Allows logged in user to enable or disable emails.
