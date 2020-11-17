@@ -92,7 +92,7 @@ describe('💾 Account:', () => {
 
   it('should requst account email change', done => {
     request(server)
-      .post('/account/email-change')
+      .post('/account/change-email')
       .set('Authorization', `Bearer ${creds.extra.account.accessToken}`)
       .send({
         email: testAccounts.extra.account.ec
@@ -109,7 +109,7 @@ describe('💾 Account:', () => {
 
   it('should resend email change verification', done => {
     request(server)
-      .post('/account/email-change/resend')
+      .post('/account/change-email/resend')
       .set('Authorization', `Bearer ${creds.extra.account.accessToken}`)
       .send({
         email: testAccounts.extra.account.ec
@@ -139,7 +139,7 @@ describe('💾 Account:', () => {
 
   it('should change account email', done => {
     request(server)
-      .put(`/account/email-change/${emailChange.emailVerificationToken}`)
+      .put(`/account/change-email/${emailChange.emailVerificationToken}`)
       .set('Authorization', `Bearer ${creds.extra.account.accessToken}`)
       .expect(200)
       .expect('Content-Type', /json/)
