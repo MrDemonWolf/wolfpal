@@ -15,11 +15,12 @@
             <div class="grid grid-cols-6 gap-6">
               <div class="col-span-6 sm:col-span-3">
                 <label
-                  for="first_name"
+                  for="oldPassword"
                   class="block text-sm font-medium leading-5 text-gray-700"
                   >Old Password</label
                 >
                 <input
+                  id="oldPassword"
                   v-model="changePassword.oldPassword"
                   type="password"
                   :class="{
@@ -36,11 +37,12 @@
 
               <div class="col-span-6 sm:col-span-3">
                 <label
-                  for="last_name"
+                  for="newPassword"
                   class="block text-sm font-medium leading-5 text-gray-700"
                   >New Password</label
                 >
                 <input
+                  id="newPassword"
                   v-model="changePassword.newPassword"
                   type="password"
                   :class="{
@@ -58,7 +60,7 @@
           </div>
           <div class="px-4 py-3 text-right bg-gray-50 sm:px-6">
             <button
-              class="px-4 py-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md shadow-sm hover:bg-indigo-500 focus:outline-none focus:shadow-outline-blue active:bg-indigo-600"
+              class="inline-flex justify-center px-4 py-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-primary-600 hover:bg-primary-500 focus:outline-none focus:border-primary-700"
             >
               Save
             </button>
@@ -79,11 +81,11 @@ export default {
       changePassword: {
         oldPassword: '',
         newPassword: '',
-        device: {
-          os: '',
-          browser: '',
-        },
         errors: { oldPassword: null, newPassword: null },
+      },
+      device: {
+        os: '',
+        browser: '',
       },
       error: null,
       success: null,
@@ -91,28 +93,39 @@ export default {
   },
   methods: {
     async changeSecurity(e) {
-      try {
-        this.changePassword.device = {
-          os: this.$ua.os(),
-          browser: this.$ua.browser(),
-        }
-        const response = await this.$axios.put(
-          '/api/account/change-password',
-          this.changePassword
-        )
-        this.$auth.logout()
+      const changePassword =
+        !this.$isEmpty(this.changePassword.oldPassword) ||
+        !this.$isEmpty(this.changePassword.newPassword)
+      if (changePassword) {
+        try {
+          this.device = {
+            os: this.$ua.os(),
+            browser: this.$ua.browser(),
+          }
+          const response = await this.$axios.put(
+            '/api/account/change-password',
+            {
+              oldPassword: this.changePassword.oldPassword,
+              newPassword: this.changePassword.newPassword,
+            }
+          )
+          this.$auth.logout()
 
-        this.$toast.success(response.data.message, {
-          position: 'bottom-right',
-        })
-      } catch (e) {
-        if (e.response && e.response.data && e.response.data.errors) {
-          this.changePassword.errors = e.response.data.errors
-        } else {
-          this.$toast.error('Oops.. Something Went Wrong..', {
+          this.$toast.success(response.data.message, {
             position: 'bottom-right',
           })
+        } catch (e) {
+          if (e.response && e.response.data && e.response.data.errors) {
+            this.changePassword.errors = e.response.data.errors
+          } else {
+            this.$toast.error('Oops.. Something Went Wrong..', {
+              position: 'bottom-right',
+            })
+          }
         }
+      } else {
+        this.changePassword.errors.oldPassword = null
+        this.changePassword.errors.newPassword = null
       }
     },
   },

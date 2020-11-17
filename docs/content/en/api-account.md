@@ -61,7 +61,7 @@ Allows a logged in user to change their email
 
 #### Path
 
-`POST /account/email-change`
+`POST /account/change-email`
 
 #### Headers
 
@@ -82,7 +82,7 @@ Allows a logged in user to change their email
   <code-block label="Request" active>
 
 ```sh
-curl --location --request POST 'https://www.example.com/api/account/email-change' \
+curl --location --request POST 'https://www.example.com/api/account/change-email' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjdiMmMwYjMwNmI2NTE4MGQyYjAyZGYiLCJpYXQiOjE2MDE5MDg4NjAsImV4cCI6MTYwMTkwOTE2MH0.5fhqZJH_29mpFneOySnAmOQsZj0nI7Su9-zJ1fNQZuM' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
 --data-urlencode 'email=nathan@example.com'
@@ -108,7 +108,7 @@ Allows a logged in user to resend email change confirmation.
 
 #### Path
 
-`POST /account/email-change/resend`
+`POST /account/change-email/resend`
 
 #### Headers
 
@@ -123,7 +123,7 @@ Allows a logged in user to resend email change confirmation.
   <code-block label="Request" active>
 
 ```sh
-curl --location --request POST 'https://www.example.com/api/account/email-change/resend' \
+curl --location --request POST 'https://www.example.com/api/account/change-email/resend' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjdiMmMwYjMwNmI2NTE4MGQyYjAyZGYiLCJpYXQiOjE2MDE5MDg4NjAsImV4cCI6MTYwMTkwOTE2MH0.5fhqZJH_29mpFneOySnAmOQsZj0nI7Su9-zJ1fNQZuM' \
 ```
 
@@ -147,7 +147,7 @@ Allow a logged in user to change their email with email verify token.
 
 #### Path
 
-`PUT /account/email-change/:email_token`
+`PUT /account/change-email/:email_token`
 
 #### Headers
 
@@ -167,7 +167,7 @@ Allow a logged in user to change their email with email verify token.
   <code-block label="Request" active>
 
 ```sh
-curl --location --request PUT 'https://www.example.com/api/account/email-change/:email_token' \
+curl --location --request PUT 'https://www.example.com/api/account/change-email/:email_token' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjdiMmMwYjMwNmI2NTE4MGQyYjAyZGYiLCJpYXQiOjE2MDE5MDg4NjAsImV4cCI6MTYwMTkwOTE2MH0.5fhqZJH_29mpFneOySnAmOQsZj0nI7Su9-zJ1fNQZuM'
 ```
 

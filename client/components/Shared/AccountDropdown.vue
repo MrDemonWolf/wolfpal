@@ -31,6 +31,7 @@
           <nuxt-link
             to="/account"
             class="block px-4 py-3 text-sm leading-5 text-gray-700 hover:bg-gray-100 hover:text-gray-900 focus:bg-gray-100 focus:text-white dark-hover:text-black dark-hover:bg-gray-300"
+            @click.native="accountDropdownHide"
           >
             My Account</nuxt-link
           >
@@ -92,7 +93,9 @@ export default {
       this.accountNavActive = !this.accountNavActive
     },
     accountDropdownHide() {
-      this.accountNavActive = false
+      if (this.accountNavActive) {
+        this.accountNavActive = false
+      }
     },
   },
 }
