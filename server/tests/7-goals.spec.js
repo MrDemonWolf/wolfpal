@@ -56,7 +56,7 @@ describe('Goals 🥅', () => {
           if (err) {
             return done(err);
           }
-          module.exports.weeklyGoal = res.body.weeklyGoal;
+          module.exports.weeklyGoal = res.body.goal;
           done();
         });
     });
