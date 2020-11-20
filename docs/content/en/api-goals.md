@@ -94,7 +94,7 @@ curl --location --request POST 'https://www.example.com/api/goals/weekly' \
 ```json
 {
   "code": 200,
-  "weeklyGoal": {
+  "goal": {
     "isCompleted": false,
     "_id": "5f527f5bf9c58a11103b39c9",
     "user": "5f4bff121037e424a17a3ebc",
