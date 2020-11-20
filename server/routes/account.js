@@ -334,7 +334,7 @@ router.put(
 );
 
 /**
- * @route /account/username
+ * @route /account/change-username
  * @method PUT
  * @description Allows logged in user to change their username
  */
