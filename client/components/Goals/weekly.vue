@@ -87,18 +87,15 @@ export default {
   methods: {
     async addGoal(e) {
       try {
-        const response = await this.$axios.post(
-          '/api/goals/weekly',
-          this.newGoal
-        )
-        // this.goals.push(response.data.weeklyGoal)
-        this.newGoal = { title: '', isCompleted: false }
-        this.$toast.success(response.data.message, {
+        await this.$store.dispatch('goals/ADD_WEEKLY_GOAL', this.newGoal)
+        this.newGoal.title = ''
+        this.newGoal.isCompleted = false
+        this.$toast.success(this.$store.state.goals.messages.success, {
           position: 'bottom-right',
         })
       } catch (e) {
-        if (e.response && e.response.data && e.response.data.error) {
-          return this.$toast.error('Goal is required.', {
+        if (this.$store.state.goals.messages.error) {
+          return this.$toast.error(this.$store.state.goals.messages.error, {
             position: 'bottom-right',
           })
         }
@@ -139,8 +136,8 @@ export default {
           }
         )
       } catch (e) {
-        if (e.response && e.response.data && e.response.data.error) {
-          return this.$toast.error(e.response.data.error, {
+        if (this.$store.state.goals.messages.error) {
+          return this.$toast.error(this.$store.state.goals.messages.error, {
             position: 'bottom-right',
           })
         }
