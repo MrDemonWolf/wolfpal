@@ -32,8 +32,8 @@ const requireAuth = passport.authenticate('jwt', {
  */
 router.get('/weekly', requireAuth, isSessionValid, async (req, res) => {
   try {
-    const weeklyGoals = await WeeklyGoal.find({ user: req.user.id });
-    res.status(200).json({ code: 200, goals: weeklyGoals });
+    const goals = await WeeklyGoal.find({ user: req.user.id });
+    res.status(200).json({ code: 200, goals });
   } catch (err) {
     console.log(err);
     res.status(500).json({ code: 500, error: 'Internal Server Error' });
@@ -57,14 +57,12 @@ router.post('/weekly', requireAuth, isSessionValid, async (req, res) => {
     }
 
     const { title } = req.body;
-    const weeklyGoal = new WeeklyGoal({
+    const goal = new WeeklyGoal({
       user: req.user.id,
       title
     });
-    await weeklyGoal.save();
-    res
-      .status(201)
-      .json({ code: 201, weeklyGoal, message: 'Added weekly goal.' });
+    await goal.save();
+    res.status(201).json({ code: 201, goal, message: 'Added weekly goal.' });
   } catch (err) {
     console.log(err);
     res.status(500).json({ code: 500, error: 'Internal Server Error' });
@@ -82,10 +80,10 @@ router.put(
   isSessionValid,
   async (req, res) => {
     try {
-      const weeklyGoal = await WeeklyGoal.findById(req.params.goal_id);
-      weeklyGoal.isCompleted = !weeklyGoal.isCompleted;
-      await weeklyGoal.save();
-      res.status(200).json({ code: 200, isCompleted: weeklyGoal.isCompleted });
+      const goal = await WeeklyGoal.findById(req.params.goal_id);
+      goal.isCompleted = !goal.isCompleted;
+      await goal.save();
+      res.status(200).json({ code: 200, isCompleted: goal.isCompleted });
     } catch (err) {
       console.log(err);
       res.status(500).json({ code: 500, error: 'Internal Server Error' });

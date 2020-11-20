@@ -87,18 +87,15 @@ export default {
   methods: {
     async addGoal(e) {
       try {
-        const response = await this.$axios.post(
-          '/api/goals/weekly',
-          this.newGoal
-        )
-        this.goals.push(response.data.weeklyGoal)
-        this.newGoal = { title: '', isCompleted: false }
-        this.$toast.success(response.data.message, {
+        await this.$store.dispatch('goals/ADD_WEEKLY_GOAL', this.newGoal)
+        this.newGoal.title = ''
+        this.newGoal.isCompleted = false
+        this.$toast.success(this.$store.state.goals.messages.success, {
           position: 'bottom-right',
         })
       } catch (e) {
-        if (e.response && e.response.data && e.response.data.error) {
-          return this.$toast.error('Goal is required.', {
+        if (this.$store.state.goals.messages.error) {
+          return this.$toast.error(this.$store.state.goals.messages.error, {
             position: 'bottom-right',
           })
         }
@@ -109,16 +106,14 @@ export default {
     },
     async removeGoal(index, e) {
       try {
-        const response = await this.$axios.delete(
-          `/api/goals/weekly/${this.goals[index]._id}`
-        )
-        this.$delete(this.goals, index)
-        this.$toast.success(response.data.message, {
+        await this.$store.dispatch('goals/REMOVE_WEEKLY_GOAL', index)
+
+        this.$toast.success(this.$store.state.goals.messages.success, {
           position: 'bottom-right',
         })
       } catch (e) {
-        if (e.response && e.response.data && e.response.data.error) {
-          return this.$toast.error(e.response.data.error, {
+        if (this.$store.state.goals.messages.error) {
+          return this.$toast.error(this.$store.state.goals.messages.error, {
             position: 'bottom-right',
           })
         }
@@ -127,23 +122,22 @@ export default {
         })
       }
     },
-    async toggleCompleteGoal(index, e) {
+    async toggleCompleteGoal(index) {
       try {
-        const response = await this.$axios.put(
-          `/api/goals/weekly/${this.goals[index]._id}/complete`
-        )
-        this.goals[index].isCompleted = response.data.isCompleted
+        await this.$store.dispatch('goals/MODIFY_GOAL_IS_COMPLETE', index)
         this.$toast.success(
           `Goal has been marked as ${
-            response.data.isCompleted ? 'completed' : 'not completed'
+            this.$store.state.goals.weekly[index].isCompleted
+              ? 'completed'
+              : 'not completed'
           }`,
           {
             position: 'bottom-right',
           }
         )
       } catch (e) {
-        if (e.response && e.response.data && e.response.data.error) {
-          return this.$toast.error(e.response.data.error, {
+        if (this.$store.state.goals.messages.error) {
+          return this.$toast.error(this.$store.state.goals.messages.error, {
             position: 'bottom-right',
           })
         }
