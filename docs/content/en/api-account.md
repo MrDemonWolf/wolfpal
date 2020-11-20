@@ -213,7 +213,7 @@ Allows a logged in user to change their password.
   <code-block label="Request" active>
 
 ```sh
-curl --location --request PUT 'https://www.example.com/api//account/change-password' \
+curl --location --request PUT 'https://www.example.com/api/account/change-password' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjdiMmMwYjMwNmI2NTE4MGQyYjAyZGYiLCJpYXQiOjE2MDE5MDg4NjAsImV4cCI6MTYwMTkwOTE2MH0.5fhqZJH_29mpFneOySnAmOQsZj0nI7Su9-zJ1fNQZuM' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
 --data-urlencode 'oldPassword=password' \
@@ -228,6 +228,53 @@ curl --location --request PUT 'https://www.example.com/api//account/change-passw
 {
   "code": 200,
   "message": "Your password has been changed."
+}
+```
+
+  </code-block>
+</code-group>
+
+## Username Change
+
+Allows a logged in user to change their username.
+
+#### Path
+
+`PUT /account/change-username`
+
+#### Headers
+
+| Field         | Type   | Description                       |
+| :------------ | :----- | :-------------------------------- |
+| Content-Type  | string | application/x-www-form-urlencoded |
+| Authorization | string | JWT access token.                 |
+
+#### Body
+
+| Field    | Type   | Description               |
+| :------- | :----- | :------------------------ |
+| username | string | New username for account. |
+
+#### Example
+
+<code-group>
+  <code-block label="Request" active>
+
+```sh
+curl --location --request PUT 'https://www.example.com/api/account/change-username' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjdiMmMwYjMwNmI2NTE4MGQyYjAyZGYiLCJpYXQiOjE2MDE5MDg4NjAsImV4cCI6MTYwMTkwOTE2MH0.5fhqZJH_29mpFneOySnAmOQsZj0nI7Su9-zJ1fNQZuM' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--data-urlencode 'username=Example123'
+```
+
+  </code-block>
+  <code-block label="Response
+">
+
+```json
+{
+  "code": 200,
+  "message": "Your username has been changed to Example123"
 }
 ```
 
