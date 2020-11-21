@@ -88,7 +88,7 @@ export default {
     async addGoal(e) {
       try {
         await this.$store.dispatch('goals/ADD_WEEKLY_GOAL', this.newGoal)
-        if (!this.$store.state.goals.messages.error) {
+        if (this.$store.state.goals.messages.success) {
           this.newGoal.title = ''
           this.newGoal.isCompleted = false
           return this.$toast.success(this.$store.state.goals.messages.success, {
@@ -108,7 +108,7 @@ export default {
       try {
         await this.$store.dispatch('goals/REMOVE_WEEKLY_GOAL', index)
 
-        if (!this.$store.state.goals.messages.error) {
+        if (this.$store.state.goals.messages.success) {
           return this.$toast.success(this.$store.state.goals.messages.success, {
             position: 'bottom-right',
           })
@@ -125,7 +125,7 @@ export default {
     async toggleCompleteGoal(index) {
       try {
         await this.$store.dispatch('goals/MODIFY_GOAL_IS_COMPLETE', index)
-        if (!this.$store.state.goals.messages.error) {
+        if (this.$store.state.goals.messages.success) {
           return this.$toast.success(
             `Goal has been marked as ${
               this.$store.state.goals.weekly[index].isCompleted
