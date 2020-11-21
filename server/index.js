@@ -76,14 +76,14 @@ const userRoutes = require('./routes/user');
 const accountRoutes = require('./routes/account');
 const notificationsRoutes = require('./routes/notifications');
 const goalsRoutes = require('./routes/goals');
-const analyticsRoutes = require('./routes/analytics');
+const statsRoutes = require('./routes/stats');
 
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
 app.use('/account', accountRoutes);
 app.use('/notifications', notificationsRoutes);
 app.use('/goals', goalsRoutes);
-app.use('/analytics', analyticsRoutes);
+app.use('/stats', statsRoutes);
 
 /**
  * Handle 404 errors

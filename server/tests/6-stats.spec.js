@@ -17,7 +17,7 @@ const creds = {
   }
 };
 
-describe('📈 Analytics:', () => {
+describe('📈 stats:', () => {
   it('should login as user', done => {
     request(server)
       .post('/auth/login')
@@ -40,9 +40,9 @@ describe('📈 Analytics:', () => {
         }
       });
   });
-  it('should  get analytics on all goals.', done => {
+  it('should  get stats on all goals.', done => {
     request(server)
-      .get('/analytics')
+      .get('/stats')
       .set('Authorization', `Bearer ${creds.user.accessToken}`)
       .expect(200)
       .expect('Content-Type', /json/)
@@ -53,9 +53,9 @@ describe('📈 Analytics:', () => {
         done();
       });
   });
-  it('should  get analytics on weekly goals.', done => {
+  it('should  get stats on weekly goals.', done => {
     request(server)
-      .get('/analytics/weekly')
+      .get('/stats/weekly')
       .set('Authorization', `Bearer ${creds.user.accessToken}`)
       .expect(200)
       .expect('Content-Type', /json/)

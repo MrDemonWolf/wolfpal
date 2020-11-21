@@ -1,17 +1,17 @@
 ---
-title: Analytics
+title: Stats
 description: "A wolf to guide you to your end goals by helping keep you on track weely, bi-weekly or even monthly and yearly goals."
 position: 8
 category: API
 ---
 
-## Analytics
+## Stats
 
-Allows a logged in user to get analytics on all goals.
+Allows a logged in user to get stats on all goals.
 
 #### Path
 
-`GET /analytics`
+`GET /stats`
 
 #### Headers
 
@@ -31,7 +31,7 @@ Allows a logged in user to get analytics on all goals.
   <code-block label="Request" active>
 
 ```sh
-curl --location --request GET 'https://www.example.com/api/analytics' \
+curl --location --request GET 'https://www.example.com/api/stats' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjRiZmYxMjEwMzdlNDI0YTE3YTNlYmMiLCJpYXQiOjE1OTkyNDE1OTMsImV4cCI6MTU5OTI0MzM5M30.FuLUNEc_lE8jI2KEur0KsQzZFjIh5kymnLdR0Udycxk'
 ```
 
@@ -55,11 +55,11 @@ curl --location --request GET 'https://www.example.com/api/analytics' \
 
 ## Weekly Goals
 
-Allows a logged in user to get analytics on weekly goals.
+Allows a logged in user to get stats on weekly goals.
 
 #### Path
 
-`GET /analytics/weekly`
+`GET /stats/weekly`
 
 #### Headers
 
@@ -79,7 +79,7 @@ Allows a logged in user to get analytics on weekly goals.
   <code-block label="Request" active>
 
 ```sh
-curl --location --request GET 'https://www.example.com/api/analytics/weekly' \
+curl --location --request GET 'https://www.example.com/api/stats/weekly' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjRiZmYxMjEwMzdlNDI0YTE3YTNlYmMiLCJpYXQiOjE1OTkyNDE1OTMsImV4cCI6MTU5OTI0MzM5M30.FuLUNEc_lE8jI2KEur0KsQzZFjIh5kymnLdR0Udycxk'
 ```
 
