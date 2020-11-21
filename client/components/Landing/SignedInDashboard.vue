@@ -34,10 +34,10 @@
           <StatCard
             v-if="!loading.weekly"
             title="Completed Weekly Goals"
-            :from="analytics.weekly.completed"
+            :from="stats.weekly.completed"
             from-text="out of"
-            :to="analytics.weekly.total"
-            :total="analytics.weekly.total"
+            :to="stats.weekly.total"
+            :total="stats.weekly.total"
             iod="completed percent"
             :increased="true"
           />
@@ -49,7 +49,7 @@
              <StatCard
               v-if="!loading.weekly"
               title="Completed Weekly Goals"
-              :from="analytics.weekly.completed"
+              :from="stats.weekly.completed"
             />
           </div>
         </div> -->
@@ -95,7 +95,7 @@ export default {
 
   data() {
     return {
-      analytics: {
+      stats: {
         weekly: {
           completed: 0,
           notCompleted: 0,
@@ -115,9 +115,11 @@ export default {
   methods: {
     async getAnalytics() {
       await this.$axios
-        .get('/api/analytics')
+        .get('/api/stats')
         .then((res) => {
-          this.analytics = res.data
+          this.stats.weekly.completed = res.data.weekly.completed
+          this.stats.weekly.notCompleted = res.data.weekly.notCompleted
+          this.stats.weekly.total = res.data.weekly.total
           this.loading.weekly = false
         })
         .catch((err) => {
