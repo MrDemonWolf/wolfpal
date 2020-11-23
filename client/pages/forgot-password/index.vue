@@ -70,8 +70,8 @@
 import Alert from '@/components/Shared/Alert'
 
 export default {
-  middleware: ['alreadyAuthenticated'],
   components: { Alert },
+  middleware: ['alreadyAuthenticated'],
   data() {
     return {
       forgotPassword: {

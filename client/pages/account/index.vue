@@ -48,12 +48,12 @@ import Security from '@/components/Account/Security'
 import Notifications from '@/components/Account/Notifications'
 
 export default {
-  middleware: 'auth',
   components: {
     Profile,
     PersonalInformation,
     Security,
     Notifications,
   },
+  middleware: 'auth',
 }
 </script>

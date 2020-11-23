@@ -19,6 +19,22 @@
     ></div>
   </div>
 </template>
+
+<script>
+export default {
+  props: {
+    loading: {
+      type: Boolean,
+      default: true,
+    },
+    success: {
+      type: Boolean,
+      default: true,
+    },
+  },
+}
+</script>
+
 <style lang="postcss" scoped>
 .circle-loader {
   animation: loader-spin 1.2s infinite linear;
@@ -91,18 +107,3 @@
   }
 }
 </style>
-
-<script>
-export default {
-  props: {
-    loading: {
-      type: Boolean,
-      default: true,
-    },
-    success: {
-      type: Boolean,
-      default: true,
-    },
-  },
-}
-</script>

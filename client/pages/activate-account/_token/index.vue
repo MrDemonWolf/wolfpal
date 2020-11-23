@@ -46,8 +46,8 @@
 import CircleLoaderCheckmark from '@/components/Shared/CircleLoaderCheckmark'
 
 export default {
-  middleware: ['alreadyAuthenticated'],
   components: { CircleLoaderCheckmark },
+  middleware: ['alreadyAuthenticated'],
   data() {
     return {
       loader: {
