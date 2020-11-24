@@ -103,6 +103,55 @@ curl --location --request POST 'https://www.example.com/api/auth/login' \
   </code-block>
 </code-group>
 
+## Login with Two Factor
+
+Allows a user to login with their account.
+
+#### Path
+
+`POST /auth/login`
+
+#### Headers
+
+| Field        | Type   | Description                       |
+| :----------- | :----- | :-------------------------------- |
+| Content-Type | string | application/x-www-form-urlencoded |
+
+#### Body
+
+| Field    | Type   | Description                      |
+| :------- | :----- | :------------------------------- |
+| email    | string | Email of the current account.    |
+| password | string | Password of the current account. |
+
+#### Example
+
+<code-group>
+  <code-block label="Request" active>
+
+```sh
+curl --location --request POST 'https://www.example.com/api/auth/login' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--data-urlencode 'email=user@mrdemonwolf.github.io' \
+--data-urlencode 'password=uuser@mrdemonwolf.github.io'
+```
+
+  </code-block>
+  <code-block label="Response
+">
+
+```json
+{
+  "code": 200,
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjRiZmYxMjEwMzdlNDI0YTE3YTNlYmMiLCJpYXQiOjE1OTkyNDE1OTMsImV4cCI6MTU5OTI0MzM5M30.FuLUNEc_lE8jI2KEur0KsQzZFjIh5kymnLdR0Udycxk",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjRiZmYxMjEwMzdlNDI0YTE3YTNlYmMiLCJpYXQiOjE1OTkyNDE1OTMsImV4cCI6MTU5OTMyNzk5M30.QtOrs1kJyh7sWDt2Y0_VpPRyXYZcfK9W4SR-YsxCrHk",
+  "twoFactor": false
+}
+```
+
+  </code-block>
+</code-group>
+
 ## Login Refresh
 
 Allows a user to refresh their login token with a new one
