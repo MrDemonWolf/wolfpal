@@ -1,6 +1,8 @@
 const express = require('express');
 const passport = require('passport');
 const moment = require('moment');
+const qrcode = require('qrcode');
+const { authenticator } = require('otplib');
 
 const { customAlphabet } = require('nanoid/async');
 
@@ -40,6 +42,7 @@ const requireAuth = passport.authenticate('jwt', {
 const validateChangeEmailInput = require('../validation/account/change-email');
 const validateChangePasswordInput = require('../validation/account/change-password');
 const validateChangeUsernameInput = require('../validation/account/change-username');
+const validateEnableTwoFactorInput = require('../validation/account/two-factor');
 
 /**
  * Load Email Templates.
@@ -377,5 +380,102 @@ router.put(
     }
   }
 );
+
+/**
+ * @route /account/two-factor
+ * @method POST
+ * @description Allows a logged in user to initialize the enable of two factor on their account.
+ */
+router.post('/two-factor', requireAuth, isSessionValid, async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+
+    /**
+     * Setup the Two Factor by creaing a secret
+     */
+    const twoFactorSecret = authenticator.generateSecret();
+
+    user.twoFactorSecret = twoFactorSecret;
+
+    await user.save();
+
+    /**
+     * Setup a QR Code for auto import of secret
+     */
+    const otpauth = authenticator.keyuri(
+      user.email,
+      process.env.SITE_TITLE,
+      twoFactorSecret
+    );
+    const qrcodeDataURL = await qrcode.toDataURL(otpauth);
+
+    res.status(200).json({
+      qrcode: qrcodeDataURL,
+      twoFactorSecret,
+      code: 200
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ code: 500, error: 'Internal Server Error' });
+  }
+});
+
+/**
+ * @route /account/two-factor
+ * @method POST
+ * @description Allows a logged in user to initialize the enable of two factor on their account.
+ */
+router.put('/two-factor', requireAuth, isSessionValid, async (req, res) => {
+  try {
+    /**
+     * Check if the user has initialize the two factor
+     */
+    if (!req.user.twoFactorSecret) {
+      return res.status(400).send({
+        status: 400,
+        error: 'You must first initialize Two Factor before you can enable it.'
+      });
+    }
+
+    /**
+     * Validdate the user important for username,email,password
+     */
+    const { errors, isValid } = validateEnableTwoFactorInput(req.body);
+
+    if (!isValid) {
+      return res.status(400).json({ code: 400, errors });
+    }
+
+    const user = await User.findById(req.user.id);
+
+    /**
+     * Verify the two factor code with the secret
+     */
+    const isTwoFactorValid = authenticator.check(
+      req.body.code,
+      user.twoFactorSecret
+    );
+
+    if (!isTwoFactorValid) {
+      return res.status(400).json({
+        code: 400,
+        error: 'Invalid two factor code.'
+      });
+    }
+
+    user.twoFactor = true;
+
+    await user.save();
+
+    res.status(200).json({
+      code: 200,
+      message: 'Two factor has been enabled.',
+      twoFactor: true
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ code: 500, error: 'Internal Server Error' });
+  }
+});
 
 module.exports = router;

@@ -28,6 +28,11 @@ const UserSchema = new Schema(
       type: String,
       required: true
     },
+    twoFactor: {
+      type: Boolean,
+      default: false,
+    },
+    twoFactorSecret: String,
     emailVerificationToken: String,
     emailVerificationTokenExpire: Date,
     emailVerified: {
