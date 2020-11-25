@@ -77,8 +77,7 @@ Allows a logged in user to initiative the enable of two factor on their account.
 
 ```sh
 curl --location --request POST 'https://www.example.com/api/account/two-factor' \
---header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjdiMmMwYjMwNmI2NTE4MGQyYjAyZGYiLCJpYXQiOjE2MDE5MDg4NjAsImV4cCI6MTYwMTkwOTE2MH0.5fhqZJH_29mpFneOySnAmOQsZj0nI7Su9-zJ1fNQZuM' \
---header 'Content-Type: application/x-www-form-urlencoded'
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjdiMmMwYjMwNmI2NTE4MGQyYjAyZGYiLCJpYXQiOjE2MDE5MDg4NjAsImV4cCI6MTYwMTkwOTE2MH0.5fhqZJH_29mpFneOySnAmOQsZj0nI7Su9-zJ1fNQZuM'
 ```
 
   </code-block>
@@ -98,8 +97,7 @@ curl --location --request POST 'https://www.example.com/api/account/two-factor' 
 
 ## Enable Two Factor
 
-Allows a logged in user to enable two factor.
-
+Allows a logged in user to initialize the enable of two factor on their account.
 #### Path
 
 `PUT /account/two-factor/`
