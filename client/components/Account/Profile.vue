@@ -24,7 +24,7 @@
                 :class="{
                   'border-red-500': changeUsername.errors.username || error,
                 }"
-                class="flex-1 block w-full transition duration-150 ease-in-out rounded-none form-input rounded-r-md sm:text-sm sm:leading-5"
+                class="flex-1 block w-full px-3 py-2 mt-1 transition duration-150 ease-in-out border border-gray-300 rounded-md shadow-sm form-input focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
               />
             </div>
             <span v-if="changeUsername.errors.username" class="text-red-500">{{
