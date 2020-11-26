@@ -410,7 +410,7 @@ router.post('/two-factor', requireAuth, isSessionValid, async (req, res) => {
     const qrcodeDataURL = await qrcode.toDataURL(otpauth);
 
     res.status(200).json({
-      qrcode: qrcodeDataURL,
+      qrCode: qrcodeDataURL,
       twoFactorSecret,
       code: 200
     });
