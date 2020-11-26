@@ -1,0 +1,170 @@
+<template>
+  <div
+    role="dialog"
+    aria-modal="true"
+    class="fixed inset-x-0 bottom-0 px-4 pb-4 sm:inset-0 sm:flex sm:items-center sm:justify-center"
+  >
+    <div class="fixed inset-0">
+      <div class="absolute inset-0 bg-gray-500 opacity-75"></div>
+    </div>
+    <div
+      class="overflow-hidden transition-all transform bg-white rounded-lg shadow-xl sm:max-w-lg sm:w-full"
+    >
+      <div class="px-4 pt-5 pb-4 bg-white sm:p-6 sm:pb-4">
+        <div class="sm:flex sm:items-start">
+          <div
+            class="flex items-center justify-center flex-shrink-0 w-12 h-12 mx-auto rounded-full bg-primary-100 sm:mx-0 sm:h-10 sm:w-10"
+          >
+            <fa :icon="['fas', 'user-lock']" class="w-6 h-6 text-primary-600" />
+          </div>
+          <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+            <div>
+              <h3 class="text-xl font-medium leading-6 text-primary-500">
+                Initialize Two Factor
+              </h3>
+            </div>
+
+            <div class="my-3">
+              <label
+                for="backupCodes"
+                class="block my-2 text-sm font-medium leading-5 text-gray-700"
+              >
+                1. Download your backup codes and save them to a safe place.
+              </label>
+
+              <div
+                class="flex flex-wrap -mx-2 overflow-hidden sm:-mx-1 md:-mx-1"
+              >
+                <div
+                  v-for="(backupCode, index) in $store.state.account
+                    .twoFactorBackupCodes"
+                  :key="index"
+                  :class="{
+                    'bg-gray-100': index % 2 === 0,
+                    'bg-gray-200': index % 2 !== 0,
+                  }"
+                  class="w-1/2 p-3 px-2 my-2 overflow-hidden font-semibold text-center text-black sm:my-1 sm:px-1 sm:w-1/2 md:my-1 md:px-1 md:w-1/2 lg:w-1/2"
+                >
+                  {{ backupCode }}
+                </div>
+              </div>
+              <button
+                type="button"
+                class="w-full px-4 py-2 my-2 text-base font-medium leading-6 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline sm:text-sm sm:leading-5"
+              >
+                Download {{ $config.title | lowercase }}-backup-codes.txt
+              </button>
+            </div>
+
+            <div class="my-3">
+              <label
+                for="backupCodes"
+                class="block my-2 text-sm font-medium leading-5 text-gray-700"
+              >
+                2. Scan this QR Code with Google Authenticator (or any supported
+                authenticator apps such as authy.) or click
+                <span class="font-semi-bold">show key</span> below to setup
+                manually .
+              </label>
+              <img class="w-32" :src="$store.state.account.twoFactorQrCode" />
+              <div class="flex mt-1 rounded-md">
+                <button
+                  class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline sm:text-sm sm:leading-"
+                  @click="toggleTwoFactorSecret"
+                >
+                  Show Key
+                </button>
+                <div class="relative flex-grow ml-2 focus-within:z-10">
+                  <span
+                    v-if="showTwoFactorSecret"
+                    class="block w-full transition duration-150 ease-in-out rounded-none form-input sm:text-sm sm:leading-5"
+                  >
+                    {{ $store.state.account.twoFactorSecret }}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div class="my-3">
+              <label
+                for="twoFactorCode"
+                class="block my-2 text-sm font-medium leading-5 text-gray-700"
+              >
+                3. Verify two factor code. Before two factor can be enabled you
+                must verify.
+              </label>
+              <input
+                id="twoFactorCode"
+                v-model="twoFactor.code"
+                type="text"
+                :class="{
+                  'border-red-500': twoFactor.errors.code,
+                }"
+                class="block w-full px-3 py-2 mt-1 transition duration-150 ease-in-out border border-gray-300 rounded-md shadow-sm form-input focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+              />
+              <span v-if="twoFactor.errors.code" class="text-red-500">{{
+                twoFactor.errors.code
+              }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="px-4 py-3 bg-gray-50 sm:px-6 sm:flex sm:flex-row-reverse">
+        <span class="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
+          <button
+            type="button"
+            class="inline-flex justify-center px-4 py-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-primary-600 hover:bg-primary-500 focus:outline-none focus:shadow-outline"
+          >
+            Enable Two Factor
+          </button>
+        </span>
+        <span class="flex w-full mt-3 rounded-md shadow-sm sm:mt-0 sm:w-auto">
+          <button
+            type="button"
+            class="inline-flex justify-center w-full px-4 py-2 text-base font-medium leading-6 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline sm:text-sm sm:leading-5"
+            @click="toggleTwoFactorModal"
+            @keydown.esc="hideTwoFactorModal"
+          >
+            Cancel
+          </button>
+        </span>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      twoFactor: {
+        code: '',
+        errors: { code: null },
+      },
+      showTwoFactorSecret: false,
+    }
+  },
+  mounted() {
+    const close = (e) => {
+      const ESC = 27
+      if (e.keyCode !== ESC) return
+      this.hideTwoFactorModal()
+    }
+    document.addEventListener('keyup', close)
+    this.$on('hook:destroyed', () => {
+      document.removeEventListener('keyup', close)
+    })
+  },
+  methods: {
+    async toggleTwoFactorModal() {
+      await this.$store.dispatch('account/TOGGLE_SHOW_TWO_FACTOR_MODAL')
+    },
+    async hideTwoFactorModal() {
+      await this.$store.commit('account/SET_SHOW_TWO_FACTOR_MODAL', false)
+    },
+    toggleTwoFactorSecret() {
+      this.showTwoFactorSecret = !this.showTwoFactorSecret
+    },
+  },
+}
+</script>

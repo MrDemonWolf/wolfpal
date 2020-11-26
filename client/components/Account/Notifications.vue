@@ -16,7 +16,7 @@
               </legend>
               <div class="mt-4">
                 <div class="flex items-start">
-                  <div class="absolute flex items-center h-5">
+                  <div class="flex items-center h-5">
                     <input
                       id="weeklyGoals"
                       v-model="changeNotificationsEmail.weeklyGoals"
@@ -24,7 +24,7 @@
                       class="w-4 h-4 transition duration-150 ease-in-out text-primary-500 form-checkbox"
                     />
                   </div>
-                  <div class="text-sm leading-5 pl-7">
+                  <div class="pl-2 text-sm leading-5">
                     <label for="weeklyGoals" class="font-medium text-gray-700"
                       >Weekly Goals</label
                     >

@@ -1,6 +1,9 @@
 <template>
   <div class="flex flex-col justify-center py-12 h-80 sm:px-6 lg:px-8">
-    <div class="sm:mx-auto sm:w-full sm:max-w-md">
+    <div
+      v-if="!twoFactorTokenRequested"
+      class="sm:mx-auto sm:w-full sm:max-w-md"
+    >
       <h1
         class="mt-6 text-3xl font-extrabold leading-9 text-center text-gray-900 dark:text-white"
       >
@@ -26,7 +29,7 @@
       <div
         class="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10 dark:bg-gray-200"
       >
-        <form @submit.prevent="userLogin">
+        <form v-if="!twoFactorTokenRequested" @submit.prevent="userLogin">
           <div>
             <label
               for="email"
@@ -42,13 +45,13 @@
                 placeholder="example@example.com"
                 name="email"
                 type="email"
-                :class="{ 'border-red-500': errors.email || error }"
+                :class="{ 'border-red-500': login.errors.email || error }"
                 class="block w-full px-3 py-2 mt-1 placeholder-gray-400 transition duration-150 ease-in-out border border-gray-300 rounded-md shadow-sm form-input focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                 novalidate
               />
             </div>
-            <span v-if="errors.email" class="text-red-500">{{
-              errors.email
+            <span v-if="login.errors.email" class="text-red-500">{{
+              login.errors.email
             }}</span>
           </div>
           <div class="mt-6">
@@ -66,16 +69,54 @@
                 placeholder="****************"
                 name="password"
                 type="password"
-                :class="{ 'border-red-500': errors.password || error }"
+                :class="{ 'border-red-500': login.errors.password || error }"
                 class="block w-full px-3 py-2 mt-1 placeholder-gray-400 transition duration-150 ease-in-out border border-gray-300 rounded-md shadow-sm form-input focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                 novalidate
               />
             </div>
-            <span v-if="errors.password" class="text-red-500">{{
-              errors.password
+            <span v-if="login.errors.password" class="text-red-500">{{
+              login.errors.password
             }}</span>
           </div>
 
+          <div class="mt-6">
+            <span class="block w-full rounded-md shadow-sm">
+              <button
+                type="submit"
+                class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-primary-600 hover:bg-primary-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700"
+              >
+                Sign in
+              </button>
+            </span>
+          </div>
+        </form>
+        <form v-else @submit.prevent="userLoginWithTwoFactor">
+          <div>
+            <label
+              for="twoFactorCode"
+              class="block text-sm font-medium leading-5 text-gray-700 dark:text-gray-800"
+            >
+              Enter your 2FA verification token
+            </label>
+            <div class="mt-1 rounded-md shadow-sm">
+              <input
+                id="twoFactorCode"
+                v-model="loginTwoFactor.code"
+                aria-label="Two Factor Code"
+                placeholder="123456"
+                name="twoFactorCode"
+                type="text"
+                :class="{
+                  'border-red-500': loginTwoFactor.errors.code || error,
+                }"
+                class="block w-full px-3 py-2 mt-1 placeholder-gray-400 transition duration-150 ease-in-out border border-gray-300 rounded-md shadow-sm form-input focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                novalidate
+              />
+            </div>
+            <span v-if="loginTwoFactor.errors.code" class="text-red-500">{{
+              loginTwoFactor.errors.code
+            }}</span>
+          </div>
           <div class="mt-6">
             <span class="block w-full rounded-md shadow-sm">
               <button
@@ -121,26 +162,66 @@ export default {
       login: {
         email: '',
         password: '',
+        errors: { email: null, password: null },
+      },
+      loginTwoFactor: {
+        code: null,
+        errors: { code: null },
       },
       error: null,
-      errors: { email: null, password: null },
       success: null,
+      twoFactorTokenRequested: false,
     }
   },
   methods: {
     async userLogin() {
       try {
-        await this.$auth.loginWith('local', {
-          data: this.login,
+        const auth = await this.$axios.post('/api/auth/login', {
+          email: this.login.email,
+          password: this.login.password,
         })
-      } catch (e) {
-        if (e.response.data.errors) {
-          return (this.errors.messsage = e.response.data.errors)
+        if (auth.data.twoFactor === false) {
+          return this.loginNo2FA()
+        } else if (auth.data.twoFactor === true) {
+          this.$store.commit('login/SET_TWO_FACTOR_TOKEN', auth.data.token)
+          this.twoFactorTokenRequested = true
         }
-        this.error = e.response.data.error
+      } catch (e) {
         if (this.success) {
           this.success = null
         }
+        if (e.response.data.errors) {
+          return (this.login.errors = e.response.data.errors)
+        }
+        this.error = e.response.data.error
+      }
+    },
+    async loginNo2FA() {
+      await this.$auth.loginWith('local', {
+        data: {
+          email: this.login.email,
+          password: this.login.password,
+        },
+      })
+    },
+    async userLoginWithTwoFactor() {
+      try {
+        const twoFactor = await this.$axios.post('/api/auth/two-factor', {
+          code: this.loginTwoFactor.code,
+          token: this.$store.state.login.twoFactorToken,
+        })
+        await this.$auth.setUserToken(
+          twoFactor.data.access_token,
+          twoFactor.data.refresh_token
+        )
+      } catch (e) {
+        if (this.success) {
+          this.success = null
+        }
+        if (e.response.data.errors) {
+          return (this.loginTwoFactor.errors = e.response.data.errors)
+        }
+        this.error = e.response.data.error
       }
     },
   },
