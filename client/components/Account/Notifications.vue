@@ -39,6 +39,7 @@
           </div>
           <div class="px-4 py-3 text-right bg-gray-50 sm:px-6">
             <button
+              type="submit"
               class="inline-flex justify-center px-4 py-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-primary-600 hover:bg-primary-500 focus:outline-none focus:border-primary-700"
             >
               Save

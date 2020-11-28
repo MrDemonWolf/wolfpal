@@ -13,20 +13,20 @@ export const actions = {
     try {
       const res = await this.$axios.post('/api/account/two-factor')
       commit('SET_TWO_FACTOR_QR_CODE', res.data.qrCode)
-      commit('SET_TWO_FACTOR_SECRET', res.data.twoFactorSecret)
-      const twoFactorBackupCodes = [
-        '5519 4982',
-        '5624 8067',
-        '0670 5851',
-        '9118 4061',
-      ]
-      commit('SET_TWO_FACTOR_BACKUP_CODES', twoFactorBackupCodes)
+      commit('SET_TWO_FACTOR_SECRET', res.data.secret)
+
+      commit('SET_TWO_FACTOR_BACKUP_CODES', res.data.backupCodes)
       // commit('SET_MESSAGE_ERROR', undefined)
     } catch (e) {
       console.log(e)
       // commit('SET_MESSAGE_SUCCESS', undefined)
       // commit('SET_MESSAGE_ERROR', e.response.data.error)
     }
+  },
+  RESET_TWO_FACTOR_INITIALIZE({ commit }) {
+    commit('SET_TWO_FACTOR_QR_CODE', '')
+    commit('SET_TWO_FACTOR_SECRET', '')
+    commit('SET_TWO_FACTOR_BACKUP_CODES', [])
   },
 }
 
