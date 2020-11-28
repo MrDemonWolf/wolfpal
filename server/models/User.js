@@ -30,9 +30,10 @@ const UserSchema = new Schema(
     },
     twoFactor: {
       type: Boolean,
-      default: false,
+      default: false
     },
     twoFactorSecret: String,
+    twoFactorBackupCodes: Array,
     emailVerificationToken: String,
     emailVerificationTokenExpire: Date,
     emailVerified: {

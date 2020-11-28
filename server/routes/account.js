@@ -4,7 +4,7 @@ const moment = require('moment');
 const qrcode = require('qrcode');
 const { authenticator } = require('otplib');
 
-const { customAlphabet } = require('nanoid/async');
+const { customAlphabet } = require('nanoid');
 
 const sendgrid = require('../config/sendgrid');
 
@@ -23,6 +23,7 @@ const emailVerificationToken = customAlphabet(
   '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_',
   64
 );
+const twoFactorBackupCode = customAlphabet('0123456789', 8);
 
 /**
  * Load middlewares
@@ -115,7 +116,7 @@ router.post('/change-email', requireAuth, isSessionValid, async (req, res) => {
       });
     }
 
-    user.emailVerificationToken = await emailVerificationToken();
+    user.emailVerificationToken = emailVerificationToken();
     user.emailVerificationTokenExpire = moment().add('3', 'h');
     user.newEmail = email;
 
@@ -163,7 +164,7 @@ router.post(
         });
       }
 
-      user.emailVerificationToken = await emailVerificationToken();
+      user.emailVerificationToken = emailVerificationToken();
       user.emailVerificationTokenExpire = moment().add('3', 'h');
 
       await user.save();
@@ -391,11 +392,22 @@ router.post('/two-factor', requireAuth, isSessionValid, async (req, res) => {
     const user = await User.findById(req.user.id);
 
     /**
+     * Create backup codes first
+     */
+    const backupCodes = [];
+
+    for (let i = 0; i < 2; i += 1) {
+      backupCodes.push(twoFactorBackupCode());
+    }
+
+    /**
      * Setup the Two Factor by creaing a secret
      */
     const twoFactorSecret = authenticator.generateSecret();
 
     user.twoFactorSecret = twoFactorSecret;
+
+    user.twoFactorBackupCodes = backupCodes;
 
     await user.save();
 
@@ -410,9 +422,10 @@ router.post('/two-factor', requireAuth, isSessionValid, async (req, res) => {
     const qrcodeDataURL = await qrcode.toDataURL(otpauth);
 
     res.status(200).json({
+      code: 200,
       qrCode: qrcodeDataURL,
-      twoFactorSecret,
-      code: 200
+      secret: twoFactorSecret,
+      backupCodes
     });
   } catch (err) {
     console.log(err);
