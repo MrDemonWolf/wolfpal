@@ -1,5 +1,5 @@
 export const state = () => ({
-  twoFactorToken: null,
+  twoFactorToken: undefined,
 })
 
 export const actions = {}
@@ -9,5 +9,8 @@ export const mutations = {
     return (state.twoFactorToken = twoFactorToken)
   },
 }
-
-export const getters = {}
+export const getters = {
+  TWO_FACTOR_TOKEN: (state) => {
+    return state.twoFactorToken
+  },
+}

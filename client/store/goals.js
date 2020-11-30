@@ -1,8 +1,8 @@
 export const state = () => ({
   weekly: [],
   messages: {
-    error: undefined,
     success: undefined,
+    error: undefined,
   },
 })
 
@@ -63,19 +63,25 @@ export const mutations = {
   DELETE_WEEKLY_GOAL: (state, index) => {
     return state.weekly.splice(index, 1)
   },
-  SET_MESSAGE_ERROR: (state, error) => {
-    return (state.messages.error = error)
+  PUSH_WEEKLY_GOAL: (state, goal) => {
+    return state.weekly.push(goal)
   },
   SET_MESSAGE_SUCCESS: (state, success) => {
     return (state.messages.success = success)
   },
-  PUSH_WEEKLY_GOAL: (state, goal) => {
-    return state.weekly.push(goal)
+  SET_MESSAGE_ERROR: (state, error) => {
+    return (state.messages.error = error)
   },
 }
 
 export const getters = {
   WEEKLY_GOALS: (state) => {
     return state.weeky
+  },
+  MESSAGE_SUCCESS: (state) => {
+    return state.messages.success
+  },
+  MESSAGE_ERROR: (state) => {
+    return state.messages.error
   },
 }

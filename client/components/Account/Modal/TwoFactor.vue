@@ -84,7 +84,7 @@
                 <div class="flex mt-1 rounded-md">
                   <button
                     class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline sm:text-sm sm:leading-"
-                    @click="toggleTwoFactorSecret"
+                    @click.prevent="toggleTwoFactorSecret"
                   >
                     Show Key
                   </button>
@@ -238,20 +238,25 @@ export default {
     },
     async userEnableTwoFactor(e) {
       try {
-        const response = await this.$axios.put('/api/account/two-factor', {
-          code: this.twoFactor.code,
-        })
-        this.$toast.success(response.data.message, {
+        await this.$store.dispatch(
+          'account/ENABLE_TWO_FACTOR',
+          this.twoFactor.code
+        )
+        await this.$auth.fetchUser()
+
+        if (this.$store.state.account.messages.success) {
+          return this.$toast.success(
+            this.$store.state.account.messages.success,
+            {
+              position: 'bottom-right',
+            }
+          )
+        }
+        this.$toast.error(this.$store.state.account.messages.error, {
           position: 'bottom-right',
         })
         await this.$store.commit('account/SET_SHOW_TWO_FACTOR_MODAL', false)
-        await this.$auth.fetchUser()
       } catch (e) {
-        if (e.response && e.response.data && e.response.data.error) {
-          return this.$toast.error(e.response.data.error, {
-            position: 'bottom-right',
-          })
-        }
         this.$toast.error('Oops.. Something Went Wrong..', {
           position: 'bottom-right',
         })
