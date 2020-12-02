@@ -26,10 +26,7 @@
             <div
               class="flex items-center justify-center flex-shrink-0 w-12 h-12 mx-auto rounded-full bg-primary-100 sm:mx-0 sm:h-10 sm:w-10"
             >
-              <fa
-                :icon="['fas', 'user-lock']"
-                class="w-6 h-6 text-primary-600"
-              />
+              <fa :icon="['fas', 'lock']" class="w-6 h-6 text-primary-600" />
             </div>
             <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
               <div>
@@ -171,7 +168,7 @@ export default {
       },
       twoFactor: {
         code: '',
-        errors: { code: null },
+        errors: { code: undefined },
       },
       showTwoFactorSecret: false,
     }
@@ -228,10 +225,13 @@ export default {
   },
   methods: {
     async toggleTwoFactorModal() {
-      await this.$store.dispatch('account/TOGGLE_SHOW_TWO_FACTOR_MODAL')
+      await this.$store.dispatch('account/TOGGLE_SHOW_ENABLE_TWO_FACTOR_MODAL')
     },
     async hideTwoFactorModal() {
-      await this.$store.commit('account/SET_SHOW_TWO_FACTOR_MODAL', false)
+      await this.$store.commit(
+        'account/SET_SHOW_ENABLE_TWO_FACTOR_MODAL',
+        false
+      )
     },
     toggleTwoFactorSecret() {
       this.showTwoFactorSecret = !this.showTwoFactorSecret
@@ -255,7 +255,10 @@ export default {
         this.$toast.error(this.$store.state.account.messages.error, {
           position: 'bottom-right',
         })
-        await this.$store.commit('account/SET_SHOW_TWO_FACTOR_MODAL', false)
+        await this.$store.commit(
+          'account/SET_SHOW_ENABLE_TWO_FACTOR_MODAL',
+          false
+        )
       } catch (e) {
         this.$toast.error('Oops.. Something Went Wrong..', {
           position: 'bottom-right',

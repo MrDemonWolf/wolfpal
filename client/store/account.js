@@ -1,17 +1,25 @@
 export const state = () => ({
-  showTwoFactorModal: false,
+  showEnableTwoFactorModal: false,
+  showDisableTwoFactorModal: false,
   twoFactorQrCode: '',
   twoFactorSecret: '',
   twofactorBackupCodes: [],
   messages: {
     success: undefined,
     error: undefined,
+    errors: [],
   },
 })
 
 export const actions = {
-  TOGGLE_SHOW_TWO_FACTOR_MODAL({ state, commit }) {
-    commit('SET_SHOW_TWO_FACTOR_MODAL', !state.showTwoFactorModal)
+  TOGGLE_SHOW_ENABLE_TWO_FACTOR_MODAL({ state, commit }) {
+    commit('SHOW_ENABLE_TWO_FACTOR_MODAL', !state.showEnableTwoFactorModal)
+  },
+  TOGGLE_SHOW_DISABLE_TWO_FACTOR_MODAL({ state, commit }) {
+    commit(
+      'SET_SHOW_DISABLE_TWO_FACTOR_MODAL',
+      !state.showDisableTwoFactorModal
+    )
   },
   async SET_TWO_FACTOR_INITIALIZE({ commit }) {
     try {
@@ -32,7 +40,21 @@ export const actions = {
         code,
       })
 
-      commit('SET_SHOW_TWO_FACTOR_MODAL', false)
+      commit('SET_SHOW_ENABLE_TWO_FACTOR_MODAL', false)
+      commit('SET_MESSAGE_ERROR', undefined)
+      commit('SET_MESSAGE_SUCCESS', res.data.message)
+    } catch (e) {
+      commit('SET_MESSAGE_SUCCESS', undefined)
+      commit('SET_MESSAGE_ERROR', e.response.data.error)
+    }
+  },
+  async DISABLE_TWO_FACTOR({ commit }, code) {
+    try {
+      const res = await this.$axios.delete(
+        `/api/account/two-factor?code=${code}`
+      )
+
+      commit('RESET_TWO_FACTOR_INITIALIZE')
       commit('SET_MESSAGE_ERROR', undefined)
       commit('SET_MESSAGE_SUCCESS', res.data.message)
     } catch (e) {
@@ -48,8 +70,11 @@ export const actions = {
 }
 
 export const mutations = {
-  SET_SHOW_TWO_FACTOR_MODAL(state, status) {
-    return (state.showTwoFactorModal = status)
+  SET_SHOW_ENABLE_TWO_FACTOR_MODAL(state, status) {
+    return (state.showEnableTwoFactorModal = status)
+  },
+  SET_SHOW_DISABLE_TWO_FACTOR_MODAL(state, status) {
+    return (state.showDisableTwoFactorModal = status)
   },
   SET_TWO_FACTOR_QR_CODE(state, qrCode) {
     return (state.twoFactorQrCode = qrCode)
@@ -66,11 +91,17 @@ export const mutations = {
   SET_MESSAGE_ERROR: (state, error) => {
     return (state.messages.error = error)
   },
+  SET_MESSAGE_ERRORS: (state, errors) => {
+    return (state.messages.errors = errors)
+  },
 }
 
 export const getters = {
-  SHOW_TWO_FACTOR_MODAL: (state) => {
-    return state.showTwoFactorModal
+  SHOW_ENABLE_TWO_FACTOR_MODAL: (state) => {
+    return state.showEnableTwoFactorModal
+  },
+  SHOW_DISABLE_TWO_FACTOR_MODAL: (state) => {
+    return state.showDisableTwoFactorModal
   },
   TWO_FACTOR_QR_CODE: (state) => {
     return state.twoFactorQrCode

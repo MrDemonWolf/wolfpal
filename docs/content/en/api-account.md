@@ -98,6 +98,7 @@ curl --location --request POST 'https://www.example.com/api/account/two-factor' 
 ## Enable Two Factor
 
 Allows a logged in user to initialize the enable of two factor on their account.
+
 #### Path
 
 `PUT /account/two-factor`
@@ -137,6 +138,57 @@ curl --location --request PUT 'https://www.example.com/api/account/two-factor' \
   "code": 200,
   "message": "Two factor has been enabled.",
   "twoFactor": true
+}
+```
+
+  </code-block>
+</code-group>
+
+## Disable Two Factor
+
+Allows a logged in user to disable two factor on their account.
+
+#### Path
+
+`DELETE /account/two-factor`
+
+#### Headers
+
+| Field         | Type   | Description                       |
+| :------------ | :----- | :-------------------------------- |
+| Content-Type  | string | application/x-www-form-urlencoded |
+| Authorization | string | JWT access token.                 |
+
+#### Body
+
+| Field    | Type   | Description                     |
+| :------- | :----- | :------------------------------ |
+| password | string | Password for account            |
+| code     | string | Two Factor code from users app. |
+
+#### Example
+
+<code-group>
+  <code-block label="Request" active>
+
+```sh
+curl --location --request DELETE 'https://www.example.com/api/account/two-factor' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjdiMmMwYjMwNmI2NTE4MGQyYjAyZGYiLCJpYXQiOjE2MDE5MDg4NjAsImV4cCI6MTYwMTkwOTE2MH0.5fhqZJH_29mpFneOySnAmOQsZj0nI7Su9-zJ1fNQZuM' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--data-urlencode 'password=123456'
+--data-urlencode 'code=123456'
+
+```
+
+  </code-block>
+  <code-block label="Response
+">
+
+```json
+{
+  "code": 200,
+  "message": "Two factor has been disabled.",
+  "twoFactor": false
 }
 ```
 

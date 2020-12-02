@@ -43,7 +43,8 @@ const requireAuth = passport.authenticate('jwt', {
 const validateChangeEmailInput = require('../validation/account/change-email');
 const validateChangePasswordInput = require('../validation/account/change-password');
 const validateChangeUsernameInput = require('../validation/account/change-username');
-const validateEnableTwoFactorInput = require('../validation/account/two-factor');
+const validateEnableTwoFactorInput = require('../validation/account/enable-two-factor');
+const validateDisableTwoFactorInput = require('../validation/account/disable-two-factor');
 
 /**
  * Load Email Templates.
@@ -435,7 +436,7 @@ router.post('/two-factor', requireAuth, isSessionValid, async (req, res) => {
 
 /**
  * @route /account/two-factor
- * @method POST
+ * @method PUT
  * @description Allows a logged in user to initialize the enable of two factor on their account.
  */
 router.put('/two-factor', requireAuth, isSessionValid, async (req, res) => {
@@ -484,6 +485,62 @@ router.put('/two-factor', requireAuth, isSessionValid, async (req, res) => {
       code: 200,
       message: 'Two factor has been enabled.',
       twoFactor: true
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ code: 500, error: 'Internal Server Error' });
+  }
+});
+
+/**
+ * @route /account/two-factor
+ * @method DELETE
+ * @description Allows a logged in user to initialize the enable of two factor on their account.
+ */
+router.delete('/two-factor', requireAuth, isSessionValid, async (req, res) => {
+  try {
+    /**
+     * Validdate the user import for two factor
+     */
+    const { error, isValid } = validateDisableTwoFactorInput(req.query);
+
+    if (!isValid) {
+      return res.status(400).json({ code: 400, error });
+    }
+    /**
+     * Find the user
+     */
+    const user = await User.findById(req.user.id);
+
+    /**
+     * Check if the user has initialize the two factor and or has enabled it.
+     */
+    if (!user.twoFactor) {
+      return res.status(400).send({
+        status: 400,
+        error:
+          'You must first initialize Two Factor and have it enabled before it can be removed.'
+      });
+    }
+    /**
+     * Verify the two factor code with the secret
+     */
+    const isTwoFactorValid = authenticator.check(
+      req.query.code,
+      user.twoFactorSecret
+    );
+
+    if (!isTwoFactorValid) {
+      return res.status(400).json({
+        code: 400,
+        error: 'Invalid two factor code.'
+      });
+    }
+
+    res.status(200).json({
+      code: 200,
+      message: 'Two factor has been disabled.',
+      twoFactor: false
     });
   } catch (err) {
     console.log(err);
