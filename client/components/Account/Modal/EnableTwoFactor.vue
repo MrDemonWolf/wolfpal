@@ -164,7 +164,7 @@ export default {
         isLoading: true,
         canCancel: false,
         fullPage: false,
-        color: '#007bff',
+        color: '#486EC2',
         bgColor: '#ffffff',
         height: 64,
         width: 64,
