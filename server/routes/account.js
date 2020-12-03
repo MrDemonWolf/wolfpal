@@ -536,6 +536,11 @@ router.delete('/two-factor', requireAuth, isSessionValid, async (req, res) => {
         error: 'Invalid two factor code.'
       });
     }
+    user.twoFactor = false;
+    user.twoFactorSecret = undefined;
+    user.twoFactorBackupCodes = undefined;
+
+    await user.save()
 
     res.status(200).json({
       code: 200,

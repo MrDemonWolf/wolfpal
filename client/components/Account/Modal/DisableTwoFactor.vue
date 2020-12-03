@@ -158,6 +158,8 @@ export default {
         'account/SET_SHOW_DISABLE_TWO_FACTOR_MODAL',
         false
       )
+      await this.$store.commit('SET_MESSAGE_SUCCESS', '')
+      await this.$store.commit('SET_MESSAGE_ERROR', '')
     },
     async userDisableTwoFactor(e) {
       try {
@@ -168,9 +170,17 @@ export default {
 
         if (this.$store.state.account.messages.success) {
           await this.$auth.fetchUser()
-          return await this.$store.commit(
+
+          await this.$store.commit(
             'account/SET_SHOW_DISABLE_TWO_FACTOR_MODAL',
             false
+          )
+
+          return this.$toast.success(
+            this.$store.state.account.messages.success,
+            {
+              position: 'bottom-right',
+            }
           )
         }
         if (this.$store.state.account.messages.error) {

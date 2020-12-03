@@ -13,7 +13,7 @@ export const state = () => ({
 
 export const actions = {
   TOGGLE_SHOW_ENABLE_TWO_FACTOR_MODAL({ state, commit }) {
-    commit('SHOW_ENABLE_TWO_FACTOR_MODAL', !state.showEnableTwoFactorModal)
+    commit('SET_SHOW_ENABLE_TWO_FACTOR_MODAL', !state.showEnableTwoFactorModal)
   },
   TOGGLE_SHOW_DISABLE_TWO_FACTOR_MODAL({ state, commit }) {
     commit(
@@ -41,6 +41,8 @@ export const actions = {
       })
 
       commit('SET_SHOW_ENABLE_TWO_FACTOR_MODAL', false)
+      commit('RESET_TWO_FACTOR_INITIALIZE')
+
       commit('SET_MESSAGE_ERROR', undefined)
       commit('SET_MESSAGE_SUCCESS', res.data.message)
     } catch (e) {
@@ -54,7 +56,6 @@ export const actions = {
         `/api/account/two-factor?code=${code}`
       )
 
-      commit('RESET_TWO_FACTOR_INITIALIZE')
       commit('SET_MESSAGE_ERROR', undefined)
       commit('SET_MESSAGE_SUCCESS', res.data.message)
     } catch (e) {

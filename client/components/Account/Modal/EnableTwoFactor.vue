@@ -109,13 +109,15 @@
                   v-model="twoFactor.code"
                   type="text"
                   :class="{
-                    'border-red-500': twoFactor.errors.code,
+                    'border-red-500': $store.state.account.messages.error,
                   }"
                   class="block w-full px-3 py-2 mt-1 transition duration-150 ease-in-out border border-gray-300 rounded-md shadow-sm form-input focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                 />
-                <span v-if="twoFactor.errors.code" class="text-red-500">{{
-                  twoFactor.errors.code
-                }}</span>
+                <span
+                  v-if="$store.state.account.messages.error"
+                  class="text-red-500"
+                  >{{ $store.state.account.messages.error }}</span
+                >
               </div>
             </div>
           </div>
@@ -168,7 +170,6 @@ export default {
       },
       twoFactor: {
         code: '',
-        errors: { code: undefined },
       },
       showTwoFactorSecret: false,
     }
@@ -232,6 +233,8 @@ export default {
         'account/SET_SHOW_ENABLE_TWO_FACTOR_MODAL',
         false
       )
+      await this.$store.commit('SET_MESSAGE_SUCCESS', '')
+      await this.$store.commit('SET_MESSAGE_ERROR', '')
     },
     toggleTwoFactorSecret() {
       this.showTwoFactorSecret = !this.showTwoFactorSecret
@@ -245,6 +248,10 @@ export default {
         await this.$auth.fetchUser()
 
         if (this.$store.state.account.messages.success) {
+          await this.$store.commit(
+            'account/SET_SHOW_ENABLE_TWO_FACTOR_MODAL',
+            false
+          )
           return this.$toast.success(
             this.$store.state.account.messages.success,
             {
@@ -252,13 +259,12 @@ export default {
             }
           )
         }
-        this.$toast.error(this.$store.state.account.messages.error, {
+        if (this.$store.state.account.messages.error) {
+          return
+        }
+        this.$toast.error('Oops.. Something Went Wrong..', {
           position: 'bottom-right',
         })
-        await this.$store.commit(
-          'account/SET_SHOW_ENABLE_TWO_FACTOR_MODAL',
-          false
-        )
       } catch (e) {
         this.$toast.error('Oops.. Something Went Wrong..', {
           position: 'bottom-right',
