@@ -62,6 +62,7 @@
                 <button
                   type="button"
                   class="w-full px-4 py-2 my-2 text-base font-medium leading-6 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline sm:text-sm sm:leading-5"
+                  @click.prevent="downloadTwoFactorBackupCodes"
                 >
                   Download {{ $config.title | lowercase }}-backup-codes.txt
                 </button>
@@ -233,8 +234,8 @@ export default {
         'account/SET_SHOW_ENABLE_TWO_FACTOR_MODAL',
         false
       )
-      await this.$store.commit('SET_MESSAGE_SUCCESS', '')
-      await this.$store.commit('SET_MESSAGE_ERROR', '')
+      await this.$store.commit('account/SET_MESSAGE_SUCCESS', '')
+      await this.$store.commit('account/SET_MESSAGE_ERROR', '')
     },
     toggleTwoFactorSecret() {
       this.showTwoFactorSecret = !this.showTwoFactorSecret
@@ -245,9 +246,9 @@ export default {
           'account/ENABLE_TWO_FACTOR',
           this.twoFactor.code
         )
-        await this.$auth.fetchUser()
 
         if (this.$store.state.account.messages.success) {
+          await this.$auth.fetchUser()
           await this.$store.commit(
             'account/SET_SHOW_ENABLE_TWO_FACTOR_MODAL',
             false
@@ -270,6 +271,18 @@ export default {
           position: 'bottom-right',
         })
       }
+    },
+    async downloadTwoFactorBackupCodes() {
+      const res = await this.$axios.get('/api/account/two-factor/backup-codes')
+      const url = window.URL.createObjectURL(new Blob([res.data]))
+      const link = document.createElement('a')
+      link.href = url
+      link.setAttribute(
+        'download',
+        `${this.$config.title.toLowerCase()}-backup-codes.txt`
+      )
+      document.body.appendChild(link)
+      link.click()
     },
   },
 }

@@ -11,15 +11,6 @@
       class="overflow-hidden transition-all transform bg-white rounded-lg shadow-xl sm:max-w-lg sm:w-full"
       @click.stop
     >
-      <Loading
-        :active.sync="loader.isLoading"
-        :can-cancel="loader.canCancel"
-        :color="loader.color"
-        :background-color="loader.bgColor"
-        :height="loader.height"
-        :width="loader.width"
-        :is-full-page="loader.fullPage"
-      />
       <form @submit.prevent="userDisableTwoFactor">
         <div class="px-4 pt-5 pb-4 bg-white sm:p-6 sm:pb-4">
           <div class="sm:flex sm:items-start">
@@ -88,24 +79,9 @@
 </template>
 
 <script>
-import Loading from 'vue-loading-overlay'
-import 'vue-loading-overlay/dist/vue-loading.css'
-
 export default {
-  components: {
-    Loading,
-  },
   data() {
     return {
-      loader: {
-        isLoading: true,
-        canCancel: false,
-        fullPage: false,
-        color: '#007bff',
-        bgColor: '#ffffff',
-        height: 64,
-        width: 64,
-      },
       twoFactor: {
         code: '',
       },
@@ -127,11 +103,6 @@ export default {
     $body.style.position = 'fixed'
     $body.style.top = `-${this.scrollPosition}px`
     $body.style.width = '100%'
-
-    /**
-     * Disabling Loading
-     */
-    this.loader.isLoading = false
 
     document.addEventListener('keyup', close)
     this.$on('hook:destroyed', () => {
@@ -158,8 +129,8 @@ export default {
         'account/SET_SHOW_DISABLE_TWO_FACTOR_MODAL',
         false
       )
-      await this.$store.commit('SET_MESSAGE_SUCCESS', '')
-      await this.$store.commit('SET_MESSAGE_ERROR', '')
+      await this.$store.commit('account/SET_MESSAGE_SUCCESS', '')
+      await this.$store.commit('account/SET_MESSAGE_ERROR', '')
     },
     async userDisableTwoFactor(e) {
       try {

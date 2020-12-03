@@ -258,7 +258,6 @@ router.put(
         return res.status(400).json({ code: 400, errors });
       }
 
-      const { email } = req.body;
       /**
        * Get the user.
        */
@@ -384,6 +383,40 @@ router.put(
 );
 
 /**
+ * @route /account/two-factor/backpup-codes
+ * @method GET
+ * @description Allows a logged in user with two factor enabled to download their backup codes.
+ */
+router.get(
+  '/two-factor/backup-codes',
+  requireAuth,
+  isSessionValid,
+  async (req, res) => {
+    try {
+      /**
+       * Check if the user has initialize the two factor
+       */
+      if (!req.user.twoFactorSecret) {
+        return res.status(400).send({
+          status: 400,
+          error:
+            'You must first initialize Two Factor before you can download backup codes.'
+        });
+      }
+
+      const user = await User.findById(req.user.id);
+
+      res
+        .attachment(`${process.env.SITE_TITLE.toLowerCase()}-backup-codes.txt`)
+        .send(user.twoFactorBackupCodes.join(' '));
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ code: 500, error: 'Internal Server Error' });
+    }
+  }
+);
+
+/**
  * @route /account/two-factor
  * @method POST
  * @description Allows a logged in user to initialize the enable of two factor on their account.
@@ -454,10 +487,10 @@ router.put('/two-factor', requireAuth, isSessionValid, async (req, res) => {
     /**
      * Validdate the user important for username,email,password
      */
-    const { errors, isValid } = validateEnableTwoFactorInput(req.body);
+    const { error, isValid } = validateEnableTwoFactorInput(req.body);
 
     if (!isValid) {
-      return res.status(400).json({ code: 400, errors });
+      return res.status(400).json({ code: 400, error });
     }
 
     const user = await User.findById(req.user.id);
@@ -536,11 +569,11 @@ router.delete('/two-factor', requireAuth, isSessionValid, async (req, res) => {
         error: 'Invalid two factor code.'
       });
     }
-    user.twoFactor = false;
+    user.twoFactor = undefined;
     user.twoFactorSecret = undefined;
     user.twoFactorBackupCodes = undefined;
 
-    await user.save()
+    await user.save();
 
     res.status(200).json({
       code: 200,

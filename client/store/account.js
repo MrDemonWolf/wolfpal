@@ -119,4 +119,7 @@ export const getters = {
   MESSAGE_ERROR: (state) => {
     return state.messages.error
   },
+  MESSAGE_ERRORS: (state) => {
+    return state.messages.errors
+  },
 }

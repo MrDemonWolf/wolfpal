@@ -69,7 +69,7 @@
                     <div v-if="!$auth.user.twoFactor">
                       <button
                         type="button"
-                        class="px-3 py-2 text-sm font-medium leading-4 text-green-700 transition duration-150 ease-in-out bg-green-200 border border-green-300 rounded-md hover:text-green-500 focus:outline-none focus:border-green-300 focus:shadow-outline-blue active:bg-green-50 active:text-green-800"
+                        class="px-3 py-2 text-sm font-medium leading-4 transition duration-150 ease-in-out border rounded-md text-primary-700 bg-primary-200 border-primary-300 hover:text-green-500 focus:outline-none focus:border-green-300 focus:shadow-outline-blue active:bg-green-50 active:text-green-800"
                         @click.prevent="toggleEnableTwoFactorModal"
                       >
                         Enable
@@ -79,6 +79,7 @@
                       <button
                         type="button"
                         class="px-3 py-2 text-sm font-medium leading-4 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline active:bg-gray-50 active:text-gray-800"
+                        @click.prevent="downloadTwoFactorBackupCodes"
                       >
                         Download
                         {{ $config.title | lowercase }}-backup-codes.txt
@@ -147,12 +148,6 @@ export default {
     }
   },
   methods: {
-    async toggleEnableTwoFactorModal() {
-      await this.$store.dispatch('account/TOGGLE_SHOW_ENABLE_TWO_FACTOR_MODAL')
-    },
-    async toggleDisableTwoFactorModal() {
-      await this.$store.dispatch('account/TOGGLE_SHOW_DISABLE_TWO_FACTOR_MODAL')
-    },
     async changeSecurity(e) {
       const changePassword =
         !this.$isEmpty(this.changePassword.oldPassword) ||
@@ -188,6 +183,24 @@ export default {
         this.changePassword.errors.oldPassword = null
         this.changePassword.errors.newPassword = null
       }
+    },
+    async toggleEnableTwoFactorModal() {
+      await this.$store.dispatch('account/TOGGLE_SHOW_ENABLE_TWO_FACTOR_MODAL')
+    },
+    async toggleDisableTwoFactorModal() {
+      await this.$store.dispatch('account/TOGGLE_SHOW_DISABLE_TWO_FACTOR_MODAL')
+    },
+    async downloadTwoFactorBackupCodes() {
+      const res = await this.$axios.get('/api/account/two-factor/backup-codes')
+      const url = window.URL.createObjectURL(new Blob([res.data]))
+      const link = document.createElement('a')
+      link.href = url
+      link.setAttribute(
+        'download',
+        `${this.$config.title.toLowerCase()}-backup-codes.txt`
+      )
+      document.body.appendChild(link)
+      link.click()
     },
   },
 }
