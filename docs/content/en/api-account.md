@@ -190,6 +190,41 @@ curl --location --request DELETE 'https://www.example.com/api/account/two-factor
   </code-block>
 </code-group>
 
+## Two Factor Backup Codes
+
+Allows a logged in user with two factor enabled to download their backup codes.
+
+#### Path
+
+`GET /account/two-factor/backup-codes`
+
+#### Headers
+
+| Field         | Type   | Description       |
+| :------------ | :----- | :---------------- |
+| Authorization | string | JWT access token. |
+
+#### Example
+
+<code-group>
+  <code-block label="Request" active>
+
+```sh
+curl --location --request GET 'https://www.example.com/api/account/two-factor/backup-codes' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjdiMmMwYjMwNmI2NTE4MGQyYjAyZGYiLCJpYXQiOjE2MDE5MDg4NjAsImV4cCI6MTYwMTkwOTE2MH0.5fhqZJH_29mpFneOySnAmOQsZj0nI7Su9-zJ1fNQZuM'
+```
+
+  </code-block>
+  <code-block label="Response
+">
+
+```txt
+20685098 57520049
+```
+
+  </code-block>
+</code-group>
+
 ## Email Change
 
 Allows a logged in user to change their email
