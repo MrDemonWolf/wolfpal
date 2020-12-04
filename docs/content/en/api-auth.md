@@ -103,6 +103,55 @@ curl --location --request POST 'https://www.example.com/api/auth/login' \
   </code-block>
 </code-group>
 
+## Login with Two Factor
+
+Allows a user to login with their account if two factor is enabled.
+
+#### Path
+
+`POST /auth/two-factor`
+
+#### Headers
+
+| Field        | Type   | Description                       |
+| :----------- | :----- | :-------------------------------- |
+| Content-Type | string | application/x-www-form-urlencoded |
+
+#### Body
+
+| Field | Type   | Description                        |
+| :---- | :----- | :--------------------------------- |
+| Token | string | Login initialize two factor token. |
+| Code  | string | Code from the Two Factor from app. |
+
+#### Example
+
+<code-group>
+  <code-block label="Request" active>
+
+```sh
+curl --location --request POST 'https://www.example.com/api/auth/two-factor' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--data-urlencode 'token=qh8C0G8azJRUJmdn9jCiZNJ0pTLmBldoChcRvPgt31GEOD5sShmHzqn7ROCzqwU2' \
+--data-urlencode 'code=110450'
+```
+
+  </code-block>
+  <code-block label="Response
+">
+
+```json
+{
+  "code": 200,
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjRiZmYxMjEwMzdlNDI0YTE3YTNlYmMiLCJpYXQiOjE1OTkyNDE1OTMsImV4cCI6MTU5OTI0MzM5M30.FuLUNEc_lE8jI2KEur0KsQzZFjIh5kymnLdR0Udycxk",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjRiZmYxMjEwMzdlNDI0YTE3YTNlYmMiLCJpYXQiOjE1OTkyNDE1OTMsImV4cCI6MTU5OTMyNzk5M30.QtOrs1kJyh7sWDt2Y0_VpPRyXYZcfK9W4SR-YsxCrHk",
+  "twoFactor": true
+}
+```
+
+  </code-block>
+</code-group>
+
 ## Login Refresh
 
 Allows a user to refresh their login token with a new one

@@ -1,6 +1,6 @@
 <template>
   <div
-    v-if="$nuxt.isOffline"
+    v-show="$nuxt.isOffline"
     class="w-full p-3 mx-auto bg-red-400 dark:bg-red-500"
   >
     <div class="font-bold text-center text-white text-md font-roboto landing-2">

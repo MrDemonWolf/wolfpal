@@ -1,7 +1,7 @@
 const express = require('express');
 const moment = require('moment');
 
-const { customAlphabet } = require('nanoid/async');
+const { customAlphabet } = require('nanoid');
 
 const sendgrid = require('../config/sendgrid');
 
@@ -82,7 +82,7 @@ router.post('/forgot-password', async (req, res) => {
       });
     }
 
-    user.passwordResetToken = await passwordResetToken();
+    user.passwordResetToken = passwordResetToken();
     user.passwordResetTokenExpire = moment().add('15', 'm');
 
     await user.save();
@@ -253,7 +253,7 @@ router.post('/activate-account/resend', async (req, res) => {
       });
     }
 
-    user.emailVerificationToken = await emailVerificationToken();
+    user.emailVerificationToken = emailVerificationToken();
     user.emailVerificationTokenExpire = moment().add('3', 'h');
 
     await user.save();

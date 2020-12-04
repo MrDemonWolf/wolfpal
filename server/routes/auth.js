@@ -3,6 +3,7 @@ const { customAlphabet } = require('nanoid');
 const moment = require('moment');
 const sha512 = require('js-sha512');
 const jwt = require('jsonwebtoken');
+const { authenticator } = require('otplib');
 const sendgrid = require('../config/sendgrid');
 
 const router = express.Router();
@@ -14,12 +15,17 @@ const emailVerificationToken = customAlphabet(
   '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-_',
   32
 );
+const twoFactorToken = customAlphabet(
+  '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz',
+  64
+);
 
 /**
  * Load MongoDB models.
  */
 const User = require('../models/User');
 const Session = require('../models/Session');
+const TwoFactor = require('../models/TwoFactor');
 
 /**
  * Load middlewares
@@ -34,6 +40,7 @@ const isAccountActivated = require('../middleware/auth/isAccountActivated');
  */
 const validateRegisterInput = require('../validation/auth/register');
 const validateLoginInput = require('../validation/auth/login');
+const validateTwoFactorInput = require('../validation/auth/two-factor');
 
 /**
  * Load Email Templates.
@@ -147,6 +154,23 @@ router.post('/login', isAccountActivated, async (req, res) => {
       });
     }
 
+    if (user.twoFactor) {
+      const newTwoFactorToken = new TwoFactor({
+        token: twoFactorToken(),
+        user: user.id,
+        expiresAt: moment().add('15', 'm')
+      });
+
+      await newTwoFactorToken.save();
+
+      return res.status(200).json({
+        code: 200,
+        token: newTwoFactorToken.token,
+        message: 'Enter your 2FA code',
+        twoFactor: true
+      });
+    }
+
     /**
      * Create the JWT payload
      */
@@ -182,6 +206,114 @@ router.post('/login', isAccountActivated, async (req, res) => {
       access_token: accessToken,
       refresh_token: refreshToken,
       twoFactor: false
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ code: 500, error: 'Internal Server Error' });
+  }
+});
+
+/**
+ * @route /auth/two-factor
+ * @method POST
+ * @description Allows a user to login with their account.
+ */
+router.post('/two-factor', async (req, res) => {
+  try {
+    /**
+     * Validdate the user important for email,password.
+     */
+
+    const { errors, isValid } = validateTwoFactorInput(req.body);
+
+    if (!isValid) {
+      return res.status(400).json({ code: 400, errors });
+    }
+
+    const { token, code } = req.body;
+
+    const twoFactor = await TwoFactor.findOne({ token }).populate('user');
+
+    if (!twoFactor) {
+      return res.status(401).json({
+        code: 401,
+        error: 'Invalid two factor token.'
+      });
+    }
+
+    if (!twoFactor.user.emailVerified) {
+      return res.status(401).send({
+        status: 401,
+        error:
+          'Your account must be activated before you can login. Please check your email you signed up with.'
+      });
+    }
+
+    /**
+     * Verify the two factor code with the secret
+     */
+    const isTwoFactorValid = authenticator.check(
+      code,
+      twoFactor.user.twoFactorSecret
+    );
+
+    const isTwoFactorBackupCodeValid = twoFactor.user.twoFactorBackupCodes.includes(
+      code
+    );
+
+    if (!isTwoFactorValid) {
+      if (!isTwoFactorBackupCodeValid) {
+        return res.status(401).json({
+          code: 401,
+          error: 'Invalid two factor code.'
+        });
+      }
+    }
+
+    /**
+     * Create the JWT payload
+     */
+    const payload = {
+      sub: twoFactor.user.id,
+      iss: process.env.WEB_URI
+    };
+
+    const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: '5m'
+    });
+    const accessTokenHash = sha512(accessToken);
+
+    const refreshToken = jwt.sign(payload, process.env.JWT_SECRET, {
+      expiresIn: '14d'
+    });
+    const refreshTokenHash = sha512(refreshToken);
+
+    /**
+     * Create the session in the database
+     */
+    const session = new Session({
+      accessTokenHash,
+      refreshTokenHash,
+      user: twoFactor.user.id,
+      expireAt: moment().add('14', 'd')
+    });
+
+    await session.save();
+
+    /**
+     * Remove backup code from list as it already has been used.
+     */
+    const user = await User.findByIdAndUpdate(
+      twoFactor.user.id,
+      { $pull: { twoFactorBackupCodes: code } },
+      { $safe: true, $upsert: true }
+    );
+
+    res.status(200).json({
+      code: 200,
+      access_token: accessToken,
+      refresh_token: refreshToken,
+      twoFactor: true
     });
   } catch (err) {
     console.log(err);

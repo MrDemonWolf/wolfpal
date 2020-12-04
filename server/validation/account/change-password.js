@@ -6,6 +6,7 @@ module.exports = data => {
 
   data.oldPassword = !isEmpty(data.oldPassword) ? data.oldPassword : '';
   data.newPassword = !isEmpty(data.newPassword) ? data.newPassword : '';
+
   if (Validator.isEmpty(data.oldPassword)) {
     errors.oldPassword = 'Old Password is required.';
   }

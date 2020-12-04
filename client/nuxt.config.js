@@ -74,6 +74,8 @@ export default {
             'faCheck',
             'faSkull',
             'faCog',
+            'faLock',
+            'faUnlock',
           ],
         },
       },
@@ -101,6 +103,7 @@ export default {
     // Doc: https://github.com/shakee93/vue-toasted
     '@nuxtjs/toast',
     'nuxt-user-agent',
+    'portal-vue/nuxt',
   ],
   /*
    ** Axios module configuration
