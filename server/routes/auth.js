@@ -257,11 +257,17 @@ router.post('/two-factor', async (req, res) => {
       twoFactor.user.twoFactorSecret
     );
 
+    const isTwoFactorBackupCodeValid = twoFactor.user.twoFactorBackupCodes.includes(
+      code
+    );
+
     if (!isTwoFactorValid) {
-      return res.status(401).json({
-        code: 401,
-        error: 'Invalid two factor code.'
-      });
+      if (!isTwoFactorBackupCodeValid) {
+        return res.status(401).json({
+          code: 401,
+          error: 'Invalid two factor code.'
+        });
+      }
     }
 
     /**
@@ -293,6 +299,15 @@ router.post('/two-factor', async (req, res) => {
     });
 
     await session.save();
+
+    /**
+     * Remove backup code from list as it already has been used.
+     */
+    const user = await User.findByIdAndUpdate(
+      twoFactor.user.id,
+      { $pull: { twoFactorBackupCodes: code } },
+      { $safe: true, $upsert: true }
+    );
 
     res.status(200).json({
       code: 200,

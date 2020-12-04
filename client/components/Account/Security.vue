@@ -78,14 +78,6 @@
                     <div v-else>
                       <button
                         type="button"
-                        class="px-3 py-2 text-sm font-medium leading-4 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline active:bg-gray-50 active:text-gray-800"
-                        @click.prevent="downloadTwoFactorBackupCodes"
-                      >
-                        Download
-                        {{ $config.title | lowercase }}-backup-codes.txt
-                      </button>
-                      <button
-                        type="button"
                         class="px-3 py-2 text-sm font-medium leading-4 text-red-700 transition duration-150 ease-in-out bg-red-200 border border-red-300 rounded-md hover:text-red-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800"
                         @click.prevent="toggleDisableTwoFactorModal"
                       >
@@ -189,18 +181,6 @@ export default {
     },
     async toggleDisableTwoFactorModal() {
       await this.$store.dispatch('account/TOGGLE_SHOW_DISABLE_TWO_FACTOR_MODAL')
-    },
-    async downloadTwoFactorBackupCodes() {
-      const res = await this.$axios.get('/api/account/two-factor/backup-codes')
-      const url = window.URL.createObjectURL(new Blob([res.data]))
-      const link = document.createElement('a')
-      link.href = url
-      link.setAttribute(
-        'download',
-        `${this.$config.title.toLowerCase()}-backup-codes.txt`
-      )
-      document.body.appendChild(link)
-      link.click()
     },
   },
 }

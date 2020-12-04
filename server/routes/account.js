@@ -63,7 +63,7 @@ router.get('/', requireAuth, isSessionValid, async (req, res) => {
      * Get the current user data and remove sensitive data
      */
     const user = await User.findById(req.user.id).select(
-      '-password -twoFactorSecret -emailVerificationToken -emailVerificationTokenExpire'
+      '-password -twoFactorSecret -twoFactorBackupCodes -emailVerificationToken -emailVerificationTokenExpire'
     );
 
     res.status(200).json({ code: 200, user });
@@ -430,7 +430,7 @@ router.post('/two-factor', requireAuth, isSessionValid, async (req, res) => {
      */
     const backupCodes = [];
 
-    for (let i = 0; i < 2; i += 1) {
+    for (let i = 0; i < 4; i += 1) {
       backupCodes.push(twoFactorBackupCode());
     }
 
