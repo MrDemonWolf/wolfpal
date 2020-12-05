@@ -10,8 +10,8 @@
     "deploy": "push-dir --dir=dist --branch=gh-pages --cleanup"
   },
   "dependencies": {
-    "@nuxt/content-theme-docs": "^0.7.2",
-    "nuxt": "^2.14.7"
+    "@nuxt/content-theme-docs": "^0.8.2",
+    "nuxt": "^2.14.9"
   },
   "devDependencies": {
     "push-dir": "^0.4.1"
