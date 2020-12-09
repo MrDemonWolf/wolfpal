@@ -33,7 +33,7 @@
       <div class="flex items-center mb-4">
         <p
           :class="{ 'text-green-500 dark:text-green-400': goal.isCompleted }"
-          class="w-full text-xl font-medium leading-5 text-gray-900 font-montserrat"
+          class="w-full text-xl font-medium leading-5 text-gray-900 break-all font-montserrat"
         >
           {{ goal.title }}
         </p>
