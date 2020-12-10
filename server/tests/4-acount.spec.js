@@ -306,6 +306,7 @@ describe('💾 Account:', () => {
         if (err) {
           return done(err);
         }
+        done();
       });
   });
 
@@ -321,7 +322,6 @@ describe('💾 Account:', () => {
         if (err) {
           return done(err);
         }
-        console.log(err);
         done();
       });
   });
