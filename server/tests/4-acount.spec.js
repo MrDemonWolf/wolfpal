@@ -297,6 +297,18 @@ describe('💾 Account:', () => {
       });
   });
 
+  it('should return two factor backup codes', done => {
+    request(server)
+      .get('/account/two-factor/backup-codes')
+      .set('Authorization', `Bearer ${creds.extra.twoFactor.accessToken}`)
+      .expect(200)
+      .end(async (err, res) => {
+        if (err) {
+          return done(err);
+        }
+      });
+  });
+
   it('should disable of two factor after enable', done => {
     request(server)
       .delete(
