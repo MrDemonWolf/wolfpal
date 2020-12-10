@@ -16,7 +16,8 @@ describe('🧹 Clean up:', () => {
       testAccounts.extra.emailVerification.email,
       testAccounts.extra.passwordChange.email,
       testAccounts.extra.account.email,
-      testAccounts.extra.account.ec
+      testAccounts.extra.account.ec,
+      testAccounts.extra.twoFactor.email
     ];
     await User.deleteMany({ email });
     await WeeklyGoal.deleteMany({});
