@@ -470,7 +470,7 @@ router.post('/two-factor', requireAuth, isSessionValid, async (req, res) => {
 /**
  * @route /account/two-factor
  * @method PUT
- * @description Allows a logged in user to initialize the enable of two factor on their account.
+ * @description Allows a logged in user to  enable of two factor on their account after initialize.
  */
 router.put('/two-factor', requireAuth, isSessionValid, async (req, res) => {
   try {
