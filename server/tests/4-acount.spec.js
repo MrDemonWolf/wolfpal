@@ -1,5 +1,6 @@
 const request = require('supertest');
 
+const { authenticator } = require('otplib');
 const server = require('../index');
 const User = require('../models/User');
 
@@ -16,6 +17,10 @@ const creds = {
     account: {
       accessToken: '',
       refreshToken: ''
+    },
+    twoFactor: {
+      accessToken: '',
+      refreshToken: ''
     }
   }
 };
@@ -23,6 +28,12 @@ const creds = {
 const emailChange = {
   emailVerificationToken: '',
   emailVerificationTokenExpire: ''
+};
+
+const twoFactor = {
+  secret: '',
+  token: '',
+  backupCodes: []
 };
 
 describe('💾 Account:', () => {
@@ -43,6 +54,34 @@ describe('💾 Account:', () => {
         try {
           const user = await User.findOne({
             email: testAccounts.extra.account.email
+          });
+          user.emailVerified = true;
+          user.emailVerificationToken = undefined;
+          user.emailVerificationTokenExpire = undefined;
+          await user.save();
+          done();
+        } catch (err) {
+          return done(err);
+        }
+      });
+  });
+  it('should register a user for testing two factor routes.', done => {
+    request(server)
+      .post('/auth/register')
+      .send({
+        username: testAccounts.extra.twoFactor.username,
+        email: testAccounts.extra.twoFactor.email,
+        password: testAccounts.extra.twoFactor.password
+      })
+      .expect(201)
+      .end(async (err, res) => {
+        if (err) {
+          return done(err);
+        }
+
+        try {
+          const user = await User.findOne({
+            email: testAccounts.extra.twoFactor.email
           });
           user.emailVerified = true;
           user.emailVerificationToken = undefined;
@@ -159,6 +198,124 @@ describe('💾 Account:', () => {
         oldPassword: testAccounts.extra.account.password,
         newPassword: testAccounts.extra.account.password2
       })
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(async (err, res) => {
+        if (err) {
+          return done(err);
+        }
+        done();
+      });
+  });
+
+  it('should login as two factor user', done => {
+    request(server)
+      .post('/auth/login')
+      .send({
+        email: testAccounts.extra.twoFactor.email,
+        password: testAccounts.extra.twoFactor.password
+      })
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(async (err, res) => {
+        if (err) {
+          return done(err);
+        }
+        creds.extra.twoFactor.accessToken = res.body.access_token;
+        creds.extra.twoFactor.refreshToken = res.body.refresh_token;
+        done();
+      });
+  });
+
+  it('should initialize the enable of two factor', done => {
+    request(server)
+      .post('/account/two-factor')
+      .set('Authorization', `Bearer ${creds.extra.twoFactor.accessToken}`)
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(async (err, res) => {
+        if (err) {
+          return done(err);
+        }
+        twoFactor.secret = res.body.secret;
+        twoFactor.backupCodes = res.body.backupCodes;
+        done();
+      });
+  });
+
+  it('should enable of two factor after initialize', done => {
+    request(server)
+      .put('/account/two-factor')
+      .set('Authorization', `Bearer ${creds.extra.twoFactor.accessToken}`)
+      .send({
+        code: authenticator.generate(twoFactor.secret)
+      })
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(async (err, res) => {
+        if (err) {
+          return done(err);
+        }
+        done();
+      });
+  });
+
+  it('should return two factor token if enabled', done => {
+    request(server)
+      .post('/auth/login')
+      .send({
+        email: testAccounts.extra.twoFactor.email,
+        password: testAccounts.extra.twoFactor.password
+      })
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(async (err, res) => {
+        if (err || !res.body.twoFactor) {
+          return done(err);
+        }
+        twoFactor.token = res.body.token;
+        done();
+      });
+  });
+
+  it('should login if a user has two factor', done => {
+    request(server)
+      .post('/auth/two-factor')
+      .send({
+        token: twoFactor.token,
+        code: authenticator.generate(twoFactor.secret)
+      })
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(async (err, res) => {
+        if (err) {
+          return done(err);
+        }
+        creds.extra.twoFactor.accessToken = res.body.access_token;
+        creds.extra.twoFactor.refreshToken = res.body.refresh_token;
+        done();
+      });
+  });
+
+  it('should return two factor backup codes', done => {
+    request(server)
+      .get('/account/two-factor/backup-codes')
+      .set('Authorization', `Bearer ${creds.extra.twoFactor.accessToken}`)
+      .expect(200)
+      .end(async (err, res) => {
+        if (err) {
+          return done(err);
+        }
+        done();
+      });
+  });
+
+  it('should disable of two factor after enable', done => {
+    request(server)
+      .delete(
+        `/account/two-factor?code=${authenticator.generate(twoFactor.secret)}`
+      )
+      .set('Authorization', `Bearer ${creds.extra.twoFactor.accessToken}`)
       .expect(200)
       .expect('Content-Type', /json/)
       .end(async (err, res) => {

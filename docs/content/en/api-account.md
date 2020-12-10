@@ -97,7 +97,7 @@ curl --location --request POST 'https://www.example.com/api/account/two-factor' 
 
 ## Enable Two Factor
 
-Allows a logged in user to initialize the enable of two factor on their account.
+Allows a logged in user to enable of two factor on their account after initialize.
 
 #### Path
 

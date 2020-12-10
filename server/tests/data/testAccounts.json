@@ -32,6 +32,11 @@
       "ec": "ec@mrdemonwolf.github.io",
       "password": "account@mrdemonwolf.github.io",
       "password2": "pc@mrdemonwolf.github.io"
+    },
+    "twoFactor": {
+      "username": "twofactormrdemonwolfgithubio",
+      "email": "twofactor@mrdemonwolf.github.io",
+      "password": "twofactor@mrdemonwolf.github.io"
     }
   }
 }
