@@ -26,6 +26,10 @@ module.exports = async () => {
     'notifications.email.weeklyGoals': { $ne: false }
   });
 
+  if(users.length === 0) {
+    return consola.log('No one will get a email.');
+  }
+
   users.map(async user => {
     /**
      * Get weekly goals completed count
@@ -68,5 +72,4 @@ module.exports = async () => {
     if (process.env.NODE_ENV !== 'test') await sendgrid.send(msg);
     consola.log(`Sent email to: ${user.username} at ${Date.now()}`);
   });
-  consola.log('User data:', JSON.stringify(users));
 };

@@ -54,6 +54,7 @@ const emailWeeklyGoals = require('./tasks/email/weeklyGoals');
  * 2020-12-12 00:00:00 UTC
  * 2020-12-19 00:00:00 UTC
  */
+
 cron.schedule('0 0 7 * 6', async () => {
   consola.log('----------------------------------------');
   consola.success('Sending weekly goals emails to users');
