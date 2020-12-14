@@ -7,5 +7,10 @@
   },
   "github": "MrDemonWOlf/wolfpal",
   "twitter": "MrDemonWolf",
-  "defaultBranch": "master"
+  "defaultBranch": "master",
+  "algolia": {
+    "apiKey": "59c306464f3978993110f6dcca8f8e63",
+    "indexName": "mrdemonwolf",
+    "langAttribute": "language"
+  }
 }
