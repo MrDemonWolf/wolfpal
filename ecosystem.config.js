@@ -24,5 +24,21 @@ module.exports = {
         NODE_ENV: "production",
       },
     },
+    {
+      name: "WolfPal [Background Worker]",
+      cwd: "./bw/",
+      script: "./index.js",
+      // Options reference: https://pm2.keymetrics.io/docs/usage/application-declaration/
+      // exec_mode: "cluster",
+      ignore_watch: "[”[/\\]./”, “node_modules”]",
+      autorestart: true,
+      max_memory_restart: "256M",
+      env: {
+        NODE_ENV: "development",
+      },
+      env_production: {
+        NODE_ENV: "production",
+      },
+    },
   ],
 };
