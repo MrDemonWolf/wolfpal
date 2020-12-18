@@ -207,7 +207,6 @@ router.post('/login', isAccountActivated, async (req, res) => {
       isDev: req.useragent.browser === 'PostmanRuntime'
     };
 
-    console.log(device)
     /**
      * Create the session in the database
      */

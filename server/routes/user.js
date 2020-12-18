@@ -155,11 +155,17 @@ router.post('/reset-password/:reset_token', async (req, res) => {
      * Device Details in a object
      */
     const device = {
-      os: req.body.device && req.body.device.os ? req.body.device.os : 'null',
       browser:
-        req.body.device && req.body.device.browser
-          ? req.body.device.browser
-          : 'null'
+        req.useragent.browser !== 'unknown' ? req.useragent.browser : 'unknown',
+      version:
+        req.useragent.version !== 'unknown' ? req.useragent.version : 'unknown',
+      platform:
+        req.useragent.os !== 'unknown'
+          ? req.useragent.versioplatformn
+          : 'unknown',
+      os: req.useragent.os !== 'unknown' ? req.useragent.os : 'unknown',
+
+      isDev: req.useragent.browser === 'PostmanRuntime'
     };
 
     const emailTemplate = resetPasswordTemplate(ipInfo, device);

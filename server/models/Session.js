@@ -18,11 +18,19 @@ const SessionSchema = new Schema(
       required: true
     },
     device: {
-      os: {
+      browser: {
         type: String,
         default: 'unknown'
       },
-      browser: {
+      version: {
+        type: String,
+        default: 'unknown'
+      },
+      platform: {
+        type: String,
+        default: 'unknown'
+      },
+      os: {
         type: String,
         default: 'unknown'
       },
