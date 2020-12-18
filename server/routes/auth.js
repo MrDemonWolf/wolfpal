@@ -190,11 +190,31 @@ router.post('/login', isAccountActivated, async (req, res) => {
     const refreshTokenHash = sha512(refreshToken);
 
     /**
+     * Device Details in a object
+     */
+
+    const device = {
+      browser:
+        req.useragent.browser !== 'unknown' ? req.useragent.browser : 'unknown',
+      version:
+        req.useragent.version !== 'unknown' ? req.useragent.version : 'unknown',
+      platform:
+        req.useragent.os !== 'unknown'
+          ? req.useragent.versioplatformn
+          : 'unknown',
+      os: req.useragent.os !== 'unknown' ? req.useragent.os : 'unknown',
+
+      isDev: req.useragent.browser === 'PostmanRuntime'
+    };
+
+    console.log(device)
+    /**
      * Create the session in the database
      */
     const session = new Session({
       accessTokenHash,
       refreshTokenHash,
+      device,
       user: user.id,
       expireAt: moment().add('14', 'd')
     });

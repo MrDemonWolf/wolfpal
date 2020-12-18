@@ -16,7 +16,7 @@ module.exports = {
       exec_mode: "cluster",
       ignore_watch: "[”[/\\]./”, “node_modules”]",
       autorestart: true,
-      max_memory_restart: "300M",
+      max_memory_restart: "256M",
       env: {
         NODE_ENV: "development",
       },

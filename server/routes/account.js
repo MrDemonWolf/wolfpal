@@ -308,11 +308,9 @@ router.put(
        * Device Details in a object
        */
       const device = {
-        os: req.body.device && req.body.device.os ? req.body.device.os : 'null',
+        os: req.useragent.os !== 'unknown' ? req.body.useragent.os : 'Other',
         browser:
-          req.body.device && req.body.device.browser
-            ? req.body.device.browser
-            : 'null'
+          req.useragent.browser !== 'unknown' ? req.useragent.browser : 'Other'
       };
 
       const emailTemplate = changePasswordTemplate(ipInfo, device);
