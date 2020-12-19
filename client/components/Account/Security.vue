@@ -69,7 +69,7 @@
                     <div v-if="!$auth.user.twoFactor">
                       <button
                         type="button"
-                        class="px-3 py-2 text-sm font-medium leading-4 transition duration-150 ease-in-out border rounded-md text-primary-700 bg-primary-200 border-primary-300 hover:text-green-500 focus:outline-none focus:border-green-300 focus:shadow-outline-blue active:bg-green-50 active:text-green-800"
+                        class="px-3 py-2 text-sm font-medium leading-4 text-green-700 transition duration-150 ease-in-out bg-green-200 border border-green-300 rounded-md hover:text-green-500 focus:outline-none focus:border-green-300 focus:shadow-outline-blue active:bg-green-50 active:text-green-800"
                         @click.prevent="toggleEnableTwoFactorModal"
                       >
                         Enable

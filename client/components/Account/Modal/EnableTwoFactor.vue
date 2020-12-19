@@ -128,7 +128,7 @@
                 type="submit"
                 class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out border rounded-md order-transparent bg-primary-600 hover:bg-primary-500 focus:outline-none focus:shadow-outline"
               >
-                Enable Two Factor
+                Enable
               </button>
             </span>
             <span
