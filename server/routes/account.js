@@ -74,6 +74,30 @@ router.get('/', requireAuth, isSessionValid, async (req, res) => {
 });
 
 /**
+ * @route /sessions
+ * @method GET
+ * @description Allows a logged in user to get their current sessions.
+ */
+router.get('/sessions', requireAuth, isSessionValid, async (req, res) => {
+  try {
+    /**
+     * Get the current user data and remove sensitive data
+     */
+    const sessions = await Session.find({
+      user: req.user.id,
+      isRevoked: { $ne: true }
+    }).select(
+      '-accessTokenHash -refreshTokenHash -user -isRevoked -__v -updatedAt'
+    );
+
+    res.status(200).json({ code: 200, sessions });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ code: 500, error: 'Internal Server Error' });
+  }
+});
+
+/**
  * @route /account/change-email
  * @method POST
  * @description Allows a logged in user to change their email

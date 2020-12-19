@@ -39,6 +39,10 @@ const SessionSchema = new Schema(
         default: false
       }
     },
+    ipAddress: {
+      type: String,
+      default: 'unknown'
+    },
     isRevoked: {
       type: Boolean,
       default: false

@@ -192,7 +192,6 @@ router.post('/login', isAccountActivated, async (req, res) => {
     /**
      * Device Details in a object
      */
-
     const device = {
       browser:
         req.useragent.browser !== 'unknown' ? req.useragent.browser : 'unknown',
@@ -208,12 +207,18 @@ router.post('/login', isAccountActivated, async (req, res) => {
     };
 
     /**
+     *  Get the IP details and place it in a object
+     */
+    const ipAddress = req.ipInfo.error ? 'unknown' : req.ipInfo.ip;
+
+    /**
      * Create the session in the database
      */
     const session = new Session({
       accessTokenHash,
       refreshTokenHash,
       device,
+      ipAddress,
       user: user.id,
       expireAt: moment().add('14', 'd')
     });
@@ -308,11 +313,35 @@ router.post('/two-factor', async (req, res) => {
     const refreshTokenHash = sha512(refreshToken);
 
     /**
+     * Device Details in a object
+     */
+    const device = {
+      browser:
+        req.useragent.browser !== 'unknown' ? req.useragent.browser : 'unknown',
+      version:
+        req.useragent.version !== 'unknown' ? req.useragent.version : 'unknown',
+      platform:
+        req.useragent.os !== 'unknown'
+          ? req.useragent.versioplatformn
+          : 'unknown',
+      os: req.useragent.os !== 'unknown' ? req.useragent.os : 'unknown',
+
+      isDev: req.useragent.browser === 'PostmanRuntime'
+    };
+
+    /**
+     *  Get the IP details and place it in a object
+     */
+    const ipAddress = req.ipInfo.error ? 'unknown' : req.ipInfo.ip;
+
+    /**
      * Create the session in the database
      */
     const session = new Session({
       accessTokenHash,
       refreshTokenHash,
+      device,
+      ipAddress,
       user: twoFactor.user.id,
       expireAt: moment().add('14', 'd')
     });
