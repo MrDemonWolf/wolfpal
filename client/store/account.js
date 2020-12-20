@@ -4,6 +4,7 @@ export const state = () => ({
   twoFactorQrCode: '',
   twoFactorSecret: '',
   twofactorBackupCodes: [],
+  sessions: [],
   messages: {
     success: undefined,
     error: undefined,
@@ -12,6 +13,10 @@ export const state = () => ({
 })
 
 export const actions = {
+  async FETCH_SESSIONS({ commit }) {
+    const res = await this.$axios.get('/api/account/sessions')
+    commit('SET_SESSIONS', res.data.sessions)
+  },
   TOGGLE_SHOW_ENABLE_TWO_FACTOR_MODAL({ state, commit }) {
     commit('SET_SHOW_ENABLE_TWO_FACTOR_MODAL', !state.showEnableTwoFactorModal)
   },
@@ -71,6 +76,9 @@ export const actions = {
 }
 
 export const mutations = {
+  SET_SESSIONS(state, sessions) {
+    return (state.sessions = sessions)
+  },
   SET_SHOW_ENABLE_TWO_FACTOR_MODAL(state, status) {
     return (state.showEnableTwoFactorModal = status)
   },
@@ -98,6 +106,9 @@ export const mutations = {
 }
 
 export const getters = {
+  SESSIONS: (state) => {
+    return state.sessions
+  },
   SHOW_ENABLE_TWO_FACTOR_MODAL: (state) => {
     return state.showEnableTwoFactorModal
   },

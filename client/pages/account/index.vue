@@ -38,6 +38,15 @@
     <div class="my-0 sm:my-5">
       <Notifications />
     </div>
+
+    <div class="hidden sm:block">
+      <div class="py-5">
+        <div class="border-t border-gray-300"></div>
+      </div>
+    </div>
+    <div class="my-0 sm:my-5">
+      <DeviceList :sessions="sessions" />
+    </div>
   </div>
 </template>
 
@@ -46,6 +55,7 @@ import Profile from '@/components/Account/Profile'
 import PersonalInformation from '@/components/Account/PersonalInformation'
 import Security from '@/components/Account/Security'
 import Notifications from '@/components/Account/Notifications'
+import DeviceList from '../../components/Account/DeviceList'
 
 export default {
   components: {
@@ -53,7 +63,17 @@ export default {
     PersonalInformation,
     Security,
     Notifications,
+    DeviceList,
   },
+
   middleware: 'auth',
+  async fetch({ store }) {
+    await store.dispatch('account/FETCH_SESSIONS')
+  },
+  computed: {
+    sessions() {
+      return this.$store.state.account.sessions
+    },
+  },
 }
 </script>

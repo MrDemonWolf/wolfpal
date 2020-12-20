@@ -17,6 +17,32 @@ const SessionSchema = new Schema(
       ref: 'User',
       required: true
     },
+    device: {
+      browser: {
+        type: String,
+        default: 'unknown'
+      },
+      version: {
+        type: String,
+        default: 'unknown'
+      },
+      platform: {
+        type: String,
+        default: 'unknown'
+      },
+      os: {
+        type: String,
+        default: 'unknown'
+      },
+      isDev: {
+        type: Boolean,
+        default: false
+      }
+    },
+    ipAddress: {
+      type: String,
+      default: 'unknown'
+    },
     isRevoked: {
       type: Boolean,
       default: false

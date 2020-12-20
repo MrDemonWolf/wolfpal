@@ -56,7 +56,7 @@
                 type="submit"
                 class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-red-600 border rounded-md order-transparent hover:bg-red-500 focus:outline-none focus:shadow-outline"
               >
-                Disable Two Factor
+                Disable
               </button>
             </span>
             <span

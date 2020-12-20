@@ -7,6 +7,7 @@ const lusca = require('lusca');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const expressip = require('express-ip');
+const userAgent = require('express-useragent');
 
 /**
  * Load environment variables from the .env file, where API keys and passwords are stored.
@@ -44,6 +45,7 @@ app.set('etag', false);
 app.use(helmet());
 app.use(compression());
 app.use(expressip().getIpInfoMiddleware);
+app.use(userAgent.express());
 
 // const corsOptions = {
 //   origin: [process.env.WEB_URI, process.env.API_URI]
