@@ -1,6 +1,6 @@
 <template>
   <div
-    class="container w-full px-8 mx-auto my-0 overflow-auto shadow-md md:my-6 bg-gray-50 lg:w-3/5 dark:bg-gray-200"
+    class="container w-full px-2 mx-auto my-0 overflow-auto shadow-md md:px-8 md:my-6 bg-gray-50 lg:w-3/5 dark:bg-gray-200"
   >
     <h1
       class="py-3 mx-3 mt-3 text-2xl font-bold leading-8 text-center text-gray-900 font-roboto"

@@ -73,11 +73,11 @@ export default {
 
       if (email.weekly) {
         try {
-          const response = await this.$axios.put('/api/notifications/email', {
+          const res = await this.$axios.$put('/api/notifications/email', {
             weeklyGoals: this.changeNotificationsEmail.weeklyGoals,
           })
           await this.$auth.fetchUser()
-          this.$toast.success(response.data.message, {
+          this.$toast.success(res.message, {
             position: 'bottom-right',
           })
         } catch (e) {

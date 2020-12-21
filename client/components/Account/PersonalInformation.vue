@@ -59,12 +59,12 @@ export default {
       const newEmail = this.newEmail !== this.$auth.user.newEmail
       if (email || newEmail) {
         try {
-          const response = await this.$axios.post('/api/account/email-change', {
+          const res = await this.$axios.$post('/api/account/email-change', {
             email: this.email,
           })
           this.newEmail = this.email
           this.email = this.$auth.user.email
-          this.$toast.success(response.data.message, {
+          this.$toast.success(res.message, {
             position: 'bottom-right',
           })
         } catch (e) {
@@ -76,10 +76,8 @@ export default {
     },
     async userResendEmailChange() {
       try {
-        const response = await this.$axios.post(
-          '/api/account/email-change/resend'
-        )
-        this.$toast.success(response.data.message, {
+        const res = await this.$axios.$post('/api/account/email-change/resend')
+        this.$toast.success(res.message, {
           position: 'bottom-right',
         })
       } catch (e) {

@@ -150,16 +150,13 @@ export default {
             os: this.$ua.os(),
             browser: this.$ua.browser(),
           }
-          const response = await this.$axios.put(
-            '/api/account/change-password',
-            {
-              oldPassword: this.changePassword.oldPassword,
-              newPassword: this.changePassword.newPassword,
-            }
-          )
+          const res = await this.$axios.$put('/api/account/change-password', {
+            oldPassword: this.changePassword.oldPassword,
+            newPassword: this.changePassword.newPassword,
+          })
           this.$auth.logout()
 
-          this.$toast.success(response.data.message, {
+          this.$toast.success(res.message, {
             position: 'bottom-right',
           })
         } catch (e) {

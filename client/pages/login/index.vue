@@ -176,14 +176,14 @@ export default {
   methods: {
     async userLogin() {
       try {
-        const auth = await this.$axios.post('/api/auth/login', {
+        const res = await this.$axios.$post('/api/auth/login', {
           email: this.login.email,
           password: this.login.password,
         })
-        if (auth.data.twoFactor === false) {
-          return this.loginNo2FA()
-        } else if (auth.data.twoFactor === true) {
-          this.$store.commit('login/SET_TWO_FACTOR_TOKEN', auth.data.token)
+        if (!res.twoFactor) {
+          return this.loginNo2FA(res.access_token, res.refresh_token)
+        } else {
+          this.$store.commit('login/SET_TWO_FACTOR_TOKEN', res.token)
           this.twoFactorTokenRequested = true
         }
       } catch (e) {
@@ -196,17 +196,12 @@ export default {
         this.error = e.response.data.error
       }
     },
-    async loginNo2FA() {
-      await this.$auth.loginWith('local', {
-        data: {
-          email: this.login.email,
-          password: this.login.password,
-        },
-      })
+    async loginNo2FA(accessToken, refreshToken) {
+      await this.$auth.setUserToken(accessToken, refreshToken)
     },
     async userLoginWithTwoFactor() {
       try {
-        const twoFactor = await this.$axios.post('/api/auth/two-factor', {
+        const twoFactor = await this.$axios.$post('/api/auth/two-factor', {
           code: this.loginTwoFactor.code,
           token: this.$store.state.login.twoFactorToken,
         })

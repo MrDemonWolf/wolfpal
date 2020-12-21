@@ -13,59 +13,52 @@
           <li
             v-for="(session, index) in sessions"
             :key="index"
-            class="block transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus:bg-gray-50"
+            class="block border-t border-b border-gray-200"
           >
-            <div class="px-4 py-4 sm:px-6">
-              <div class="flex items-center justify-between">
-                <div
-                  class="text-sm font-medium leading-5 text-indigo-600 truncate"
-                >
-                  {{ session.device.browser }} on {{ session.device.os }}
-                </div>
-                <div
-                  v-if="session.device.isDev"
-                  class="flex flex-shrink-0 ml-2"
-                >
-                  <span
-                    class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full"
+            <div class="flex items-center px-4 py-4 sm:px-6">
+              <div
+                class="flex-1 min-w-0 sm:flex sm:items-center sm:justify-between"
+              >
+                <div>
+                  <div
+                    class="text-sm font-medium leading-5 truncate text-primary-600 dark:text-primary-500"
                   >
-                    Development
-                  </span>
+                    {{ session.device.browser }}
+                    <span class="ml-1 font-normal text-gray-500">
+                      on {{ session.device.os }}
+                    </span>
+                  </div>
+                  <div class="flex mt-2">
+                    <div class="flex items-center">
+                      <fa
+                        :icon="['fas', 'calendar']"
+                        class="flex-shrink-0 mr-1.5 h-5 w-5 text-lg text-gray-500"
+                      />
+
+                      <time
+                        class="text-sm leading-5 text-gray-500"
+                        :datetime="$dayjs(session.createdAt).format('lll')"
+                        >{{ $dayjs(session.createdAt).format('lll') }}</time
+                      >
+                      <fa
+                        :icon="['fas', 'map-marker-alt']"
+                        class="flex-shrink-0 ml-1.5 mr-1.5 h-5 w-5 text-lg text-gray-500"
+                      />
+
+                      <span class="text-sm leading-5 text-gray-500">
+                        {{ session.location | capitalize }}</span
+                      >
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="mt-2 sm:flex sm:justify-between">
-                <div class="sm:flex">
-                  <div
-                    class="flex items-center mr-6 text-sm leading-5 text-gray-500"
-                  >
-                    <svg
-                      class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"
-                      />
-                    </svg>
-                    {{ session.device.version }}
-                  </div>
-                  <div
-                    class="flex items-center mt-2 text-sm leading-5 text-gray-500 sm:mt-0"
-                  >
-                    <svg
-                      class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-                        clip-rule="evenodd"
-                      />
-                    </svg>
-                    {{ session.ipAddress }}
-                  </div>
-                </div>
+              <div class="flex-shrink-0 ml-5">
+                <button
+                  type="submit"
+                  class="inline-flex justify-center px-4 py-1 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out border border-transparent rounded-md sm:my-2 bg-primary-600 hover:bg-primary-500 focus:outline-none focus:border-primary-700"
+                >
+                  Revoke
+                </button>
               </div>
             </div>
           </li>
@@ -90,6 +83,8 @@ export default {
     }
   },
 
-  // methods: {},
+  // methods: {
+  //   async,
+  // },
 }
 </script>

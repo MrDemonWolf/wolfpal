@@ -14,8 +14,8 @@ export const state = () => ({
 
 export const actions = {
   async FETCH_SESSIONS({ commit }) {
-    const res = await this.$axios.get('/api/account/sessions')
-    commit('SET_SESSIONS', res.data.sessions)
+    const res = await this.$axios.$get('/api/account/sessions')
+    commit('SET_SESSIONS', res.sessions)
   },
   TOGGLE_SHOW_ENABLE_TWO_FACTOR_MODAL({ state, commit }) {
     commit('SET_SHOW_ENABLE_TWO_FACTOR_MODAL', !state.showEnableTwoFactorModal)
@@ -28,11 +28,11 @@ export const actions = {
   },
   async SET_TWO_FACTOR_INITIALIZE({ commit }) {
     try {
-      const res = await this.$axios.post('/api/account/two-factor')
-      commit('SET_TWO_FACTOR_QR_CODE', res.data.qrCode)
-      commit('SET_TWO_FACTOR_SECRET', res.data.secret)
+      const res = await this.$axios.$post('/api/account/two-factor')
+      commit('SET_TWO_FACTOR_QR_CODE', res.qrCode)
+      commit('SET_TWO_FACTOR_SECRET', res.secret)
 
-      commit('SET_TWO_FACTOR_BACKUP_CODES', res.data.backupCodes)
+      commit('SET_TWO_FACTOR_BACKUP_CODES', res.backupCodes)
       commit('SET_MESSAGE_ERROR', undefined)
     } catch (e) {
       commit('SET_MESSAGE_SUCCESS', undefined)
@@ -41,7 +41,7 @@ export const actions = {
   },
   async ENABLE_TWO_FACTOR({ commit }, code) {
     try {
-      const res = await this.$axios.put('/api/account/two-factor', {
+      const res = await this.$axios.$put('/api/account/two-factor', {
         code,
       })
 
@@ -49,7 +49,7 @@ export const actions = {
       commit('RESET_TWO_FACTOR_INITIALIZE')
 
       commit('SET_MESSAGE_ERROR', undefined)
-      commit('SET_MESSAGE_SUCCESS', res.data.message)
+      commit('SET_MESSAGE_SUCCESS', res.message)
     } catch (e) {
       commit('SET_MESSAGE_SUCCESS', undefined)
       commit('SET_MESSAGE_ERROR', e.response.data.error)
@@ -57,12 +57,12 @@ export const actions = {
   },
   async DISABLE_TWO_FACTOR({ commit }, code) {
     try {
-      const res = await this.$axios.delete(
+      const res = await this.$axios.$delete(
         `/api/account/two-factor?code=${code}`
       )
 
       commit('SET_MESSAGE_ERROR', undefined)
-      commit('SET_MESSAGE_SUCCESS', res.data.message)
+      commit('SET_MESSAGE_SUCCESS', res.message)
     } catch (e) {
       commit('SET_MESSAGE_SUCCESS', undefined)
       commit('SET_MESSAGE_ERROR', e.response.data.error)

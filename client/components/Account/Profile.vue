@@ -66,12 +66,11 @@ export default {
 
       if (changeUsername) {
         try {
-          const response = await this.$axios.put(
-            '/api/account/change-username',
-            { username: this.changeUsername.username }
-          )
+          const res = await this.$axios.$put('/api/account/change-username', {
+            username: this.changeUsername.username,
+          })
           await this.$auth.fetchUser()
-          this.$toast.success(response.data.message, {
+          this.$toast.success(res.message, {
             position: 'bottom-right',
           })
         } catch (e) {

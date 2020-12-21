@@ -76,6 +76,8 @@ export default {
             'faCog',
             'faLock',
             'faUnlock',
+            'faMapMarkerAlt',
+            'faCalendar',
           ],
         },
       },
@@ -104,6 +106,7 @@ export default {
     '@nuxtjs/toast',
     'nuxt-user-agent',
     'portal-vue/nuxt',
+    '@nuxtjs/dayjs',
   ],
   /*
    ** Axios module configuration
@@ -118,6 +121,10 @@ export default {
       },
     },
   },
+
+  /*
+   ** Auth configuration
+   */
   auth: {
     strategies: {
       local: {
@@ -145,6 +152,13 @@ export default {
         // autoLogout: false
       },
     },
+  },
+
+  /*
+   ** dayjs configuration
+   */
+  dayjs: {
+    plugins: ['localizedFormat'],
   },
 
   /*

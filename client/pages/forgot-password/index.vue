@@ -85,11 +85,11 @@ export default {
   methods: {
     async userForgotPassword() {
       try {
-        const response = await this.$axios.post(
+        const res = await this.$axios.$post(
           '/api/user/forgot-password/',
           this.forgotPassword
         )
-        this.success = response.data.message
+        this.success = res.message
         if (this.error) {
           this.error = null
         }
