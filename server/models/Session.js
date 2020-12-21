@@ -39,7 +39,7 @@ const SessionSchema = new Schema(
         default: false
       }
     },
-    ipAddress: {
+    location: {
       type: String,
       default: 'unknown'
     },

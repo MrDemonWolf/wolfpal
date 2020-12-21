@@ -207,9 +207,11 @@ router.post('/login', isAccountActivated, async (req, res) => {
     };
 
     /**
-     *  Get the IP details and place it in a object
+     *  Get the ip location and put it in the session
      */
-    const ipAddress = req.ipInfo.error ? 'unknown' : req.ipInfo.ip;
+    const location = req.ipInfo.error
+      ? 'unknown'
+      : `${req.ipInfo.city}, ${req.ipInfo.state} ${req.ipInfo.country}`;
 
     /**
      * Create the session in the database
@@ -218,7 +220,7 @@ router.post('/login', isAccountActivated, async (req, res) => {
       accessTokenHash,
       refreshTokenHash,
       device,
-      ipAddress,
+      location,
       user: user.id,
       expireAt: moment().add('14', 'd')
     });
@@ -330,9 +332,11 @@ router.post('/two-factor', async (req, res) => {
     };
 
     /**
-     *  Get the IP details and place it in a object
+     *  Get the ip location and put it in the session
      */
-    const ipAddress = req.ipInfo.error ? 'unknown' : req.ipInfo.ip;
+    const location = req.ipInfo.error
+      ? 'unknown'
+      : `${req.ipInfo.city}, ${req.ipInfo.state} ${req.ipInfo.country}`;
 
     /**
      * Create the session in the database
@@ -341,7 +345,7 @@ router.post('/two-factor', async (req, res) => {
       accessTokenHash,
       refreshTokenHash,
       device,
-      ipAddress,
+      location,
       user: twoFactor.user.id,
       expireAt: moment().add('14', 'd')
     });
@@ -351,7 +355,7 @@ router.post('/two-factor', async (req, res) => {
     /**
      * Remove backup code from list as it already has been used.
      */
-    const user = await User.findByIdAndUpdate(
+    await User.findByIdAndUpdate(
       twoFactor.user.id,
       { $pull: { twoFactorBackupCodes: code } },
       { $safe: true, $upsert: true }
@@ -396,11 +400,37 @@ router.post('/refresh', isRefreshValid, async (req, res) => {
     const refreshTokenHash = sha512(refreshToken);
 
     /**
+     * Device Details in a object
+     */
+    const device = {
+      browser:
+        req.useragent.browser !== 'unknown' ? req.useragent.browser : 'unknown',
+      version:
+        req.useragent.version !== 'unknown' ? req.useragent.version : 'unknown',
+      platform:
+        req.useragent.os !== 'unknown'
+          ? req.useragent.versioplatformn
+          : 'unknown',
+      os: req.useragent.os !== 'unknown' ? req.useragent.os : 'unknown',
+
+      isDev: req.useragent.browser === 'PostmanRuntime'
+    };
+
+    /**
+     *  Get the ip location and put it in the session
+     */
+    const location = req.ipInfo.error
+      ? 'unknown'
+      : `${req.ipInfo.city}, ${req.ipInfo.state} ${req.ipInfo.country}`;
+
+    /**
      * Create the new session in the database
      */
     const session = new Session({
       accessTokenHash,
       refreshTokenHash,
+      device,
+      location,
       user: user.id,
       expireAt: moment().add('14', 'd')
     });
