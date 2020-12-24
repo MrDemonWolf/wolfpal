@@ -14,8 +14,7 @@ module.exports = async (req, res, next) => {
       refreshTokenHash,
       expireAt: {
         $gt: moment()
-      },
-      isRevoked: { $ne: true }
+      }
     });
 
     /**

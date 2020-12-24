@@ -13,6 +13,10 @@ const testAccounts = require('./data/testAccounts.json');
  * Create a empty object for creds to be used later
  */
 const creds = {
+  user: {
+    accessToken: '',
+    refreshToken: ''
+  },
   extra: {
     account: {
       accessToken: '',
@@ -93,7 +97,7 @@ describe('💾 Account:', () => {
         }
       });
   });
-  it('should login as user', done => {
+  it('should login as account user', done => {
     request(server)
       .post('/auth/login')
       .send({
@@ -316,6 +320,43 @@ describe('💾 Account:', () => {
         `/account/two-factor?code=${authenticator.generate(twoFactor.secret)}`
       )
       .set('Authorization', `Bearer ${creds.extra.twoFactor.accessToken}`)
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(async (err, res) => {
+        if (err) {
+          return done(err);
+        }
+        done();
+      });
+  });
+
+  it('should login as user', done => {
+    request(server)
+      .post('/auth/login')
+      .send({
+        email: testAccounts.user.account.email,
+        password: testAccounts.extra.account.password
+      })
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(async (err, res) => {
+        if (err) {
+          return done(err);
+        }
+        try {
+          creds.user.accessToken = res.body.access_token;
+          creds.user.refreshToken = res.body.refresh_token;
+          done();
+        } catch (err) {
+          return done(err);
+        }
+      });
+  });
+
+  it('should return a array of all current sessions', done => {
+    request(server)
+      .get('/account/sessions')
+      .set('Authorization', `Bearer ${creds.user.accessToken}`)
       .expect(200)
       .expect('Content-Type', /json/)
       .end(async (err, res) => {

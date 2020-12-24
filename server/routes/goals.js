@@ -33,7 +33,7 @@ const requireAuth = passport.authenticate('jwt', {
 router.get('/weekly', requireAuth, isSessionValid, async (req, res) => {
   try {
     const goals = await WeeklyGoal.find({ user: req.user.id });
-    res.status(200).json({ code: 200, goals });
+    res.status(200).json({ code: 200, goals, total: goals.length });
   } catch (err) {
     console.log(err);
     res.status(500).json({ code: 500, error: 'Internal Server Error' });

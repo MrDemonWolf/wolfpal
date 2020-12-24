@@ -381,6 +381,14 @@ router.post('/two-factor', async (req, res) => {
 router.post('/refresh', isRefreshValid, async (req, res) => {
   try {
     const user = await User.findById(req.user.id);
+
+    /**
+     * Remove the old session
+     */
+    await Session.findOneAndDelete({
+      refreshTokenHash: sha512(req.body.refresh_token)
+    });
+
     /**
      * Create new JWT payload
      */
@@ -464,13 +472,7 @@ router.post('/logout', isSessionValid, async (req, res) => {
     /**
      * Finds and removes the session from the database by marking it as revoked
      */
-    await Session.findOneAndUpdate(
-      { accessTokenHash },
-      {
-        isRevoked: true
-      },
-      { $safe: true }
-    );
+    await Session.findOneAndDelete({ accessTokenHash });
     res.status(200).json({
       code: 200,
       message: 'You are now logged out.'

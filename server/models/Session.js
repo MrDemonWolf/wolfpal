@@ -43,10 +43,6 @@ const SessionSchema = new Schema(
       type: String,
       default: 'unknown'
     },
-    isRevoked: {
-      type: Boolean,
-      default: false
-    },
     expireAt: {
       type: Date,
       required: true,
