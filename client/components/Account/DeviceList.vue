@@ -27,6 +27,18 @@
                     <span class="ml-1 font-normal text-gray-500">
                       on {{ session.device.os }}
                     </span>
+                    <span
+                      v-if="session.device.isDev"
+                      class="px-2 ml-1 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full"
+                    >
+                      Dev
+                    </span>
+                    <span
+                      v-if="currentSession === session.accessTokenHash"
+                      class="px-2 ml-1 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full"
+                    >
+                      Current
+                    </span>
                   </div>
                   <div class="flex mt-2">
                     <div class="flex items-center">
@@ -55,7 +67,8 @@
               <div class="flex-shrink-0 ml-5">
                 <button
                   type="submit"
-                  class="inline-flex justify-center px-4 py-1 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out border border-transparent rounded-md sm:my-2 bg-primary-600 hover:bg-primary-500 focus:outline-none focus:border-primary-700"
+                  class="inline-flex justify-center px-4 py-1 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-red-600 border border-transparent rounded-md dark:bg-red-500 sm:my-2 hover:bg-red-500 dark-hover:bg-red-400 focus:outline-none focus:border-red-700"
+                  @click.prevent="revokeSession(index)"
                 >
                   Revoke
                 </button>
@@ -69,6 +82,8 @@
 </template>
 
 <script>
+const sha512 = require('js-sha512')
+
 export default {
   props: {
     sessions: {
@@ -76,6 +91,7 @@ export default {
       default: () => [],
     },
   },
+
   data() {
     return {
       error: null,
@@ -83,8 +99,41 @@ export default {
     }
   },
 
-  // methods: {
-  //   async,
-  // },
+  computed: {
+    currentSession() {
+      return sha512(
+        this.$auth.strategy.token.get().split(' ').slice(1).toString()
+      )
+    },
+  },
+
+  methods: {
+    async revokeSession(index) {
+      try {
+        if (
+          this.currentSession ===
+          this.$store.state.account.sessions[index].accessTokenHash
+        ) {
+          return await this.$auth.logout()
+        }
+        await this.$store.dispatch('account/REVOKE_SESSION', index)
+        if (this.$store.state.account.messages.success) {
+          return this.$toast.success(
+            this.$store.state.account.messages.success,
+            {
+              position: 'bottom-right',
+            }
+          )
+        }
+        this.$toast.error(this.$store.state.account.messages.error, {
+          position: 'bottom-right',
+        })
+      } catch (e) {
+        this.$toast.error('Oops.. Something Went Wrong..', {
+          position: 'bottom-right',
+        })
+      }
+    },
+  },
 }
 </script>

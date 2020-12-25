@@ -73,6 +73,21 @@ export const actions = {
     commit('SET_TWO_FACTOR_SECRET', '')
     commit('SET_TWO_FACTOR_BACKUP_CODES', [])
   },
+  async REVOKE_SESSION({ commit, state }, index) {
+    try {
+      const res = await this.$axios.$delete(
+        `/api/account/sessions/${state.sessions[index]._id}`
+      )
+
+      commit('DELETE_SESSION', index)
+
+      commit('SET_MESSAGE_ERROR', undefined)
+      commit('SET_MESSAGE_SUCCESS', res.message)
+    } catch (e) {
+      commit('SET_MESSAGE_SUCCESS', undefined)
+      commit('SET_MESSAGE_ERROR', e.response.data.error)
+    }
+  },
 }
 
 export const mutations = {
@@ -93,6 +108,9 @@ export const mutations = {
   },
   SET_TWO_FACTOR_BACKUP_CODES(state, codes) {
     return (state.twoFactorBackupCodes = codes)
+  },
+  DELETE_SESSION: (state, index) => {
+    return state.sessions.splice(index, 1)
   },
   SET_MESSAGE_SUCCESS: (state, success) => {
     return (state.messages.success = success)
