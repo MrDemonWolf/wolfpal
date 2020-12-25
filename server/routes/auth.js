@@ -211,7 +211,7 @@ router.post('/login', isAccountActivated, async (req, res) => {
      */
     const location = req.ipInfo.error
       ? 'unknown'
-      : `${req.ipInfo.city}, ${req.ipInfo.state} ${req.ipInfo.country}`;
+      : `${req.ipInfo.city}, ${req.ipInfo.region} ${req.ipInfo.country}`;
 
     /**
      * Create the session in the database

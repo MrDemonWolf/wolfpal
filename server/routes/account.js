@@ -85,7 +85,7 @@ router.get('/sessions', requireAuth, isSessionValid, async (req, res) => {
      */
     const sessions = await Session.find({
       user: req.user.id
-    }).select('-accessTokenHash -refreshTokenHash -user -__v -updatedAt');
+    }).select('-user -__v -updatedAt');
 
     res.status(200).json({ code: 200, sessions, total: sessions.length });
   } catch (err) {
@@ -108,7 +108,9 @@ router.delete(
       const session = await Session.findByIdAndDelete(req.params.session_id);
 
       if (!session) {
-        res.status(404).json({ code: 404, message: 'Session not found.' });
+        return res
+          .status(404)
+          .json({ code: 404, message: 'Session not found.' });
       }
 
       res.status(200).json({ code: 200, message: 'Session has been revoked.' });
