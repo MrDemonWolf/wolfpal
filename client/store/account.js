@@ -88,6 +88,19 @@ export const actions = {
       commit('SET_MESSAGE_ERROR', e.response.data.error)
     }
   },
+  async REVOKE_SESSIONS({ commit, state }) {
+    try {
+      const res = await this.$axios.$delete('/api/account/sessions')
+
+      commit('SET_SESSIONS', [])
+
+      commit('SET_MESSAGE_ERROR', undefined)
+      commit('SET_MESSAGE_SUCCESS', res.message)
+    } catch (e) {
+      commit('SET_MESSAGE_SUCCESS', undefined)
+      commit('SET_MESSAGE_ERROR', e.response.data.error)
+    }
+  },
 }
 
 export const mutations = {
