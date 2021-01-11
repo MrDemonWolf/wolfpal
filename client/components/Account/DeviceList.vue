@@ -80,20 +80,32 @@
           <button
             type="submit"
             class="inline-flex justify-center px-4 py-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-red-600 border border-transparent rounded-md dark:bg-red-500 sm:my-2 hover:bg-red-500 dark-hover:bg-red-400 focus:outline-none focus:border-red-700"
-            @click.prevent="revokeSessions()"
+            @click.prevent="toggleRevokeAllSessionsModal"
           >
             Revoke all
           </button>
         </div>
       </div>
     </div>
+    <portal-target name="revokeAllDevices">
+      <transition name="fade">
+        <RevokeAllDevices
+          v-if="$store.state.account.showRevokeAllSessionsModal"
+        />
+      </transition>
+    </portal-target>
   </div>
 </template>
 
 <script>
-const sha512 = require('js-sha512')
+import sha512 from 'js-sha512'
+
+import RevokeAllDevices from '@/components/Account/Modal/RevokeAllDevices'
 
 export default {
+  components: {
+    RevokeAllDevices,
+  },
   props: {
     sessions: {
       type: Array,
@@ -143,27 +155,10 @@ export default {
         })
       }
     },
-    async revokeSessions(index) {
-      try {
-        await this.$store.dispatch('account/REVOKE_SESSIONS')
-        await this.$auth.logout()
-
-        if (this.$store.state.account.messages.success) {
-          return this.$toast.success(
-            this.$store.state.account.messages.success,
-            {
-              position: 'bottom-right',
-            }
-          )
-        }
-        this.$toast.error(this.$store.state.account.messages.error, {
-          position: 'bottom-right',
-        })
-      } catch (e) {
-        this.$toast.error('Oops.. Something Went Wrong..', {
-          position: 'bottom-right',
-        })
-      }
+    async toggleRevokeAllSessionsModal() {
+      await this.$store.dispatch(
+        'account/TOGGLE_SHOW_REVOKE_ALL_SESSIONS_MODAL'
+      )
     },
   },
 }

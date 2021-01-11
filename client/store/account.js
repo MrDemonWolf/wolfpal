@@ -1,6 +1,7 @@
 export const state = () => ({
   showEnableTwoFactorModal: false,
   showDisableTwoFactorModal: false,
+  showRevokeAllSessionsModal: false,
   twoFactorQrCode: '',
   twoFactorSecret: '',
   twofactorBackupCodes: [],
@@ -24,6 +25,12 @@ export const actions = {
     commit(
       'SET_SHOW_DISABLE_TWO_FACTOR_MODAL',
       !state.showDisableTwoFactorModal
+    )
+  },
+  TOGGLE_SHOW_REVOKE_ALL_SESSIONS_MODAL({ state, commit }) {
+    commit(
+      'SET_SHOW_REVOKE_ALL_SESSIONS_MODAL',
+      !state.showRevokeAllSessionsModal
     )
   },
   async SET_TWO_FACTOR_INITIALIZE({ commit }) {
@@ -112,6 +119,9 @@ export const mutations = {
   },
   SET_SHOW_DISABLE_TWO_FACTOR_MODAL(state, status) {
     return (state.showDisableTwoFactorModal = status)
+  },
+  SET_SHOW_REVOKE_ALL_SESSIONS_MODAL(state, status) {
+    return (state.showRevokeAllSessionsModal = status)
   },
   SET_TWO_FACTOR_QR_CODE(state, qrCode) {
     return (state.twoFactorQrCode = qrCode)

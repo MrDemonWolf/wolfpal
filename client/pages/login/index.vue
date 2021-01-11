@@ -206,8 +206,8 @@ export default {
           token: this.$store.state.login.twoFactorToken,
         })
         await this.$auth.setUserToken(
-          twoFactor.data.access_token,
-          twoFactor.data.refresh_token
+          twoFactor.access_token,
+          twoFactor.refresh_token
         )
       } catch (e) {
         if (this.success) {
