@@ -558,7 +558,7 @@ curl --location --request DELETE 'https://www.example.com/api/account/sessions/:
 
 ## Revoke Sessions
 
-Allows a logged in user to revoke all active sessions
+Allows a logged in user to revoke all sessions
 
 #### Path
 
@@ -588,7 +588,7 @@ curl --location --request DELETE 'https://www.example.com/api/account/sessions' 
 ```json
 {
   "code": 200,
-  "message": "Sessions has been revoked."
+  "message": "All Sessions has been revoked."
 }
 ```
 
