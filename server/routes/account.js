@@ -130,7 +130,7 @@ router.delete(
 router.delete('/sessions', requireAuth, isSessionValid, async (req, res) => {
   try {
     await Session.deleteMany({ user: req.user.id, isRevoked: { $ne: true } });
-    res.status(200).json({ code: 200, message: 'Sessions has been revoked.' });
+    res.status(200).json({ code: 200, message: 'All Sessions has been revoked.' });
   } catch (err) {
     console.log(err);
     res.status(500).json({ code: 500, error: 'Internal Server Error' });
