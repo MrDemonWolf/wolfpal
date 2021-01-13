@@ -22,9 +22,17 @@
             <div class="my-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
               <div>
                 <h3 class="text-xl font-medium leading-6 text-red-500">
-                  Are you sure you want to revoke all devices? (Including the
-                  current one)
+                  Are you sure you want to revoke all devices?
                 </h3>
+              </div>
+              <div class="my-3">
+                <p
+                  class="block my-2 text-sm font-medium leading-5 text-gray-700"
+                >
+                  This will revoke all your past devices plus the current one
+                  your logged in to. Can't be undone and you will have to
+                  relogin after you click comfirm.
+                </p>
               </div>
             </div>
           </div>
