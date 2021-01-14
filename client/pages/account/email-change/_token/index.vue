@@ -63,12 +63,12 @@ export default {
   methods: {
     async userEmailChange() {
       try {
-        const response = await this.$axios.put(
+        const res = await this.$axios.$put(
           `/api/account/email-change/${this.$route.params.token}`
         )
         await this.$auth.fetchUser()
         this.loader.success = true
-        this.loader.message = response.data.message
+        this.loader.message = res.message
         this.loader.loading = false
       } catch (e) {
         this.success = false
@@ -78,10 +78,8 @@ export default {
     },
     async userResendEmailChange() {
       try {
-        const response = await this.$axios.post(
-          '/api/account/email-change/resend'
-        )
-        this.$toast.success(response.data.message, {
+        const res = await this.$axios.$post('/api/account/email-change/resend')
+        this.$toast.success(res.message, {
           position: 'bottom-right',
         })
       } catch (e) {

@@ -115,15 +115,15 @@ export default {
   methods: {
     async getAnalytics() {
       await this.$axios
-        .get('/api/stats')
+        .$get('/api/stats')
         .then((res) => {
-          this.stats.weekly.completed = res.data.weekly.completed
-          this.stats.weekly.notCompleted = res.data.weekly.notCompleted
-          this.stats.weekly.total = res.data.weekly.total
+          this.stats.weekly.completed = res.weekly.completed
+          this.stats.weekly.notCompleted = res.weekly.notCompleted
+          this.stats.weekly.total = res.weekly.total
           this.loading.weekly = false
         })
         .catch((err) => {
-          this.error({ statusCode: 400, message: err.error })
+          this.error({ statusCode: 500, message: err.error })
         })
     },
   },

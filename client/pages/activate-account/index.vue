@@ -74,16 +74,16 @@ export default {
   methods: {
     async userResendActivateAccount() {
       try {
-        const response = await this.$axios.post(
+        const res = await this.$axios.$post(
           '/api/user/activate-account/resend',
           this.resendActivateAccount
         )
-        this.success = response.data.message
+        this.success = res.message
         if (this.error) {
           this.error = null
         }
       } catch (e) {
-        this.error = e.response.data.error
+        this.error = e.res.error
         if (this.success) {
           this.success = null
         }

@@ -197,12 +197,12 @@ export default {
   methods: {
     async userRegister() {
       try {
-        const response = await this.$axios.post('/api/auth/register', {
+        const res = await this.$axios.$post('/api/auth/register', {
           username: this.register.username,
           email: this.register.email,
           password: this.register.password,
         })
-        this.success = response.data.message
+        this.success = res.message
         if (this.error) {
           this.error = null
         }

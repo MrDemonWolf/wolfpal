@@ -84,13 +84,53 @@ router.get('/sessions', requireAuth, isSessionValid, async (req, res) => {
      * Get the current user data and remove sensitive data
      */
     const sessions = await Session.find({
-      user: req.user.id,
-      isRevoked: { $ne: true }
-    }).select(
-      '-accessTokenHash -refreshTokenHash -user -isRevoked -__v -updatedAt'
-    );
+      user: req.user.id
+    }).select('-user -__v -updatedAt');
 
-    res.status(200).json({ code: 200, sessions });
+    res.status(200).json({ code: 200, sessions, total: sessions.length });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ code: 500, error: 'Internal Server Error' });
+  }
+});
+
+/**
+ * @route /sessions/:session_id
+ * @method delete
+ * @description Allows a logged in user to revoke a session.
+ */
+router.delete(
+  '/sessions/:session_id',
+  requireAuth,
+  isSessionValid,
+  async (req, res) => {
+    try {
+      const session = await Session.findByIdAndDelete(req.params.session_id);
+
+      if (!session) {
+        return res
+          .status(404)
+          .json({ code: 404, message: 'Session not found.' });
+      }
+
+      res.status(200).json({ code: 200, message: 'Session has been revoked.' });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ code: 500, error: 'Internal Server Error' });
+    }
+  }
+);
+
+/**
+ * @route /sessions
+ * @method delete
+ * @description Allows a logged in user to revoke all active sessions
+
+ */
+router.delete('/sessions', requireAuth, isSessionValid, async (req, res) => {
+  try {
+    await Session.deleteMany({ user: req.user.id, isRevoked: { $ne: true } });
+    res.status(200).json({ code: 200, message: 'All Sessions has been revoked.' });
   } catch (err) {
     console.log(err);
     res.status(500).json({ code: 500, error: 'Internal Server Error' });

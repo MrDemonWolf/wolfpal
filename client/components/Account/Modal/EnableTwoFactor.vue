@@ -273,8 +273,8 @@ export default {
       }
     },
     async downloadTwoFactorBackupCodes() {
-      const res = await this.$axios.get('/api/account/two-factor/backup-codes')
-      const url = window.URL.createObjectURL(new Blob([res.data]))
+      const res = await this.$axios.$get('/api/account/two-factor/backup-codes')
+      const url = window.URL.createObjectURL(new Blob([res]))
       const link = document.createElement('a')
       link.href = url
       link.setAttribute(

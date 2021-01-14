@@ -13,76 +13,106 @@
           <li
             v-for="(session, index) in sessions"
             :key="index"
-            class="block transition duration-150 ease-in-out hover:bg-gray-50 focus:outline-none focus:bg-gray-50"
+            class="block border-t border-b border-gray-200"
           >
-            <div class="px-4 py-4 sm:px-6">
-              <div class="flex items-center justify-between">
-                <div
-                  class="text-sm font-medium leading-5 text-indigo-600 truncate"
-                >
-                  {{ session.device.browser }} on {{ session.device.os }}
-                </div>
-                <div
-                  v-if="session.device.isDev"
-                  class="flex flex-shrink-0 ml-2"
-                >
-                  <span
-                    class="inline-flex px-2 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full"
+            <div class="flex items-center px-4 py-4 sm:px-6">
+              <div
+                class="flex-1 min-w-0 sm:flex sm:items-center sm:justify-between"
+              >
+                <div>
+                  <div
+                    class="text-sm font-medium leading-5 truncate text-primary-600 dark:text-primary-500"
                   >
-                    Development
-                  </span>
+                    {{ session.device.browser }}
+                    <span class="ml-1 font-normal text-gray-500">
+                      on {{ session.device.os }}
+                    </span>
+                    <span
+                      v-if="session.device.isDev"
+                      class="px-2 ml-1 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full"
+                    >
+                      Dev
+                    </span>
+                    <span
+                      v-if="currentSession === session.accessTokenHash"
+                      class="px-2 ml-1 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full"
+                    >
+                      Current
+                    </span>
+                  </div>
+                  <div class="flex mt-2">
+                    <div class="flex items-center">
+                      <fa
+                        :icon="['fas', 'calendar']"
+                        class="flex-shrink-0 mr-1.5 h-5 w-5 text-lg text-gray-500"
+                      />
+
+                      <time
+                        class="text-sm leading-5 text-gray-500"
+                        :datetime="$dayjs(session.createdAt).format('lll')"
+                        >{{ $dayjs(session.createdAt).format('lll') }}</time
+                      >
+                      <fa
+                        :icon="['fas', 'map-marker-alt']"
+                        class="flex-shrink-0 ml-1.5 mr-1.5 h-5 w-5 text-lg text-gray-500"
+                      />
+
+                      <span class="text-sm leading-5 text-gray-500">
+                        {{ session.location | capitalize }}</span
+                      >
+                    </div>
+                  </div>
                 </div>
               </div>
-              <div class="mt-2 sm:flex sm:justify-between">
-                <div class="sm:flex">
-                  <div
-                    class="flex items-center mr-6 text-sm leading-5 text-gray-500"
-                  >
-                    <svg
-                      class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"
-                      />
-                    </svg>
-                    {{ session.device.version }}
-                  </div>
-                  <div
-                    class="flex items-center mt-2 text-sm leading-5 text-gray-500 sm:mt-0"
-                  >
-                    <svg
-                      class="flex-shrink-0 mr-1.5 h-5 w-5 text-gray-400"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"
-                        clip-rule="evenodd"
-                      />
-                    </svg>
-                    {{ session.ipAddress }}
-                  </div>
-                </div>
+              <div class="flex-shrink-0 ml-5">
+                <button
+                  type="submit"
+                  class="inline-flex justify-center px-4 py-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-red-600 border border-transparent rounded-md dark:bg-red-500 sm:my-2 hover:bg-red-500 dark-hover:bg-red-400 focus:outline-none focus:border-red-700"
+                  @click.prevent="revokeSession(index)"
+                >
+                  Revoke
+                </button>
               </div>
             </div>
           </li>
         </ul>
+        <div class="px-4 py-3 text-right bg-gray-50 sm:px-6">
+          <button
+            type="submit"
+            class="inline-flex justify-center px-4 py-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out bg-red-600 border border-transparent rounded-md dark:bg-red-500 sm:my-2 hover:bg-red-500 dark-hover:bg-red-400 focus:outline-none focus:border-red-700"
+            @click.prevent="toggleRevokeAllSessionsModal"
+          >
+            Revoke all
+          </button>
+        </div>
       </div>
     </div>
+    <portal-target name="revokeAllDevices">
+      <transition name="fade">
+        <RevokeAllDevices
+          v-if="$store.state.account.showRevokeAllSessionsModal"
+        />
+      </transition>
+    </portal-target>
   </div>
 </template>
 
 <script>
+import sha512 from 'js-sha512'
+
+import RevokeAllDevices from '@/components/Account/Modal/RevokeAllDevices'
+
 export default {
+  components: {
+    RevokeAllDevices,
+  },
   props: {
     sessions: {
       type: Array,
       default: () => [],
     },
   },
+
   data() {
     return {
       error: null,
@@ -90,6 +120,46 @@ export default {
     }
   },
 
-  // methods: {},
+  computed: {
+    currentSession() {
+      return sha512(
+        this.$auth.strategy.token.get().split(' ').slice(1).toString()
+      )
+    },
+  },
+
+  methods: {
+    async revokeSession(index) {
+      try {
+        if (
+          this.currentSession ===
+          this.$store.state.account.sessions[index].accessTokenHash
+        ) {
+          return await this.$auth.logout()
+        }
+        await this.$store.dispatch('account/REVOKE_SESSION', index)
+        if (this.$store.state.account.messages.success) {
+          return this.$toast.success(
+            this.$store.state.account.messages.success,
+            {
+              position: 'bottom-right',
+            }
+          )
+        }
+        this.$toast.error(this.$store.state.account.messages.error, {
+          position: 'bottom-right',
+        })
+      } catch (e) {
+        this.$toast.error('Oops.. Something Went Wrong..', {
+          position: 'bottom-right',
+        })
+      }
+    },
+    async toggleRevokeAllSessionsModal() {
+      await this.$store.dispatch(
+        'account/TOGGLE_SHOW_REVOKE_ALL_SESSIONS_MODAL'
+      )
+    },
+  },
 }
 </script>

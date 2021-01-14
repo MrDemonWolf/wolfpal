@@ -1,6 +1,6 @@
 {
   "name": "wolfpal",
-  "version": "1.0.0",
+  "version": "1.2.0",
   "description": "A wolf to guide you to your end goals by helping keep you on track weely, bi-weekly or even monthly and yearly goals.",
   "main": "index.js",
   "scripts": {
@@ -25,9 +25,9 @@
   "homepage": "https://github.com/MrDemonWolf/wolfpal#readme",
   "devDependencies": {
     "cross-env": "^7.0.3",
-    "eslint": "^7.15.0",
+    "eslint": "^7.16.0",
     "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-config-prettier": "^7.0.0",
+    "eslint-config-prettier": "^7.1.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-mocha": "^8.0.0",
     "eslint-plugin-promise": "^4.2.1",
@@ -43,7 +43,7 @@
     "js-sha512": "^0.8.0",
     "mjml": "^4.7.1",
     "moment": "^2.29.1",
-    "mongoose": "^5.11.6",
+    "mongoose": "^5.11.8",
     "node-cron": "^2.0.3",
     "slugify": "^1.4.6"
   }

@@ -1,6 +1,7 @@
 export const state = () => ({
   showEnableTwoFactorModal: false,
   showDisableTwoFactorModal: false,
+  showRevokeAllSessionsModal: false,
   twoFactorQrCode: '',
   twoFactorSecret: '',
   twofactorBackupCodes: [],
@@ -14,8 +15,8 @@ export const state = () => ({
 
 export const actions = {
   async FETCH_SESSIONS({ commit }) {
-    const res = await this.$axios.get('/api/account/sessions')
-    commit('SET_SESSIONS', res.data.sessions)
+    const res = await this.$axios.$get('/api/account/sessions')
+    commit('SET_SESSIONS', res.sessions)
   },
   TOGGLE_SHOW_ENABLE_TWO_FACTOR_MODAL({ state, commit }) {
     commit('SET_SHOW_ENABLE_TWO_FACTOR_MODAL', !state.showEnableTwoFactorModal)
@@ -26,13 +27,19 @@ export const actions = {
       !state.showDisableTwoFactorModal
     )
   },
+  TOGGLE_SHOW_REVOKE_ALL_SESSIONS_MODAL({ state, commit }) {
+    commit(
+      'SET_SHOW_REVOKE_ALL_SESSIONS_MODAL',
+      !state.showRevokeAllSessionsModal
+    )
+  },
   async SET_TWO_FACTOR_INITIALIZE({ commit }) {
     try {
-      const res = await this.$axios.post('/api/account/two-factor')
-      commit('SET_TWO_FACTOR_QR_CODE', res.data.qrCode)
-      commit('SET_TWO_FACTOR_SECRET', res.data.secret)
+      const res = await this.$axios.$post('/api/account/two-factor')
+      commit('SET_TWO_FACTOR_QR_CODE', res.qrCode)
+      commit('SET_TWO_FACTOR_SECRET', res.secret)
 
-      commit('SET_TWO_FACTOR_BACKUP_CODES', res.data.backupCodes)
+      commit('SET_TWO_FACTOR_BACKUP_CODES', res.backupCodes)
       commit('SET_MESSAGE_ERROR', undefined)
     } catch (e) {
       commit('SET_MESSAGE_SUCCESS', undefined)
@@ -41,7 +48,7 @@ export const actions = {
   },
   async ENABLE_TWO_FACTOR({ commit }, code) {
     try {
-      const res = await this.$axios.put('/api/account/two-factor', {
+      const res = await this.$axios.$put('/api/account/two-factor', {
         code,
       })
 
@@ -49,7 +56,7 @@ export const actions = {
       commit('RESET_TWO_FACTOR_INITIALIZE')
 
       commit('SET_MESSAGE_ERROR', undefined)
-      commit('SET_MESSAGE_SUCCESS', res.data.message)
+      commit('SET_MESSAGE_SUCCESS', res.message)
     } catch (e) {
       commit('SET_MESSAGE_SUCCESS', undefined)
       commit('SET_MESSAGE_ERROR', e.response.data.error)
@@ -57,12 +64,12 @@ export const actions = {
   },
   async DISABLE_TWO_FACTOR({ commit }, code) {
     try {
-      const res = await this.$axios.delete(
+      const res = await this.$axios.$delete(
         `/api/account/two-factor?code=${code}`
       )
 
       commit('SET_MESSAGE_ERROR', undefined)
-      commit('SET_MESSAGE_SUCCESS', res.data.message)
+      commit('SET_MESSAGE_SUCCESS', res.message)
     } catch (e) {
       commit('SET_MESSAGE_SUCCESS', undefined)
       commit('SET_MESSAGE_ERROR', e.response.data.error)
@@ -72,6 +79,34 @@ export const actions = {
     commit('SET_TWO_FACTOR_QR_CODE', '')
     commit('SET_TWO_FACTOR_SECRET', '')
     commit('SET_TWO_FACTOR_BACKUP_CODES', [])
+  },
+  async REVOKE_SESSION({ commit, state }, index) {
+    try {
+      const res = await this.$axios.$delete(
+        `/api/account/sessions/${state.sessions[index]._id}`
+      )
+
+      commit('DELETE_SESSION', index)
+
+      commit('SET_MESSAGE_ERROR', undefined)
+      commit('SET_MESSAGE_SUCCESS', res.message)
+    } catch (e) {
+      commit('SET_MESSAGE_SUCCESS', undefined)
+      commit('SET_MESSAGE_ERROR', e.response.data.error)
+    }
+  },
+  async REVOKE_SESSIONS({ commit, state }) {
+    try {
+      const res = await this.$axios.$delete('/api/account/sessions')
+
+      commit('SET_SESSIONS', [])
+
+      commit('SET_MESSAGE_ERROR', undefined)
+      commit('SET_MESSAGE_SUCCESS', res.message)
+    } catch (e) {
+      commit('SET_MESSAGE_SUCCESS', undefined)
+      commit('SET_MESSAGE_ERROR', e.response.data.error)
+    }
   },
 }
 
@@ -85,6 +120,9 @@ export const mutations = {
   SET_SHOW_DISABLE_TWO_FACTOR_MODAL(state, status) {
     return (state.showDisableTwoFactorModal = status)
   },
+  SET_SHOW_REVOKE_ALL_SESSIONS_MODAL(state, status) {
+    return (state.showRevokeAllSessionsModal = status)
+  },
   SET_TWO_FACTOR_QR_CODE(state, qrCode) {
     return (state.twoFactorQrCode = qrCode)
   },
@@ -93,6 +131,9 @@ export const mutations = {
   },
   SET_TWO_FACTOR_BACKUP_CODES(state, codes) {
     return (state.twoFactorBackupCodes = codes)
+  },
+  DELETE_SESSION: (state, index) => {
+    return state.sessions.splice(index, 1)
   },
   SET_MESSAGE_SUCCESS: (state, success) => {
     return (state.messages.success = success)

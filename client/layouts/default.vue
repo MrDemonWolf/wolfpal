@@ -8,7 +8,7 @@
         role="main"
         class="flex-grow bg-gray-200 dark:bg-gray-800"
       >
-        <OfflineBanner />
+        <OfflineBanner v-if="$nuxt.isOffline" />
         <Nuxt />
       </main>
       <Footer />

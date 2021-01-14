@@ -63,11 +63,11 @@ export default {
   methods: {
     async userActivateAccount() {
       try {
-        const response = await this.$axios.put(
+        const res = await this.$axios.$put(
           `/api/user/activate-account/${this.$route.params.token}`
         )
         this.loader.success = true
-        this.loader.message = response.data.message
+        this.loader.message = res.message
         this.loader.loading = false
       } catch (e) {
         this.success = false
