@@ -40,6 +40,8 @@ const twoFactor = {
   backupCodes: []
 };
 
+let sessions = [];
+
 describe('💾 Account:', () => {
   it('should register a user for testing account routes.', done => {
     request(server)
@@ -334,8 +336,8 @@ describe('💾 Account:', () => {
     request(server)
       .post('/auth/login')
       .send({
-        email: testAccounts.user.account.email,
-        password: testAccounts.extra.account.password
+        email: testAccounts.extra.account.ec,
+        password: testAccounts.extra.account.password2
       })
       .expect(200)
       .expect('Content-Type', /json/)
@@ -356,6 +358,82 @@ describe('💾 Account:', () => {
   it('should return a array of all current sessions', done => {
     request(server)
       .get('/account/sessions')
+      .set('Authorization', `Bearer ${creds.user.accessToken}`)
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(async (err, res) => {
+        if (err) {
+          return done(err);
+        }
+        sessions = res.body.sessions;
+        done();
+      });
+  });
+
+  it('should revoke current session', done => {
+    request(server)
+      // eslint-disable-next-line no-underscore-dangle
+      .delete(`/account/sessions/${sessions[0]._id}`)
+      .set('Authorization', `Bearer ${creds.user.accessToken}`)
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(async (err, res) => {
+        if (err) {
+          return done(err);
+        }
+        done();
+      });
+  });
+
+  it('should login as user to revoke all', done => {
+    request(server)
+      .post('/auth/login')
+      .send({
+        email: testAccounts.extra.account.ec,
+        password: testAccounts.extra.account.password2
+      })
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(async (err, res) => {
+        if (err) {
+          return done(err);
+        }
+        try {
+          creds.user.accessToken = res.body.access_token;
+          creds.user.refreshToken = res.body.refresh_token;
+          done();
+        } catch (err) {
+          return done(err);
+        }
+      });
+  });
+
+  it('should login as user to revoke all 2', done => {
+    request(server)
+      .post('/auth/login')
+      .send({
+        email: testAccounts.extra.account.ec,
+        password: testAccounts.extra.account.password2
+      })
+      .expect(200)
+      .expect('Content-Type', /json/)
+      .end(async (err, res) => {
+        if (err) {
+          return done(err);
+        }
+        try {
+          creds.user.accessToken = res.body.access_token;
+          creds.user.refreshToken = res.body.refresh_token;
+          done();
+        } catch (err) {
+          return done(err);
+        }
+      });
+  });
+
+  it('should revoke all session', done => {
+    request(server)
+      .delete('/account/sessions')
       .set('Authorization', `Bearer ${creds.user.accessToken}`)
       .expect(200)
       .expect('Content-Type', /json/)
