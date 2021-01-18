@@ -1,8 +1,8 @@
-const User = require('../../models/User');
+const User = require('../models/User');
 
 module.exports = async (req, res, next) => {
   try {
-    const user = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ email: req.user.email });
 
     if (!user) {
       return res.status(400).json({
@@ -14,10 +14,10 @@ module.exports = async (req, res, next) => {
     if (user.emailVerified) {
       return next();
     }
-    res.status(401).send({
-      status: 401,
+    res.status(400).send({
+      status: 400,
       error:
-        'Your account must be activated before you can login. Please check your email you signed up with.'
+        'Your account must be activated before you can do that. Please check your email you signed up with.'
     });
   } catch (err) {
     console.log(err);

@@ -12,6 +12,7 @@ const WeeklyGoal = require('../models/Goals/Weekly');
  * Load middlewares
  */
 const isSessionValid = require('../middleware/auth/isSessionValid');
+const isAccountActivated = require('../middleware/isAccountActivated');
 
 /**
  * Load input validators.
@@ -45,29 +46,35 @@ router.get('/weekly', requireAuth, isSessionValid, async (req, res) => {
  * @method POST
  * @description Allows a logged in user create a new weekly goal.
  */
-router.post('/weekly', requireAuth, isSessionValid, async (req, res) => {
-  try {
-    /**
-     * validate the goal important for title
-     */
-    const { error, isValid } = validateNewWeeklyGoalInput(req.body);
+router.post(
+  '/weekly',
+  requireAuth,
+  isSessionValid,
+  isAccountActivated,
+  async (req, res) => {
+    try {
+      /**
+       * validate the goal important for title
+       */
+      const { error, isValid } = validateNewWeeklyGoalInput(req.body);
 
-    if (!isValid) {
-      return res.status(400).json({ code: 400, error });
+      if (!isValid) {
+        return res.status(400).json({ code: 400, error });
+      }
+
+      const { title } = req.body;
+      const goal = new WeeklyGoal({
+        user: req.user.id,
+        title
+      });
+      await goal.save();
+      res.status(201).json({ code: 201, goal, message: 'Added weekly goal.' });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ code: 500, error: 'Internal Server Error' });
     }
-
-    const { title } = req.body;
-    const goal = new WeeklyGoal({
-      user: req.user.id,
-      title
-    });
-    await goal.save();
-    res.status(201).json({ code: 201, goal, message: 'Added weekly goal.' });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ code: 500, error: 'Internal Server Error' });
   }
-});
+);
 
 /**
  * @route /goals/weekly/:goal_id/complete
@@ -78,6 +85,7 @@ router.put(
   '/weekly/:goal_id/complete',
   requireAuth,
   isSessionValid,
+  isAccountActivated,
   async (req, res) => {
     try {
       const goal = await WeeklyGoal.findById(req.params.goal_id);
@@ -100,6 +108,7 @@ router.delete(
   '/weekly/:goal_id',
   requireAuth,
   isSessionValid,
+  isAccountActivated,
   async (req, res) => {
     try {
       await WeeklyGoal.findByIdAndDelete(req.params.goal_id);
