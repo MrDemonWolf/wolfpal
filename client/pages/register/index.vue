@@ -140,9 +140,7 @@ export default {
         username: '',
         password: '',
       },
-      error: null,
       errors: { username: null, email: null, password: null },
-      success: null,
     }
   },
   methods: {
@@ -153,18 +151,22 @@ export default {
           email: this.register.email,
           password: this.register.password,
         })
-        this.success = res.message
-        if (this.error) {
-          this.error = null
-        }
+        this.$toast.success(res.message, {
+          position: 'bottom-right',
+        })
+        await this.$auth.loginWith('local', {
+          data: {
+            email: this.register.email,
+            password: this.register.password,
+          },
+        })
       } catch (e) {
         if (e.response.data.errors) {
           return (this.errors = e.response.data.errors)
         }
-        this.error = e.response.data.error
-        if (this.success) {
-          this.success = null
-        }
+        this.$toast.error('Oops.. Something Went Wrong..', {
+          position: 'bottom-right',
+        })
       }
     },
   },

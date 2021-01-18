@@ -113,13 +113,6 @@ export default {
     },
   },
 
-  data() {
-    return {
-      error: null,
-      success: null,
-    }
-  },
-
   computed: {
     currentSession() {
       return sha512(

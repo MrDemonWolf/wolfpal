@@ -80,8 +80,6 @@ export default {
   data() {
     return {
       newGoal: { title: '', isCompleted: false },
-      error: null,
-      success: null,
     }
   },
   methods: {
