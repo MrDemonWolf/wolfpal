@@ -33,7 +33,6 @@ const TwoFactor = require('../models/TwoFactor');
 const isSessionValid = require('../middleware/auth/isSessionValid');
 const isRefreshValid = require('../middleware/auth/isRefreshTokenValid');
 const isRegistration = require('../middleware/auth/isRegistration');
-const isAccountActivated = require('../middleware/auth/isAccountActivated');
 
 /**
  * Load input validators.
@@ -122,7 +121,7 @@ router.post('/register', isRegistration, async (req, res) => {
  * @method POST
  * @description Allows a user to login with their account.
  */
-router.post('/login', isAccountActivated, async (req, res) => {
+router.post('/login', async (req, res) => {
   try {
     /**
      * Validdate the user important for email,password.
