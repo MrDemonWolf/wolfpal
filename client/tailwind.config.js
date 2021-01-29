@@ -5,9 +5,20 @@
  ** Default: https://github.com/tailwindcss/tailwindcss/blob/master/stubs/defaultConfig.stub.js
  */
 module.exports = {
+  purge: {
+    // Learn more on https://tailwindcss.com/docs/controlling-file-size/#removing-unused-css
+    enabled: process.env.NODE_ENV === 'production',
+    content: [
+      'components/**/*.vue',
+      'layouts/**/*.vue',
+      'pages/**/*.vue',
+      'plugins/**/*.js',
+      'nuxt.config.js',
+    ],
+  },
+  // compatible with @nuxtjs/color-mode
+  darkMode: 'class', // or 'media' or 'class'
   theme: {
-    // compatible with @nuxtjs/color-mode
-    darkSelector: '.dark-mode',
     extend: {
       colors: {
         primary: {
@@ -47,59 +58,6 @@ module.exports = {
       colors: true, // defaults to false
     },
   },
-  variants: {
-    backgroundColor: [
-      'dark',
-      'dark-hover',
-      'dark-group-hover',
-      'dark-even',
-      'dark-odd',
-      'hover',
-      'responsive',
-      'disabled',
-    ],
-    backgroundImage: ['responsive', 'dark'],
-    gradientColorStops: ['responsive', 'dark'],
-    borderColor: [
-      'dark',
-      'dark-focus',
-      'dark-focus-within',
-      'hover',
-      'responsive',
-    ],
-    textColor: [
-      'dark',
-      'dark-hover',
-      'dark-active',
-      'hover',
-      'responsive',
-      'disabled',
-    ],
-  },
-  plugins: [
-    require('tailwindcss-dark-mode')(),
-    require('@tailwindcss/ui')({
-      // See https://tailwindui.com/documentation#configuring-sidebar-breakpoints
-      // Turning this off for now. This may be buggy as it makes the hero sections like the "with wide angled image on right" look funky
-      // https://tailwindui.com/components/marketing/sections/heroes
-      // layout: 'sidebar',
-    }),
-    require('tailwindcss-border-styles')(),
-  ],
-
-  purge: {
-    // Learn more on https://tailwindcss.com/docs/controlling-file-size/#removing-unused-css
-    enabled: process.env.NODE_ENV === 'production',
-    content: [
-      'components/**/*.vue',
-      'layouts/**/*.vue',
-      'pages/**/*.vue',
-      'plugins/**/*.js',
-      'nuxt.config.js',
-    ],
-  },
-  future: {
-    removeDeprecatedGapUtilities: true,
-    purgeLayersByDefault: true,
-  },
+  variants: {},
+  plugins: [require('tailwindcss-border-styles')()],
 }

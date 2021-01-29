@@ -169,6 +169,16 @@ export default {
     duration: 6500,
   },
 
+  /*
+   ** Color mode configuration
+   */
+  colorMode: {
+    classSuffix: '',
+  },
+
+  /*
+   ** Runtime configuration
+   */
   publicRuntimeConfig: {
     title: process.env.SITE_TITLE || 'WolfPal',
     description:
@@ -184,7 +194,7 @@ export default {
    * purgeCSS configuration
    */
   purgeCSS: {
-    whitelist: ['dark-mode'],
+    whitelist: ['dark'],
   },
 
   /*
