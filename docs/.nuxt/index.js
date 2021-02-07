@@ -13,16 +13,16 @@ import { createStore } from './store.js'
 
 /* Plugins */
 
-import nuxt_plugin_plugin_5587661e from 'nuxt_plugin_plugin_5587661e' // Source: ./components/plugin.js (mode: 'all')
-import nuxt_plugin_pluginclient_32e61acc from 'nuxt_plugin_pluginclient_32e61acc' // Source: ./content/plugin.client.js (mode: 'client')
-import nuxt_plugin_pluginserver_4c466422 from 'nuxt_plugin_pluginserver_4c466422' // Source: ./content/plugin.server.js (mode: 'server')
-import nuxt_plugin_pluginrouting_5b49d612 from 'nuxt_plugin_pluginrouting_5b49d612' // Source: ./nuxt-i18n/plugin.routing.js (mode: 'all')
-import nuxt_plugin_pluginmain_19c31e9d from 'nuxt_plugin_pluginmain_19c31e9d' // Source: ./nuxt-i18n/plugin.main.js (mode: 'all')
-import nuxt_plugin_workbox_51210650 from 'nuxt_plugin_workbox_51210650' // Source: ./workbox.js (mode: 'client')
-import nuxt_plugin_metaplugin_5176fd63 from 'nuxt_plugin_metaplugin_5176fd63' // Source: ./pwa/meta.plugin.js (mode: 'all')
-import nuxt_plugin_iconplugin_561ea2d7 from 'nuxt_plugin_iconplugin_561ea2d7' // Source: ./pwa/icon.plugin.js (mode: 'all')
-import nuxt_plugin_pluginserver_66d23388 from 'nuxt_plugin_pluginserver_66d23388' // Source: ./color-mode/plugin.server.js (mode: 'server')
-import nuxt_plugin_pluginclient_0118c200 from 'nuxt_plugin_pluginclient_0118c200' // Source: ./color-mode/plugin.client.js (mode: 'client')
+import nuxt_plugin_plugin_ddbbdd44 from 'nuxt_plugin_plugin_ddbbdd44' // Source: ./components/plugin.js (mode: 'all')
+import nuxt_plugin_pluginclient_325ffdda from 'nuxt_plugin_pluginclient_325ffdda' // Source: ./content/plugin.client.js (mode: 'client')
+import nuxt_plugin_pluginserver_cfcd213c from 'nuxt_plugin_pluginserver_cfcd213c' // Source: ./content/plugin.server.js (mode: 'server')
+import nuxt_plugin_pluginrouting_1fb402d2 from 'nuxt_plugin_pluginrouting_1fb402d2' // Source: ./nuxt-i18n/plugin.routing.js (mode: 'all')
+import nuxt_plugin_pluginmain_659629dd from 'nuxt_plugin_pluginmain_659629dd' // Source: ./nuxt-i18n/plugin.main.js (mode: 'all')
+import nuxt_plugin_workbox_4abcc190 from 'nuxt_plugin_workbox_4abcc190' // Source: ./workbox.js (mode: 'client')
+import nuxt_plugin_metaplugin_e3790eba from 'nuxt_plugin_metaplugin_e3790eba' // Source: ./pwa/meta.plugin.js (mode: 'all')
+import nuxt_plugin_iconplugin_da29c3d2 from 'nuxt_plugin_iconplugin_da29c3d2' // Source: ./pwa/icon.plugin.js (mode: 'all')
+import nuxt_plugin_pluginserver_2b3c6048 from 'nuxt_plugin_pluginserver_2b3c6048' // Source: ./color-mode/plugin.server.js (mode: 'server')
+import nuxt_plugin_pluginclient_74fa2280 from 'nuxt_plugin_pluginclient_74fa2280' // Source: ./color-mode/plugin.client.js (mode: 'client')
 import nuxt_plugin_markdown_667a7ee3 from 'nuxt_plugin_markdown_667a7ee3' // Source: ../node_modules/@nuxt/content-theme-docs/src/plugins/markdown (mode: 'all')
 import nuxt_plugin_init_9269fdf8 from 'nuxt_plugin_init_9269fdf8' // Source: ../node_modules/@nuxt/content-theme-docs/src/plugins/init (mode: 'all')
 import nuxt_plugin_i18n_6bd029b2 from 'nuxt_plugin_i18n_6bd029b2' // Source: ../node_modules/@nuxt/content-theme-docs/src/plugins/i18n.client (mode: 'client')
@@ -216,44 +216,44 @@ async function createApp(ssrContext, config = {}) {
   }
   // Plugin execution
 
-  if (typeof nuxt_plugin_plugin_5587661e === 'function') {
-    await nuxt_plugin_plugin_5587661e(app.context, inject)
+  if (typeof nuxt_plugin_plugin_ddbbdd44 === 'function') {
+    await nuxt_plugin_plugin_ddbbdd44(app.context, inject)
   }
 
-  if (process.client && typeof nuxt_plugin_pluginclient_32e61acc === 'function') {
-    await nuxt_plugin_pluginclient_32e61acc(app.context, inject)
+  if (process.client && typeof nuxt_plugin_pluginclient_325ffdda === 'function') {
+    await nuxt_plugin_pluginclient_325ffdda(app.context, inject)
   }
 
-  if (process.server && typeof nuxt_plugin_pluginserver_4c466422 === 'function') {
-    await nuxt_plugin_pluginserver_4c466422(app.context, inject)
+  if (process.server && typeof nuxt_plugin_pluginserver_cfcd213c === 'function') {
+    await nuxt_plugin_pluginserver_cfcd213c(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_pluginrouting_5b49d612 === 'function') {
-    await nuxt_plugin_pluginrouting_5b49d612(app.context, inject)
+  if (typeof nuxt_plugin_pluginrouting_1fb402d2 === 'function') {
+    await nuxt_plugin_pluginrouting_1fb402d2(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_pluginmain_19c31e9d === 'function') {
-    await nuxt_plugin_pluginmain_19c31e9d(app.context, inject)
+  if (typeof nuxt_plugin_pluginmain_659629dd === 'function') {
+    await nuxt_plugin_pluginmain_659629dd(app.context, inject)
   }
 
-  if (process.client && typeof nuxt_plugin_workbox_51210650 === 'function') {
-    await nuxt_plugin_workbox_51210650(app.context, inject)
+  if (process.client && typeof nuxt_plugin_workbox_4abcc190 === 'function') {
+    await nuxt_plugin_workbox_4abcc190(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_metaplugin_5176fd63 === 'function') {
-    await nuxt_plugin_metaplugin_5176fd63(app.context, inject)
+  if (typeof nuxt_plugin_metaplugin_e3790eba === 'function') {
+    await nuxt_plugin_metaplugin_e3790eba(app.context, inject)
   }
 
-  if (typeof nuxt_plugin_iconplugin_561ea2d7 === 'function') {
-    await nuxt_plugin_iconplugin_561ea2d7(app.context, inject)
+  if (typeof nuxt_plugin_iconplugin_da29c3d2 === 'function') {
+    await nuxt_plugin_iconplugin_da29c3d2(app.context, inject)
   }
 
-  if (process.server && typeof nuxt_plugin_pluginserver_66d23388 === 'function') {
-    await nuxt_plugin_pluginserver_66d23388(app.context, inject)
+  if (process.server && typeof nuxt_plugin_pluginserver_2b3c6048 === 'function') {
+    await nuxt_plugin_pluginserver_2b3c6048(app.context, inject)
   }
 
-  if (process.client && typeof nuxt_plugin_pluginclient_0118c200 === 'function') {
-    await nuxt_plugin_pluginclient_0118c200(app.context, inject)
+  if (process.client && typeof nuxt_plugin_pluginclient_74fa2280 === 'function') {
+    await nuxt_plugin_pluginclient_74fa2280(app.context, inject)
   }
 
   if (typeof nuxt_plugin_markdown_667a7ee3 === 'function') {

@@ -13,7 +13,7 @@ import '../node_modules/@nuxt/content-theme-docs/src/assets/css/main.dev.css'
 
 import '../node_modules/prism-themes/themes/prism-material-oceanic.css'
 
-import _6c3374f9 from './layouts.tw.0368acca.vue'
+import _6c3374f9 from './layouts.tw.3efe164a.vue'
 import _6f6c098b from '../node_modules/@nuxt/content-theme-docs/src/layouts/default.vue'
 import _ee708084 from '../node_modules/@nuxt/content-theme-docs/src/layouts/single.vue'
 

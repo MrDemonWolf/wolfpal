@@ -2393,17 +2393,17 @@
     "enabled": false,
     "content": [
       "content/**/*.md",
-      "/home/mrdem/Projects/personal/wolfpal/docs/components/**/*.vue",
-      "/home/mrdem/Projects/personal/wolfpal/docs/node_modules/@nuxt/content-theme-docs/src/components/**/*.vue",
-      "/home/mrdem/Projects/personal/wolfpal/docs/node_modules/@nuxt/content-theme-docs/src/layouts/**/*.vue",
-      "/home/mrdem/Projects/personal/wolfpal/docs/node_modules/@nuxt/content-theme-docs/src/pages/**/*.vue",
-      "/home/mrdem/Projects/personal/wolfpal/docs/node_modules/@nuxt/content-theme-docs/src/plugins/**/*.js",
+      "/home/mrdem/Projects/personal/mrdemonwolf-org/wolfpal/docs/components/**/*.vue",
+      "/home/mrdem/Projects/personal/mrdemonwolf-org/wolfpal/docs/node_modules/@nuxt/content-theme-docs/src/components/**/*.vue",
+      "/home/mrdem/Projects/personal/mrdemonwolf-org/wolfpal/docs/node_modules/@nuxt/content-theme-docs/src/layouts/**/*.vue",
+      "/home/mrdem/Projects/personal/mrdemonwolf-org/wolfpal/docs/node_modules/@nuxt/content-theme-docs/src/pages/**/*.vue",
+      "/home/mrdem/Projects/personal/mrdemonwolf-org/wolfpal/docs/node_modules/@nuxt/content-theme-docs/src/plugins/**/*.js",
       "nuxt.config.js",
-      "/home/mrdem/Projects/personal/wolfpal/docs/node_modules/@nuxt/content-theme-docs/src/components/**/*.{vue,js}",
-      "/home/mrdem/Projects/personal/wolfpal/docs/node_modules/@nuxt/content-theme-docs/src/layouts/**/*.vue",
-      "/home/mrdem/Projects/personal/wolfpal/docs/node_modules/@nuxt/content-theme-docs/src/pages/**/*.vue",
-      "/home/mrdem/Projects/personal/wolfpal/docs/node_modules/@nuxt/content-theme-docs/src/plugins/**/*.{js,ts}",
-      "/home/mrdem/Projects/personal/wolfpal/docs/nuxt.config.{js,ts}"
+      "/home/mrdem/Projects/personal/mrdemonwolf-org/wolfpal/docs/node_modules/@nuxt/content-theme-docs/src/components/**/*.{vue,js}",
+      "/home/mrdem/Projects/personal/mrdemonwolf-org/wolfpal/docs/node_modules/@nuxt/content-theme-docs/src/layouts/**/*.vue",
+      "/home/mrdem/Projects/personal/mrdemonwolf-org/wolfpal/docs/node_modules/@nuxt/content-theme-docs/src/pages/**/*.vue",
+      "/home/mrdem/Projects/personal/mrdemonwolf-org/wolfpal/docs/node_modules/@nuxt/content-theme-docs/src/plugins/**/*.{js,ts}",
+      "/home/mrdem/Projects/personal/mrdemonwolf-org/wolfpal/docs/nuxt.config.{js,ts}"
     ],
     "options": {
       "whitelist": [

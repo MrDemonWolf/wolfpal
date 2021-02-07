@@ -2,24 +2,28 @@
   {
     "name": "_tailwind",
     "path": "/_tailwind",
-    "component": "/home/mrdem/Projects/personal/wolfpal/docs/node_modules/@nuxtjs/tailwindcss/lib/ui/pages/index.vue"
+    "component": "/home/mrdem/Projects/personal/mrdemonwolf-org/wolfpal/docs/node_modules/@nuxtjs/tailwindcss/lib/ui/pages/index.vue",
+    "_name": "_403743b6"
   },
   {
     "name": "releases___en",
     "path": "/releases",
-    "component": "/home/mrdem/Projects/personal/wolfpal/docs/node_modules/@nuxt/content-theme-docs/src/pages/releases.vue",
-    "chunkName": "pages/releases"
+    "component": "/home/mrdem/Projects/personal/mrdemonwolf-org/wolfpal/docs/node_modules/@nuxt/content-theme-docs/src/pages/releases.vue",
+    "chunkName": "pages/releases",
+    "_name": "_25d5ed9a"
   },
   {
     "name": "index___en",
     "path": "/",
-    "component": "/home/mrdem/Projects/personal/wolfpal/docs/node_modules/@nuxt/content-theme-docs/src/pages/_.vue",
-    "chunkName": "pages/_"
+    "component": "/home/mrdem/Projects/personal/mrdemonwolf-org/wolfpal/docs/node_modules/@nuxt/content-theme-docs/src/pages/_.vue",
+    "chunkName": "pages/_",
+    "_name": "_248a2481"
   },
   {
     "name": "all___en",
     "path": "/*",
-    "component": "/home/mrdem/Projects/personal/wolfpal/docs/node_modules/@nuxt/content-theme-docs/src/pages/_.vue",
-    "chunkName": "pages/_"
+    "component": "/home/mrdem/Projects/personal/mrdemonwolf-org/wolfpal/docs/node_modules/@nuxt/content-theme-docs/src/pages/_.vue",
+    "chunkName": "pages/_",
+    "_name": "_248a2481"
   }
 ]
