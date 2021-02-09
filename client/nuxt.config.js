@@ -79,6 +79,7 @@ export default {
             'faMapMarkerAlt',
             'faCalendar',
           ],
+          brands: ['faGoogle', 'faTwitter', 'faGithub'],
         },
       },
     ],
@@ -188,6 +189,11 @@ export default {
     copyrightLink:
       process.env.COPYRIGHT_LINK || 'https://www.mrdemonwolf.github.io/wolfpal',
     registration: process.env.REGISTRATION || true,
+    landing: {
+      description:
+        process.env.SITE_DESCRIPTION ||
+        'A wolf to guide you to your end goals by helping keep you on track weely, bi-weekly or even monthly and yearly goals.',
+    },
   },
 
   /**

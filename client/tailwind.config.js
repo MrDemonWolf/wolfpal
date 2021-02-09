@@ -4,6 +4,12 @@
  ** Docs: https://tailwindcss.com/docs/configuration
  ** Default: https://github.com/tailwindcss/tailwindcss/blob/master/stubs/defaultConfig.stub.js
  */
+
+const tailwindcssBorderStyles = require('tailwindcss-border-styles')
+const tailwindcssForms = require('@tailwindcss/forms')
+const tailwindcssTypography = require('@tailwindcss/typography')
+const tailwindcssAspectRatio = require('@tailwindcss/aspect-ratio')
+
 module.exports = {
   purge: {
     // Learn more on https://tailwindcss.com/docs/controlling-file-size/#removing-unused-css
@@ -32,6 +38,11 @@ module.exports = {
           800: '#203257',
           900: '#16213A',
         },
+        brand: {
+          googlePlus: '#DD4B39',
+          twitter: '#1DA1F2',
+          github: '#333333',
+        },
       },
       height: {
         80: '80vh',
@@ -59,5 +70,10 @@ module.exports = {
     },
   },
   variants: {},
-  plugins: [require('tailwindcss-border-styles')()],
+  plugins: [
+    tailwindcssBorderStyles(),
+    tailwindcssForms,
+    tailwindcssTypography,
+    tailwindcssAspectRatio,
+  ],
 }

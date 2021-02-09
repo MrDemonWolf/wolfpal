@@ -61,7 +61,7 @@
                 </div>
                 <button
                   type="button"
-                  class="w-full px-4 py-2 my-2 text-base font-medium leading-6 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline sm:text-sm sm:leading-5"
+                  class="w-full px-4 py-2 my-2 text-base font-medium leading-6 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:ring sm:text-sm sm:leading-5"
                   @click.prevent="downloadTwoFactorBackupCodes"
                 >
                   Download {{ $config.title | lowercase }}-backup-codes.txt
@@ -81,7 +81,7 @@
                 <img class="w-32" :src="$store.state.account.twoFactorQrCode" />
                 <div class="flex mt-1 rounded-md">
                   <button
-                    class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline sm:text-sm sm:leading-"
+                    class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:ring sm:text-sm sm:leading-"
                     @click.prevent="toggleTwoFactorSecret"
                   >
                     Show Key
@@ -112,7 +112,7 @@
                   :class="{
                     'border-red-500': $store.state.account.messages.error,
                   }"
-                  class="block w-full px-3 py-2 mt-1 transition duration-150 ease-in-out border border-gray-300 rounded-md shadow-sm form-input focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                  class="block w-full px-3 py-2 mt-1 transition duration-150 ease-in-out border border-gray-300 rounded-md shadow-sm form-input focus:outline-none focus:ring-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                 />
                 <span
                   v-if="$store.state.account.messages.error"
@@ -126,7 +126,7 @@
             <span class="flex w-full rounded-md shadow-sm sm:ml-3 sm:w-auto">
               <button
                 type="submit"
-                class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out border rounded-md order-transparent bg-primary-600 hover:bg-primary-500 focus:outline-none focus:shadow-outline"
+                class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium leading-5 text-white transition duration-150 ease-in-out border rounded-md order-transparent bg-primary-600 hover:bg-primary-500 focus:outline-none focus:ring"
               >
                 Enable
               </button>
@@ -136,7 +136,7 @@
             >
               <button
                 type="button"
-                class="inline-flex justify-center w-full px-4 py-2 text-base font-medium leading-6 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:shadow-outline sm:text-sm sm:leading-5"
+                class="inline-flex justify-center w-full px-4 py-2 text-base font-medium leading-6 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-md shadow-sm hover:text-gray-500 focus:outline-none focus:border-blue-300 focus:ring sm:text-sm sm:leading-5"
                 @click="toggleTwoFactorModal"
                 @keydown.esc="hideTwoFactorModal"
               >

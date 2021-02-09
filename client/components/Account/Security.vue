@@ -26,7 +26,7 @@
                   :class="{
                     'border-red-500': changePassword.errors.oldPassword,
                   }"
-                  class="block w-full px-3 py-2 mt-1 transition duration-150 ease-in-out border border-gray-300 rounded-md shadow-sm form-input focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                  class="block w-full px-3 py-2 mt-1 transition duration-150 ease-in-out border border-gray-300 rounded-md shadow-sm form-input focus:outline-none focus:ring-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                 />
                 <span
                   v-if="changePassword.errors.oldPassword"
@@ -48,7 +48,7 @@
                   :class="{
                     'border-red-500': changePassword.errors.newPassword,
                   }"
-                  class="block w-full px-3 py-2 mt-1 transition duration-150 ease-in-out border border-gray-300 rounded-md shadow-sm form-input focus:outline-none focus:shadow-outline-blue focus:border-blue-300 sm:text-sm sm:leading-5"
+                  class="block w-full px-3 py-2 mt-1 transition duration-150 ease-in-out border border-gray-300 rounded-md shadow-sm form-input focus:outline-none focus:ring-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                 />
                 <span
                   v-if="changePassword.errors.newPassword"
@@ -69,7 +69,7 @@
                     <div v-if="!$auth.user.twoFactor">
                       <button
                         type="button"
-                        class="px-3 py-2 text-sm font-medium leading-4 text-green-700 transition duration-150 ease-in-out bg-green-200 border border-green-300 rounded-md hover:text-green-500 focus:outline-none focus:border-green-300 focus:shadow-outline-blue active:bg-green-50 active:text-green-800"
+                        class="px-3 py-2 text-sm font-medium leading-4 text-green-700 transition duration-150 ease-in-out bg-green-200 border border-green-300 rounded-md hover:text-green-500 focus:outline-none focus:border-green-300 focus:ring-blue active:bg-green-50 active:text-green-800"
                         @click.prevent="toggleEnableTwoFactorModal"
                       >
                         Enable
@@ -78,7 +78,7 @@
                     <div v-else>
                       <button
                         type="button"
-                        class="px-3 py-2 text-sm font-medium leading-4 text-red-700 transition duration-150 ease-in-out bg-red-200 border border-red-300 rounded-md hover:text-red-500 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-50 active:text-gray-800"
+                        class="px-3 py-2 text-sm font-medium leading-4 text-red-700 transition duration-150 ease-in-out bg-red-200 border border-red-300 rounded-md hover:text-red-500 focus:outline-none focus:border-blue-300 focus:ring-blue active:bg-gray-50 active:text-gray-800"
                         @click.prevent="toggleDisableTwoFactorModal"
                       >
                         Disable

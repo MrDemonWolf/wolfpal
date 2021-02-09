@@ -15,7 +15,7 @@
       :class="accountNavActive ? 'block' : 'hidden'"
     >
       <div
-        class="bg-white border-2 border-gray-500 border-opacity-25 rounded-md shadow-xs dark:bg-gray-100"
+        class="bg-white border-2 border-gray-500 border-opacity-25 rounded-md ring-1 ring-black ring-opacity-5 dark:bg-gray-100"
         role="menu"
         aria-orientation="vertical"
         aria-labelledby="options-menu"
