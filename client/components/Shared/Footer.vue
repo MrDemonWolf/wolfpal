@@ -43,6 +43,7 @@
     </div>
   </footer>
 </template>
+
 <script>
 export default {
   data() {
