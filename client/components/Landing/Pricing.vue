@@ -1,11 +1,13 @@
 <template>
-  <div class="bg-white">
+  <div class="bg-gray-100 dark:bg-gray-800">
     <div class="px-4 py-24 mx-auto max-w-7xl sm:px-6 lg:px-8">
       <div class="sm:flex sm:flex-col sm:align-center">
-        <h1 class="text-5xl font-extrabold text-gray-900 sm:text-center">
+        <h1
+          class="text-5xl font-extrabold text-gray-900 dark:text-white sm:text-center"
+        >
           Pricing Plans
         </h1>
-        <p class="mt-5 text-xl text-gray-500 sm:text-center">
+        <p class="mt-5 text-xl text-gray-500 dark:text-gray-100 sm:text-center">
           Start completing more of your goals for free, then start paying
           monthly or yearly to unlock additional features.
         </p>
@@ -37,20 +39,76 @@
           </button>
         </div>
       </div>
-      <MonthlyPricing v-if="monthlyBilling" />
-      <YearlyPricing v-else />
+      <!-- Monthly Plans -->
+      <div
+        v-if="monthlyBilling"
+        class="mt-12 space-y-4 sm:mt-16 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-6 lg:max-w-4xl lg:mx-auto xl:max-w-none xl:mx-0 xl:grid-cols-3"
+      >
+        <PricingCard
+          name="Free Trial"
+          description="Get access to the full experience for a limited time but keep the basics forever.*"
+          price="$0.00"
+          frequency="monthly"
+          :features="['Create Weekly Goals']"
+          cta="Get Started"
+        />
+        <PricingCard
+          name="Pro"
+          description=" Fully keep track of your goals in life."
+          price="$6.99"
+          frequency="monthly"
+          :features="['Create Weekly Goals']"
+          cta="Go Pro"
+        />
+        <PricingCard
+          name="Enterprise"
+          description="Make your team better at tracking their goals.*"
+          price="$4.99"
+          frequency="monthly"
+          :features="['Create Weekly Goals']"
+          cta="Buy for your team"
+        />
+      </div>
+      <!-- Yearly Plans -->
+      <div
+        v-else
+        class="mt-12 space-y-4 sm:mt-16 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-6 lg:max-w-4xl lg:mx-auto xl:max-w-none xl:mx-0 xl:grid-cols-3"
+      >
+        <PricingCard
+          name="Free Trial"
+          description="Get access to the full experience for a limited time but keep the basics forever.*"
+          price="$0.00"
+          frequency="yearly"
+          :features="['Create Weekly Goals']"
+          cta="Get started"
+        />
+        <PricingCard
+          name="Pro"
+          description=" Fully keep track of your goals in life."
+          price="$69.99"
+          frequency="yearly"
+          :features="['Create Weekly Goals']"
+          cta="Go Pro"
+        />
+        <PricingCard
+          name="Enterprise"
+          description="Make your team better at tracking their goals.*"
+          price="$3.99"
+          frequency="yearly"
+          :features="['Create Weekly Goals']"
+          cta="Buy for your team"
+        />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import MonthlyPricing from '@/components/Landing/Pricing/Monthly'
-import YearlyPricing from '@/components/Landing/Pricing/Yearly'
+import PricingCard from '@/components/Shared/PricingCard'
 
 export default {
   components: {
-    MonthlyPricing,
-    YearlyPricing,
+    PricingCard,
   },
   data() {
     return {

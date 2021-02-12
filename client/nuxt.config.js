@@ -193,10 +193,10 @@ export default {
       description:
         process.env.SITE_DESCRIPTION ||
         'A wolf to guide you to your end goals by helping keep you on track weely, bi-weekly or even monthly and yearly goals.',
-      mission:
-        process.env.SITE_MISSION ||
-        'To help guide you to your lifes goals and dreams.',
     },
+    mission:
+      process.env.SITE_MISSION ||
+      'To help guide you to your lifes goals and dreams.',
   },
 
   /**
