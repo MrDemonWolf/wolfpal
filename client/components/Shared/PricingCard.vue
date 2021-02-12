@@ -1,31 +1,33 @@
 <template>
   <div
-    class="border border-gray-200 divide-y divide-gray-200 rounded-lg shadow-sm dark:bg-gray-500 dark:border-gray-400"
+    class="bg-white border border-gray-200 divide-y divide-gray-200 rounded-lg shadow-sm dark:border-gray-400"
   >
     <div class="p-6">
-      <h2 class="text-lg font-medium leading-6 text-gray-900 dark:text-white">
+      <h2
+        class="text-lg font-medium leading-6 text-gray-900 dark:text-black font-roboto"
+      >
         {{ name }}
       </h2>
-      <p class="mt-4 text-sm text-gray-500 dark:text-gray-200">
+      <p class="mt-4 text-sm text-gray-500 dark:text-gray-900 font-montserrat">
         {{ description }}
       </p>
-      <p class="mt-8">
-        <span class="text-4xl font-extrabold text-gray-900 dark:text-white">{{
+      <p class="mt-8 font-roboto">
+        <span class="text-4xl font-extrabold text-gray-900 dark:text-black">{{
           price
         }}</span>
-        <span class="text-base font-medium text-gray-500 dark:text-gray-200"
+        <span class="text-base font-medium text-gray-500 dark:text-gray-800"
           >/{{ frequency }}</span
         >
       </p>
       <a
         href="#top"
-        class="block w-full py-2 mt-8 text-sm font-semibold text-center text-white bg-gray-800 border border-gray-800 rounded-md dark:border-primary-500 dark:bg-primary-500 dark:hover:bg-primary-600 dark:hover:border-primary-600 hover:bg-gray-900"
+        class="block w-full py-2 mt-8 text-sm font-medium text-center text-white border rounded-md border-primary-500 bg-primary-500 hover:bg-primary-600 hover:border-primary-600 font-roboto"
         >Get Started</a
       >
     </div>
     <div class="px-6 pt-6 pb-8">
       <h3
-        class="text-xs font-medium tracking-wide text-gray-900 uppercase dark:text-white"
+        class="text-xs font-medium tracking-wide text-gray-900 uppercase dark:text-black font-roboto"
       >
         What's included
       </h3>
@@ -49,9 +51,10 @@
               clip-rule="evenodd"
             ></path>
           </svg>
-          <span class="text-sm text-gray-500 dark:text-white">{{
-            feature
-          }}</span>
+          <span
+            class="text-sm text-gray-500 dark:text-gray-800 font-montserrat"
+            >{{ feature }}</span
+          >
         </li>
       </ul>
     </div>

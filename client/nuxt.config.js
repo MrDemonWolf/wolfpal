@@ -196,7 +196,7 @@ export default {
     },
     mission:
       process.env.SITE_MISSION ||
-      'To help guide you to your lifes goals and dreams.',
+      'Our Mission is to help you achieve life goals to motivate you to be a better you.',
   },
 
   /**

@@ -195,7 +195,7 @@
               >
                 <div class="px-4 py-8 sm:px-10">
                   <div>
-                    <p class="text-sm font-medium text-gray-700">
+                    <p class="text-sm font-medium text-gray-700 font-roboto">
                       Sign in with
                     </p>
 
@@ -249,7 +249,9 @@
                       <div class="w-full border-t border-gray-300"></div>
                     </div>
                     <div class="relative flex justify-center text-sm">
-                      <span class="px-2 text-gray-500 bg-white"> Or </span>
+                      <span class="px-2 text-gray-500 bg-white font-roboto">
+                        Or
+                      </span>
                     </div>
                   </div>
 
@@ -306,7 +308,7 @@
                   </div>
                 </div>
                 <div
-                  class="px-4 py-6 border-t-2 border-gray-200 dark:bg-gray-50 dark:border-gray-200 bg-gray-50 sm:px-10"
+                  class="px-4 py-6 border-t-2 border-gray-200 dark:bg-gray-50 dark:border-gray-200 bg-gray-50 sm:px-10 font-montserrat"
                 >
                   <p class="text-xs leading-5 text-gray-500 dark:text-black">
                     By signing up, you agree to our
@@ -355,12 +357,16 @@ export default {
       },
       links: [
         {
-          url: '#features',
           text: 'Features',
+          url: '#features',
         },
         {
-          url: '#pricing',
+          text: 'FAQ',
+          url: '#faq',
+        },
+        {
           text: 'Pricing',
+          url: '#pricing',
         },
       ],
     }
