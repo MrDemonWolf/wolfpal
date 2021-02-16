@@ -82,7 +82,7 @@
             to="/login"
             class="inline-flex items-center px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md bg-primary-500 hover:bg-primary-600 font-roboto"
           >
-            Log in
+            Sign in
           </nuxt-link>
         </div>
       </nav>
@@ -256,44 +256,71 @@
                   </div>
 
                   <div class="mt-6">
-                    <form action="#" method="POST" class="space-y-6">
+                    <form
+                      class="space-y-6"
+                      novalidate
+                      @submit.prevent="userRegister"
+                    >
                       <div>
-                        <label for="name" class="sr-only">Username</label>
+                        <label for="username" class="sr-only">Username</label>
                         <input
-                          id="name"
+                          id="username"
+                          v-model="register.username"
                           type="text"
-                          name="name"
-                          autocomplete="name"
+                          name="username"
+                          autocomplete="username"
                           placeholder="Username"
-                          required=""
+                          :class="{
+                            'border-red-500': register.errors.username,
+                          }"
                           class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         />
+                        <span
+                          v-if="register.errors.username"
+                          class="text-red-500"
+                          >{{ register.errors.username }}</span
+                        >
                       </div>
 
                       <div>
                         <label for="email" class="sr-only">Email</label>
                         <input
                           id="email"
+                          v-model="register.email"
                           type="text"
                           name="email"
                           autocomplete="email"
                           placeholder="Email"
-                          required=""
+                          :class="{
+                            'border-red-500': register.errors.email,
+                          }"
                           class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         />
+                        <span
+                          v-if="register.errors.email"
+                          class="text-red-500"
+                          >{{ register.errors.email }}</span
+                        >
                       </div>
 
                       <div>
                         <label for="password" class="sr-only">Password</label>
                         <input
                           id="password"
+                          v-model="register.password"
                           name="password"
                           type="password"
                           placeholder="Password"
-                          autocomplete="current-password"
-                          required=""
+                          :class="{
+                            'border-red-500': register.errors.password,
+                          }"
                           class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         />
+                        <span
+                          v-if="register.errors.password"
+                          class="text-red-500"
+                          >{{ register.errors.password }}</span
+                        >
                       </div>
 
                       <div>
@@ -353,7 +380,7 @@ export default {
         email: '',
         username: '',
         password: '',
-        errors: {},
+        errors: { username: null, email: null, password: null },
       },
       links: [
         {
@@ -384,9 +411,23 @@ export default {
           password: this.register.password,
         })
 
-        this.$toast.success(res.message, {
-          position: 'bottom-right',
-        })
+        switch (res.code) {
+          case 'PENDING_CONFIRMATION':
+            this.$toast.success(
+              'Please confirm your email address to complete the registration.',
+              {
+                position: 'bottom-right',
+              }
+            )
+            break
+
+          default:
+            this.$toast.success('Thank you for creating a account.', {
+              position: 'bottom-right',
+            })
+            break
+        }
+
         await this.$auth.loginWith('local', {
           data: {
             email: this.register.email,
@@ -394,12 +435,80 @@ export default {
           },
         })
       } catch (e) {
+        this.register.errors = { username: null, email: null, password: null }
+
         if (e.response.data.errors) {
-          return (this.register.errors = e.response.data.errors)
+          const { username, email, password } = e.response.data.errors
+
+          if (username) {
+            switch (username) {
+              case 'INVALID_CHARACTERS':
+                this.register.errors.username =
+                  'Username is invalid. Must only contain numbers or letters.'
+                break
+              case 'NOT_LONG_ENOUGH':
+                this.register.errors.username =
+                  'Username must be between 3 and 28 characters long.'
+                break
+              case 'REQUIRED':
+                this.register.errors.username = 'Username is required.'
+                break
+              default:
+                this.$toast.error('Oops.. Something Went Wrong..', {
+                  position: 'bottom-right',
+                })
+                break
+            }
+          }
+          if (email) {
+            switch (email) {
+              case 'INVALID':
+                this.register.errors.email = 'Email is invalid.'
+                break
+              case 'REQUIRED':
+                this.register.errors.email = 'Email is required.'
+                break
+              default:
+                this.$toast.error('Oops.. Something Went Wrong..', {
+                  position: 'bottom-right',
+                })
+                break
+            }
+          }
+
+          if (password) {
+            switch (password) {
+              case 'NOT_LONG_ENOUGH':
+                this.register.errors.password =
+                  'Password must be between 8 and 56 characters long.'
+                break
+              case 'REQUIRED':
+                this.register.errors.password = 'Password is required.'
+                break
+              default:
+                this.$toast.error('Oops.. Something Went Wrong..', {
+                  position: 'bottom-right',
+                })
+                break
+            }
+          }
+          return this.$toast.error('Oops.. Something Went Wrong..', {
+            position: 'bottom-right',
+          })
         }
-        this.$toast.error('Oops.. Something Went Wrong..', {
-          position: 'bottom-right',
-        })
+
+        switch (e.response.data.code) {
+          case 'ALREADY_EXISTS':
+            this.register.errors.email =
+              'The email or username you are attempting to register with is already in use.'
+            break
+
+          default:
+            this.$toast.error('Oops.. Something Went Wrong..', {
+              position: 'bottom-right',
+            })
+            break
+        }
       }
     },
   },

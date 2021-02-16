@@ -113,7 +113,7 @@ export default {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: { proxy: true },
+  axios: { proxy: true, https: false },
   proxy: {
     '/api/': {
       target: process.env.API_URI || 'http://localhost:8080',
@@ -127,6 +127,9 @@ export default {
    ** Auth configuration
    */
   auth: {
+    redirect: {
+      home: '/dashboard',
+    },
     strategies: {
       local: {
         scheme: 'refresh',

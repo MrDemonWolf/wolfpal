@@ -33,6 +33,6 @@ export default {
     Footer,
   },
 
-  layout: 'landing',
+  middleware: ['alreadyAuthenticated'],
 }
 </script>
