@@ -8,35 +8,37 @@ module.exports = data => {
   data.email = !isEmpty(data.email) ? data.email : '';
   data.password = !isEmpty(data.password) ? data.password : '';
 
-  if (!Validator.isEmail(data.email)) {
-    errors.email = 'Email is invalid.';
-  }
-  if (Validator.isEmpty(data.email)) {
-    errors.email = 'Email is required.';
-  }
-
-  if (Validator.isEmpty(data.username)) {
-    errors.username = 'Username is required.';
-  }
-
   if (
     !Validator.isWhitelisted(
       data.username,
       '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
     )
   ) {
-    errors.username =
-      'Username is invalid. Must only contain numbers or letters.';
+    errors.username = 'INVALID_CHARACTERS';
   }
 
   if (!Validator.isLength(data.username, { min: 3, max: 28 })) {
-    errors.username = 'Username must be between 3 and 28 characters long';
+    errors.username = 'NOT_LONG_ENOUGH';
   }
+
+  if (!Validator.isEmail(data.email)) {
+    errors.email = 'INVALID';
+  }
+
   if (!Validator.isLength(data.password, { min: 8, max: 56 })) {
-    errors.password = 'Password must be between 8 and 56 characters long';
+    errors.password = 'NOT_LONG_ENOUGH';
   }
+
+  if (Validator.isEmpty(data.username)) {
+    errors.username = 'REQUIRED';
+  }
+
+  if (Validator.isEmpty(data.email)) {
+    errors.email = 'REQUIRED';
+  }
+
   if (Validator.isEmpty(data.password)) {
-    errors.password = 'Password is required.';
+    errors.password = 'REQUIRED';
   }
 
   return {

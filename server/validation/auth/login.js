@@ -8,14 +8,15 @@ module.exports = data => {
   data.password = !isEmpty(data.password) ? data.password : '';
 
   if (!Validator.isEmail(data.email)) {
-    errors.email = 'Email is invalid.';
+    errors.email = 'INVALID';
   }
+
   if (Validator.isEmpty(data.email)) {
-    errors.email = 'Email is required.';
+    errors.email = 'REQUIRED';
   }
 
   if (Validator.isEmpty(data.password)) {
-    errors.password = 'Password is required.';
+    errors.password = 'REQUIRED';
   }
 
   return {

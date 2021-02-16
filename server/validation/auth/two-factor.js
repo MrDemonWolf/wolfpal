@@ -8,11 +8,11 @@ module.exports = data => {
   data.code = !isEmpty(data.code) ? data.code : '';
 
   if (Validator.isEmpty(data.token)) {
-    errors.token = 'Token is required.';
+    errors.token = 'REQUIRED';
   }
 
   if (Validator.isEmpty(data.code)) {
-    errors.code = 'Code is required.';
+    errors.code = 'REQUIRED';
   }
 
   return {
