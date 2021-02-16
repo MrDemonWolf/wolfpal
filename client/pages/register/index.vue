@@ -1,137 +1,196 @@
 <template>
-  <div class="flex flex-col justify-center py-12 h-80 sm:px-6 lg:px-8">
-    <div class="sm:mx-auto sm:w-full sm:max-w-md">
-      <h1
-        class="mt-6 text-3xl font-extrabold leading-9 text-center text-gray-900 dark:text-white"
-      >
-        Create a account
-      </h1>
-      <p
-        class="mt-2 text-sm leading-5 text-center text-gray-600 max-w dark:text-gray-200"
-      >
-        Or
-        <nuxt-link
-          class="font-medium transition duration-150 ease-in-out text-primary-600 hover:text-primary-500 focus:outline-none focus:underline dark:text-primary-300"
-          to="/login"
+  <div>
+    <div
+      class="flex flex-col justify-center min-h-screen py-12 sm:px-6 lg:px-8"
+    >
+      <div class="sm:mx-auto sm:w-full sm:max-w-md">
+        <Logo class="w-auto h-12 mx-auto" />
+
+        <h2
+          class="mt-6 text-3xl font-extrabold text-center text-gray-900 dark:text-white font-roboto"
         >
-          login in to your account
-        </nuxt-link>
-      </p>
-    </div>
+          Start your 30-day free trial
+        </h2>
+        <p
+          class="mt-2 text-sm text-center text-gray-600 max-w dark:text-gray-200 font-roboto"
+        >
+          Or
+          <!-- space -->
+          <nuxt-link
+            class="font-medium text-primary-500 hover:text-primary-600 dark:text-primary-400 dark:hover:text-primary-300 font-roboto"
+            to="/login"
+          >
+            sign in to your account
+          </nuxt-link>
+        </p>
+      </div>
 
-    <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-      <Alert v-if="error" type="danger" :message="error" class="mb-4" />
-      <Alert v-if="success" type="success" :message="success" class="mb-4" />
-      <div
-        class="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10 dark:bg-gray-200"
-      >
-        <form @submit.prevent="userRegister">
-          <div>
-            <label
-              for="username"
-              class="block text-sm font-medium leading-5 text-gray-700 dark:text-gray-800"
-            >
-              Username
-            </label>
-            <div class="mt-1 rounded-md shadow-sm">
-              <input
-                id="username"
-                v-model="register.username"
-                aria-label="Username"
-                placeholder="Example"
-                name="username"
-                type="text"
-                :class="{ 'border-red-500': errors.username }"
-                class="block w-full px-3 py-2 mt-1 placeholder-gray-400 transition duration-150 ease-in-out border border-gray-300 rounded-md shadow-sm form-input focus:outline-none focus:ring-blue focus:border-blue-300 sm:text-sm sm:leading-5"
-                novalidate
-              />
-            </div>
-            <span v-if="errors.username" class="text-red-500">{{
-              errors.username
-            }}</span>
-          </div>
-
-          <div class="mt-6">
-            <label
-              for="email"
-              class="block text-sm font-medium leading-5 text-gray-700 dark:text-gray-800"
-            >
-              Email
-            </label>
-            <div class="mt-1 rounded-md shadow-sm">
-              <input
-                id="email"
-                v-model="register.email"
-                aria-label="Email address"
-                placeholder="example@example.com"
-                name="email"
-                type="email"
-                :class="{ 'border-red-500': errors.email }"
-                class="block w-full px-3 py-2 mt-1 placeholder-gray-400 transition duration-150 ease-in-out border border-gray-300 rounded-md shadow-sm form-input focus:outline-none focus:ring-blue focus:border-blue-300 sm:text-sm sm:leading-5"
-                novalidate
-              />
-            </div>
-            <span v-if="errors.email" class="text-red-500">{{
-              errors.email
-            }}</span>
-          </div>
-          <div class="mt-6">
-            <label
-              for="password"
-              class="block text-sm font-medium leading-5 text-gray-700 dark:text-gray-800"
-            >
-              Password
-            </label>
-            <div class="mt-1 rounded-md shadow-sm">
-              <input
-                id="password"
-                v-model="register.password"
-                aria-label="Password"
-                placeholder="****************"
-                name="password"
-                type="password"
-                :class="{ 'border-red-500': errors.password }"
-                class="block w-full px-3 py-2 mt-1 placeholder-gray-400 transition duration-150 ease-in-out border border-gray-300 rounded-md shadow-sm form-input focus:outline-none focus:ring-blue focus:border-blue-300 sm:text-sm sm:leading-5"
-                novalidate
-              />
-            </div>
-            <span v-if="errors.password" class="text-red-500">{{
-              errors.password
-            }}</span>
-          </div>
-
-          <div class="flex items-center justify-between mt-6">
-            <div class="text-sm leading-5">
-              <nuxt-link
-                class="font-medium transition duration-150 ease-in-out text-primary-600 hover:text-primary-500 focus:outline-none focus:underline"
-                to="/forgot-password"
+      <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div class="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10">
+          <form class="space-y-6" novalidate @submit.prevent="userRegister">
+            <div>
+              <label
+                for="email"
+                class="block text-sm font-medium text-gray-700"
               >
-                Forgot your password?
-              </nuxt-link>
+                Username
+              </label>
+              <div class="mt-1">
+                <input
+                  id="username"
+                  v-model="register.username"
+                  aria-label="Username"
+                  placeholder="Example"
+                  name="username"
+                  type="text"
+                  autocomplete="username"
+                  :class="{
+                    'border-red-500': register.errors.username,
+                  }"
+                  class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                />
+                <span v-if="register.errors.username" class="text-red-500">{{
+                  register.errors.username
+                }}</span>
+              </div>
             </div>
-          </div>
+            <div>
+              <label
+                for="email"
+                class="block text-sm font-medium text-gray-700"
+              >
+                Email address
+              </label>
+              <div class="mt-1">
+                <input
+                  id="email"
+                  v-model="register.email"
+                  aria-label="Email address"
+                  placeholder="example@example.com"
+                  name="email"
+                  type="email"
+                  autocomplete="email"
+                  :class="{ 'border-red-500': register.errors.email || error }"
+                  class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                />
+                <span v-if="register.errors.email" class="text-red-500">{{
+                  register.errors.email
+                }}</span>
+              </div>
+            </div>
 
-          <div class="mt-6">
-            <span class="block w-full rounded-md shadow-sm">
+            <div>
+              <label
+                for="password"
+                class="block text-sm font-medium text-gray-700"
+              >
+                Password
+              </label>
+              <div class="mt-1">
+                <input
+                  id="password"
+                  v-model="register.password"
+                  aria-label="Password"
+                  placeholder="****************"
+                  name="password"
+                  type="password"
+                  autocomplete="current-password"
+                  :class="{
+                    'border-red-500': register.errors.password || error,
+                  }"
+                  class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                />
+              </div>
+              <span v-if="register.errors.password" class="text-red-500">{{
+                register.errors.password
+              }}</span>
+            </div>
+
+            <div class="flex justify-end">
+              <div class="text-sm">
+                <a
+                  href="#"
+                  class="font-medium text-primary-500 hover:text-primary-600"
+                >
+                  Forgot your password?
+                </a>
+              </div>
+            </div>
+
+            <div>
               <button
                 type="submit"
-                class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white transition duration-150 ease-in-out border border-transparent rounded-md bg-primary-600 hover:bg-primary-500 focus:outline-none focus:border-indigo-700 focus:ring-indigo active:bg-indigo-700"
+                class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md shadow-sm bg-primary-500 hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
-                Create account
+                Sign in
               </button>
-            </span>
+            </div>
+          </form>
+
+          <div class="mt-6">
+            <div class="relative">
+              <div class="absolute inset-0 flex items-center">
+                <div class="w-full border-t border-gray-300"></div>
+              </div>
+              <div class="relative flex justify-center text-sm">
+                <span class="px-2 text-gray-500 bg-white">
+                  Or continue with
+                </span>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-3 gap-3 mt-6">
+              <div>
+                <a
+                  href="#"
+                  class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50"
+                >
+                  <span class="sr-only">Sign in with Google</span>
+                  <fa
+                    :icon="['fab', 'google']"
+                    class="w-5 h-5 text-brand-googlePlus"
+                  />
+                </a>
+              </div>
+
+              <div>
+                <a
+                  href="#"
+                  class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50"
+                >
+                  <span class="sr-only">Sign in with Twitter</span>
+                  <fa
+                    :icon="['fab', 'twitter']"
+                    class="w-5 h-5 text-brand-twitter"
+                  />
+                </a>
+              </div>
+
+              <div>
+                <a
+                  href="#"
+                  class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50"
+                >
+                  <span class="sr-only">Sign in with GitHub</span>
+                  <fa
+                    :icon="['fab', 'github']"
+                    class="w-5 h-5 text-brand-github"
+                  />
+                </a>
+              </div>
+            </div>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Alert from '@/components/Shared/Alert'
+import Logo from '@/assets/vectors/logo.svg?inline'
 
 export default {
-  components: { Alert },
+  components: { Logo },
   middleware: ['alreadyAuthenticated', 'registration'],
   data() {
     return {
@@ -139,8 +198,8 @@ export default {
         email: '',
         username: '',
         password: '',
+        errors: { username: null, email: null, password: null },
       },
-      errors: { username: null, email: null, password: null },
     }
   },
   methods: {
@@ -151,9 +210,24 @@ export default {
           email: this.register.email,
           password: this.register.password,
         })
-        this.$toast.success(res.message, {
-          position: 'bottom-right',
-        })
+
+        switch (res.code) {
+          case 'PENDING_CONFIRMATION':
+            this.$toast.success(
+              'Please confirm your email address to complete the registration.',
+              {
+                position: 'bottom-right',
+              }
+            )
+            break
+
+          default:
+            this.$toast.success('Thank you for creating a account.', {
+              position: 'bottom-right',
+            })
+            break
+        }
+
         await this.$auth.loginWith('local', {
           data: {
             email: this.register.email,
@@ -161,12 +235,80 @@ export default {
           },
         })
       } catch (e) {
+        this.register.errors = { username: null, email: null, password: null }
+
         if (e.response.data.errors) {
-          return (this.errors = e.response.data.errors)
+          const { username, email, password } = e.response.data.errors
+
+          if (username) {
+            switch (username) {
+              case 'INVALID_CHARACTERS':
+                this.register.errors.username =
+                  'Username is invalid. Must only contain numbers or letters.'
+                break
+              case 'NOT_LONG_ENOUGH':
+                this.register.errors.username =
+                  'Username must be between 3 and 28 characters long.'
+                break
+              case 'REQUIRED':
+                this.register.errors.username = 'Username is required.'
+                break
+              default:
+                this.$toast.error('Oops.. Something Went Wrong..', {
+                  position: 'bottom-right',
+                })
+                break
+            }
+          }
+          if (email) {
+            switch (email) {
+              case 'INVALID':
+                this.register.errors.email = 'Email is invalid.'
+                break
+              case 'REQUIRED':
+                this.register.errors.email = 'Email is required.'
+                break
+              default:
+                this.$toast.error('Oops.. Something Went Wrong..', {
+                  position: 'bottom-right',
+                })
+                break
+            }
+          }
+
+          if (password) {
+            switch (password) {
+              case 'NOT_LONG_ENOUGH':
+                this.register.errors.password =
+                  'Password must be between 8 and 56 characters long.'
+                break
+              case 'REQUIRED':
+                this.register.errors.password = 'Password is required.'
+                break
+              default:
+                this.$toast.error('Oops.. Something Went Wrong..', {
+                  position: 'bottom-right',
+                })
+                break
+            }
+          }
+          return this.$toast.error('Oops.. Something Went Wrong..', {
+            position: 'bottom-right',
+          })
         }
-        this.$toast.error('Oops.. Something Went Wrong..', {
-          position: 'bottom-right',
-        })
+
+        switch (e.response.data.error) {
+          case 'ALREADY_EXISTS':
+            this.register.errors.email =
+              'The email or username you are attempting to register with is already in use.'
+            break
+
+          default:
+            this.$toast.error('Oops.. Something Went Wrong..', {
+              position: 'bottom-right',
+            })
+            break
+        }
       }
     },
   },
