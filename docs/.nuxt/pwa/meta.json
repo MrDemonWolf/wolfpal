@@ -21,6 +21,11 @@
       "content": "wolfpal"
     },
     {
+      "hid": "description",
+      "name": "description",
+      "content": "## Setup"
+    },
+    {
       "hid": "theme-color",
       "name": "theme-color",
       "content": "#00CD81"
@@ -42,6 +47,12 @@
       "name": "og:site_name",
       "property": "og:site_name",
       "content": "wolfpal"
+    },
+    {
+      "hid": "og:description",
+      "name": "og:description",
+      "property": "og:description",
+      "content": "## Setup"
     }
   ],
   "link": [
@@ -56,7 +67,7 @@
     },
     {
       "rel": "manifest",
-      "href": "/wolfpal/_nuxt/manifest.046b8f0a.json",
+      "href": "/wolfpal/_nuxt/manifest.cea5e806.json",
       "hid": "manifest"
     }
   ],
