@@ -47,7 +47,9 @@ import CircleLoaderCheckmark from '@/components/Shared/CircleLoaderCheckmark'
 
 export default {
   components: { CircleLoaderCheckmark },
+
   middleware: ['auth'],
+
   data() {
     return {
       loader: {
@@ -57,9 +59,11 @@ export default {
       },
     }
   },
+
   mounted() {
     this.userEmailChange()
   },
+
   methods: {
     async userEmailChange() {
       try {

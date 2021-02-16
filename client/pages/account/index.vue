@@ -66,10 +66,12 @@ export default {
     DeviceList,
   },
 
-  middleware: 'auth',
+  middleware: ['auth'],
+
   async fetch({ store }) {
     await store.dispatch('account/FETCH_SESSIONS')
   },
+
   computed: {
     sessions() {
       return this.$store.state.account.sessions

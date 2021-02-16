@@ -11,7 +11,8 @@ export default {
   components: {
     WeeklyGoals,
   },
-  middleware: 'auth',
+
+  middleware: ['auth'],
 
   async fetch({ store }) {
     await store.dispatch('goals/FETCH_WEEKLY_GOALS')
