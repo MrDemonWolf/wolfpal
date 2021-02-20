@@ -2,10 +2,12 @@
   <div class="mt-8 sm:mx-auto sm:w-1/2 sm:max-w-xs">
     <div class="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10">
       <form class="space-y-6" @submit.prevent="userLoginWithTwoFactor">
+        <Alert
+          v-if="$store.state.login.messages.error"
+          type="danger"
+          :message="$store.state.login.messages.error"
+        />
         <div>
-          <label for="email" class="block text-sm font-medium text-gray-700">
-            Enter your 2FA verification token
-          </label>
           <div class="mt-1">
             <input
               id="twoFactorCode"
@@ -16,12 +18,16 @@
               type="text"
               inputmode="numeric"
               pattern="[0-9]*"
-              :class="{ 'border-red-500': loginTwoFactor.errors.code }"
+              :class="{
+                'border-red-500': $store.state.login.messages.errors.code,
+              }"
               class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
-            <span v-if="loginTwoFactor.errors.code" class="text-red-500">{{
-              loginTwoFactor.errors.code
-            }}</span>
+            <span
+              v-if="$store.state.login.messages.errors.code"
+              class="text-red-500"
+              >{{ $store.state.login.messages.errors.code }}</span
+            >
           </div>
         </div>
 
@@ -39,19 +45,25 @@
 </template>
 
 <script>
+import Alert from '@/components/Shared/Alert'
+
 export default {
+  components: {
+    Alert,
+  },
+
   data() {
     return {
       loginTwoFactor: {
         code: '',
-        errors: { code: null },
       },
     }
   },
 
-  method: {
+  methods: {
     async userLoginWithTwoFactor() {
       try {
+        await this.$store.dispatch('login/RESET_MESSAGES')
         const twoFactor = await this.$axios.$post('/api/auth/two-factor', {
           code: this.loginTwoFactor.code,
           token: this.$store.state.login.twoFactorToken,
@@ -63,36 +75,43 @@ export default {
       } catch (e) {
         this.loginTwoFactor.errors = { code: null }
 
-        if (e.response.data.errors) {
-          const { code } = e.response.data.errors
+        if (e.response.data.codes) {
+          const { code, token } = e.response.data.codes
+
+          if (token) {
+            return this.$toast.error('Oops.. Something Went Wrong..', {
+              position: 'bottom-right',
+            })
+          }
 
           if (code) {
             switch (code) {
               case 'REQUIRED':
-                this.loginTwoFactor.errors.code = 'Code is required.'
+                this.$store.commit(
+                  'login/SET_MESSAGE_ERRORS_CODE',
+                  'Code is required.'
+                )
                 break
               default:
-                this.$toast.error('Oops.. Something Went Wrong..', {
-                  position: 'bottom-right',
-                })
                 break
             }
           }
-          return this.$toast.error('Oops.. Something Went Wrong..', {
+        } else if (e.response.data.code) {
+          switch (e.response.data.code) {
+            case 'INVALID_TWO_FACTOR_CODE':
+              this.$store.commit(
+                'login/SET_MESSAGE_ERROR',
+                'Invalid two factor token.'
+              )
+              break
+
+            default:
+              break
+          }
+        } else {
+          this.$toast.error('Oops.. Something Went Wrong..', {
             position: 'bottom-right',
           })
-        }
-
-        switch (e.response.data.error) {
-          case 'INVALID_TWO_FACTOR_CODE':
-            this.loginTwoFactor.errors.code = 'Invalid two factor token.'
-            break
-
-          default:
-            this.$toast.error('Oops.. Something Went Wrong..', {
-              position: 'bottom-right',
-            })
-            break
         }
       }
     },

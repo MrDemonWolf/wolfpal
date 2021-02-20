@@ -2,6 +2,11 @@
   <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
     <div class="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10">
       <form class="space-y-6" @submit.prevent="userLogin">
+        <Alert
+          v-if="$store.state.login.messages.error"
+          type="danger"
+          :message="$store.state.login.messages.error"
+        />
         <div>
           <label for="email" class="block text-sm font-medium text-gray-700">
             Email address
@@ -15,13 +20,19 @@
               name="email"
               type="email"
               autocomplete="email"
-              :class="{ 'border-red-500': login.errors.email }"
+              :class="{
+                'border-red-500':
+                  $store.state.login.messages.errors.email ||
+                  $store.state.login.messages.error,
+              }"
               class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               novalidate
             />
-            <span v-if="login.errors.email" class="text-red-500">{{
-              login.errors.email
-            }}</span>
+            <span
+              v-if="$store.state.login.messages.errors.email"
+              class="text-red-500"
+              >{{ $store.state.login.messages.errors.email }}</span
+            >
           </div>
         </div>
 
@@ -38,14 +49,20 @@
               name="password"
               type="password"
               autocomplete="current-password"
-              :class="{ 'border-red-500': login.errors.password }"
+              :class="{
+                'border-red-500':
+                  $store.state.login.messages.errors.password ||
+                  $store.state.login.messages.error,
+              }"
               class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
               novalidate
             />
           </div>
-          <span v-if="login.errors.password" class="text-red-500">{{
-            login.errors.password
-          }}</span>
+          <span
+            v-if="$store.state.login.messages.errors.password"
+            class="text-red-500"
+            >{{ $store.state.login.messages.errors.password }}</span
+          >
         </div>
 
         <div class="flex items-center justify-between">
@@ -134,13 +151,18 @@
 </template>
 
 <script>
+import Alert from '@/components/Shared/Alert'
+
 export default {
+  components: {
+    Alert,
+  },
+
   data() {
     return {
       login: {
         email: '',
         password: '',
-        errors: { email: null, password: null },
       },
     }
   },
@@ -148,6 +170,7 @@ export default {
   methods: {
     async userLogin() {
       try {
+        await this.$store.dispatch('login/RESET_MESSAGES')
         const res = await this.$axios.$post('/api/auth/login', {
           email: this.login.email,
           password: this.login.password,
@@ -156,25 +179,27 @@ export default {
           return this.loginNo2FA(res.access_token, res.refresh_token)
         } else {
           this.$store.commit('login/SET_TWO_FACTOR_TOKEN', res.token)
-          this.twoFactorTokenRequested = true
+          this.$store.commit('login/SET_TWO_FACTOR_TOKEN_REQUESTED', true)
         }
       } catch (e) {
-        this.login.errors = { email: null, password: null }
+        if (e.response.data.codes) {
+          const { email, password } = e.response.data.codes
 
-        if (e.response.data.errors) {
-          const { email, password } = e.response.data.errors
           if (email) {
             switch (email) {
               case 'INVALID':
-                this.register.errors.email = 'Email is invalid.'
+                this.$store.commit(
+                  'login/SET_MESSAGE_ERRORS_EMAIL',
+                  'Email is invalid.'
+                )
                 break
               case 'REQUIRED':
-                this.register.errors.email = 'Email is required.'
+                this.$store.commit(
+                  'login/SET_MESSAGE_ERRORS_EMAIL',
+                  'Email is required.'
+                )
                 break
               default:
-                this.$toast.error('Oops.. Something Went Wrong..', {
-                  position: 'bottom-right',
-                })
                 break
             }
           }
@@ -182,36 +207,43 @@ export default {
           if (password) {
             switch (password) {
               case 'REQUIRED':
-                this.register.errors.password = 'Password is required.'
+                this.$store.commit(
+                  'login/SET_MESSAGE_ERRORS_PASSWORD',
+                  'Password is required.'
+                )
                 break
               default:
-                this.$toast.error('Oops.. Something Went Wrong..', {
-                  position: 'bottom-right',
-                })
                 break
             }
           }
-          return this.$toast.error('Oops.. Something Went Wrong..', {
+        } else if (e.response.data.code) {
+          switch (e.response.data.code) {
+            case 'NON_EXISTENT':
+            case 'INVALID_CREDENTIALS':
+              this.$store.commit(
+                'login/SET_MESSAGE_ERROR',
+                'Either email or password is invalid.'
+              )
+              break
+
+            default:
+              break
+          }
+        } else {
+          this.$toast.error('Oops.. Something Went Wrong..', {
             position: 'bottom-right',
           })
-        }
-
-        switch (e.response.data.error) {
-          case 'NON_EXISTENT':
-          case 'INVALID_CREDENTIALS':
-            this.register.errors.email = 'Either email or password is invalid'
-            break
-
-          default:
-            this.$toast.error('Oops.. Something Went Wrong..', {
-              position: 'bottom-right',
-            })
-            break
         }
       }
     },
     async loginNo2FA(accessToken, refreshToken) {
-      await this.$auth.setUserToken(accessToken, refreshToken)
+      try {
+        await this.$auth.setUserToken(accessToken, refreshToken)
+      } catch (e) {
+        this.$toast.error('Oops.. Something Went Wrong..', {
+          position: 'bottom-right',
+        })
+      }
     },
   },
 }

@@ -28,6 +28,11 @@
       <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div class="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10">
           <form class="space-y-6" novalidate @submit.prevent="userRegister">
+            <Alert
+              v-if="$store.state.register.messages.error"
+              type="danger"
+              :message="$store.state.register.messages.error"
+            />
             <div>
               <label
                 for="email"
@@ -45,13 +50,17 @@
                   type="text"
                   autocomplete="username"
                   :class="{
-                    'border-red-500': register.errors.username,
+                    'border-red-500':
+                      $store.state.register.messages.errors.username ||
+                      $store.state.register.messages.error,
                   }"
                   class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 />
-                <span v-if="register.errors.username" class="text-red-500">{{
-                  register.errors.username
-                }}</span>
+                <span
+                  v-if="$store.state.register.messages.errors.username"
+                  class="text-red-500"
+                  >{{ $store.state.register.messages.errors.username }}</span
+                >
               </div>
             </div>
             <div>
@@ -70,12 +79,18 @@
                   name="email"
                   type="email"
                   autocomplete="email"
-                  :class="{ 'border-red-500': register.errors.email || error }"
+                  :class="{
+                    'border-red-500':
+                      $store.state.register.messages.errors.email ||
+                      $store.state.register.messages.error,
+                  }"
                   class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 />
-                <span v-if="register.errors.email" class="text-red-500">{{
-                  register.errors.email
-                }}</span>
+                <span
+                  v-if="$store.state.register.messages.errors.email"
+                  class="text-red-500"
+                  >{{ $store.state.register.messages.errors.email }}</span
+                >
               </div>
             </div>
 
@@ -96,14 +111,17 @@
                   type="password"
                   autocomplete="current-password"
                   :class="{
-                    'border-red-500': register.errors.password || error,
+                    'border-red-500':
+                      $store.state.register.messages.errors.password,
                   }"
                   class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 />
               </div>
-              <span v-if="register.errors.password" class="text-red-500">{{
-                register.errors.password
-              }}</span>
+              <span
+                v-if="$store.state.register.messages.errors.password"
+                class="text-red-500"
+                >{{ $store.state.register.messages.errors.password }}</span
+              >
             </div>
 
             <div class="flex justify-end">
@@ -122,7 +140,7 @@
                 type="submit"
                 class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md shadow-sm bg-primary-500 hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
-                Sign in
+                Start free trial
               </button>
             </div>
           </form>
@@ -188,23 +206,30 @@
 
 <script>
 import Logo from '@/assets/vectors/logo.svg?inline'
+import Alert from '@/components/Shared/Alert'
 
 export default {
-  components: { Logo },
+  components: {
+    Logo,
+    Alert,
+  },
+
   middleware: ['alreadyAuthenticated', 'registration'],
+
   data() {
     return {
       register: {
         email: '',
         username: '',
         password: '',
-        errors: { username: null, email: null, password: null },
       },
     }
   },
+
   methods: {
     async userRegister() {
       try {
+        await this.$store.dispatch('register/RESET_MESSAGES')
         const res = await this.$axios.$post('/api/auth/register', {
           username: this.register.username,
           email: this.register.email,
@@ -222,9 +247,12 @@ export default {
             break
 
           default:
-            this.$toast.success('Thank you for creating a account.', {
-              position: 'bottom-right',
-            })
+            this.$toast.success(
+              'Your account has been created and is ready to use.',
+              {
+                position: 'bottom-right',
+              }
+            )
             break
         }
 
@@ -235,38 +263,48 @@ export default {
           },
         })
       } catch (e) {
-        this.register.errors = { username: null, email: null, password: null }
-
-        if (e.response.data.errors) {
-          const { username, email, password } = e.response.data.errors
+        if (e.response.data.codes) {
+          const { username, email, password } = e.response.data.codes
 
           if (username) {
             switch (username) {
               case 'INVALID_CHARACTERS':
-                this.register.errors.username =
+                this.$store.commit(
+                  'register/SET_MESSAGE_ERRORS_USERNAME',
                   'Username is invalid. Must only contain numbers or letters.'
+                )
                 break
               case 'NOT_LONG_ENOUGH':
-                this.register.errors.username =
+                this.$store.commit(
+                  'register/SET_MESSAGE_ERRORS_USERNAME',
                   'Username must be between 3 and 28 characters long.'
+                )
                 break
               case 'REQUIRED':
-                this.register.errors.username = 'Username is required.'
+                this.$store.commit(
+                  'register/SET_MESSAGE_ERRORS_USERNAME',
+                  'Username is required.'
+                )
                 break
               default:
                 this.$toast.error('Oops.. Something Went Wrong..', {
                   position: 'bottom-right',
                 })
-                break
             }
           }
           if (email) {
             switch (email) {
               case 'INVALID':
-                this.register.errors.email = 'Email is invalid.'
+                this.$store.commit(
+                  'register/SET_MESSAGE_ERRORS_EMAIL',
+                  'Email is invalid.'
+                )
                 break
               case 'REQUIRED':
-                this.register.errors.email = 'Email is required.'
+                this.$store.commit(
+                  'register/SET_MESSAGE_ERRORS_EMAIL',
+                  'Email is required.'
+                )
                 break
               default:
                 this.$toast.error('Oops.. Something Went Wrong..', {
@@ -279,11 +317,16 @@ export default {
           if (password) {
             switch (password) {
               case 'NOT_LONG_ENOUGH':
-                this.register.errors.password =
+                this.$store.commit(
+                  'register/SET_MESSAGE_ERRORS_PASSWORD',
                   'Password must be between 8 and 56 characters long.'
+                )
                 break
               case 'REQUIRED':
-                this.register.errors.password = 'Password is required.'
+                this.$store.commit(
+                  'register/SET_MESSAGE_ERRORS_PASSWORD',
+                  'Password is required.'
+                )
                 break
               default:
                 this.$toast.error('Oops.. Something Went Wrong..', {
@@ -297,18 +340,26 @@ export default {
           })
         }
 
-        switch (e.response.data.error) {
-          case 'ALREADY_EXISTS':
-            this.register.errors.email =
-              'The email or username you are attempting to register with is already in use.'
-            break
+        if (e.response.data.code) {
+          switch (e.response.data.code) {
+            case 'ALREADY_EXISTS':
+              this.$store.commit(
+                'register/SET_MESSAGE_ERROR',
+                'The email or username you are attempting to register with is already in use.'
+              )
+              break
 
-          default:
-            this.$toast.error('Oops.. Something Went Wrong..', {
-              position: 'bottom-right',
-            })
-            break
+            default:
+              this.$toast.error('Oops.. Something Went Wrong..', {
+                position: 'bottom-right',
+              })
+              break
+          }
+          return
         }
+        this.$toast.error('Oops.. Something Went Wrong..', {
+          position: 'bottom-right',
+        })
       }
     },
   },

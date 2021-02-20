@@ -3,7 +3,10 @@
     <div
       class="flex flex-col justify-center min-h-screen py-12 sm:px-6 lg:px-8"
     >
-      <div class="sm:mx-auto sm:w-full sm:max-w-md">
+      <div
+        v-if="!$store.state.login.twoFactorTokenRequested"
+        class="sm:mx-auto sm:w-full sm:max-w-md"
+      >
         <Logo class="w-auto h-12 mx-auto" />
 
         <h2
@@ -15,7 +18,6 @@
           class="mt-2 text-sm text-center text-gray-600 max-w dark:text-gray-200 font-roboto"
         >
           Or
-          <!-- space -->
           <nuxt-link
             class="font-medium text-primary-500 hover:text-primary-600 dark:text-primary-400 dark:hover:text-primary-300 font-roboto"
             to="/register"
@@ -23,9 +25,21 @@
             start your 30-day free trial
           </nuxt-link>
         </p>
+        <Basic />
       </div>
-      <Basic v-show="!twoFactorTokenRequested" />
-      <TwoFactor v-show="twoFactorTokenRequested" />
+      <div
+        v-if="$store.state.login.twoFactorTokenRequested"
+        class="sm:mx-auto sm:w-full sm:max-w-md"
+      >
+        <Logo class="w-auto h-12 mx-auto" />
+
+        <h2
+          class="mt-6 text-3xl font-extrabold text-center text-gray-900 dark:text-white font-roboto"
+        >
+          Enter your 2FA verification token
+        </h2>
+        <TwoFactor />
+      </div>
     </div>
   </div>
 </template>
@@ -43,11 +57,5 @@ export default {
   },
 
   middleware: ['alreadyAuthenticated'],
-
-  data() {
-    return {
-      twoFactorTokenRequested: true,
-    }
-  },
 }
 </script>

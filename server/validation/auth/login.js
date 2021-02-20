@@ -2,24 +2,29 @@ const Validator = require('validator');
 const isEmpty = require('../../utils/is-empty');
 
 module.exports = data => {
+  const codes = {};
   const errors = {};
 
   data.email = !isEmpty(data.email) ? data.email : '';
   data.password = !isEmpty(data.password) ? data.password : '';
 
   if (!Validator.isEmail(data.email)) {
-    errors.email = 'INVALID';
+    codes.email = 'INVALID';
+    errors.email = 'Email is invalid.';
   }
 
   if (Validator.isEmpty(data.email)) {
-    errors.email = 'REQUIRED';
+    codes.email = 'REQUIRED';
+    errors.email = 'Email is required.';
   }
 
   if (Validator.isEmpty(data.password)) {
-    errors.password = 'REQUIRED';
+    codes.password = 'REQUIRED';
+    errors.username = 'Username is required.';
   }
 
   return {
+    codes,
     errors,
     isValid: isEmpty(errors)
   };

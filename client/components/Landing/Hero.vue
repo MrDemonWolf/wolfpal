@@ -405,6 +405,7 @@ export default {
     },
     async userRegister() {
       try {
+        await this.$store.dispatch('register/RESET_MESSAGES')
         const res = await this.$axios.$post('/api/auth/register', {
           username: this.register.username,
           email: this.register.email,
@@ -437,8 +438,8 @@ export default {
       } catch (e) {
         this.register.errors = { username: null, email: null, password: null }
 
-        if (e.response.data.errors) {
-          const { username, email, password } = e.response.data.errors
+        if (e.response.data.codes) {
+          const { username, email, password } = e.response.data.codes
 
           if (username) {
             switch (username) {
@@ -454,9 +455,6 @@ export default {
                 this.register.errors.username = 'Username is required.'
                 break
               default:
-                this.$toast.error('Oops.. Something Went Wrong..', {
-                  position: 'bottom-right',
-                })
                 break
             }
           }
@@ -469,9 +467,6 @@ export default {
                 this.register.errors.email = 'Email is required.'
                 break
               default:
-                this.$toast.error('Oops.. Something Went Wrong..', {
-                  position: 'bottom-right',
-                })
                 break
             }
           }
@@ -486,28 +481,26 @@ export default {
                 this.register.errors.password = 'Password is required.'
                 break
               default:
-                this.$toast.error('Oops.. Something Went Wrong..', {
-                  position: 'bottom-right',
-                })
                 break
             }
           }
           return this.$toast.error('Oops.. Something Went Wrong..', {
             position: 'bottom-right',
           })
-        }
+        } else if (e.response.data.code) {
+          switch (e.response.data.code) {
+            case 'ALREADY_EXISTS':
+              this.register.errors.email =
+                'The email or username you are attempting to register with is already in use.'
+              break
 
-        switch (e.response.data.code) {
-          case 'ALREADY_EXISTS':
-            this.register.errors.email =
-              'The email or username you are attempting to register with is already in use.'
-            break
-
-          default:
-            this.$toast.error('Oops.. Something Went Wrong..', {
-              position: 'bottom-right',
-            })
-            break
+            default:
+              break
+          }
+        } else {
+          this.$toast.error('Oops.. Something Went Wrong..', {
+            position: 'bottom-right',
+          })
         }
       }
     },

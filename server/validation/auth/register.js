@@ -2,6 +2,7 @@ const Validator = require('validator');
 const isEmpty = require('../../utils/is-empty');
 
 module.exports = data => {
+  const codes = {};
   const errors = {};
 
   data.username = !isEmpty(data.username) ? data.username : '';
@@ -14,34 +15,42 @@ module.exports = data => {
       '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
     )
   ) {
-    errors.username = 'INVALID_CHARACTERS';
+    codes.username = 'INVALID_CHARACTERS';
+    errors.username =
+      'Username is invalid. Must only contain numbers or letters.';
   }
 
   if (!Validator.isLength(data.username, { min: 3, max: 28 })) {
-    errors.username = 'NOT_LONG_ENOUGH';
-  }
-
-  if (!Validator.isEmail(data.email)) {
-    errors.email = 'INVALID';
+    codes.username = 'NOT_LONG_ENOUGH';
+    errors.username = 'Username must be between 3 and 28 characters long.';
   }
 
   if (!Validator.isLength(data.password, { min: 8, max: 56 })) {
-    errors.password = 'NOT_LONG_ENOUGH';
+    codes.password = 'NOT_LONG_ENOUGH';
+    errors.password = 'Password must be between 8 and 56 characters long.';
+  }
+  if (!Validator.isEmail(data.email)) {
+    codes.email = 'INVALID';
+    errors.email = 'Email is invalid.';
   }
 
   if (Validator.isEmpty(data.username)) {
-    errors.username = 'REQUIRED';
+    codes.username = 'REQUIRED';
+    errors.username = 'Username is required.';
   }
 
   if (Validator.isEmpty(data.email)) {
-    errors.email = 'REQUIRED';
+    codes.email = 'REQUIRED';
+    errors.email = 'Email is required.';
   }
 
   if (Validator.isEmpty(data.password)) {
-    errors.password = 'REQUIRED';
+    codes.password = 'REQUIRED';
+    errors.password = 'Password is required.';
   }
 
   return {
+    codes,
     errors,
     isValid: isEmpty(errors)
   };

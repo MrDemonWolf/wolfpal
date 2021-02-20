@@ -2,20 +2,20 @@
   <div
     :class="
       type === 'primary'
-        ? 'bg-primary-200 text-primary-800'
+        ? 'bg-primary-100 text-primary-900'
         : type === 'secondary'
-        ? 'bg-secondary-200 text-secondary-800'
+        ? 'bg-secondary-100 text-secondary-900'
         : type === 'success'
-        ? 'bg-green-200 text-green-800'
+        ? 'bg-green-100 text-green-900'
         : type === 'warning'
-        ? 'bg-yellow-200 text-yellow-800'
+        ? 'bg-yellow-100 text-yellow-900'
         : type === 'danger'
-        ? 'bg-red-200 text-red-800'
+        ? 'bg-red-100 text-red-900'
         : type === 'info'
-        ? 'bg-blue-200 text-blue-800'
+        ? 'bg-blue-100 text-blue-900'
         : ''
     "
-    class="p-4 font-light rounded"
+    class="p-4 font-medium rounded font-roboto"
   >
     {{ message }}
   </div>
