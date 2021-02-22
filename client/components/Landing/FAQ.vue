@@ -34,35 +34,17 @@ export default {
     return {
       faqs: [
         {
-          qustion: "What's the best thing about Switzerland?",
-          answer: `I don't know, but the flag is a big plus. Lorem ipsum dolor sit
-              amet consectetur adipisicing elit. Quas cupiditate laboriosam
-              fugiat`,
+          qustion: 'What happens after the 30 day free trial?',
+          answer: `You will lose access to must of the app and be limited to 15 weekly goals a week.  All notifications will no longer send to give you ratios and reminders`,
         },
 
         {
-          qustion: "What's the best thing about Switzerland?",
-          answer: `I don't know, but the flag is a big plus. Lorem ipsum dolor sit
-              amet consectetur adipisicing elit. Quas cupiditate laboriosam
-              fugiat`,
+          qustion: 'How mamy users do I have to buy to have enterpise?',
+          answer: `Enterprise requires you to buy 5 users minimum due to the lower price.`,
         },
         {
-          qustion: "What's the best thing about Switzerland?",
-          answer: `I don't know, but the flag is a big plus. Lorem ipsum dolor sit
-              amet consectetur adipisicing elit. Quas cupiditate laboriosam
-              fugiat`,
-        },
-        {
-          qustion: "What's the best thing about Switzerland?",
-          answer: `I don't know, but the flag is a big plus. Lorem ipsum dolor sit
-              amet consectetur adipisicing elit. Quas cupiditate laboriosam
-              fugiat`,
-        },
-        {
-          qustion: "What's the best thing about Switzerland?",
-          answer: `I don't know, but the flag is a big plus. Lorem ipsum dolor sit
-              amet consectetur adipisicing elit. Quas cupiditate laboriosam
-              fugiat`,
+          qustion: 'What payment methods do you account?',
+          answer: `We accept all major credit cards.`,
         },
       ],
     }

@@ -44,77 +44,22 @@
           </button>
         </div>
       </div>
-      <!-- Monthly Plans -->
-      <div
-        v-if="monthlyBilling"
-        class="mt-12 space-y-4 sm:mt-16 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-6 lg:max-w-4xl lg:mx-auto xl:max-w-none xl:mx-0 xl:grid-cols-3"
-      >
-        <PricingCard
-          name="Pro"
-          description=" Fully keep track of your goals in life."
-          price="$6.99"
-          frequency="monthly"
-          :features="['Create Weekly Goals']"
-          cta="Go Pro"
-        />
-        <PricingCard
-          name="Free Trial"
-          description="Get access to the full experience for a limited time but keep the basics forever.*"
-          price="$0.00"
-          frequency="monthly"
-          :features="['Create Weekly Goals']"
-          cta="Get Started"
-        />
-        <PricingCard
-          name="Enterprise"
-          description="Make your team better at tracking their goals.*"
-          price="$4.99"
-          frequency="monthly"
-          :features="['Create Weekly Goals']"
-          cta="Buy for your team"
-        />
-      </div>
-      <!-- Yearly Plans -->
-      <div
-        v-else
-        class="mt-12 space-y-4 sm:mt-16 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-6 lg:max-w-4xl lg:mx-auto xl:max-w-none xl:mx-0 xl:grid-cols-3"
-      >
-        <PricingCard
-          name="Pro"
-          description=" Fully keep track of your goals in life."
-          price="$69.99"
-          frequency="yearly"
-          :features="['Create Weekly Goals']"
-          cta="Go Pro"
-        />
-        <PricingCard
-          name="Free Trial"
-          description="Get access to the full experience for a limited time but keep the basics forever.*"
-          price="$0.00"
-          frequency="yearly"
-          :features="['Create Weekly Goals']"
-          cta="Get started"
-        />
-        <PricingCard
-          name="Enterprise"
-          description="Make your team better at tracking their goals.*"
-          price="$3.99"
-          frequency="yearly"
-          :features="['Create Weekly Goals']"
-          cta="Buy for your team"
-        />
-      </div>
+      <Monthly v-if="monthlyBilling" />
+      <Yearly v-else />
     </div>
   </div>
 </template>
 
 <script>
-import PricingCard from '@/components/Shared/PricingCard'
+import Monthly from '@/components/Landing/Pricing/Monthly'
+import Yearly from '@/components/Landing/Pricing/Yearly'
 
 export default {
   components: {
-    PricingCard,
+    Monthly,
+    Yearly,
   },
+
   data() {
     return {
       monthlyBilling: true,

@@ -261,6 +261,11 @@
                       novalidate
                       @submit.prevent="userRegister"
                     >
+                      <Alert
+                        v-if="$store.state.register.messages.error"
+                        type="danger"
+                        :message="$store.state.register.messages.error"
+                      />
                       <div>
                         <label for="username" class="sr-only">Username</label>
                         <input
@@ -271,14 +276,18 @@
                           autocomplete="username"
                           placeholder="Username"
                           :class="{
-                            'border-red-500': register.errors.username,
+                            'border-red-500':
+                              $store.state.register.messages.errors.username ||
+                              $store.state.register.messages.error,
                           }"
                           class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         />
                         <span
-                          v-if="register.errors.username"
+                          v-if="$store.state.register.messages.errors.username"
                           class="text-red-500"
-                          >{{ register.errors.username }}</span
+                          >{{
+                            $store.state.register.messages.errors.username
+                          }}</span
                         >
                       </div>
 
@@ -292,14 +301,18 @@
                           autocomplete="email"
                           placeholder="Email"
                           :class="{
-                            'border-red-500': register.errors.email,
+                            'border-red-500':
+                              $store.state.register.messages.errors.email ||
+                              $store.state.register.messages.error,
                           }"
                           class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         />
                         <span
-                          v-if="register.errors.email"
+                          v-if="$store.state.register.messages.errors.email"
                           class="text-red-500"
-                          >{{ register.errors.email }}</span
+                          >{{
+                            $store.state.register.messages.errors.email
+                          }}</span
                         >
                       </div>
 
@@ -312,14 +325,17 @@
                           type="password"
                           placeholder="Password"
                           :class="{
-                            'border-red-500': register.errors.password,
+                            'border-red-500':
+                              $store.state.register.messages.errors.password,
                           }"
                           class="block w-full border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                         />
                         <span
-                          v-if="register.errors.password"
+                          v-if="$store.state.register.messages.errors.password"
                           class="text-red-500"
-                          >{{ register.errors.password }}</span
+                          >{{
+                            $store.state.register.messages.errors.password
+                          }}</span
                         >
                       </div>
 
@@ -380,7 +396,6 @@ export default {
         email: '',
         username: '',
         password: '',
-        errors: { username: null, email: null, password: null },
       },
       links: [
         {
@@ -426,7 +441,6 @@ export default {
             this.$toast.success('Thank you for creating a account.', {
               position: 'bottom-right',
             })
-            break
         }
 
         await this.$auth.loginWith('local', {
@@ -436,66 +450,78 @@ export default {
           },
         })
       } catch (e) {
-        this.register.errors = { username: null, email: null, password: null }
-
         if (e.response.data.codes) {
           const { username, email, password } = e.response.data.codes
 
           if (username) {
             switch (username) {
               case 'INVALID_CHARACTERS':
-                this.register.errors.username =
+                this.$store.commit(
+                  'register/SET_MESSAGE_ERRORS_USERNAME',
                   'Username is invalid. Must only contain numbers or letters.'
+                )
                 break
               case 'NOT_LONG_ENOUGH':
-                this.register.errors.username =
+                this.$store.commit(
+                  'register/SET_MESSAGE_ERRORS_USERNAME',
                   'Username must be between 3 and 28 characters long.'
+                )
                 break
               case 'REQUIRED':
-                this.register.errors.username = 'Username is required.'
+                this.$store.commit(
+                  'register/SET_MESSAGE_ERRORS_USERNAME',
+                  'Username is required.'
+                )
                 break
               default:
-                break
             }
           }
+
           if (email) {
             switch (email) {
               case 'INVALID':
-                this.register.errors.email = 'Email is invalid.'
+                this.$store.commit(
+                  'register/SET_MESSAGE_ERRORS_EMAIL',
+                  'Email is invalid.'
+                )
                 break
               case 'REQUIRED':
-                this.register.errors.email = 'Email is required.'
+                this.$store.commit(
+                  'register/SET_MESSAGE_ERRORS_EMAIL',
+                  'Email is required.'
+                )
                 break
               default:
-                break
             }
           }
 
           if (password) {
             switch (password) {
               case 'NOT_LONG_ENOUGH':
-                this.register.errors.password =
+                this.$store.commit(
+                  'register/SET_MESSAGE_ERRORS_PASSWORD',
                   'Password must be between 8 and 56 characters long.'
+                )
                 break
               case 'REQUIRED':
-                this.register.errors.password = 'Password is required.'
+                this.$store.commit(
+                  'register/SET_MESSAGE_ERRORS_PASSWORD',
+                  'Password is required.'
+                )
                 break
               default:
-                break
             }
           }
-          return this.$toast.error('Oops.. Something Went Wrong..', {
-            position: 'bottom-right',
-          })
         } else if (e.response.data.code) {
           switch (e.response.data.code) {
             case 'ALREADY_EXISTS':
-              this.register.errors.email =
+              this.$store.commit(
+                'register/SET_MESSAGE_ERROR',
                 'The email or username you are attempting to register with is already in use.'
+              )
               break
 
             default:
-              break
           }
         } else {
           this.$toast.error('Oops.. Something Went Wrong..', {

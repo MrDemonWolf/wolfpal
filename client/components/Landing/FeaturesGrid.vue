@@ -5,17 +5,16 @@
         <h2
           class="text-5xl font-extrabold text-gray-900 dark:text-white font-roboto"
         >
-          All-in-one platform
+          {{ $config.landing.features.title }}
         </h2>
         <p
           class="mt-4 text-lg text-gray-500 dark:text-gray-200 font-montserrat"
         >
-          Includes all the tools to help motivate you to complete your goals in
-          life. One Wolf at a time.
+          {{ $config.landing.features.description }}
         </p>
       </div>
       <dl
-        class="mt-12 space-y-10 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 lg:grid-cols-4 lg:gap-x-8"
+        class="mt-12 space-y-10 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:gap-y-12 lg:grid-cols-3 lg:gap-x-8"
       >
         <div v-for="(feature, index) in features" :key="index" class="flex">
           <svg
@@ -58,44 +57,29 @@ export default {
     return {
       features: [
         {
-          title: 'Invite team members',
+          title: 'Track Weekly Goals',
           description:
-            'Leverage agile frameworks to provide a robust synopsis for high level overviews.',
+            'Keep track of Weekly Goals.  Boost your weekly completions with completion ratio notifications.',
         },
         {
-          title: 'Invite team members',
+          title: 'Notifications',
           description:
-            'Leverage agile frameworks to provide a robust synopsis for high level overviews.',
+            'Stay updated with completion ratios and get reminded.  Works both on desktop and mobile devices.',
         },
         {
-          title: 'Invite team members',
+          title: 'Mobile App',
           description:
-            'Leverage agile frameworks to provide a robust synopsis for high level overviews.',
+            'Add our app via your default web browser to add it to your mobile device or desktop.',
         },
         {
-          title: 'Invite team members',
+          title: 'Dark Mode',
           description:
-            'Leverage agile frameworks to provide a robust synopsis for high level overviews.',
+            'With clean modern design that work with dark mode on your devices.',
         },
         {
-          title: 'Invite team members',
+          title: 'Two Factor',
           description:
-            'Leverage agile frameworks to provide a robust synopsis for high level overviews.',
-        },
-        {
-          title: 'Invite team members',
-          description:
-            'Leverage agile frameworks to provide a robust synopsis for high level overviews.',
-        },
-        {
-          title: 'Invite team members',
-          description:
-            'Leverage agile frameworks to provide a robust synopsis for high level overviews.',
-        },
-        {
-          title: 'Invite team members',
-          description:
-            'Leverage agile frameworks to provide a robust synopsis for high level overviews.',
+            'Keep your account locked down with built in Two Factor with any authenticator that supports google authenticator.',
         },
       ],
     }

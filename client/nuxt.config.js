@@ -194,8 +194,15 @@ export default {
     registration: process.env.REGISTRATION || true,
     landing: {
       description:
-        process.env.SITE_DESCRIPTION ||
+        process.env.LANDING_DESCRIPTION ||
         'A wolf to guide you to your end goals by helping keep you on track weely, bi-weekly or even monthly and yearly goals.',
+      features: {
+        title: process.env.LANDING_FEATURES_TITLE || 'All-in-one platform',
+        description:
+          process.env.LANDING_FEATURES_DESCRIPTION ||
+          `Includes all the tools to help motivate you to complete your goals in
+          life. One Wolf at a time.`,
+      },
     },
     mission:
       process.env.SITE_MISSION ||

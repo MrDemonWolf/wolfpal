@@ -1,17 +1,11 @@
 <template>
   <div id="top">
-    <!-- Hero -->
     <Hero />
-    <!-- Pricing Table -->
     <Pricing id="pricing" />
-    <!-- Features -->
     <FeaturesGrid id="features" />
-    <!-- FAQ -->
     <FAQ id="faq" />
-    <!-- CTA -->
     <CTA id="cta" />
-    <!-- Footer -->
-    <Footer />
+    <Footer id="footer" />
   </div>
 </template>
 
