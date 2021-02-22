@@ -26,7 +26,7 @@
             </a>
             <a
               href="https://www.github.com/nathanhenniges"
-              class="text-gray-400 dark:text-gray-200 hover:text-brand-github dark:hover:text-brand-github"
+              class="text-gray-400 dark:text-gray-200 hover:text-brand-github dark:hover:text-gray-400"
             >
               <span class="sr-only">GitHub</span>
               <fa :icon="['fab', 'github']" class="w-6 h-6 text-2xl" />

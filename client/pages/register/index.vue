@@ -140,7 +140,21 @@
                 type="submit"
                 class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md shadow-sm bg-primary-500 hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
               >
-                Start free trial
+                <span v-if="!isLoading">Start free trial</span>
+                <span v-else>
+                  <fa
+                    :icon="['fas', 'circle']"
+                    class="inline-block w-3 h-3 mr-2 text-white -animate-delay-1 animate-bounce"
+                  />
+                  <fa
+                    :icon="['fas', 'circle']"
+                    class="inline-block w-3 h-3 mr-2 text-white -animate-delay-2 animate-bounce"
+                  />
+                  <fa
+                    :icon="['fas', 'circle']"
+                    class="inline-block w-3 h-3 mr-2 text-white animate-bounce"
+                  />
+                </span>
               </button>
             </div>
           </form>
@@ -218,6 +232,7 @@ export default {
 
   data() {
     return {
+      isLoading: false,
       register: {
         email: '',
         username: '',
@@ -226,9 +241,20 @@ export default {
     }
   },
 
+  head: {
+    title: 'Login',
+    meta: [
+      {
+        hid: 'description',
+        name: 'description',
+        content: `Already have a ${this.$config.title} account?  You can login to your current account here.`,
+      },
+    ],
+  },
   methods: {
     async userRegister() {
       try {
+        this.isLoading = true
         await this.$store.dispatch('register/RESET_MESSAGES')
         const res = await this.$axios.$post('/api/auth/register', {
           username: this.register.username,
@@ -324,6 +350,7 @@ export default {
               default:
             }
           }
+          this.isLoading = false
         } else if (e.response.data.code) {
           switch (e.response.data.code) {
             case 'ALREADY_EXISTS':
@@ -335,7 +362,10 @@ export default {
 
             default:
           }
+          this.isLoading = false
         } else {
+          this.isLoading = false
+
           this.$toast.error('Oops.. Something Went Wrong..', {
             position: 'bottom-right',
           })

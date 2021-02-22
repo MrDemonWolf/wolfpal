@@ -28,6 +28,12 @@ export default {
       },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    script: [
+      {
+        src: 'https://js.stripe.com/v3',
+        defer: true,
+      },
+    ],
   },
 
   loading: false,
@@ -44,6 +50,8 @@ export default {
     { src: '~/plugins/filters' },
     { src: '~/plugins/percentageCal' },
     { src: '~/plugins/is-empty' },
+    { src: '~/plugins/vue-content-loader', ssr: false },
+    { src: '~/plugins/vue-loading-overlay', ssr: false },
   ],
   /*
    ** Auto import components
@@ -78,6 +86,7 @@ export default {
             'faUnlock',
             'faMapMarkerAlt',
             'faCalendar',
+            'faCircle',
           ],
           brands: ['faGoogle', 'faTwitter', 'faGithub'],
         },
@@ -156,6 +165,13 @@ export default {
         // autoLogout: false
       },
     },
+  },
+
+  /*
+   ** Stripe configuration
+   */
+  stripe: {
+    publishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
   },
 
   /*

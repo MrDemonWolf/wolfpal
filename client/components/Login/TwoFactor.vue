@@ -40,7 +40,21 @@
             type="submit"
             class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md shadow-sm bg-primary-500 hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            Sign in
+            <span v-if="!isLoading">Verify</span>
+            <span v-else>
+              <fa
+                :icon="['fas', 'circle']"
+                class="inline-block w-3 h-3 mr-2 text-white -animate-delay-1 animate-bounce"
+              />
+              <fa
+                :icon="['fas', 'circle']"
+                class="inline-block w-3 h-3 mr-2 text-white -animate-delay-2 animate-bounce"
+              />
+              <fa
+                :icon="['fas', 'circle']"
+                class="inline-block w-3 h-3 mr-2 text-white animate-bounce"
+              />
+            </span>
           </button>
         </div>
       </form>
@@ -58,6 +72,7 @@ export default {
 
   data() {
     return {
+      isLoading: false,
       loginTwoFactor: {
         code: '',
       },
@@ -67,6 +82,8 @@ export default {
   methods: {
     async userLoginWithTwoFactor() {
       try {
+        this.isLoading = true
+
         await this.$store.dispatch('login/RESET_MESSAGES')
         const twoFactor = await this.$axios.$post('/api/auth/two-factor', {
           code: this.loginTwoFactor.code,
@@ -100,6 +117,7 @@ export default {
                 break
             }
           }
+          this.isLoading = false
         } else if (e.response.data.code) {
           switch (e.response.data.code) {
             case 'INVALID_TWO_FACTOR_CODE':
@@ -112,10 +130,12 @@ export default {
             default:
               break
           }
+          this.isLoading = false
         } else {
           this.$toast.error('Oops.. Something Went Wrong..', {
             position: 'bottom-right',
           })
+          this.isLoading = false
         }
       }
     },

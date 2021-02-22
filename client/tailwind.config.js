@@ -9,6 +9,7 @@ const tailwindcssBorderStyles = require('tailwindcss-border-styles')
 const tailwindcssForms = require('@tailwindcss/forms')
 const tailwindcssTypography = require('@tailwindcss/typography')
 const tailwindcssAspectRatio = require('@tailwindcss/aspect-ratio')
+const plugin = require('tailwindcss/plugin')
 
 module.exports = {
   purge: {
@@ -71,6 +72,17 @@ module.exports = {
   },
   variants: {},
   plugins: [
+    plugin(function ({ addUtilities }) {
+      const newUtilities = {
+        '.-animate-delay-1': {
+          'animation-delay': '-0.32s',
+        },
+        '.-animate-delay-2': {
+          'animation-delay': '-0.16s',
+        },
+      }
+      addUtilities(newUtilities)
+    }),
     tailwindcssBorderStyles(),
     tailwindcssForms,
     tailwindcssTypography,

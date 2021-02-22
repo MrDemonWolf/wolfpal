@@ -11,7 +11,7 @@
       class="overflow-hidden transition-all transform bg-white rounded-lg shadow-xl sm:max-w-lg sm:w-full"
       @click.stop
     >
-      <Loading
+      <LoadingOverlay
         :active.sync="loader.isLoading"
         :can-cancel="loader.canCancel"
         :color="loader.color"
@@ -151,13 +151,7 @@
 </template>
 
 <script>
-import Loading from 'vue-loading-overlay'
-import 'vue-loading-overlay/dist/vue-loading.css'
-
 export default {
-  components: {
-    Loading,
-  },
   data() {
     return {
       loader: {

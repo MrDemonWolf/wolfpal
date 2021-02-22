@@ -91,7 +91,21 @@
             type="submit"
             class="flex justify-center w-full px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md shadow-sm bg-primary-500 hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           >
-            Sign in
+            <span v-if="!isLoading">Sign in</span>
+            <span v-else>
+              <fa
+                :icon="['fas', 'circle']"
+                class="inline-block w-3 h-3 mr-2 text-white -animate-delay-1 animate-bounce"
+              />
+              <fa
+                :icon="['fas', 'circle']"
+                class="inline-block w-3 h-3 mr-2 text-white -animate-delay-2 animate-bounce"
+              />
+              <fa
+                :icon="['fas', 'circle']"
+                class="inline-block w-3 h-3 mr-2 text-white animate-bounce"
+              />
+            </span>
           </button>
         </div>
       </form>
@@ -158,6 +172,7 @@ export default {
 
   data() {
     return {
+      isLoading: false,
       login: {
         email: '',
         password: '',
@@ -168,6 +183,8 @@ export default {
   methods: {
     async userLogin() {
       try {
+        this.isLoading = true
+
         await this.$store.dispatch('login/RESET_MESSAGES')
         const res = await this.$axios.$post('/api/auth/login', {
           email: this.login.email,
@@ -226,7 +243,9 @@ export default {
 
             default:
           }
+          this.isLoading = false
         } else {
+          this.isLoading = false
           this.$toast.error('Oops.. Something Went Wrong..', {
             position: 'bottom-right',
           })
@@ -236,7 +255,9 @@ export default {
     async loginNo2FA(accessToken, refreshToken) {
       try {
         await this.$auth.setUserToken(accessToken, refreshToken)
+        this.isLoading = false
       } catch (e) {
+        this.isLoading = false
         this.$toast.error('Oops.. Something Went Wrong..', {
           position: 'bottom-right',
         })
