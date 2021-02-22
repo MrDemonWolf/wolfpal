@@ -287,9 +287,6 @@ export default {
                 )
                 break
               default:
-                this.$toast.error('Oops.. Something Went Wrong..', {
-                  position: 'bottom-right',
-                })
             }
           }
           if (email) {
@@ -307,10 +304,6 @@ export default {
                 )
                 break
               default:
-                this.$toast.error('Oops.. Something Went Wrong..', {
-                  position: 'bottom-right',
-                })
-                break
             }
           }
 
@@ -329,18 +322,9 @@ export default {
                 )
                 break
               default:
-                this.$toast.error('Oops.. Something Went Wrong..', {
-                  position: 'bottom-right',
-                })
-                break
             }
           }
-          return this.$toast.error('Oops.. Something Went Wrong..', {
-            position: 'bottom-right',
-          })
-        }
-
-        if (e.response.data.code) {
+        } else if (e.response.data.code) {
           switch (e.response.data.code) {
             case 'ALREADY_EXISTS':
               this.$store.commit(
@@ -350,16 +334,12 @@ export default {
               break
 
             default:
-              this.$toast.error('Oops.. Something Went Wrong..', {
-                position: 'bottom-right',
-              })
-              break
           }
-          return
+        } else {
+          this.$toast.error('Oops.. Something Went Wrong..', {
+            position: 'bottom-right',
+          })
         }
-        this.$toast.error('Oops.. Something Went Wrong..', {
-          position: 'bottom-right',
-        })
       }
     },
   },

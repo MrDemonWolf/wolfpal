@@ -1,7 +1,7 @@
 <template>
   <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
     <div class="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10">
-      <form class="space-y-6" @submit.prevent="userLogin">
+      <form class="space-y-6" novalidate @submit.prevent="userLogin">
         <Alert
           v-if="$store.state.login.messages.error"
           type="danger"
@@ -26,7 +26,6 @@
                   $store.state.login.messages.error,
               }"
               class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              novalidate
             />
             <span
               v-if="$store.state.login.messages.errors.email"
@@ -55,7 +54,6 @@
                   $store.state.login.messages.error,
               }"
               class="block w-full px-3 py-2 placeholder-gray-400 border border-gray-300 rounded-md shadow-sm appearance-none focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-              novalidate
             />
           </div>
           <span
@@ -227,7 +225,6 @@ export default {
               break
 
             default:
-              break
           }
         } else {
           this.$toast.error('Oops.. Something Went Wrong..', {

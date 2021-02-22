@@ -2,8 +2,8 @@ export const state = () => ({
   showEnableTwoFactorModal: false,
   showDisableTwoFactorModal: false,
   showRevokeAllSessionsModal: false,
-  twoFactorQrCode: '',
-  twoFactorSecret: '',
+  twoFactorQrCode: null,
+  twoFactorSecret: null,
   twofactorBackupCodes: [],
   sessions: [],
   messages: {

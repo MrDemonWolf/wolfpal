@@ -264,7 +264,6 @@ router.post('/two-factor', async (req, res) => {
 
     const twoFactor = await TwoFactor.findOne({ token }).populate('user');
 
-    console.log(twoFactor);
     if (!twoFactor) {
       return res.status(400).json({
         code: 'INVALID_TWO_FACTOR_TOKEN',

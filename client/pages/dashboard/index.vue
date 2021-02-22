@@ -93,6 +93,8 @@ export default {
     ContentLoader,
   },
 
+  middleware: ['auth'],
+
   data() {
     return {
       stats: {

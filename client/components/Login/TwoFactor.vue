@@ -1,7 +1,11 @@
 <template>
   <div class="mt-8 sm:mx-auto sm:w-1/2 sm:max-w-xs">
     <div class="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10">
-      <form class="space-y-6" @submit.prevent="userLoginWithTwoFactor">
+      <form
+        class="space-y-6"
+        novalidate
+        @submit.prevent="userLoginWithTwoFactor"
+      >
         <Alert
           v-if="$store.state.login.messages.error"
           type="danger"

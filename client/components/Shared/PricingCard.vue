@@ -19,10 +19,10 @@
           >/{{ frequency }}</span
         >
       </p>
-      <a
-        href="#top"
+      <nuxt-link
+        :to="ctaLink"
         class="block w-full py-2 mt-8 text-sm font-medium text-center text-white border rounded-md border-primary-500 bg-primary-500 hover:bg-primary-600 hover:border-primary-600 font-roboto"
-        >Get Started</a
+        >{{ cta }}</nuxt-link
       >
     </div>
     <div class="px-6 pt-6 pb-8">
@@ -85,6 +85,10 @@ export default {
       required: true,
     },
     cta: {
+      type: String,
+      required: true,
+    },
+    ctaLink: {
       type: String,
       required: true,
     },
