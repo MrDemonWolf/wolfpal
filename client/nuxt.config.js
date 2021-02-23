@@ -28,12 +28,6 @@ export default {
       },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
-    script: [
-      {
-        src: 'https://js.stripe.com/v3',
-        defer: true,
-      },
-    ],
   },
 
   loading: false,
@@ -87,6 +81,7 @@ export default {
             'faMapMarkerAlt',
             'faCalendar',
             'faCircle',
+            'faHome',
           ],
           brands: ['faGoogle', 'faTwitter', 'faGithub'],
         },
@@ -162,16 +157,9 @@ export default {
           user: { url: '/api/account', method: 'get' },
           logout: { url: '/api/auth/logout', method: 'post' },
         },
-        // autoLogout: false
+        autoLogout: false,
       },
     },
-  },
-
-  /*
-   ** Stripe configuration
-   */
-  stripe: {
-    publishableKey: process.env.STRIPE_PUBLISHABLE_KEY,
   },
 
   /*

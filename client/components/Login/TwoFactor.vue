@@ -94,8 +94,6 @@ export default {
           twoFactor.refresh_token
         )
       } catch (e) {
-        this.loginTwoFactor.errors = { code: null }
-
         if (e.response.data.codes) {
           const { code, token } = e.response.data.codes
 

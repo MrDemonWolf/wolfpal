@@ -241,16 +241,6 @@ export default {
     }
   },
 
-  head: {
-    title: 'Login',
-    meta: [
-      {
-        hid: 'description',
-        name: 'description',
-        content: `Already have a ${this.$config.title} account?  You can login to your current account here.`,
-      },
-    ],
-  },
   methods: {
     async userRegister() {
       try {
