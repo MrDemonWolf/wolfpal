@@ -241,6 +241,20 @@ export default {
     }
   },
 
+  head({ $config: { title } }) {
+    return {
+      title: 'Register',
+      meta: [
+        // hid is used as unique identifier. Do not use `vmid` for it as it will not work
+        {
+          hid: 'description',
+          name: 'description',
+          content: `Don't already have a ${title} account?  You can register for a account here.`,
+        },
+      ],
+    }
+  },
+
   methods: {
     async userRegister() {
       try {

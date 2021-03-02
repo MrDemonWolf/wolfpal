@@ -149,13 +149,13 @@
                 >
               </div>
               <div role="none">
-                <a
-                  href="#"
+                <nuxt-link
+                  to="/login"
                   class="block w-full px-5 py-3 font-medium text-center text-white bg-primary-500 hover:bg-primary-600 font-roboto"
                   role="menuitem"
                 >
-                  Log in
-                </a>
+                  Sign in
+                </nuxt-link>
               </div>
             </div>
           </div>

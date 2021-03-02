@@ -44,8 +44,9 @@ export default {
     { src: '~/plugins/filters' },
     { src: '~/plugins/percentageCal' },
     { src: '~/plugins/is-empty' },
-    { src: '~/plugins/vue-content-loader', ssr: false },
+    { src: '~/plugins/vue-content-loader' },
     { src: '~/plugins/vue-loading-overlay', ssr: false },
+    { src: '~/plugins/vue-click-outside', srr: false },
   ],
   /*
    ** Auto import components

@@ -231,6 +231,7 @@ export default {
                 break
             }
           }
+          this.isLoading = false
         } else if (e.response.data.code) {
           switch (e.response.data.code) {
             case 'NON_EXISTENT':

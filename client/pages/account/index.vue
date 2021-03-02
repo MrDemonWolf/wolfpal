@@ -66,6 +66,8 @@ export default {
     DeviceList,
   },
 
+  layout: 'account',
+
   middleware: ['auth'],
 
   async fetch({ store }) {
