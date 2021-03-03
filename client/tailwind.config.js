@@ -4,10 +4,28 @@
  ** Docs: https://tailwindcss.com/docs/configuration
  ** Default: https://github.com/tailwindcss/tailwindcss/blob/master/stubs/defaultConfig.stub.js
  */
+
+const tailwindcssBorderStyles = require('tailwindcss-border-styles')
+const tailwindcssForms = require('@tailwindcss/forms')
+const tailwindcssTypography = require('@tailwindcss/typography')
+const tailwindcssAspectRatio = require('@tailwindcss/aspect-ratio')
+const plugin = require('tailwindcss/plugin')
+
 module.exports = {
+  purge: {
+    // Learn more on https://tailwindcss.com/docs/controlling-file-size/#removing-unused-css
+    enabled: process.env.NODE_ENV === 'production',
+    content: [
+      'components/**/*.vue',
+      'layouts/**/*.vue',
+      'pages/**/*.vue',
+      'plugins/**/*.js',
+      'nuxt.config.js',
+    ],
+  },
+  // compatible with @nuxtjs/color-mode
+  darkMode: 'class', // or 'media' or 'class'
   theme: {
-    // compatible with @nuxtjs/color-mode
-    darkSelector: '.dark-mode',
     extend: {
       colors: {
         primary: {
@@ -20,6 +38,11 @@ module.exports = {
           700: '#2B4274',
           800: '#203257',
           900: '#16213A',
+        },
+        brand: {
+          googlePlus: '#DD4B39',
+          twitter: '#1DA1F2',
+          github: '#333333',
         },
       },
       height: {
@@ -47,59 +70,22 @@ module.exports = {
       colors: true, // defaults to false
     },
   },
-  variants: {
-    backgroundColor: [
-      'dark',
-      'dark-hover',
-      'dark-group-hover',
-      'dark-even',
-      'dark-odd',
-      'hover',
-      'responsive',
-      'disabled',
-    ],
-    backgroundImage: ['responsive', 'dark'],
-    gradientColorStops: ['responsive', 'dark'],
-    borderColor: [
-      'dark',
-      'dark-focus',
-      'dark-focus-within',
-      'hover',
-      'responsive',
-    ],
-    textColor: [
-      'dark',
-      'dark-hover',
-      'dark-active',
-      'hover',
-      'responsive',
-      'disabled',
-    ],
-  },
+  variants: {},
   plugins: [
-    require('tailwindcss-dark-mode')(),
-    require('@tailwindcss/ui')({
-      // See https://tailwindui.com/documentation#configuring-sidebar-breakpoints
-      // Turning this off for now. This may be buggy as it makes the hero sections like the "with wide angled image on right" look funky
-      // https://tailwindui.com/components/marketing/sections/heroes
-      // layout: 'sidebar',
+    plugin(function ({ addUtilities }) {
+      const newUtilities = {
+        '.-animate-delay-1': {
+          'animation-delay': '-0.32s',
+        },
+        '.-animate-delay-2': {
+          'animation-delay': '-0.16s',
+        },
+      }
+      addUtilities(newUtilities)
     }),
-    require('tailwindcss-border-styles')(),
+    tailwindcssBorderStyles(),
+    tailwindcssForms,
+    tailwindcssTypography,
+    tailwindcssAspectRatio,
   ],
-
-  purge: {
-    // Learn more on https://tailwindcss.com/docs/controlling-file-size/#removing-unused-css
-    enabled: process.env.NODE_ENV === 'production',
-    content: [
-      'components/**/*.vue',
-      'layouts/**/*.vue',
-      'pages/**/*.vue',
-      'plugins/**/*.js',
-      'nuxt.config.js',
-    ],
-  },
-  future: {
-    removeDeprecatedGapUtilities: true,
-    purgeLayersByDefault: true,
-  },
 }

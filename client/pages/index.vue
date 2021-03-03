@@ -1,15 +1,32 @@
 <template>
-  <SignedInDashboard v-if="$auth.loggedIn" />
-  <NotSignedInJumbotron v-else />
+  <div id="top">
+    <Hero />
+    <Pricing id="pricing" />
+    <FeaturesGrid id="features" />
+    <FAQ id="faq" />
+    <CTA id="cta" />
+    <Footer id="footer" />
+  </div>
 </template>
 
 <script>
-import NotSignedInJumbotron from '@/components/Landing/NotSignedInJumbotron'
-import SignedInDashboard from '@/components/Landing/SignedInDashboard'
+import Hero from '@/components/Landing/Hero'
+import Pricing from '@/components/Landing/Pricing'
+import FeaturesGrid from '@/components/Landing/FeaturesGrid'
+import FAQ from '@/components/Landing/FAQ'
+import CTA from '@/components/Landing/CTA'
+import Footer from '@/components/Landing/Footer'
+
 export default {
   components: {
-    NotSignedInJumbotron,
-    SignedInDashboard,
+    Hero,
+    Pricing,
+    FeaturesGrid,
+    FAQ,
+    CTA,
+    Footer,
   },
+
+  middleware: ['alreadyAuthenticated'],
 }
 </script>

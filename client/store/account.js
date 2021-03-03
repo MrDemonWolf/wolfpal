@@ -2,15 +2,16 @@ export const state = () => ({
   showEnableTwoFactorModal: false,
   showDisableTwoFactorModal: false,
   showRevokeAllSessionsModal: false,
-  twoFactorQrCode: '',
-  twoFactorSecret: '',
+  twoFactorQrCode: null,
+  twoFactorSecret: null,
   twofactorBackupCodes: [],
   sessions: [],
   messages: {
-    success: undefined,
-    error: undefined,
+    success: null,
+    error: null,
     errors: [],
   },
+  sidebarOpen: false,
 })
 
 export const actions = {
@@ -40,9 +41,9 @@ export const actions = {
       commit('SET_TWO_FACTOR_SECRET', res.secret)
 
       commit('SET_TWO_FACTOR_BACKUP_CODES', res.backupCodes)
-      commit('SET_MESSAGE_ERROR', undefined)
+      commit('SET_MESSAGE_ERROR', null)
     } catch (e) {
-      commit('SET_MESSAGE_SUCCESS', undefined)
+      commit('SET_MESSAGE_SUCCESS', null)
       commit('SET_MESSAGE_ERROR', e.response.data.error)
     }
   },
@@ -55,10 +56,10 @@ export const actions = {
       commit('SET_SHOW_ENABLE_TWO_FACTOR_MODAL', false)
       commit('RESET_TWO_FACTOR_INITIALIZE')
 
-      commit('SET_MESSAGE_ERROR', undefined)
+      commit('SET_MESSAGE_ERROR', null)
       commit('SET_MESSAGE_SUCCESS', res.message)
     } catch (e) {
-      commit('SET_MESSAGE_SUCCESS', undefined)
+      commit('SET_MESSAGE_SUCCESS', null)
       commit('SET_MESSAGE_ERROR', e.response.data.error)
     }
   },
@@ -68,10 +69,10 @@ export const actions = {
         `/api/account/two-factor?code=${code}`
       )
 
-      commit('SET_MESSAGE_ERROR', undefined)
+      commit('SET_MESSAGE_ERROR', null)
       commit('SET_MESSAGE_SUCCESS', res.message)
     } catch (e) {
-      commit('SET_MESSAGE_SUCCESS', undefined)
+      commit('SET_MESSAGE_SUCCESS', null)
       commit('SET_MESSAGE_ERROR', e.response.data.error)
     }
   },
@@ -88,10 +89,10 @@ export const actions = {
 
       commit('DELETE_SESSION', index)
 
-      commit('SET_MESSAGE_ERROR', undefined)
+      commit('SET_MESSAGE_ERROR', null)
       commit('SET_MESSAGE_SUCCESS', res.message)
     } catch (e) {
-      commit('SET_MESSAGE_SUCCESS', undefined)
+      commit('SET_MESSAGE_SUCCESS', null)
       commit('SET_MESSAGE_ERROR', e.response.data.error)
     }
   },
@@ -101,10 +102,10 @@ export const actions = {
 
       commit('SET_SESSIONS', [])
 
-      commit('SET_MESSAGE_ERROR', undefined)
+      commit('SET_MESSAGE_ERROR', null)
       commit('SET_MESSAGE_SUCCESS', res.message)
     } catch (e) {
-      commit('SET_MESSAGE_SUCCESS', undefined)
+      commit('SET_MESSAGE_SUCCESS', null)
       commit('SET_MESSAGE_ERROR', e.response.data.error)
     }
   },
@@ -144,6 +145,12 @@ export const mutations = {
   SET_MESSAGE_ERRORS: (state, errors) => {
     return (state.messages.errors = errors)
   },
+  TOGGLE_SIDEBAR_OPEN(state) {
+    return (state.sidebarOpen = !state.sidebarOpen)
+  },
+  SET_SIDEBAR_OPEN(state, boolean) {
+    return (state.sidebarOpen = boolean)
+  },
 }
 
 export const getters = {
@@ -173,5 +180,8 @@ export const getters = {
   },
   MESSAGE_ERRORS: (state) => {
     return state.messages.errors
+  },
+  SIDEBAR_OPEN: (state) => {
+    return state.sidebarOpen
   },
 }

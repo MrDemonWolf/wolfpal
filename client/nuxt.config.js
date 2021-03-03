@@ -44,6 +44,9 @@ export default {
     { src: '~/plugins/filters' },
     { src: '~/plugins/percentageCal' },
     { src: '~/plugins/is-empty' },
+    { src: '~/plugins/vue-content-loader' },
+    { src: '~/plugins/vue-loading-overlay', ssr: false },
+    { src: '~/plugins/vue-click-outside', srr: false },
   ],
   /*
    ** Auto import components
@@ -78,7 +81,11 @@ export default {
             'faUnlock',
             'faMapMarkerAlt',
             'faCalendar',
+            'faArrowLeft',
+            'faCircle',
+            'faHome',
           ],
+          brands: ['faGoogle', 'faTwitter', 'faGithub'],
         },
       },
     ],
@@ -112,7 +119,11 @@ export default {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: { proxy: true },
+  axios: {
+    proxy: true,
+    https: false,
+    credentials: true,
+  },
   proxy: {
     '/api/': {
       target: process.env.API_URI || 'http://localhost:8080',
@@ -126,6 +137,9 @@ export default {
    ** Auth configuration
    */
   auth: {
+    redirect: {
+      home: '/dashboard',
+    },
     strategies: {
       local: {
         scheme: 'refresh',
@@ -149,7 +163,7 @@ export default {
           user: { url: '/api/account', method: 'get' },
           logout: { url: '/api/auth/logout', method: 'post' },
         },
-        // autoLogout: false
+        autoLogout: false,
       },
     },
   },
@@ -169,6 +183,16 @@ export default {
     duration: 6500,
   },
 
+  /*
+   ** Color mode configuration
+   */
+  colorMode: {
+    classSuffix: '',
+  },
+
+  /*
+   ** Runtime configuration
+   */
   publicRuntimeConfig: {
     title: process.env.SITE_TITLE || 'WolfPal',
     description:
@@ -178,13 +202,28 @@ export default {
     copyrightLink:
       process.env.COPYRIGHT_LINK || 'https://www.mrdemonwolf.github.io/wolfpal',
     registration: process.env.REGISTRATION || true,
+    landing: {
+      description:
+        process.env.LANDING_DESCRIPTION ||
+        'A wolf to guide you to your end goals by helping keep you on track weely, bi-weekly or even monthly and yearly goals.',
+      features: {
+        title: process.env.LANDING_FEATURES_TITLE || 'All-in-one platform',
+        description:
+          process.env.LANDING_FEATURES_DESCRIPTION ||
+          `Includes all the tools to help motivate you to complete your goals in
+          life. One Wolf at a time.`,
+      },
+    },
+    mission:
+      process.env.SITE_MISSION ||
+      'Our Mission is to help you achieve life goals to motivate you to be a better you.',
   },
 
   /**
    * purgeCSS configuration
    */
   purgeCSS: {
-    whitelist: ['dark-mode'],
+    whitelist: ['dark'],
   },
 
   /*

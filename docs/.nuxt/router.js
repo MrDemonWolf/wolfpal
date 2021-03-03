@@ -4,9 +4,9 @@ import { normalizeURL, decode } from '@nuxt/ufo'
 import { interopDefault } from './utils'
 import scrollBehavior from './router.scrollBehavior.js'
 
-const _7b704165 = () => interopDefault(import('../node_modules/@nuxtjs/tailwindcss/lib/ui/pages/index.vue' /* webpackChunkName: "" */))
-const _5b13db4c = () => interopDefault(import('../node_modules/@nuxt/content-theme-docs/src/pages/releases.vue' /* webpackChunkName: "pages/releases" */))
-const _0794507e = () => interopDefault(import('../node_modules/@nuxt/content-theme-docs/src/pages/_.vue' /* webpackChunkName: "pages/_" */))
+const _403743b6 = () => interopDefault(import('../node_modules/@nuxtjs/tailwindcss/lib/ui/pages/index.vue' /* webpackChunkName: "" */))
+const _25d5ed9a = () => interopDefault(import('../node_modules/@nuxt/content-theme-docs/src/pages/releases.vue' /* webpackChunkName: "pages/releases" */))
+const _248a2481 = () => interopDefault(import('../node_modules/@nuxt/content-theme-docs/src/pages/_.vue' /* webpackChunkName: "pages/_" */))
 
 // TODO: remove in Nuxt 3
 const emptyFn = () => {}
@@ -26,19 +26,19 @@ export const routerOptions = {
 
   routes: [{
     path: "/_tailwind",
-    component: _7b704165,
+    component: _403743b6,
     name: "_tailwind"
   }, {
     path: "/releases",
-    component: _5b13db4c,
+    component: _25d5ed9a,
     name: "releases___en"
   }, {
     path: "/",
-    component: _0794507e,
+    component: _248a2481,
     name: "index___en"
   }, {
     path: "/*",
-    component: _0794507e,
+    component: _248a2481,
     name: "all___en"
   }],
 

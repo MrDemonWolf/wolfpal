@@ -1,8 +1,8 @@
 export const state = () => ({
   weekly: [],
   messages: {
-    success: undefined,
-    error: undefined,
+    success: null,
+    error: null,
   },
 })
 
@@ -20,9 +20,9 @@ export const actions = {
         index,
         isCompleted: res.isCompleted,
       })
-      commit('SET_MESSAGE_ERROR', undefined)
+      commit('SET_MESSAGE_ERROR', null)
     } catch (e) {
-      commit('SET_MESSAGE_SUCCESS', undefined)
+      commit('SET_MESSAGE_SUCCESS', null)
       commit('SET_MESSAGE_ERROR', e.response.data.error)
     }
   },
@@ -31,22 +31,22 @@ export const actions = {
       const res = await this.$axios.$delete(
         `/api/goals/weekly/${state.weekly[index]._id}`
       )
-      commit('SET_MESSAGE_ERROR', undefined)
+      commit('SET_MESSAGE_ERROR', null)
       commit('SET_MESSAGE_SUCCESS', res.message)
       commit('DELETE_WEEKLY_GOAL', index)
     } catch (e) {
-      commit('SET_MESSAGE_SUCCESS', undefined)
+      commit('SET_MESSAGE_SUCCESS', null)
       commit('SET_MESSAGE_ERROR', e.response.data.error)
     }
   },
   async ADD_WEEKLY_GOAL({ commit }, goal) {
     try {
       const res = await this.$axios.$post('/api/goals/weekly', goal)
-      commit('SET_MESSAGE_ERROR', undefined)
+      commit('SET_MESSAGE_ERROR', null)
       commit('SET_MESSAGE_SUCCESS', res.message)
       commit('PUSH_WEEKLY_GOAL', res.goal)
     } catch (e) {
-      commit('SET_MESSAGE_SUCCESS', undefined)
+      commit('SET_MESSAGE_SUCCESS', null)
       commit('SET_MESSAGE_ERROR', e.response.data.error)
     }
   },

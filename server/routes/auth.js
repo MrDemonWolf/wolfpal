@@ -56,10 +56,10 @@ router.post('/register', isRegistration, async (req, res) => {
     /**
      * Validdate the user important for username,email,password
      */
-    const { errors, isValid } = validateRegisterInput(req.body);
+    const { codes, errors, isValid } = validateRegisterInput(req.body);
 
     if (!isValid) {
-      return res.status(400).json({ code: 400, errors });
+      return res.status(400).json({ code: 400, codes, errors });
     }
 
     const { username, email, password } = req.body;
@@ -73,8 +73,8 @@ router.post('/register', isRegistration, async (req, res) => {
 
     if (alreadyAccount) {
       return res.status(409).json({
-        code: 409,
-        error: 'The email you are attempting to sign up with is already in use.'
+        code: 'ALREADY_EXISTS',
+        error: 'This username or email already exists.'
       });
     }
 
@@ -107,12 +107,15 @@ router.post('/register', isRegistration, async (req, res) => {
     if (process.env.NODE_ENV !== 'test') await sendgrid.send(msg);
 
     res.status(201).json({
-      code: 201,
-      message: 'Please confirm your email address to complete the registration.'
+      code: 'PENDING_CONFIRMATION',
+      error: 'Please confirm your email address to complete the registration.'
     });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ code: 500, error: 'Internal Server Error' });
+    res.status(500).json({
+      code: 'INTERNAL_SERVER_ERROR',
+      error: 'Invalid two factor token.'
+    });
   }
 });
 
@@ -127,10 +130,10 @@ router.post('/login', async (req, res) => {
      * Validdate the user important for email,password.
      */
 
-    const { errors, isValid } = validateLoginInput(req.body);
+    const { codes, errors, isValid } = validateLoginInput(req.body);
 
     if (!isValid) {
-      return res.status(400).json({ code: 400, errors });
+      return res.status(400).json({ code: 400, codes, errors });
     }
 
     const { email, password } = req.body;
@@ -139,17 +142,17 @@ router.post('/login', async (req, res) => {
 
     if (!user) {
       return res.status(400).json({
-        code: 400,
-        error: `Couldn't find your ${process.env.SITE_TITLE} Account`
+        code: 'NON_EXISTENT',
+        error: 'Either email or password is invalid. '
       });
     }
 
-    const vailidPassword = await user.verifyPassword(password);
+    const validPassword = await user.verifyPassword(password);
 
-    if (!vailidPassword) {
+    if (!validPassword) {
       return res.status(400).json({
-        code: 400,
-        error: 'Wrong email or password.'
+        code: 'INVALID_CREDENTIALS',
+        error: 'Either email or password is invalid. '
       });
     }
 
@@ -163,9 +166,9 @@ router.post('/login', async (req, res) => {
       await newTwoFactorToken.save();
 
       return res.status(200).json({
-        code: 200,
+        code: 'TWO_FACTOR_REQUIRED',
+        error: 'Two Factor is required to complete login.',
         token: newTwoFactorToken.token,
-        message: 'Enter your 2FA code',
         twoFactor: true
       });
     }
@@ -227,14 +230,16 @@ router.post('/login', async (req, res) => {
     await session.save();
 
     res.status(200).json({
-      code: 200,
       access_token: accessToken,
       refresh_token: refreshToken,
       twoFactor: false
     });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ code: 500, error: 'Internal Server Error' });
+    res.status(500).json({
+      code: 'INTERNAL_SERVER_ERROR',
+      error: 'Invalid two factor token.'
+    });
   }
 });
 
@@ -249,10 +254,10 @@ router.post('/two-factor', async (req, res) => {
      * Validdate the user important for email,password.
      */
 
-    const { errors, isValid } = validateTwoFactorInput(req.body);
+    const { errors, codes, isValid } = validateTwoFactorInput(req.body);
 
     if (!isValid) {
-      return res.status(400).json({ code: 400, errors });
+      return res.status(400).json({ code: 400, codes, errors });
     }
 
     const { token, code } = req.body;
@@ -260,17 +265,9 @@ router.post('/two-factor', async (req, res) => {
     const twoFactor = await TwoFactor.findOne({ token }).populate('user');
 
     if (!twoFactor) {
-      return res.status(401).json({
-        code: 401,
+      return res.status(400).json({
+        code: 'INVALID_TWO_FACTOR_TOKEN',
         error: 'Invalid two factor token.'
-      });
-    }
-
-    if (!twoFactor.user.emailVerified) {
-      return res.status(401).send({
-        status: 401,
-        error:
-          'Your account must be activated before you can login. Please check your email you signed up with.'
       });
     }
 
@@ -286,10 +283,13 @@ router.post('/two-factor', async (req, res) => {
       code
     );
 
+    /**
+     * Checks both if the Two Factor is valid and or the back up codes are.
+     */
     if (!isTwoFactorValid) {
       if (!isTwoFactorBackupCodeValid) {
         return res.status(401).json({
-          code: 401,
+          code: 'INVALID_TWO_FACTOR_CODE',
           error: 'Invalid two factor code.'
         });
       }
@@ -361,14 +361,16 @@ router.post('/two-factor', async (req, res) => {
     );
 
     res.status(200).json({
-      code: 200,
       access_token: accessToken,
       refresh_token: refreshToken,
       twoFactor: true
     });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ code: 500, error: 'Internal Server Error' });
+    res.status(500).json({
+      code: 'INTERNAL_SERVER_ERROR',
+      error: 'Internal Server Error'
+    });
   }
 });
 
@@ -443,13 +445,15 @@ router.post('/refresh', isRefreshValid, async (req, res) => {
     });
     await session.save();
     res.status(200).json({
-      code: 200,
       access_token: accessToken,
       refresh_token: refreshToken
     });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ code: 500, error: 'Internal Server Error' });
+    res.status(500).json({
+      code: 'INTERNAL_SERVER_ERROR',
+      error: 'Internal Server Error'
+    });
   }
 });
 
@@ -473,12 +477,14 @@ router.post('/logout', isSessionValid, async (req, res) => {
      */
     await Session.findOneAndDelete({ accessTokenHash });
     res.status(200).json({
-      code: 200,
-      message: 'You are now logged out.'
+      code: 'LOGGED_OUT'
     });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ code: 500, error: 'Internal Server Error' });
+    res.status(500).json({
+      code: 'INTERNAL_SERVER_ERROR',
+      error: 'Internal Server Error'
+    });
   }
 });
 

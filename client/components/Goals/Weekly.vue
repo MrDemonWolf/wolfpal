@@ -1,12 +1,5 @@
 <template>
-  <div class="p-6 m-4 rounded shadow bg-gray-50 dark:bg-gray-200">
-    <h1
-      class="text-2xl font-extrabold text-center text-primary-900 font-roboto"
-    >
-      Weekly Goals
-    </h1>
-    <Alert v-if="error" type="danger" :message="error" class="mt-4 mb-4" />
-    <Alert v-if="success" type="success" :message="success" class="mt-4 mb-4" />
+  <div class="px-6 py-2 rounded shadow bg-gray-50 dark:bg-gray-200">
     <div class="mb-4">
       <form class="flex mt-4" @submit.prevent="addGoal">
         <input
@@ -67,10 +60,7 @@
 </template>
 
 <script>
-import Alert from '@/components/Shared/Alert'
-
 export default {
-  components: { Alert },
   props: {
     goals: {
       type: Array,
