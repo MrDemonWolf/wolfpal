@@ -11,6 +11,7 @@ export const state = () => ({
     error: null,
     errors: [],
   },
+  sidebarOpen: false,
 })
 
 export const actions = {
@@ -144,6 +145,12 @@ export const mutations = {
   SET_MESSAGE_ERRORS: (state, errors) => {
     return (state.messages.errors = errors)
   },
+  TOGGLE_SIDEBAR_OPEN(state) {
+    return (state.sidebarOpen = !state.sidebarOpen)
+  },
+  SET_SIDEBAR_OPEN(state, boolean) {
+    return (state.sidebarOpen = boolean)
+  },
 }
 
 export const getters = {
@@ -173,5 +180,8 @@ export const getters = {
   },
   MESSAGE_ERRORS: (state) => {
     return state.messages.errors
+  },
+  SIDEBAR_OPEN: (state) => {
+    return state.sidebarOpen
   },
 }

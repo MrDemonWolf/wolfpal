@@ -81,6 +81,7 @@ export default {
             'faUnlock',
             'faMapMarkerAlt',
             'faCalendar',
+            'faArrowLeft',
             'faCircle',
             'faHome',
           ],
@@ -118,7 +119,11 @@ export default {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: { proxy: true, https: false },
+  axios: {
+    proxy: true,
+    https: false,
+    credentials: true,
+  },
   proxy: {
     '/api/': {
       target: process.env.API_URI || 'http://localhost:8080',

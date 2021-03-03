@@ -43,8 +43,8 @@
 </template>
 
 <script>
-import DesktopSidebar from '@/components/Shared/DesktopSidebar'
-import MobileSidebar from '@/components/Shared/MobileSidebar'
+import DesktopSidebar from '@/components/Dashboard/DesktopSidebar'
+import MobileSidebar from '@/components/Dashboard/MobileSidebar'
 import NotificationsDropdown from '@/components/Shared/NotificationsDropdown'
 import ProfileDropdown from '@/components/Shared/ProfileDropdown'
 import HeroIconOutLineMenuAlt2 from '@/assets/vectors/heroicon/outline/menu-alt-2.svg?inline'
@@ -92,10 +92,6 @@ export default {
           position: 'bottom-right',
         })
       }
-    },
-
-    async signout() {
-      await this.$auth.logout()
     },
   },
 }

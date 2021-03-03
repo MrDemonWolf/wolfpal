@@ -68,17 +68,18 @@ export default {
 
   methods: {
     async getAnalytics() {
-      await this.$axios
-        .$get('/api/stats')
-        .then((res) => {
-          this.stats.weekly.completed = res.weekly.completed
-          this.stats.weekly.notCompleted = res.weekly.notCompleted
-          this.stats.weekly.total = res.weekly.total
-          this.loading.weekly = false
-        })
-        .catch((err) => {
-          this.error({ statusCode: 500, message: err.error })
-        })
+      try {
+        const res = await this.$axios.$get('/api/stats')
+        this.stats.weekly.completed = res.weekly.completed
+        this.stats.weekly.notCompleted = res.weekly.notCompleted
+        this.stats.weekly.total = res.weekly.total
+        this.loading.weekly = false
+      } catch (e) {
+        this.stats.weekly.completed = 'N/A'
+        this.stats.weekly.notCompleted = 'N/A'
+        this.stats.weekly.total = 'N/A'
+        this.loading.weekly = false
+      }
     },
   },
 }
