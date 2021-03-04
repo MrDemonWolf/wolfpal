@@ -59,7 +59,7 @@ router.post('/register', isRegistration, async (req, res) => {
     const { codes, errors, isValid } = validateRegisterInput(req.body);
 
     if (!isValid) {
-      return res.status(400).json({ code: 400, codes, errors });
+      return res.status(400).json({ codes, errors });
     }
 
     const { username, email, password } = req.body;
@@ -114,7 +114,7 @@ router.post('/register', isRegistration, async (req, res) => {
     console.log(err);
     res.status(500).json({
       code: 'INTERNAL_SERVER_ERROR',
-      error: 'Invalid two factor token.'
+      error: 'Internal Server Error.'
     });
   }
 });
@@ -238,7 +238,7 @@ router.post('/login', async (req, res) => {
     console.log(err);
     res.status(500).json({
       code: 'INTERNAL_SERVER_ERROR',
-      error: 'Invalid two factor token.'
+      error: 'Internal Server Error.'
     });
   }
 });
@@ -369,7 +369,7 @@ router.post('/two-factor', async (req, res) => {
     console.log(err);
     res.status(500).json({
       code: 'INTERNAL_SERVER_ERROR',
-      error: 'Internal Server Error'
+      error: 'Internal Server Error.'
     });
   }
 });
@@ -452,7 +452,7 @@ router.post('/refresh', isRefreshValid, async (req, res) => {
     console.log(err);
     res.status(500).json({
       code: 'INTERNAL_SERVER_ERROR',
-      error: 'Internal Server Error'
+      error: 'Internal Server Error.'
     });
   }
 });
@@ -483,7 +483,7 @@ router.post('/logout', isSessionValid, async (req, res) => {
     console.log(err);
     res.status(500).json({
       code: 'INTERNAL_SERVER_ERROR',
-      error: 'Internal Server Error'
+      error: 'Internal Server Error.'
     });
   }
 });
