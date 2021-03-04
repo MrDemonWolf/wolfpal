@@ -66,10 +66,13 @@ router.get('/', requireAuth, isSessionValid, async (req, res) => {
       '-password -twoFactorSecret -twoFactorBackupCodes -emailVerificationToken -emailVerificationTokenExpire'
     );
 
-    res.status(200).json({ code: 200, user });
+    res.status(200).json({ user });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ code: 500, error: 'Internal Server Error' });
+    res.status(500).json({
+      code: 'INTERNAL_SERVER_ERROR',
+      error: 'Internal Server Error.'
+    });
   }
 });
 
@@ -87,10 +90,13 @@ router.get('/sessions', requireAuth, isSessionValid, async (req, res) => {
       user: req.user.id
     }).select('-user -__v -updatedAt');
 
-    res.status(200).json({ code: 200, sessions, total: sessions.length });
+    res.status(200).json({ sessions, total: sessions.length });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ code: 500, error: 'Internal Server Error' });
+    res.status(500).json({
+      code: 'INTERNAL_SERVER_ERROR',
+      error: 'Internal Server Error.'
+    });
   }
 });
 
@@ -110,13 +116,19 @@ router.delete(
       if (!session) {
         return res
           .status(404)
-          .json({ code: 404, message: 'Session not found.' });
+          .json({ code: 'SESSION_NOT_FOUND', error: 'Session not found.' });
       }
 
-      res.status(200).json({ code: 200, message: 'Session has been revoked.' });
+      res.status(200).json({
+        code: 'SESSION_REVOKED',
+        error: 'Session has been revoked.'
+      });
     } catch (err) {
       console.log(err);
-      res.status(500).json({ code: 500, error: 'Internal Server Error' });
+      res.status(500).json({
+        code: 'INTERNAL_SERVER_ERROR',
+        error: 'Internal Server Error.'
+      });
     }
   }
 );
@@ -130,10 +142,16 @@ router.delete(
 router.delete('/sessions', requireAuth, isSessionValid, async (req, res) => {
   try {
     await Session.deleteMany({ user: req.user.id, isRevoked: { $ne: true } });
-    res.status(200).json({ code: 200, message: 'All Sessions has been revoked.' });
+    res.status(200).json({
+      code: 'ALL_SESSIONS_REVOKE',
+      error: 'All Sessions has been revoked.'
+    });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ code: 500, error: 'Internal Server Error' });
+    res.status(500).json({
+      code: 'INTERNAL_SERVER_ERROR',
+      error: 'Internal Server Error.'
+    });
   }
 });
 
@@ -147,13 +165,14 @@ router.post('/change-email', requireAuth, isSessionValid, async (req, res) => {
     /**
      * Validdate the user important for username,email,password
      */
-    const { errors, isValid } = validateChangeEmailInput(req.body);
+    const { codes, errors, isValid } = validateChangeEmailInput(req.body);
 
     if (!isValid) {
-      return res.status(400).json({ code: 400, errors });
+      return res.status(400).json({ codes, errors });
     }
 
     const { email } = req.body;
+
     /**
      * Get the current logged in account from the database
      */
@@ -161,7 +180,7 @@ router.post('/change-email', requireAuth, isSessionValid, async (req, res) => {
 
     if (email === user.email) {
       return res.status(409).json({
-        code: 409,
+        code: 'EMAIL_CONFLICT',
         error:
           'The email you are attempting to change to is the same as your current one.'
       });
@@ -176,7 +195,7 @@ router.post('/change-email', requireAuth, isSessionValid, async (req, res) => {
 
     if (isAlready) {
       return res.status(409).json({
-        code: 409,
+        code: 'ALREADY_EXISTS',
         error: 'The email you are attempting to change to is already in use.'
       });
     }
@@ -199,13 +218,16 @@ router.post('/change-email', requireAuth, isSessionValid, async (req, res) => {
     if (process.env.NODE_ENV !== 'test') await sendgrid.send(msg);
 
     res.status(200).json({
-      code: 200,
+      code: 'PENDING_CONFIRMATION',
       message:
         'Please check your new email address to complate the email change.'
     });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ code: 500, error: 'Internal Server Error' });
+    res.status(500).json({
+      code: 'INTERNAL_SERVER_ERROR',
+      error: 'Internal Server Error.'
+    });
   }
 });
 
@@ -224,7 +246,7 @@ router.post(
 
       if (!user.newEmail) {
         return res.status(400).json({
-          code: 400,
+          code: 'EMAIL_CHANGE_NOT_REQUESTED',
           error: 'You have not requsted a email change.'
         });
       }
@@ -246,13 +268,16 @@ router.post(
       if (process.env.NODE_ENV !== 'test') await sendgrid.send(msg);
 
       res.status(200).json({
-        code: 200,
+        code: 'PENDING_CONFIRMATION',
         message:
           'Please check your new email address to complate the email change.'
       });
     } catch (err) {
       console.log(err);
-      res.status(500).json({ code: 500, error: 'Internal Server Error' });
+      res.status(500).json({
+        code: 'INTERNAL_SERVER_ERROR',
+        error: 'Internal Server Error.'
+      });
     }
   }
 );
@@ -278,7 +303,7 @@ router.put(
 
       if (!user) {
         return res.status(400).json({
-          code: 400,
+          code: 'EXPIRED_CONFIRMATION',
           error:
             'Either your new email confirmation link has expired or already has been used.'
         });
@@ -292,12 +317,15 @@ router.put(
       await user.save();
 
       res.status(200).json({
-        code: 200,
+        code: 'EMAIL_CHANGED',
         message: 'Your email has been changed successfully.'
       });
     } catch (err) {
       console.log(err);
-      res.status(500).json({ code: 500, error: 'Internal Server Error' });
+      res.status(500).json({
+        code: 'INTERNAL_SERVER_ERROR',
+        error: 'Internal Server Error.'
+      });
     }
   }
 );
@@ -316,10 +344,10 @@ router.put(
       /**
        * Validdate the user input oldPassword,newPassword
        */
-      const { errors, isValid } = validateChangePasswordInput(req.body);
+      const { codes, errors, isValid } = validateChangePasswordInput(req.body);
 
       if (!isValid) {
-        return res.status(400).json({ code: 400, errors });
+        return res.status(400).json({ codes, errors });
       }
 
       /**
@@ -333,7 +361,7 @@ router.put(
 
       if (isPasswordSame) {
         return res.status(409).json({
-          code: 409,
+          code: 'PASSWORD_CONFLICT',
           errors: {
             newPassword: 'New password can not match old password.'
           }
@@ -344,7 +372,7 @@ router.put(
 
       if (!isMatch) {
         return res.status(409).json({
-          code: 409,
+          code: 'INVALID_CREDENTIALS',
           errors: { oldPassword: 'Wrong old password.' }
         });
       }
@@ -389,12 +417,15 @@ router.put(
       if (process.env.NODE_ENV !== 'test') await sendgrid.send(msg);
 
       res.status(200).json({
-        code: 200,
+        code: 'PASSWORD_CHANGED',
         message: 'Your password has been changed.'
       });
     } catch (err) {
       console.log(err);
-      res.status(500).json({ code: 500, error: 'Internal Server Error' });
+      res.status(500).json({
+        code: 'INTERNAL_SERVER_ERROR',
+        error: 'Internal Server Error.'
+      });
     }
   }
 );
@@ -413,10 +444,10 @@ router.put(
       /**
        * Validdate the user input oldPassword,newPassword
        */
-      const { errors, isValid } = validateChangeUsernameInput(req.body);
+      const { codes, errors, isValid } = validateChangeUsernameInput(req.body);
 
       if (!isValid) {
-        return res.status(400).json({ code: 400, errors });
+        return res.status(400).json({ codes, errors });
       }
 
       const user = await User.findById(req.user.id);
@@ -429,17 +460,20 @@ router.put(
         user.username = username;
         await user.save();
         return res.status(200).json({
-          code: 200,
+          code: 'USERNAME_CHANGED',
           message: `Your username has been changed to ${user.username}`
         });
       }
       res.status(409).json({
-        code: 409,
+        code: 'USERNAME_CONFLICT',
         error: `${username} is currently not available.`
       });
     } catch (err) {
       console.log(err);
-      res.status(500).json({ code: 500, error: 'Internal Server Error' });
+      res.status(500).json({
+        code: 'INTERNAL_SERVER_ERROR',
+        error: 'Internal Server Error.'
+      });
     }
   }
 );
@@ -460,7 +494,7 @@ router.get(
        */
       if (!req.user.twoFactorSecret) {
         return res.status(400).send({
-          status: 400,
+          code: 'TWO_FACTOR_NOT_INITIALIZE',
           error:
             'You must first initialize Two Factor before you can download backup codes.'
         });
@@ -473,7 +507,10 @@ router.get(
         .send(user.twoFactorBackupCodes.join(' '));
     } catch (err) {
       console.log(err);
-      res.status(500).json({ code: 500, error: 'Internal Server Error' });
+      res.status(500).json({
+        code: 'INTERNAL_SERVER_ERROR',
+        error: 'Internal Server Error.'
+      });
     }
   }
 );
@@ -518,14 +555,16 @@ router.post('/two-factor', requireAuth, isSessionValid, async (req, res) => {
     const qrcodeDataURL = await qrcode.toDataURL(otpauth);
 
     res.status(200).json({
-      code: 200,
       qrCode: qrcodeDataURL,
       secret: twoFactorSecret,
       backupCodes
     });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ code: 500, error: 'Internal Server Error' });
+    res.status(500).json({
+      code: 'INTERNAL_SERVER_ERROR',
+      error: 'Internal Server Error.'
+    });
   }
 });
 
@@ -541,7 +580,7 @@ router.put('/two-factor', requireAuth, isSessionValid, async (req, res) => {
      */
     if (!req.user.twoFactorSecret) {
       return res.status(400).send({
-        status: 400,
+        code: 'TWO_FACTOR_NOT_INITIALIZE',
         error: 'You must first initialize Two Factor before you can enable it.'
       });
     }
@@ -549,10 +588,10 @@ router.put('/two-factor', requireAuth, isSessionValid, async (req, res) => {
     /**
      * Validdate the user important for username,email,password
      */
-    const { error, isValid } = validateEnableTwoFactorInput(req.body);
+    const { codes, errors, isValid } = validateEnableTwoFactorInput(req.body);
 
     if (!isValid) {
-      return res.status(400).json({ code: 400, error });
+      return res.status(400).json({ codes, errors });
     }
 
     const user = await User.findById(req.user.id);
@@ -567,7 +606,7 @@ router.put('/two-factor', requireAuth, isSessionValid, async (req, res) => {
 
     if (!isTwoFactorValid) {
       return res.status(400).json({
-        code: 400,
+        code: 'INVALID_TWO_FACTOR_TOKEN',
         error: 'Invalid two factor code.'
       });
     }
@@ -577,13 +616,15 @@ router.put('/two-factor', requireAuth, isSessionValid, async (req, res) => {
     await user.save();
 
     res.status(200).json({
-      code: 200,
-      message: 'Two factor has been enabled.',
-      twoFactor: true
+      code: 'TWO_FACTOR_ENABLED',
+      message: 'Two factor has been enabled.'
     });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ code: 500, error: 'Internal Server Error' });
+    res.status(500).json({
+      code: 'INTERNAL_SERVER_ERROR',
+      error: 'Internal Server Error.'
+    });
   }
 });
 
@@ -597,10 +638,10 @@ router.delete('/two-factor', requireAuth, isSessionValid, async (req, res) => {
     /**
      * Validdate the user import for two factor
      */
-    const { error, isValid } = validateDisableTwoFactorInput(req.query);
+    const { codes, errors, isValid } = validateDisableTwoFactorInput(req.query);
 
     if (!isValid) {
-      return res.status(400).json({ code: 400, error });
+      return res.status(400).json({ codes, errors });
     }
     /**
      * Find the user
@@ -612,7 +653,7 @@ router.delete('/two-factor', requireAuth, isSessionValid, async (req, res) => {
      */
     if (!user.twoFactor) {
       return res.status(400).send({
-        status: 400,
+        code: 'TWO_FACTOR_NOT_INITIALIZE',
         error:
           'You must first initialize Two Factor and have it enabled before it can be removed.'
       });
@@ -627,7 +668,7 @@ router.delete('/two-factor', requireAuth, isSessionValid, async (req, res) => {
 
     if (!isTwoFactorValid) {
       return res.status(400).json({
-        code: 400,
+        code: 'INVALID_TWO_FACTOR_TOKEN',
         error: 'Invalid two factor code.'
       });
     }
@@ -638,13 +679,16 @@ router.delete('/two-factor', requireAuth, isSessionValid, async (req, res) => {
     await user.save();
 
     res.status(200).json({
-      code: 200,
+      code: 'TWO_FACTOR_DISABLED',
       message: 'Two factor has been disabled.',
       twoFactor: false
     });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ code: 500, error: 'Internal Server Error' });
+    res.status(500).json({
+      code: 'INTERNAL_SERVER_ERROR',
+      error: 'Internal Server Error.'
+    });
   }
 });
 
