@@ -35,6 +35,9 @@ module.exports = async (req, res, next) => {
     res.status(401).send('Unauthorized');
   } catch (err) {
     console.log(err);
-    res.status(500).send('Internal Server Error');
+    res.status(500).json({
+      code: 'INTERNAL_SERVER_ERROR',
+      error: 'Internal Server Error.'
+    });
   }
 };
