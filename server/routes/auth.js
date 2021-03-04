@@ -264,13 +264,13 @@ router.post('/two-factor', async (req, res) => {
 
     const twoFactor = await TwoFactor.findOne({ token }).populate('user');
 
+
     if (!twoFactor) {
       return res.status(400).json({
         code: 'INVALID_TWO_FACTOR_TOKEN',
         error: 'Invalid two factor token.'
       });
     }
-
     /**
      * Verify the two factor code with the secret
      */
