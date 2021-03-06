@@ -35,12 +35,14 @@ router.get('/', requireAuth, isSessionValid, async (req, res) => {
     const user = await User.findById(req.user.id);
 
     res.status(200).json({
-      code: 200,
       notifications: user.notifications
     });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ code: 500, error: 'Internal Server Error' });
+    res.status(500).json({
+      code: 'INTERNAL_SERVER_ERROR',
+      error: 'Internal Server Error.'
+    });
   }
 });
 
@@ -54,10 +56,10 @@ router.put('/email', requireAuth, isSessionValid, async (req, res) => {
     /**
      * Validdate the user input weeklyGoals
      */
-    const { errors, isValid } = validateEmail(req.body);
+    const { codes, errors, isValid } = validateEmail(req.body);
 
     if (!isValid) {
-      return res.status(400).json({ code: 400, errors });
+      return res.status(400).json({ codes, errors });
     }
 
     const user = await User.findById(req.user.id);
@@ -66,12 +68,15 @@ router.put('/email', requireAuth, isSessionValid, async (req, res) => {
     await user.save();
 
     res.status(200).json({
-      code: 200,
+      code: 'EMAIL_NOTIFICATIONS_CHANGED',
       message: 'Your notifications preferences for email has been changed.'
     });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ code: 500, error: 'Internal Server Error' });
+    res.status(500).json({
+      code: 'INTERNAL_SERVER_ERROR',
+      error: 'Internal Server Error.'
+    });
   }
 });
 
