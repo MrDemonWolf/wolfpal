@@ -6,8 +6,8 @@ module.exports = async (req, res, next) => {
 
     if (!user) {
       return res.status(400).json({
-        code: 400,
-        error: `Couldn't find your ${process.env.SITE_TITLE} Account`
+        code: 'NON_EXISTENT',
+        error: 'Could not find the users account.'
       });
     }
 
@@ -15,12 +15,15 @@ module.exports = async (req, res, next) => {
       return next();
     }
     res.status(400).send({
-      status: 400,
+      code: 'PENDING_CONFIRMATION',
       error:
         'Your account must be activated before you can do that. Please check your email you signed up with.'
     });
   } catch (err) {
     console.log(err);
-    res.status(500).send('Internal Server Error');
+    res.status(500).json({
+      code: 'INTERNAL_SERVER_ERROR',
+      error: 'Internal Server Error.'
+    });
   }
 };

@@ -2,16 +2,19 @@ const Validator = require('validator');
 const isEmpty = require('../../../utils/is-empty');
 
 module.exports = data => {
-  let error = {};
+  const codes = {};
+  const errors = {};
 
   data.title = !isEmpty(data.title) ? data.title : '';
 
   if (Validator.isEmpty(data.title)) {
-    error = 'Goal is required.';
+    codes.title = 'REQUIRED';
+    errors.title = 'Title is required.';
   }
 
   return {
-    error,
-    isValid: isEmpty(error)
+    codes,
+    errors,
+    isValid: isEmpty(errors)
   };
 };
