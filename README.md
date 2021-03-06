@@ -4,7 +4,6 @@
 
 ![GitHub release](https://img.shields.io/github/release/mrdemonwolf/wolfpal.svg?include_prereleases&style=for-the-badge)
 [![GitHub last commit](https://img.shields.io/github/last-commit/mrdemonwolf/wolfpal.svg?logo=git&style=for-the-badge)](https://github.com/mrdemonwolf/share)
-[![Trello](https://img.shields.io/badge/Project%20Progress-blue?style=for-the-badge&logo=trello)](https://trello.com/b/8C90NPe5 "Follow the project progress here.")
 ![Travis (.com)](https://img.shields.io/travis/mrdemonwolf/wolfpal?style=for-the-badge)
 
 # What is WolfPal?
@@ -12,12 +11,6 @@
 A wolf to guide you to your end goals by helping keep you on track weely, bi-weekly or even monthly and yearly goals.
 
 This was made as a fun fullstack project.  Needed a tool like this for my personal life.
-
-<!-- ## Getting started
-
-### Client
-
-### Server -->
 
 ## Changelog
 
