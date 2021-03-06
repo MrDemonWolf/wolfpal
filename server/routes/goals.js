@@ -109,7 +109,7 @@ router.put(
       await goal.save();
       res
         .status(200)
-        .json({ code: 'GOAL_COMPLETED', isCompleted: goal.isCompleted });
+        .json({ code: 'COMPLETED', isCompleted: goal.isCompleted });
     } catch (err) {
       console.log(err);
       res.status(500).json({
@@ -143,7 +143,7 @@ router.delete(
 
       res
         .status(200)
-        .json({ code: 'GOAL_REMOVED', message: 'Goal has been removed.' });
+        .json({ code: 'REMOVED', message: 'Goal has been removed.' });
     } catch (err) {
       console.log(err);
       res.status(500).json({

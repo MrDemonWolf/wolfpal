@@ -46,10 +46,10 @@ router.post('/forgot-password', async (req, res) => {
     /**
      * Validdate the user important for username,email,password
      */
-    const { errors, isValid } = validateForgotPasswordInput(req.body);
+    const { codes, errors, isValid } = validateForgotPasswordInput(req.body);
 
     if (!isValid) {
-      return res.status(400).json({ code: 400, errors });
+      return res.status(400).json({ codes, errors });
     }
 
     const { email } = req.body;
@@ -61,7 +61,7 @@ router.post('/forgot-password', async (req, res) => {
 
     if (!user) {
       return res.status(400).json({
-        code: 400,
+        code: 'NON_EXISTENT',
         error: 'There is no account with that email.'
       });
     }
@@ -99,12 +99,15 @@ router.post('/forgot-password', async (req, res) => {
     if (process.env.NODE_ENV !== 'test') await sendgrid.send(msg);
 
     res.status(200).json({
-      code: 200,
-      message: `An Email has been sent to ${email} with further instructions on how to reset your password. Please check your email account.`
+      code: 'PENDING_CONFIRMATION',
+      error: `An Email has been sent to ${email} with further instructions on how to reset your password. Please check your email account.`
     });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ code: 500, error: 'Internal Server Error' });
+    res.status(500).json({
+      code: 'INTERNAL_SERVER_ERROR',
+      error: 'Internal Server Error.'
+    });
   }
 });
 
@@ -117,10 +120,10 @@ router.post('/reset-password/:reset_token', async (req, res) => {
     /**
      * Validdate the user important for username,email,password
      */
-    const { errors, isValid } = validateResetPasswordInput(req.body);
+    const { codes, errors, isValid } = validateResetPasswordInput(req.body);
 
     if (!isValid) {
-      return res.status(400).json({ code: 400, errors });
+      return res.status(400).json({ codes, errors });
     }
 
     /**
@@ -135,7 +138,7 @@ router.post('/reset-password/:reset_token', async (req, res) => {
 
     if (!user) {
       return res.status(400).json({
-        code: 400,
+        code: 'EXPIRED_OR_ALREADY_USED',
         error: 'Either your reset link has expired or already has been used.'
       });
     }
@@ -190,13 +193,16 @@ router.post('/reset-password/:reset_token', async (req, res) => {
     await user.save();
 
     res.status(200).json({
-      code: 200,
-      message:
+      code: 'UPDATED',
+      error:
         'Your passsword has been updated.  Please try logging in with your new password.'
     });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ code: 500, error: 'Internal Server Error' });
+    res.status(500).json({
+      code: 'INTERNAL_SERVER_ERROR',
+      error: 'Internal Server Error.'
+    });
   }
 });
 
@@ -218,7 +224,7 @@ router.put('/activate-account/:activate_token', async (req, res) => {
 
     if (!user) {
       return res.status(400).json({
-        code: 400,
+        code: 'EXPIRED_OR_ALREADY_USED',
         error:
           'Either your account activate link has expired or already has been used.'
       });
@@ -229,12 +235,15 @@ router.put('/activate-account/:activate_token', async (req, res) => {
 
     await user.save();
     res.status(200).json({
-      code: 200,
+      code: 'ACTIVATED',
       message: `Good job! Your account is now activated and you can start using ${process.env.SITE_TITLE}.`
     });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ code: 500, error: 'Internal Server Error' });
+    res.status(500).json({
+      code: 'INTERNAL_SERVER_ERROR',
+      error: 'Internal Server Error.'
+    });
   }
 });
 
@@ -254,7 +263,7 @@ router.post('/activate-account/resend', async (req, res) => {
 
     if (!user) {
       return res.status(409).json({
-        code: 409,
+        code: 'NON_EXISTENT_OR_ALREADY_ACTIVATED',
         error: 'Your account already activated or there is no such account.'
       });
     }
@@ -276,12 +285,15 @@ router.post('/activate-account/resend', async (req, res) => {
     if (process.env.NODE_ENV !== 'test') await sendgrid.send(msg);
 
     res.status(200).json({
-      code: 200,
+      code: 'PENDING_CONFIRMATION',
       message: 'Please check your email address to complete the registration.'
     });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ code: 500, error: 'Internal Server Error' });
+    res.status(500).json({
+      code: 'INTERNAL_SERVER_ERROR',
+      error: 'Internal Server Error.'
+    });
   }
 });
 
