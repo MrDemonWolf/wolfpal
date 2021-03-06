@@ -47,7 +47,6 @@ router.get('/', requireAuth, isSessionValid, async (req, res) => {
     }).countDocuments();
 
     res.status(200).json({
-      code: 200,
       weekly: {
         completed: weeklyCompleted,
         notCompleted: weeklyNotCompleted,
@@ -56,7 +55,10 @@ router.get('/', requireAuth, isSessionValid, async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ code: 500, error: 'Internal Server Error' });
+    res.status(500).json({
+      code: 'INTERNAL_SERVER_ERROR',
+      error: 'Internal Server Error.'
+    });
   }
 });
 
@@ -86,7 +88,6 @@ router.get('/weekly', requireAuth, isSessionValid, async (req, res) => {
     }).countDocuments();
 
     res.status(200).json({
-      code: 200,
       weekly: {
         completed: weeklyCompleted,
         notCompleted: weeklyNotCompleted,
@@ -95,7 +96,10 @@ router.get('/weekly', requireAuth, isSessionValid, async (req, res) => {
     });
   } catch (err) {
     console.log(err);
-    res.status(500).json({ code: 500, error: 'Internal Server Error' });
+    res.status(500).json({
+      code: 'INTERNAL_SERVER_ERROR',
+      error: 'Internal Server Error.'
+    });
   }
 });
 
