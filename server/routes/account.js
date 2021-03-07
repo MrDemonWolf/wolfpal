@@ -555,6 +555,8 @@ router.post('/two-factor', requireAuth, isSessionValid, async (req, res) => {
     const qrcodeDataURL = await qrcode.toDataURL(otpauth);
 
     res.status(200).json({
+      code: 'PENDING_VERIFICATION',
+      error: 'Two Factor is pending verification.',
       qrCode: qrcodeDataURL,
       secret: twoFactorSecret,
       backupCodes
@@ -681,7 +683,6 @@ router.delete('/two-factor', requireAuth, isSessionValid, async (req, res) => {
     res.status(200).json({
       code: 'TWO_FACTOR_DISABLED',
       message: 'Two factor has been disabled.',
-      twoFactor: false
     });
   } catch (err) {
     console.log(err);

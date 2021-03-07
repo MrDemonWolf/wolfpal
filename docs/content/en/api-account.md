@@ -36,9 +36,14 @@ curl --location --request GET 'https://www.example.com/api/account' \
 
 ```json
 {
-  "code": 200,
   "user": {
-    "emailVerified": false,
+    "notifications": {
+      "email": {
+        "weeklyGoals": true
+      }
+    },
+    "twoFactor": false,
+    "emailVerified": true,
     "isBanned": false,
     "streamerMode": false,
     "role": "user",
@@ -47,7 +52,8 @@ curl --location --request GET 'https://www.example.com/api/account' \
     "email": "mrdemonwolf@example.com",
     "createdAt": "2020-09-07T17:37:33.526Z",
     "updatedAt": "2020-09-07T17:37:33.526Z",
-    "slug": "mrdemonwolf"
+    "slug": "mrdemonwolf",
+    "__v": 140
   }
 }
 ```
@@ -86,9 +92,10 @@ curl --location --request POST 'https://www.example.com/api/account/two-factor' 
 
 ```json
 {
+  "code": "PENDING_VERIFICATION",
+  "error": "Two Factor is pending verification.",
   "qrcode": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAANQAAADUCAYAAADk3g0YAAAAAklEQVR4AewaftIAAAppSURBVO3BQY4YybLgQDJR978yR0tfBZDIKKn..........",
-  "twoFactorSecret": "I5TCO6QBCFIRSVRR",
-  "code": 200
+  "twoFactorSecret": "I5TCO6QBCFIRSVRR"
 }
 ```
 
@@ -135,9 +142,8 @@ curl --location --request PUT 'https://www.example.com/api/account/two-factor' \
 
 ```json
 {
-  "code": 200,
-  "message": "Two factor has been enabled.",
-  "twoFactor": true
+  "code": "TWO_FACTOR_ENABLED",
+  "message": "Two factor has been enabled."
 }
 ```
 
@@ -181,9 +187,8 @@ curl --location --request DELETE 'https://www.example.com/api/account/two-factor
 
 ```json
 {
-  "code": 200,
-  "message": "Two factor has been disabled.",
-  "twoFactor": false
+  "code": "TWO_FACTOR_DISABLED",
+  "message": "Two factor has been disabled."
 }
 ```
 
@@ -264,7 +269,7 @@ curl --location --request POST 'https://www.example.com/api/account/change-email
 
 ```json
 {
-  "code": 200,
+  "code": "PENDING_CONFIRMATION",
   "message": "Please check your new email address to complate the email change."
 }
 ```
@@ -303,7 +308,7 @@ curl --location --request POST 'https://www.example.com/api/account/change-email
 
 ```json
 {
-  "code": 200,
+  "code": "PENDING_CONFIRMATION",
   "message": "Please check your new email address to complate the email change."
 }
 ```
@@ -347,8 +352,8 @@ curl --location --request PUT 'https://www.example.com/api/account/change-email/
 
 ```json
 {
-  "code": 200,
-  "message": "Please check your new email address to complate the email change."
+  "code": "EMAIL_CHANGED",
+  "message": "Your email has been changed successfully."
 }
 ```
 
@@ -396,7 +401,7 @@ curl --location --request PUT 'https://www.example.com/api/account/change-passwo
 
 ```json
 {
-  "code": 200,
+  "code": "PASSWORD_CHANGED",
   "message": "Your password has been changed."
 }
 ```
@@ -443,8 +448,8 @@ curl --location --request PUT 'https://www.example.com/api/account/change-userna
 
 ```json
 {
-  "code": 200,
-  "message": "Your username has been changed to Example123"
+  "code": "USERNAME_CHANGED",
+  "message": "Your username has been changed to MrDemonWolf69"
 }
 ```
 
@@ -482,7 +487,6 @@ curl --location --request GET 'https://www.example.com/api/account/sessions' \
 
 ```json
 {
-  "code": 200,
   "sessions": [
     {
       "device": {
@@ -548,8 +552,8 @@ curl --location --request DELETE 'https://www.example.com/api/account/sessions/:
 
 ```json
 {
-  "code": 200,
-  "message": "Session has been revoked."
+  "code": "SESSION_REVOKED",
+  "error": "Session has been revoked."
 }
 ```
 
@@ -587,8 +591,8 @@ curl --location --request DELETE 'https://www.example.com/api/account/sessions' 
 
 ```json
 {
-  "code": 200,
-  "message": "All Sessions has been revoked."
+  "code": "ALL_SESSIONS_REVOKE",
+  "error": "All Sessions has been revoked."
 }
 ```
 
