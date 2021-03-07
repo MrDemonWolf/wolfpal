@@ -264,7 +264,6 @@ router.post('/two-factor', async (req, res) => {
 
     const twoFactor = await TwoFactor.findOne({ token }).populate('user');
 
-
     if (!twoFactor) {
       return res.status(400).json({
         code: 'INVALID_TWO_FACTOR_TOKEN',
@@ -477,7 +476,8 @@ router.post('/logout', isSessionValid, async (req, res) => {
      */
     await Session.findOneAndDelete({ accessTokenHash });
     res.status(200).json({
-      code: 'LOGGED_OUT'
+      code: 'LOGGED_OUT',
+      error: 'You are now logged out.'
     });
   } catch (err) {
     console.log(err);

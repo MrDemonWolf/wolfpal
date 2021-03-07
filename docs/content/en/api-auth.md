@@ -46,8 +46,8 @@ curl --location --request POST 'https://www.example.com/api/auth/register' \
 
 ```json
 {
-  "code": 200,
-  "message": "Please confirm your email address to complete the registration."
+  "code": "PENDING_CONFIRMATION",
+  "error": "Please confirm your email address to complete the registration."
 }
 ```
 
@@ -93,7 +93,6 @@ curl --location --request POST 'https://www.example.com/api/auth/login' \
 
 ```json
 {
-  "code": 200,
   "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjRiZmYxMjEwMzdlNDI0YTE3YTNlYmMiLCJpYXQiOjE1OTkyNDE1OTMsImV4cCI6MTU5OTI0MzM5M30.FuLUNEc_lE8jI2KEur0KsQzZFjIh5kymnLdR0Udycxk",
   "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjRiZmYxMjEwMzdlNDI0YTE3YTNlYmMiLCJpYXQiOjE1OTkyNDE1OTMsImV4cCI6MTU5OTMyNzk5M30.QtOrs1kJyh7sWDt2Y0_VpPRyXYZcfK9W4SR-YsxCrHk",
   "twoFactor": false
@@ -142,7 +141,6 @@ curl --location --request POST 'https://www.example.com/api/auth/two-factor' \
 
 ```json
 {
-  "code": 200,
   "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjRiZmYxMjEwMzdlNDI0YTE3YTNlYmMiLCJpYXQiOjE1OTkyNDE1OTMsImV4cCI6MTU5OTI0MzM5M30.FuLUNEc_lE8jI2KEur0KsQzZFjIh5kymnLdR0Udycxk",
   "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjRiZmYxMjEwMzdlNDI0YTE3YTNlYmMiLCJpYXQiOjE1OTkyNDE1OTMsImV4cCI6MTU5OTMyNzk5M30.QtOrs1kJyh7sWDt2Y0_VpPRyXYZcfK9W4SR-YsxCrHk",
   "twoFactor": true
@@ -189,7 +187,6 @@ curl --location --request POST 'https://www.example.com/api/auth/refresh' \
 
 ```json
 {
-  "code": 200,
   "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjRiZmYxMjEwMzdlNDI0YTE3YTNlYmMiLCJpYXQiOjE1OTkyNDE3MjIsImV4cCI6MTU5OTI0MzUyMn0.OUiiTCNHlwRkbLjjtRtkD2I90-vcTKGvjlOlTcdg_Og",
   "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjRiZmYxMjEwMzdlNDI0YTE3YTNlYmMiLCJpYXQiOjE1OTkyNDE3MjIsImV4cCI6MTU5OTMyODEyMn0.vWp-l7WGCPWS1zTUeldd_8arjG5KC4YDVhFU0b-E6As"
 }
@@ -229,7 +226,7 @@ curl --location --request POST 'https://www.example.com/api/auth/logout' \
 
 ```json
 {
-  "code": 200,
+  "code": "LOGGED_OUT",
   "message": "You are now logged out."
 }
 ```
