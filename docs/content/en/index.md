@@ -4,12 +4,10 @@ description: "A wolf to guide you to your end goals by helping keep you on track
 position: 1
 category: Getting started
 features:
-  - Create a manage weekly goals.
-  - Two Factor Supported.
-  - Single user or multi user supported.
-  - Invite users
-  - Goal Status.
-  - Fast and speedy UI.
+  - Create and manage weekly goals
+  - Keep your account safe with Two Factor
+  - Clean and fast UI
+  - Get reminded on your progress via email notifications
 ---
 
 A wolf to guide you to your end goals by helping keep you on track weely, bi-weekly or even monthly and yearly goals.

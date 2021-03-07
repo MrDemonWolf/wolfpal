@@ -7,7 +7,9 @@ category: Getting started
 
 All of WolfPal configuration is saved in the .env and the database as well.
 
-View [.env.example](https://github.com/MrDemonWolf/wolfpal/blob/master/.env.example) file as an example.
+View [.env.example](https://github.com/MrDemonWolf/wolfpal/blob/master/server/.env.example) file as an example for server.
+
+View [.env.example](https://github.com/MrDemonWolf/wolfpal/blob/master/client/.env.example) file as an example for client.
 
 ## Server
 
@@ -85,6 +87,13 @@ SITE_TITLE=WolfPal
 WEBSITE=http://localhost:3000
 ```
 
+### Registration
+
+```yaml
+# Enable/Disable registration
+REGISTRATION=true
+```
+
 ### NodeJS Env
 
 ```yaml
@@ -137,6 +146,31 @@ COPYRIGHT=WolfPal
 # Set the footer text link
 # This is the copuyright text URL which it should link to.
 COPYRIGHT_LINK=http://localhost:3000
+```
+
+### Landing Description
+
+```yaml
+LANDING_DESCRIPTION=A wolf to guide you to your end goals by helping keep you on track weely, bi-weekly or even monthly and yearly goals.
+```
+
+### Landing Features Title
+
+```yaml
+LANDING_FEATURES_TITLE=All-in-one platform
+```
+
+### Landing Features Description
+
+```yaml
+LANDING_FEATURES_DESCRIPTION=Includes all the tools to help motivate you to complete your goals in life. One Wolf at a time.
+```
+
+### Registration
+
+```yaml
+# Enable/Disable registration
+REGISTRATION=true
 ```
 
 ### NodeJS Env
