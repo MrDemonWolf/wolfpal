@@ -5,8 +5,6 @@ module.exports = data => {
   const codes = {};
   const errors = {};
 
-  console.log(data.weeklyGoals);
-
   data.weeklyGoals = !isEmpty(data.weeklyGoals)
     ? data.weeklyGoals.toString()
     : '';
