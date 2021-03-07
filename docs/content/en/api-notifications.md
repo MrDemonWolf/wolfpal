@@ -44,7 +44,7 @@ curl --location --request GET 'https://www.example.com/api/notifications/email' 
 
 ```json
 {
-  "code": 200,
+  "code": "EMAIL_NOTIFICATIONS_CHANGED",
   "message": "Your notifications preferences for email has been changed."
 }
 ```
