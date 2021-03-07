@@ -227,7 +227,7 @@ curl --location --request POST 'https://www.example.com/api/auth/logout' \
 ```json
 {
   "code": "LOGGED_OUT",
-  "message": "You are now logged out."
+  "error": "You are now logged out."
 }
 ```
 
