@@ -40,8 +40,8 @@ curl --location --request PUT 'https://www.example.com/api/user/activate-account
 
 ```json
 {
-  "code": 201,
-  "message": "Your account is now activated and you're now able to login."
+  "code": "ACTIVATED",
+  "message": "Good job! Your account is now activated and you can start using WolfPal."
 }
 ```
 
@@ -74,7 +74,7 @@ Allows a register user resend account activate token to their email.
   <code-block label="Request" active>
 
 ```sh
-# curl --location --request POST 'https://www.example.com/api/user/activate-account/:activate_token' \
+curl --location --request POST 'https://www.example.com/api/user/activate-account/:activate_token' \
 ```
 
   </code-block>
@@ -83,8 +83,8 @@ Allows a register user resend account activate token to their email.
 
 ```json
 {
-  "code": 201,
-  "message": "Please confirm your email address to complete the registration."
+  "code": "PENDING_CONFIRMATION",
+  "message": "Please check your email address to complete the registration."
 }
 ```
 
@@ -128,8 +128,8 @@ curl --location --request POST 'https://www.example.com/api/user/forgot-password
 
 ```json
 {
-  "code": 200,
-  "message": "An Email has been sent to user@mrdemonwolf.github with further instructions on how to reset your password. Please check your email account."
+  "code": "PENDING_CONFIRMATION",
+  "error": "An Email has been sent to demonwolf@demonwolfdev.com with further instructions on how to reset your password. Please check your email account."
 }
 ```
 
@@ -180,7 +180,10 @@ curl --location --request POST 'https://www.example.com/api/user/reset-password/
 ">
 
 ```json
-
+{
+  "code": "UPDATED",
+  "error": "Your passsword has been updated.  Please try logging in with your new password."
+}
 ```
 
   </code-block>
