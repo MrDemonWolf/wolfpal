@@ -83,15 +83,16 @@
             </nav>
           </div>
           <div class="flex flex-shrink-0 pt-2 pl-2 border-t border-gray-200">
-            <nuxt-link to="/dashboard" class="flex-shrink-0 block group">
+            <nuxt-link
+              to="/dashboard"
+              class="flex-shrink-0 block px-2 text-gray-600 rounded-md group dark:text-white dark:hover:text-gray-900 hover:bg-gray-50 hover:text-gray-900"
+            >
               <div class="flex items-center">
                 <fa
                   :icon="['fas', 'arrow-left']"
-                  class="inline-block w-10 h-10 mr-2 text-lg text-gray-600 dark:text-white"
+                  class="inline-block w-10 h-10 mr-2 text-lg"
                 />
-                <div class="ml-3 text-gray-600 dark:text-white">
-                  Back to Dashboard
-                </div>
+                <div class="ml-3">Back to Dashboard</div>
               </div>
             </nuxt-link>
           </div>
