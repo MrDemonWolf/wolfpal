@@ -19,7 +19,7 @@
           </button>
           <div class="flex justify-end flex-1 px-4 dark:bg-gray-800">
             <div class="flex items-center ml-4 md:ml-6">
-              <NotificationsDropdown />
+              <!-- <NotificationsDropdown /> -->
               <ProfileDropdown />
             </div>
           </div>
@@ -45,7 +45,7 @@
 <script>
 import DesktopSidebar from '@/components/Dashboard/DesktopSidebar'
 import MobileSidebar from '@/components/Dashboard/MobileSidebar'
-import NotificationsDropdown from '@/components/Shared/NotificationsDropdown'
+// import NotificationsDropdown from '@/components/Shared/NotificationsDropdown'
 import ProfileDropdown from '@/components/Shared/ProfileDropdown'
 import HeroIconOutLineMenuAlt2 from '@/assets/vectors/heroicon/outline/menu-alt-2.svg?inline'
 
@@ -53,7 +53,6 @@ export default {
   components: {
     DesktopSidebar,
     MobileSidebar,
-    NotificationsDropdown,
     ProfileDropdown,
     HeroIconOutLineMenuAlt2,
   },
