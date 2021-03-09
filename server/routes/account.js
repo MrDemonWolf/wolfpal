@@ -6,7 +6,7 @@ const { authenticator } = require('otplib');
 
 const { customAlphabet } = require('nanoid');
 
-const sendgrid = require('../config/sendgrid');
+const mailer= require('../utils/mailer');
 
 const router = express.Router();
 
@@ -215,7 +215,7 @@ router.post('/change-email', requireAuth, isSessionValid, async (req, res) => {
       html: emailTemplate.html
     };
 
-    if (process.env.NODE_ENV !== 'test') await sendgrid.send(msg);
+    if (process.env.NODE_ENV !== 'test') await mailer(msg);
 
     res.status(200).json({
       code: 'PENDING_CONFIRMATION',
@@ -265,7 +265,7 @@ router.post(
         html: emailTemplate.html
       };
 
-      if (process.env.NODE_ENV !== 'test') await sendgrid.send(msg);
+      if (process.env.NODE_ENV !== 'test') await mailer(msg);
 
       res.status(200).json({
         code: 'PENDING_CONFIRMATION',
@@ -414,7 +414,7 @@ router.put(
         html: emailTemplate.html
       };
 
-      if (process.env.NODE_ENV !== 'test') await sendgrid.send(msg);
+      if (process.env.NODE_ENV !== 'test') await mailer(msg);
 
       res.status(200).json({
         code: 'PASSWORD_CHANGED',
