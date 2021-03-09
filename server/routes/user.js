@@ -3,7 +3,7 @@ const moment = require('moment');
 
 const { customAlphabet } = require('nanoid');
 
-const sendgrid = require('../config/sendgrid');
+const mailer= require('../utils/mailer');
 
 const router = express.Router();
 
@@ -96,7 +96,7 @@ router.post('/forgot-password', async (req, res) => {
       html: emailTemplate.html
     };
 
-    if (process.env.NODE_ENV !== 'test') await sendgrid.send(msg);
+    if (process.env.NODE_ENV !== 'test') await mailer(msg);
 
     res.status(200).json({
       code: 'PENDING_CONFIRMATION',
@@ -180,7 +180,7 @@ router.post('/reset-password/:reset_token', async (req, res) => {
       html: emailTemplate.html
     };
 
-    if (process.env.NODE_ENV !== 'test') await sendgrid.send(msg);
+    if (process.env.NODE_ENV !== 'test') await mailer(msg);
 
     /**
      * Sets the token and expire date to undfined which removes them
@@ -282,7 +282,7 @@ router.post('/activate-account/resend', async (req, res) => {
       html: emailTemplate.html
     };
 
-    if (process.env.NODE_ENV !== 'test') await sendgrid.send(msg);
+    if (process.env.NODE_ENV !== 'test') await mailer(msg);
 
     res.status(200).json({
       code: 'PENDING_CONFIRMATION',

@@ -4,7 +4,7 @@ const moment = require('moment');
 const sha512 = require('js-sha512');
 const jwt = require('jsonwebtoken');
 const { authenticator } = require('otplib');
-const sendgrid = require('../config/sendgrid');
+const mailer = require('../utils/mailer');
 
 const router = express.Router();
 
@@ -104,7 +104,7 @@ router.post('/register', isRegistration, async (req, res) => {
       html: emailTemplate.html
     };
 
-    if (process.env.NODE_ENV !== 'test') await sendgrid.send(msg);
+    if (process.env.NODE_ENV !== 'test') await mailer(msg);
 
     res.status(201).json({
       code: 'PENDING_CONFIRMATION',
