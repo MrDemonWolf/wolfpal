@@ -45,6 +45,7 @@
     "moment": "^2.29.1",
     "mongoose": "^5.11.14",
     "node-cron": "^2.0.3",
+    "nodemailer": "^6.5.0",
     "slugify": "^1.4.6"
   }
 }

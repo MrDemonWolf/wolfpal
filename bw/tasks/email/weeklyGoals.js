@@ -1,6 +1,6 @@
 const consola = require('consola');
 
-const sendgrid = require('../../config/sendgrid');
+const mailer = require('../../utils/mailer');
 
 /**
  * Load MongoDB models.
@@ -26,7 +26,7 @@ module.exports = async () => {
     'notifications.email.weeklyGoals': { $ne: false }
   });
 
-  if(users.length === 0) {
+  if (users.length === 0) {
     return consola.log('No one will get a email.');
   }
 
@@ -69,7 +69,7 @@ module.exports = async () => {
       html: emailTemplate.html
     };
 
-    if (process.env.NODE_ENV !== 'test') await sendgrid.send(msg);
+    if (process.env.NODE_ENV !== 'test') await mailer(msg);
     consola.log(`Sent email to: ${user.username} at ${Date.now()}`);
   });
 };
