@@ -44,22 +44,14 @@
           </button>
         </div>
       </div>
-      <Monthly v-if="monthlyBilling" />
-      <Yearly v-else />
+      <LandingPricingMonthly v-if="monthlyBilling" />
+      <LandingPricingYearly v-else />
     </div>
   </div>
 </template>
 
 <script>
-import Monthly from '@/components/Landing/Pricing/Monthly'
-import Yearly from '@/components/Landing/Pricing/Yearly'
-
 export default {
-  components: {
-    Monthly,
-    Yearly,
-  },
-
   data() {
     return {
       monthlyBilling: true,

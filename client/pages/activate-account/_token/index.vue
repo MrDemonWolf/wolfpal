@@ -5,7 +5,7 @@
         class="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10 dark:bg-gray-200"
       >
         <div class="text-center">
-          <CircleLoaderCheckmark
+          <SharedCircleLoaderCheckmark
             :success="loader.success"
             :loading="loader.loading"
           />
@@ -43,10 +43,7 @@
 </template>
 
 <script>
-import CircleLoaderCheckmark from '@/components/Shared/CircleLoaderCheckmark'
-
 export default {
-  components: { CircleLoaderCheckmark },
   middleware: ['alreadyAuthenticated'],
   data() {
     return {

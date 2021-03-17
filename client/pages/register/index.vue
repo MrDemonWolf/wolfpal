@@ -28,7 +28,7 @@
       <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div class="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10">
           <form class="space-y-6" novalidate @submit.prevent="userRegister">
-            <Alert
+            <SharedAlert
               v-if="$store.state.register.messages.error"
               type="danger"
               :message="$store.state.register.messages.error"
@@ -220,12 +220,10 @@
 
 <script>
 import Logo from '@/assets/vectors/logo.svg?inline'
-import Alert from '@/components/Shared/Alert'
 
 export default {
   components: {
     Logo,
-    Alert,
   },
 
   middleware: ['alreadyAuthenticated', 'registration'],

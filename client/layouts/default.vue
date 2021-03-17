@@ -7,19 +7,9 @@
         role="main"
         class="flex-grow bg-gray-200 dark:bg-gray-900"
       >
-        <OfflineBanner v-if="$nuxt.isOffline" />
+        <SharedOfflineBanner v-if="$nuxt.isOffline" />
         <Nuxt />
       </main>
     </div>
   </div>
 </template>
-
-<script>
-import OfflineBanner from '@/components/Shared/OfflineBanner'
-
-export default {
-  components: {
-    OfflineBanner,
-  },
-}
-</script>

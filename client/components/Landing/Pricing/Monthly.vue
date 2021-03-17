@@ -2,7 +2,7 @@
   <div
     class="mt-12 space-y-4 sm:mt-16 sm:space-y-0 sm:grid sm:grid-cols-2 sm:gap-6 lg:max-w-4xl lg:mx-auto xl:max-w-none xl:mx-0 xl:grid-cols-3"
   >
-    <PricingCard
+    <SharedPricingCard
       name="Pro"
       description=" Fully keep track of your goals in life."
       price="$6.99"
@@ -11,7 +11,7 @@
       cta="Go Pro"
       cta-link="/register/pro?frequency=monthly"
     />
-    <PricingCard
+    <SharedPricingCard
       name="Free Trial"
       description="Get access to the full experience for a limited time but keep the basics forever.*"
       price="$0.00"
@@ -20,7 +20,7 @@
       cta="Get Started"
       cta-link="/#top"
     />
-    <PricingCard
+    <SharedPricingCard
       name="Enterprise"
       description="Make your team better at tracking their goals.*"
       price="$4.99"
@@ -33,13 +33,7 @@
 </template>
 
 <script>
-import PricingCard from '@/components/Shared/PricingCard'
-
 export default {
-  components: {
-    PricingCard,
-  },
-
   data() {
     return {
       pro: ['Weekly Goals', 'Two Factor', 'Notifications'],

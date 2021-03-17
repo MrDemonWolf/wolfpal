@@ -90,9 +90,9 @@
           </div>
         </div>
       </div>
-      <portal-target name="revokeAllDevices">
+      <portal-target name="AccountModalRevokeAllDevices">
         <transition name="fade">
-          <RevokeAllDevices
+          <AccountModalRevokeAllDevices
             v-if="$store.state.account.showRevokeAllSessionsModal"
           />
         </transition>
@@ -103,13 +103,8 @@
 
 <script>
 import sha512 from 'js-sha512'
-import RevokeAllDevices from '@/components/Account/Modal/RevokeAllDevices'
 
 export default {
-  components: {
-    RevokeAllDevices,
-  },
-
   layout: 'account',
 
   middleware: ['auth'],

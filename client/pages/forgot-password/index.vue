@@ -1,8 +1,13 @@
 <template>
   <div class="flex flex-col justify-center py-12 h-80 sm:px-6 lg:px-8">
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-      <Alert v-if="error" type="danger" :message="error" class="mb-4" />
-      <Alert v-if="success" type="success" :message="success" class="mb-4" />
+      <SharedAlert v-if="error" type="danger" :message="error" class="mb-4" />
+      <SharedAlert
+        v-if="success"
+        type="success"
+        :message="success"
+        class="mb-4"
+      />
       <div
         class="px-4 py-8 bg-white shadow sm:rounded-lg sm:px-10 dark:bg-gray-200"
       >
@@ -67,10 +72,7 @@
 </template>
 
 <script>
-import Alert from '@/components/Shared/Alert'
-
 export default {
-  components: { Alert },
   middleware: ['alreadyAuthenticated'],
   data() {
     return {

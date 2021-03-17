@@ -1,17 +1,11 @@
 <template>
   <div class="container mx-auto">
-    <WeeklyGoals :goals="weeklyGoals" />
+    <GoalsWeekly :goals="weeklyGoals" />
   </div>
 </template>
 
 <script>
-import WeeklyGoals from '@/components/Goals/Weekly'
-
 export default {
-  components: {
-    WeeklyGoals,
-  },
-
   layout: 'dashboard',
 
   middleware: ['auth'],

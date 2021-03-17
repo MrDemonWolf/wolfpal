@@ -9,8 +9,8 @@
     </div>
 
     <div class="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
-      <Alert v-if="error" type="danger" :message="error" class="mb-4" />
-      <Alert
+      <SharedAlert v-if="error" type="danger" :message="error" class="mb-4" />
+      <SharedAlert
         v-if="success"
         type="success"
         :message="`${success} You will be redirected in a few moments....`"
@@ -96,10 +96,7 @@
 </template>
 
 <script>
-import Alert from '@/components/Shared/Alert'
-
 export default {
-  components: { Alert },
   middleware: ['alreadyAuthenticated'],
   data() {
     return {

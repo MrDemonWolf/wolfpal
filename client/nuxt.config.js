@@ -32,6 +32,8 @@ export default {
 
   loading: false,
 
+  components: true,
+
   /*
    ** Global CSS
    */
