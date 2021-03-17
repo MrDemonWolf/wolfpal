@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import Logo from '@/asets/vectors/logo.svg?inline'
+import Logo from '@/assets/vectors/logo.svg?inline'
 
 export default {
   components: {
