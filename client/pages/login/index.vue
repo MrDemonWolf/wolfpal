@@ -25,7 +25,7 @@
             start your 30-day free trial
           </nuxt-link>
         </p>
-        <Basic />
+        <LoginBasic />
       </div>
       <div
         v-if="$store.state.login.twoFactorTokenRequested"
@@ -38,22 +38,18 @@
         >
           Enter your 2FA verification token
         </h2>
-        <TwoFactor />
+        <LoginTwoFactor />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import Logo from '@/assets/vectors/logo.svg?inline'
-import Basic from '@/components/Login/Basic'
-import TwoFactor from '@/components/Login/TwoFactor'
+import Logo from '@/asets/vectors/logo.svg?inline'
 
 export default {
   components: {
     Logo,
-    Basic,
-    TwoFactor,
   },
 
   middleware: ['alreadyAuthenticated'],
@@ -62,7 +58,6 @@ export default {
     return {
       title: 'Login',
       meta: [
-        // hid is used as unique identifier. Do not use `vmid` for it as it will not work
         {
           hid: 'description',
           name: 'description',

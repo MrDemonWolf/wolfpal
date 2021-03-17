@@ -6,7 +6,7 @@
         novalidate
         @submit.prevent="userLoginWithTwoFactor"
       >
-        <Alert
+        <SharedAlert
           v-if="$store.state.login.messages.error"
           type="danger"
           :message="$store.state.login.messages.error"
@@ -64,13 +64,7 @@
 </template>
 
 <script>
-import Alert from '@/components/Shared/Alert'
-
 export default {
-  components: {
-    Alert,
-  },
-
   data() {
     return {
       isLoading: false,

@@ -8,7 +8,7 @@
         <p class="text-sm leading-5 text-gray-500">Manage account security.</p>
       </div>
       <div class="mt-6 md:mt-3">
-        <Alert v-if="error" type="danger" :message="error" class="mb-4" />
+        <SharedAlert v-if="error" type="danger" :message="error" class="mb-4" />
         <form @submit.prevent="changeSecurity">
           <div class="overflow-hidden shadow sm:rounded-md">
             <div class="px-4 py-5 bg-white sm:p-6">
@@ -73,7 +73,9 @@
                         <button
                           type="button"
                           class="px-3 py-2 text-sm font-medium leading-4 text-green-700 transition duration-150 ease-in-out bg-green-200 border border-green-300 rounded-md hover:text-green-500 focus:outline-none focus:border-green-300 focus:ring-blue active:bg-green-50 active:text-green-800"
-                          @click.prevent="toggleEnableTwoFactorModal"
+                          @click.prevent="
+                            toggleAccountModalEnableTwoFactorModal
+                          "
                         >
                           Enable
                         </button>
@@ -82,7 +84,9 @@
                         <button
                           type="button"
                           class="px-3 py-2 text-sm font-medium leading-4 text-red-700 transition duration-150 ease-in-out bg-red-200 border border-red-300 rounded-md hover:text-red-500 focus:outline-none focus:border-blue-300 focus:ring-blue active:bg-gray-50 active:text-gray-800"
-                          @click.prevent="toggleDisableTwoFactorModal"
+                          @click.prevent="
+                            toggleAccountModalDisableTwoFactorModal
+                          "
                         >
                           Disable
                         </button>
@@ -107,12 +111,12 @@
             </div>
           </div>
         </form>
-        <portal-target name="twoFactorModal">
+        <portal-target name="AccountModalEnableTwoFactor">
           <transition name="fade">
-            <EnableTwoFactor
+            <AccountModalEnableTwoFactor
               v-if="$store.state.account.showEnableTwoFactorModal"
             />
-            <DisableTwoFactor
+            <AccountModalDisableTwoFactor
               v-if="$store.state.account.showDisableTwoFactorModal"
             />
           </transition>
@@ -123,13 +127,7 @@
 </template>
 
 <script>
-import Alert from '@/components/Shared/Alert'
-import EnableTwoFactor from '@/components/Account/Modal/EnableTwoFactor'
-import DisableTwoFactor from '@/components/Account/Modal/DisableTwoFactor'
-
 export default {
-  components: { Alert, EnableTwoFactor, DisableTwoFactor },
-
   layout: 'account',
 
   middleware: ['auth'],
@@ -184,10 +182,10 @@ export default {
         this.changePassword.errors.newPassword = null
       }
     },
-    async toggleEnableTwoFactorModal() {
+    async toggleAccountModalEnableTwoFactorModal() {
       await this.$store.dispatch('account/TOGGLE_SHOW_ENABLE_TWO_FACTOR_MODAL')
     },
-    async toggleDisableTwoFactorModal() {
+    async toggleAccountModalDisableTwoFactorModal() {
       await this.$store.dispatch('account/TOGGLE_SHOW_DISABLE_TWO_FACTOR_MODAL')
     },
   },

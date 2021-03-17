@@ -4,9 +4,9 @@
       class="flex h-screen overflow-hidden bg-gray-100 dark:bg-gray-900"
       @keydown.escape="sidebarHide"
     >
-      <MobileSidebar :links="links" />
+      <AccountMobileSidebar :links="links" />
 
-      <DesktopSidebar :links="links" />
+      <AccountDesktopSidebar :links="links" />
 
       <div class="flex flex-col flex-1 w-0 overflow-hidden">
         <div class="relative z-10 flex flex-shrink-0 h-16 bg-white">
@@ -20,7 +20,7 @@
           <div class="flex justify-end flex-1 px-4 dark:bg-gray-800">
             <div class="flex items-center ml-4 md:ml-6">
               <!-- <NotificationsDropdown /> -->
-              <ProfileDropdown />
+              <SharedProfileDropdown />
             </div>
           </div>
         </div>
@@ -43,17 +43,10 @@
 </template>
 
 <script>
-import DesktopSidebar from '@/components/Account/DesktopSidebar'
-import MobileSidebar from '@/components/Account/MobileSidebar'
-// import NotificationsDropdown from '@/components/Shared/NotificationsDropdown'
-import ProfileDropdown from '@/components/Shared/ProfileDropdown'
 import HeroIconOutLineMenuAlt2 from '@/assets/vectors/heroicon/outline/menu-alt-2.svg?inline'
 
 export default {
   components: {
-    DesktopSidebar,
-    MobileSidebar,
-    ProfileDropdown,
     HeroIconOutLineMenuAlt2,
   },
 

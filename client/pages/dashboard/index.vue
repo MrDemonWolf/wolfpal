@@ -14,7 +14,7 @@
         >
           <rect x="0" y="0" rx="0" ry="0" width="327" height="60" />
         </content-loader>
-        <StatCard
+        <SharedStatCard
           v-if="!loading.weekly"
           title="Completed Weekly Goals"
           :from="stats.weekly.completed"
@@ -30,13 +30,7 @@
 </template>
 
 <script>
-import StatCard from '@/components/Shared/StatCard'
-
 export default {
-  components: {
-    StatCard,
-  },
-
   layout: 'dashboard',
 
   middleware: ['auth'],
