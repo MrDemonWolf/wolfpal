@@ -23,8 +23,14 @@
               <input
                 id="email_address"
                 v-model="email"
+                :class="{
+                  'border-red-500': errors.email,
+                }"
                 class="block w-full px-3 py-2 mt-1 transition duration-150 ease-in-out border border-gray-300 rounded-md shadow-sm form-input focus:outline-none focus:ring-blue focus:border-blue-300 sm:text-sm sm:leading-5"
               />
+              <span v-if="errors.email" class="text-red-500">{{
+                errors.email
+              }}</span>
               <p v-if="newEmail" class="mt-2 text-sm text-primary-500">
                 Your new e-mail address {{ newEmail }} has not yet been
                 comfirmed.
@@ -60,6 +66,9 @@ export default {
     return {
       email: this.$auth.user.email,
       newEmail: this.$auth.user.newEmail,
+      errors: {
+        email: null,
+      },
     }
   },
 
@@ -69,7 +78,7 @@ export default {
       const newEmail = this.newEmail !== this.$auth.user.newEmail
       if (email || newEmail) {
         try {
-          const res = await this.$axios.$post('/api/account/email-change', {
+          const res = await this.$axios.$post('/api/account/change-email', {
             email: this.email,
           })
           this.newEmail = this.email
@@ -78,15 +87,49 @@ export default {
             position: 'bottom-right',
           })
         } catch (e) {
-          this.$toast.error('Oops.. Something Went Wrong..', {
-            position: 'bottom-right',
-          })
+          if (e.response.data.codes) {
+            const { email } = e.response.data.codes
+            if (email) {
+              switch (email) {
+                case 'INVALID':
+                  this.errors.email = 'New email must be valid.'
+                  break
+                case 'REQUIRED':
+                  this.errors.email = 'Email is required.'
+                  break
+                default:
+                  this.$toast.error('Oops.. Something Went Wrong..', {
+                    position: 'bottom-right',
+                  })
+                  break
+              }
+            }
+          } else {
+            switch (e.response.data.code) {
+              case 'EMAIL_CONFLICT':
+                this.errors.email =
+                  'Email your attempting to change to is the same as your current one.'
+                break
+              case 'ALREADY_EXISTS':
+                this.errors.email =
+                  'Email your attempting to change to is already in use.'
+                break
+              default:
+                this.$toast.error('Oops.. Something Went Wrong..', {
+                  position: 'bottom-right',
+                })
+                break
+            }
+          }
         }
+      } else {
+        this.errors.email =
+          'Email your attempting to change to is the same as your current one.'
       }
     },
     async userResendEmailChange() {
       try {
-        const res = await this.$axios.$post('/api/account/email-change/resend')
+        const res = await this.$axios.$post('/api/account/change-email/resend')
         this.$toast.success(res.message, {
           position: 'bottom-right',
         })

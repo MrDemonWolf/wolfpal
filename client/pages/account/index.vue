@@ -94,8 +94,9 @@ export default {
           }
         } catch (e) {
           if (e.response.data.codes) {
-            if (e.response.data.codes.username) {
-              switch (e.response.data.codes.username) {
+            const { username } = e.response.data.codes
+            if (username) {
+              switch (username) {
                 case 'REQUIRED':
                   this.changeUsername.errors.username = 'Username is required.'
                   break
