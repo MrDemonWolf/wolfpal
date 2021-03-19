@@ -6,7 +6,7 @@ const { authenticator } = require('otplib');
 
 const { customAlphabet } = require('nanoid');
 
-const mailer= require('../utils/mailer');
+const mailer = require('../utils/mailer');
 
 const router = express.Router();
 
@@ -682,7 +682,7 @@ router.delete('/two-factor', requireAuth, isSessionValid, async (req, res) => {
 
     res.status(200).json({
       code: 'TWO_FACTOR_DISABLED',
-      message: 'Two factor has been disabled.',
+      message: 'Two factor has been disabled.'
     });
   } catch (err) {
     console.log(err);

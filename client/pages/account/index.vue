@@ -65,8 +65,6 @@ export default {
         username: this.$auth.user.username,
         errors: { username: null },
       },
-      error: null,
-      success: null,
     }
   },
 
@@ -81,16 +79,52 @@ export default {
             username: this.changeUsername.username,
           })
           await this.$auth.fetchUser()
-          this.$toast.success(res.message, {
-            position: 'bottom-right',
-          })
+
+          switch (res.code) {
+            case 'USERNAME_CHANGED':
+              this.$toast.success(
+                `Your username has been changed to ${this.$auth.user.username}.`,
+                {
+                  position: 'bottom-right',
+                }
+              )
+              break
+            default:
+              break
+          }
         } catch (e) {
-          if (e.response && e.response.data && e.response.data.errors) {
-            this.changeUsername.errors = e.response.data.errors
+          if (e.response.data.codes) {
+            if (e.response.data.codes.username) {
+              switch (e.response.data.codes.username) {
+                case 'REQUIRED':
+                  this.changeUsername.errors.username = 'Username is required.'
+                  break
+                case 'INVALID_CHARACTERS':
+                  this.changeUsername.errors.username =
+                    'Username is invalid. Must only contain numbers or letters.'
+                  break
+                case 'NOT_LONG_ENOUGH':
+                  this.changeUsername.errors.username =
+                    'Username must be between 3 and 28 characters long.'
+                  break
+                default:
+                  this.$toast.error('Oops.. Something Went Wrong.', {
+                    position: 'bottom-right',
+                  })
+                  break
+              }
+            }
           } else {
-            this.$toast.error('Oops.. Something Went Wrong..', {
-              position: 'bottom-right',
-            })
+            switch (e.response.data.code) {
+              case 'USERNAME_CONFLICT':
+                this.changeUsername.errors.username = `${this.changeUsername.username} is currently not available.`
+                break
+              default:
+                this.$toast.error('Oops.. Something Went Wrong..', {
+                  position: 'bottom-right',
+                })
+                break
+            }
           }
         }
       }
