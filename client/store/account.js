@@ -193,6 +193,9 @@ export const getters = {
   SHOW_DISABLE_TWO_FACTOR_MODAL: (state) => {
     return state.showDisableTwoFactorModal
   },
+  SHOW_REVOKE_ALL_SESSIONS_MODAL: (state) => {
+    return state.showRevokeAllSessionsModal
+  },
   TWO_FACTOR_QR_CODE: (state) => {
     return state.twoFactorQrCode
   },
