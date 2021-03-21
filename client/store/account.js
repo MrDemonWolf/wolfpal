@@ -9,7 +9,9 @@ export const state = () => ({
   messages: {
     success: null,
     error: null,
-    errors: [],
+    errors: {
+      code: null,
+    },
   },
   sidebarOpen: false,
 })
@@ -44,23 +46,36 @@ export const actions = {
       commit('SET_MESSAGE_ERROR', null)
     } catch (e) {
       commit('SET_MESSAGE_SUCCESS', null)
-      commit('SET_MESSAGE_ERROR', e.response.data.error)
+      commit('SET_MESSAGE_ERROR', e.response.data.code)
     }
   },
-  async ENABLE_TWO_FACTOR({ commit }, code) {
+  async ENABLE_TWO_FACTOR({ commit, dispatch }, code) {
     try {
       const res = await this.$axios.$put('/api/account/two-factor', {
         code,
       })
-
       commit('SET_SHOW_ENABLE_TWO_FACTOR_MODAL', false)
-      commit('RESET_TWO_FACTOR_INITIALIZE')
-
+      dispatch('RESET_TWO_FACTOR_INITIALIZE')
       commit('SET_MESSAGE_ERROR', null)
-      commit('SET_MESSAGE_SUCCESS', res.message)
+      commit('SET_MESSAGE_SUCCESS', res.code)
     } catch (e) {
       commit('SET_MESSAGE_SUCCESS', null)
-      commit('SET_MESSAGE_ERROR', e.response.data.error)
+      if (e.response.data.codes) {
+        const { code } = e.response.data.code
+        if (code) {
+          switch (code) {
+            case 'REQUIRED':
+              commit(
+                'SET_MESSAGE_ERRORS_CODE',
+                'Code verification is required.'
+              )
+              break
+            default:
+          }
+        }
+      } else {
+        commit('SET_MESSAGE_ERROR', e.response.data.code)
+      }
     }
   },
   async DISABLE_TWO_FACTOR({ commit }, code) {
@@ -70,10 +85,25 @@ export const actions = {
       )
 
       commit('SET_MESSAGE_ERROR', null)
-      commit('SET_MESSAGE_SUCCESS', res.message)
+      commit('SET_MESSAGE_SUCCESS', res.code)
     } catch (e) {
       commit('SET_MESSAGE_SUCCESS', null)
-      commit('SET_MESSAGE_ERROR', e.response.data.error)
+      if (e.response.data.codes) {
+        const { code } = e.response.data.code
+        if (code) {
+          switch (code) {
+            case 'REQUIRED':
+              commit(
+                'SET_MESSAGE_ERRORS_CODE',
+                'Code verification is required.'
+              )
+              break
+            default:
+          }
+        }
+      } else {
+        commit('SET_MESSAGE_ERROR', e.response.data.code)
+      }
     }
   },
   RESET_TWO_FACTOR_INITIALIZE({ commit }) {
@@ -90,23 +120,23 @@ export const actions = {
       commit('DELETE_SESSION', index)
 
       commit('SET_MESSAGE_ERROR', null)
-      commit('SET_MESSAGE_SUCCESS', res.message)
+      commit('SET_MESSAGE_SUCCESS', res.code)
     } catch (e) {
       commit('SET_MESSAGE_SUCCESS', null)
-      commit('SET_MESSAGE_ERROR', e.response.data.error)
+      commit('SET_MESSAGE_ERROR', e.response.data.code)
     }
   },
-  async REVOKE_SESSIONS({ commit, state }) {
+  async REVOKE_SESSIONS({ commit }) {
     try {
       const res = await this.$axios.$delete('/api/account/sessions')
 
       commit('SET_SESSIONS', [])
 
       commit('SET_MESSAGE_ERROR', null)
-      commit('SET_MESSAGE_SUCCESS', res.message)
+      commit('SET_MESSAGE_SUCCESS', res.code)
     } catch (e) {
       commit('SET_MESSAGE_SUCCESS', null)
-      commit('SET_MESSAGE_ERROR', e.response.data.error)
+      commit('SET_MESSAGE_ERROR', e.response.data.code)
     }
   },
 }
@@ -136,20 +166,20 @@ export const mutations = {
   DELETE_SESSION: (state, index) => {
     return state.sessions.splice(index, 1)
   },
+  TOGGLE_SIDEBAR_OPEN(state) {
+    return (state.sidebarOpen = !state.sidebarOpen)
+  },
+  SET_SIDEBAR_OPEN(state, boolean) {
+    return (state.sidebarOpen = boolean)
+  },
   SET_MESSAGE_SUCCESS: (state, success) => {
     return (state.messages.success = success)
   },
   SET_MESSAGE_ERROR: (state, error) => {
     return (state.messages.error = error)
   },
-  SET_MESSAGE_ERRORS: (state, errors) => {
-    return (state.messages.errors = errors)
-  },
-  TOGGLE_SIDEBAR_OPEN(state) {
-    return (state.sidebarOpen = !state.sidebarOpen)
-  },
-  SET_SIDEBAR_OPEN(state, boolean) {
-    return (state.sidebarOpen = boolean)
+  SET_MESSAGE_ERRORS_CODE: (state, message) => {
+    return (state.messages.errors.code = message)
   },
 }
 
@@ -163,6 +193,9 @@ export const getters = {
   SHOW_DISABLE_TWO_FACTOR_MODAL: (state) => {
     return state.showDisableTwoFactorModal
   },
+  SHOW_REVOKE_ALL_SESSIONS_MODAL: (state) => {
+    return state.showRevokeAllSessionsModal
+  },
   TWO_FACTOR_QR_CODE: (state) => {
     return state.twoFactorQrCode
   },
@@ -172,6 +205,9 @@ export const getters = {
   TWO_FACTOR_BACKUP_CODES: (state) => {
     return state.twoFactorBackupCodes
   },
+  SIDEBAR_OPEN: (state) => {
+    return state.sidebarOpen
+  },
   MESSAGE_SUCCESS: (state) => {
     return state.messages.success
   },
@@ -180,8 +216,5 @@ export const getters = {
   },
   MESSAGE_ERRORS: (state) => {
     return state.messages.errors
-  },
-  SIDEBAR_OPEN: (state) => {
-    return state.sidebarOpen
   },
 }

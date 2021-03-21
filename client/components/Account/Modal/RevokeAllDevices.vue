@@ -112,8 +112,8 @@ export default {
         'account/SET_SHOW_REVOKE_ALL_SESSIONS_MODAL',
         false
       )
-      await this.$store.commit('account/SET_MESSAGE_SUCCESS', '')
-      await this.$store.commit('account/SET_MESSAGE_ERROR', '')
+      await this.$store.commit('account/SET_MESSAGE_SUCCESS', null)
+      await this.$store.commit('account/SET_MESSAGE_ERROR', null)
     },
     async revokeSessions() {
       try {
@@ -121,16 +121,20 @@ export default {
         await this.$auth.logout()
 
         if (this.$store.state.account.messages.success) {
-          return this.$toast.success(
-            this.$store.state.account.messages.success,
-            {
-              position: 'bottom-right',
-            }
-          )
+          switch (this.$store.state.account.messages.success) {
+            case 'ALL_SESSIONS_REVOKE':
+              this.$toast.success('All devices has been revoked.', {
+                position: 'bottom-right',
+              })
+              break
+
+            default:
+          }
+        } else {
+          this.$toast.error('Oops.. Something Went Wrong..', {
+            position: 'bottom-right',
+          })
         }
-        this.$toast.error(this.$store.state.account.messages.error, {
-          position: 'bottom-right',
-        })
       } catch (e) {
         this.$toast.error('Oops.. Something Went Wrong..', {
           position: 'bottom-right',

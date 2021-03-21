@@ -25,7 +25,7 @@
                   id="username"
                   v-model="changeUsername.username"
                   :class="{
-                    'border-red-500': changeUsername.errors.username || error,
+                    'border-red-500': changeUsername.errors.username,
                   }"
                   class="flex-1 block w-full px-3 py-2 mt-1 transition duration-150 ease-in-out border border-gray-300 rounded-md shadow-sm form-input focus:outline-none focus:ring-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                 />
@@ -65,8 +65,6 @@ export default {
         username: this.$auth.user.username,
         errors: { username: null },
       },
-      error: null,
-      success: null,
     }
   },
 
@@ -81,16 +79,53 @@ export default {
             username: this.changeUsername.username,
           })
           await this.$auth.fetchUser()
-          this.$toast.success(res.message, {
-            position: 'bottom-right',
-          })
+
+          switch (res.code) {
+            case 'USERNAME_CHANGED':
+              this.$toast.success(
+                `Your username has been changed to ${this.$auth.user.username}.`,
+                {
+                  position: 'bottom-right',
+                }
+              )
+              break
+            default:
+              break
+          }
         } catch (e) {
-          if (e.response && e.response.data && e.response.data.errors) {
-            this.changeUsername.errors = e.response.data.errors
+          if (e.response.data.codes) {
+            const { username } = e.response.data.codes
+            if (username) {
+              switch (username) {
+                case 'REQUIRED':
+                  this.changeUsername.errors.username = 'Username is required.'
+                  break
+                case 'INVALID_CHARACTERS':
+                  this.changeUsername.errors.username =
+                    'Username is invalid. Must only contain numbers or letters.'
+                  break
+                case 'NOT_LONG_ENOUGH':
+                  this.changeUsername.errors.username =
+                    'Username must be between 3 and 28 characters long.'
+                  break
+                default:
+                  this.$toast.error('Oops.. Something Went Wrong.', {
+                    position: 'bottom-right',
+                  })
+                  break
+              }
+            }
           } else {
-            this.$toast.error('Oops.. Something Went Wrong..', {
-              position: 'bottom-right',
-            })
+            switch (e.response.data.code) {
+              case 'USERNAME_CONFLICT':
+                this.changeUsername.errors.username = `${this.changeUsername.username} is currently not available.`
+                break
+              default:
+                this.$toast.error('Oops.. Something Went Wrong..', {
+                  position: 'bottom-right',
+                })
+                break
+            }
           }
         }
       }

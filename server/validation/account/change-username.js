@@ -7,11 +7,6 @@ module.exports = data => {
 
   data.username = !isEmpty(data.username) ? data.username : '';
 
-  if (Validator.isEmpty(data.username)) {
-    codes.username = 'REQUIRED';
-    errors.username = 'Username is required.';
-  }
-
   if (
     !Validator.isWhitelisted(
       data.username,
@@ -25,7 +20,12 @@ module.exports = data => {
 
   if (!Validator.isLength(data.username, { min: 3, max: 28 })) {
     codes.username = 'NOT_LONG_ENOUGH';
-    errors.username = 'Username must be between 3 and 28 characters long';
+    errors.username = 'Username must be between 3 and 28 characters long.';
+  }
+
+  if (Validator.isEmpty(data.username)) {
+    codes.username = 'REQUIRED';
+    errors.username = 'Username is required.';
   }
 
   return {

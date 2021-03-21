@@ -8,7 +8,6 @@
         <p class="text-sm leading-5 text-gray-500">Manage account security.</p>
       </div>
       <div class="mt-6 md:mt-3">
-        <SharedAlert v-if="error" type="danger" :message="error" class="mb-4" />
         <form @submit.prevent="changeSecurity">
           <div class="overflow-hidden shadow sm:rounded-md">
             <div class="px-4 py-5 bg-white sm:p-6">
@@ -139,12 +138,6 @@ export default {
         newPassword: '',
         errors: { oldPassword: null, newPassword: null },
       },
-      device: {
-        os: '',
-        browser: '',
-      },
-      error: null,
-      success: null,
     }
   },
 
@@ -155,31 +148,70 @@ export default {
         !this.$isEmpty(this.changePassword.newPassword)
       if (changePassword) {
         try {
-          this.device = {
-            os: this.$ua.os(),
-            browser: this.$ua.browser(),
-          }
+          this.changePassword.errors = { oldPassword: null, newPassword: null }
           const res = await this.$axios.$put('/api/account/change-password', {
             oldPassword: this.changePassword.oldPassword,
             newPassword: this.changePassword.newPassword,
           })
           this.$auth.logout()
 
-          this.$toast.success(res.message, {
-            position: 'bottom-right',
-          })
+          switch (res.code) {
+            case 'PASSWORD_CHANGED':
+              this.$toast.success(
+                'Your password has been changed.  Please login with your new password.',
+                {
+                  position: 'bottom-right',
+                }
+              )
+              break
+            default:
+          }
         } catch (e) {
-          if (e.response && e.response.data && e.response.data.errors) {
-            this.changePassword.errors = e.response.data.errors
+          if (e.response.data.codes) {
+            const { oldPassword, newPassword } = e.response.data.codes
+            if (oldPassword) {
+              switch (oldPassword) {
+                case 'REQUIRED':
+                  this.changePassword.errors.oldPassword =
+                    'Old password is required.'
+                  break
+                default:
+              }
+            }
+            if (newPassword) {
+              switch (newPassword) {
+                case 'NOT_LONG_ENOUGH':
+                  this.changePassword.errors.newPassword =
+                    'New Password must be between 8 and 56 characters long'
+                  break
+                case 'REQUIRED':
+                  this.changePassword.errors.newPassword =
+                    'New password is required.'
+                  break
+                default:
+              }
+            }
+          } else if (e.response.data.code) {
+            switch (e.response.data.code) {
+              case 'PASSWORD_CONFLICT':
+                this.changePassword.errors.newPassword =
+                  'New password can not match old password.'
+                break
+              case 'INVALID_CREDENTIALS':
+                this.changePassword.errors.oldPassword = 'Wrong old password.'
+                break
+              default:
+                this.$toast.error('Oops.. Something Went Wrong..', {
+                  position: 'bottom-right',
+                })
+                break
+            }
           } else {
-            this.$toast.error('Oops.. Something Went Wrong..', {
+            this.$toast.error('Oops.. Something Went Wrong.', {
               position: 'bottom-right',
             })
           }
         }
-      } else {
-        this.changePassword.errors.oldPassword = null
-        this.changePassword.errors.newPassword = null
       }
     },
     async toggleAccountModalEnableTwoFactorModal() {

@@ -22,12 +22,21 @@
               >
               <input
                 id="email_address"
-                v-model="email"
+                v-model="changeEmail.email"
+                :class="{
+                  'border-red-500': changeEmail.errors.email,
+                }"
                 class="block w-full px-3 py-2 mt-1 transition duration-150 ease-in-out border border-gray-300 rounded-md shadow-sm form-input focus:outline-none focus:ring-blue focus:border-blue-300 sm:text-sm sm:leading-5"
               />
-              <p v-if="newEmail" class="mt-2 text-sm text-primary-500">
-                Your new e-mail address {{ newEmail }} has not yet been
-                comfirmed.
+              <span v-if="changeEmail.errors.email" class="text-red-500">{{
+                changeEmail.errors.email
+              }}</span>
+              <p
+                v-if="changeEmail.newEmail"
+                class="mt-2 text-sm text-primary-500"
+              >
+                Your new e-mail address {{ changeEmail.newEmail }} has not yet
+                been comfirmed.
                 <span
                   class="cursor-pointer text-primary-400 hover:text-primary-600"
                   @click="userResendEmailChange"
@@ -58,35 +67,82 @@ export default {
 
   data() {
     return {
-      email: this.$auth.user.email,
-      newEmail: this.$auth.user.newEmail,
+      changeEmail: {
+        email: this.$auth.user.email,
+        newEmail: this.$auth.user.newEmail,
+        errors: {
+          email: null,
+        },
+      },
     }
   },
 
   methods: {
-    async changePersonalInformation(e) {
-      const email = this.email !== this.$auth.user.email
-      const newEmail = this.newEmail !== this.$auth.user.newEmail
+    async changePersonalInformation() {
+      const email = this.changeEmail.email !== this.$auth.user.email
+      const newEmail = this.changeEmail.newEmail !== this.$auth.user.newEmail
       if (email || newEmail) {
         try {
-          const res = await this.$axios.$post('/api/account/email-change', {
+          const res = await this.$axios.$post('/api/account/change-email', {
             email: this.email,
           })
-          this.newEmail = this.email
-          this.email = this.$auth.user.email
-          this.$toast.success(res.message, {
-            position: 'bottom-right',
-          })
+          this.changeEmail.newEmail = this.email
+          this.changeEmail.email = this.$auth.user.email
+          switch (res.code) {
+            case 'PENDING_CONFIRMATION':
+              this.$toast.success(
+                'Please check your new email address to complate the email change.',
+                {
+                  position: 'bottom-right',
+                }
+              )
+              break
+            default:
+          }
         } catch (e) {
-          this.$toast.error('Oops.. Something Went Wrong..', {
-            position: 'bottom-right',
-          })
+          if (e.response.data.codes) {
+            const { email } = e.response.data.codes
+            if (email) {
+              switch (email) {
+                case 'INVALID':
+                  this.changeEmail.errors.email = 'New email must be valid.'
+                  break
+                case 'REQUIRED':
+                  this.changeEmail.errors.email = 'Email is required.'
+                  break
+                default:
+                  this.$toast.error('Oops.. Something Went Wrong..', {
+                    position: 'bottom-right',
+                  })
+                  break
+              }
+            }
+          } else {
+            switch (e.response.data.code) {
+              case 'EMAIL_CONFLICT':
+                this.changeEmail.errors.email =
+                  'Email your attempting to change to is the same as your current one.'
+                break
+              case 'ALREADY_EXISTS':
+                this.changeEmail.errors.email =
+                  'Email your attempting to change to is already in use.'
+                break
+              default:
+                this.$toast.error('Oops.. Something Went Wrong..', {
+                  position: 'bottom-right',
+                })
+                break
+            }
+          }
         }
+      } else {
+        this.changeEmail.errors.email =
+          'Email your attempting to change to is the same as your current one.'
       }
     },
     async userResendEmailChange() {
       try {
-        const res = await this.$axios.$post('/api/account/email-change/resend')
+        const res = await this.$axios.$post('/api/account/change-email/resend')
         this.$toast.success(res.message, {
           position: 'bottom-right',
         })

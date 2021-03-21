@@ -165,6 +165,9 @@ export default {
       },
       twoFactor: {
         code: '',
+        errors: {
+          code: null,
+        },
       },
       showTwoFactorSecret: false,
     }
@@ -173,7 +176,14 @@ export default {
     /**
      * Adding data to modal
      */
-    await this.$store.dispatch('account/SET_TWO_FACTOR_INITIALIZE')
+    try {
+      await this.$store.dispatch('account/SET_TWO_FACTOR_INITIALIZE')
+    } catch (e) {
+      this.hideTwoFactorModal()
+      return this.$toast.error('Oops.. Something Went Wrong..', {
+        position: 'bottom-right',
+      })
+    }
 
     this.popupItem = this.$refs.background
 
@@ -217,6 +227,12 @@ export default {
        * Reset Store
        */
       await this.$store.dispatch('account/RESET_TWO_FACTOR_INITIALIZE')
+
+      /**
+       * Reset messages
+       */
+      await this.$store.commit('account/SET_MESSAGE_SUCCESS', null)
+      await this.$store.commit('account/SET_MESSAGE_ERROR', null)
     })
   },
   methods: {
@@ -228,13 +244,11 @@ export default {
         'account/SET_SHOW_ENABLE_TWO_FACTOR_MODAL',
         false
       )
-      await this.$store.commit('account/SET_MESSAGE_SUCCESS', '')
-      await this.$store.commit('account/SET_MESSAGE_ERROR', '')
     },
     toggleTwoFactorSecret() {
       this.showTwoFactorSecret = !this.showTwoFactorSecret
     },
-    async userEnableTwoFactor(e) {
+    async userEnableTwoFactor() {
       try {
         await this.$store.dispatch(
           'account/ENABLE_TWO_FACTOR',
@@ -254,9 +268,20 @@ export default {
             }
           )
         }
-        if (this.$store.state.account.messages.error) {
+
+        if (this.$store.state.account.messages.errors) {
+          if (this.$store.state.account.messages.errors.code) {
+            this.twoFactor.errors.code = this.$store.state.account.messages.errors.code
+          }
           return
         }
+
+        if (this.$store.state.account.messages.error) {
+          return this.$toast.error(this.$store.state.account.messages.error, {
+            position: 'bottom-right',
+          })
+        }
+
         this.$toast.error('Oops.. Something Went Wrong..', {
           position: 'bottom-right',
         })
@@ -267,16 +292,24 @@ export default {
       }
     },
     async downloadTwoFactorBackupCodes() {
-      const res = await this.$axios.$get('/api/account/two-factor/backup-codes')
-      const url = window.URL.createObjectURL(new Blob([res]))
-      const link = document.createElement('a')
-      link.href = url
-      link.setAttribute(
-        'download',
-        `${this.$config.title.toLowerCase()}-backup-codes.txt`
-      )
-      document.body.appendChild(link)
-      link.click()
+      try {
+        const res = await this.$axios.$get(
+          '/api/account/two-factor/backup-codes'
+        )
+        const url = window.URL.createObjectURL(new Blob([res]))
+        const link = document.createElement('a')
+        link.href = url
+        link.setAttribute(
+          'download',
+          `${this.$config.title.toLowerCase()}-backup-codes.txt`
+        )
+        document.body.appendChild(link)
+        link.click()
+      } catch (e) {
+        this.$toast.error('Oops.. Something Went Wrong..', {
+          position: 'bottom-right',
+        })
+      }
     },
   },
 }
