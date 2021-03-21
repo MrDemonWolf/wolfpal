@@ -67,13 +67,11 @@ export default {
         weeklyGoals: this.$auth.user.notifications.email.weeklyGoals,
         errors: { weeklyGoals: null },
       },
-      error: null,
-      success: null,
     }
   },
 
   methods: {
-    async changeNotificationsSettings(e) {
+    async changeNotificationsSettings() {
       const email = {
         weekly:
           this.$auth.user.notifications.email.weeklyGoals !==
@@ -86,17 +84,21 @@ export default {
             weeklyGoals: this.changeNotificationsEmail.weeklyGoals,
           })
           await this.$auth.fetchUser()
-          this.$toast.success(res.message, {
+          switch (res.code) {
+            case 'EMAIL_NOTIFICATIONS_CHANGED':
+              this.$toast.success(
+                'Your notifications preferences for email has been changed.',
+                {
+                  position: 'bottom-right',
+                }
+              )
+              break
+            default:
+          }
+        } catch (e) {
+          this.$toast.error('Oops.. Something Went Wrong..', {
             position: 'bottom-right',
           })
-        } catch (e) {
-          if (e.response && e.response.data && e.response.data.errors) {
-            this.changeUsername.errors = e.response.data.errors
-          } else {
-            this.$toast.error('Oops.. Something Went Wrong..', {
-              position: 'bottom-right',
-            })
-          }
         }
       }
     },
