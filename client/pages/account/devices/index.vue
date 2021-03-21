@@ -117,7 +117,12 @@ export default {
   },
 
   async fetch({ store }) {
-    await store.dispatch('account/FETCH_SESSIONS')
+    try {
+      await store.dispatch('account/FETCH_SESSIONS')
+    } catch (e) {}
+    this.$toast.error('Oops.. Something Went Wrong..', {
+      position: 'bottom-right',
+    })
   },
 
   computed: {
@@ -142,16 +147,29 @@ export default {
         }
         await this.$store.dispatch('account/REVOKE_SESSION', index)
         if (this.$store.state.account.messages.success) {
-          return this.$toast.success(
-            this.$store.state.account.messages.success,
-            {
-              position: 'bottom-right',
-            }
-          )
+          switch (this.$store.state.account.messages.success) {
+            case 'SESSION_REVOKED':
+              this.$toast.success('Deivce has been revoked.', {
+                position: 'bottom-right',
+              })
+              break
+            default:
+          }
+        } else {
+          switch (this.$store.state.account.messages.error) {
+            case 'SESSION_NOT_FOUND':
+              this.$toast.error('That device might be already revoked.', {
+                position: 'bottom-right',
+              })
+              break
+
+            default:
+              this.$toast.error('Oops.. Something Went Wrong..', {
+                position: 'bottom-right',
+              })
+              break
+          }
         }
-        this.$toast.error(this.$store.state.account.messages.error, {
-          position: 'bottom-right',
-        })
       } catch (e) {
         this.$toast.error('Oops.. Something Went Wrong..', {
           position: 'bottom-right',

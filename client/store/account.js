@@ -120,10 +120,10 @@ export const actions = {
       commit('DELETE_SESSION', index)
 
       commit('SET_MESSAGE_ERROR', null)
-      commit('SET_MESSAGE_SUCCESS', res.message)
+      commit('SET_MESSAGE_SUCCESS', res.code)
     } catch (e) {
       commit('SET_MESSAGE_SUCCESS', null)
-      commit('SET_MESSAGE_ERROR', e.response.data.error)
+      commit('SET_MESSAGE_ERROR', e.response.data.code)
     }
   },
   async REVOKE_SESSIONS({ commit }) {

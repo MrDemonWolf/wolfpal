@@ -406,7 +406,6 @@ export default {
     return {
       isLoading: false,
       mobileNavActive: false,
-      isRegister: true,
       register: {
         email: '',
         username: '',
