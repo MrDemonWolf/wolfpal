@@ -176,7 +176,6 @@ export default {
     /**
      * Adding data to modal
      */
-
     try {
       await this.$store.dispatch('account/SET_TWO_FACTOR_INITIALIZE')
     } catch (e) {

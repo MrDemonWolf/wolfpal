@@ -61,8 +61,9 @@ export const actions = {
     } catch (e) {
       commit('SET_MESSAGE_SUCCESS', null)
       if (e.response.data.codes) {
-        if (e.response.data.codes.code) {
-          switch (e.response.data.codes.code) {
+        const { code } = e.response.data.code
+        if (code) {
+          switch (code) {
             case 'REQUIRED':
               commit(
                 'SET_MESSAGE_ERRORS_CODE',
@@ -84,10 +85,25 @@ export const actions = {
       )
 
       commit('SET_MESSAGE_ERROR', null)
-      commit('SET_MESSAGE_SUCCESS', res.message)
+      commit('SET_MESSAGE_SUCCESS', res.code)
     } catch (e) {
       commit('SET_MESSAGE_SUCCESS', null)
-      commit('SET_MESSAGE_ERROR', e.response.data.error)
+      if (e.response.data.codes) {
+        const { code } = e.response.data.code
+        if (code) {
+          switch (code) {
+            case 'REQUIRED':
+              commit(
+                'SET_MESSAGE_ERRORS_CODE',
+                'Code verification is required.'
+              )
+              break
+            default:
+          }
+        }
+      } else {
+        commit('SET_MESSAGE_ERROR', e.response.data.error)
+      }
     }
   },
   RESET_TWO_FACTOR_INITIALIZE({ commit }) {

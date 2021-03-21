@@ -38,15 +38,13 @@
                   v-model="twoFactor.code"
                   type="text"
                   :class="{
-                    'border-red-500': $store.state.account.messages.error,
+                    'border-red-500': twoFactor.errors.code,
                   }"
                   class="block w-full px-3 py-2 mt-1 transition duration-150 ease-in-out border border-gray-300 rounded-md shadow-sm form-input focus:outline-none focus:ring-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                 />
-                <span
-                  v-if="$store.state.account.messages.error"
-                  class="text-red-500"
-                  >{{ $store.state.account.messages.error }}</span
-                >
+                <span v-if="twoFactor.errors.code" class="text-red-500">{{
+                  twoFactor.errors.code
+                }}</span>
               </div>
             </div>
           </div>
@@ -84,6 +82,9 @@ export default {
     return {
       twoFactor: {
         code: '',
+        errors: {
+          code: null,
+        },
       },
     }
   },
@@ -129,10 +130,10 @@ export default {
         'account/SET_SHOW_DISABLE_TWO_FACTOR_MODAL',
         false
       )
-      await this.$store.commit('account/SET_MESSAGE_SUCCESS', '')
-      await this.$store.commit('account/SET_MESSAGE_ERROR', '')
+      await this.$store.commit('account/SET_MESSAGE_SUCCESS', null)
+      await this.$store.commit('account/SET_MESSAGE_ERROR', null)
     },
-    async userDisableTwoFactor(e) {
+    async userDisableTwoFactor() {
       try {
         await this.$store.dispatch(
           'account/DISABLE_TWO_FACTOR',
@@ -154,8 +155,18 @@ export default {
             }
           )
         }
-        if (this.$store.state.account.messages.error) {
+
+        if (this.$store.state.account.messages.errors) {
+          if (this.$store.state.account.messages.errors.code) {
+            this.twoFactor.errors.code = this.$store.state.account.messages.errors.code
+          }
           return
+        }
+
+        if (this.$store.state.account.messages.error) {
+          return this.$toast.error(this.$store.state.account.messages.error, {
+            position: 'bottom-right',
+          })
         }
         this.$toast.error('Oops.. Something Went Wrong..', {
           position: 'bottom-right',
