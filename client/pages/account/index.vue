@@ -25,7 +25,7 @@
                   id="username"
                   v-model="changeUsername.username"
                   :class="{
-                    'border-red-500': changeUsername.errors.username || error,
+                    'border-red-500': changeUsername.errors.username,
                   }"
                   class="flex-1 block w-full px-3 py-2 mt-1 transition duration-150 ease-in-out border border-gray-300 rounded-md shadow-sm form-input focus:outline-none focus:ring-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                 />

@@ -31,13 +31,13 @@
                         on {{ session.device.os }}
                       </span>
                       <span
-                        v-if="session.device.isDev"
+                        v-show="session.device.isDev"
                         class="px-2 ml-1 text-xs font-semibold leading-5 text-red-800 bg-red-100 rounded-full"
                       >
                         Dev
                       </span>
                       <span
-                        v-if="currentSession === session.accessTokenHash"
+                        v-show="currentSession === session.accessTokenHash"
                         class="px-2 ml-1 text-xs font-semibold leading-5 text-green-800 bg-green-100 rounded-full"
                       >
                         Current
@@ -119,10 +119,11 @@ export default {
   async fetch({ store }) {
     try {
       await store.dispatch('account/FETCH_SESSIONS')
-    } catch (e) {}
-    this.$toast.error('Oops.. Something Went Wrong..', {
-      position: 'bottom-right',
-    })
+    } catch (e) {
+      this.$toast.error('Oops.. Something Went Wrong..', {
+        position: 'bottom-right',
+      })
+    }
   },
 
   computed: {

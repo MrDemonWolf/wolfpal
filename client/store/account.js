@@ -46,7 +46,7 @@ export const actions = {
       commit('SET_MESSAGE_ERROR', null)
     } catch (e) {
       commit('SET_MESSAGE_SUCCESS', null)
-      commit('SET_MESSAGE_ERROR', 'e.response.data.error')
+      commit('SET_MESSAGE_ERROR', e.response.data.code)
     }
   },
   async ENABLE_TWO_FACTOR({ commit, dispatch }, code) {
@@ -74,7 +74,7 @@ export const actions = {
           }
         }
       } else {
-        commit('SET_MESSAGE_ERROR', e.response.data.error)
+        commit('SET_MESSAGE_ERROR', e.response.data.code)
       }
     }
   },
@@ -102,7 +102,7 @@ export const actions = {
           }
         }
       } else {
-        commit('SET_MESSAGE_ERROR', e.response.data.error)
+        commit('SET_MESSAGE_ERROR', e.response.data.code)
       }
     }
   },
@@ -133,10 +133,10 @@ export const actions = {
       commit('SET_SESSIONS', [])
 
       commit('SET_MESSAGE_ERROR', null)
-      commit('SET_MESSAGE_SUCCESS', res.message)
+      commit('SET_MESSAGE_SUCCESS', res.code)
     } catch (e) {
       commit('SET_MESSAGE_SUCCESS', null)
-      commit('SET_MESSAGE_ERROR', e.response.data.error)
+      commit('SET_MESSAGE_ERROR', e.response.data.code)
     }
   },
 }
