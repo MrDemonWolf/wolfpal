@@ -371,9 +371,9 @@ router.put(
       const isMatch = await user.verifyPassword(oldPassword);
 
       if (!isMatch) {
-        return res.status(409).json({
+        return res.status(401).json({
           code: 'INVALID_CREDENTIALS',
-          errors: { oldPassword: 'Wrong old password.' }
+          error: 'Wrong old password.'
         });
       }
 

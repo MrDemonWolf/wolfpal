@@ -107,7 +107,6 @@ export default {
                 )
                 break
               default:
-                break
             }
           }
           this.isLoading = false
@@ -121,6 +120,9 @@ export default {
               break
 
             default:
+              this.$toast.error('Oops.. Something Went Wrong..', {
+                position: 'bottom-right',
+              })
               break
           }
           this.isLoading = false
