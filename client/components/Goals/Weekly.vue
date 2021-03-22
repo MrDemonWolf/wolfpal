@@ -36,7 +36,11 @@
             'border-gray-400 dark:border-gray-500': !goal.isCompleted,
           }"
           class="p-2 ml-4 mr-2 text-green-500 border-2 rounded flex-no-shrink hover:text-white hover:bg-green-500 hover:border-green-500 dark-hover:border-green-500 toggle-complete-goal focus:outline-none"
-          @click="toggleCompleteGoal(index)"
+          @click="
+            goal.isCompleted
+              ? markGoalNotComplete(index)
+              : markGoalComplete(index)
+          "
         >
           <fa
             :class="{ invisible: !goal.isCompleted }"
@@ -120,9 +124,26 @@ export default {
         })
       }
     },
-    async toggleCompleteGoal(index) {
+    async markGoalComplete(index) {
       try {
         await this.$store.dispatch('goals/MODIFY_GOAL_IS_COMPLETE', index)
+        if (this.$store.state.goals.messages.success) {
+          this.$toast.success(this.$store.state.goals.messages.success, {
+            position: 'bottom-right',
+          })
+        }
+        this.$toast.error(this.$store.state.goals.messages.error, {
+          position: 'bottom-right',
+        })
+      } catch (e) {
+        this.$toast.error('Oops.. Something Went Wrong..', {
+          position: 'bottom-right',
+        })
+      }
+    },
+    async markGoalNotComplete(index) {
+      try {
+        await this.$store.dispatch('goals/MODIFY_GOAL_IS_NOT_COMPLETE', index)
         if (this.$store.state.goals.messages.success) {
           this.$toast.success(this.$store.state.goals.messages.success, {
             position: 'bottom-right',

@@ -22,27 +22,40 @@ export const actions = {
   },
   async MODIFY_GOAL_IS_COMPLETE({ state, commit }, index) {
     try {
-      const res = await this.$axios.$put(
+      await this.$axios.$put(
         `/api/goals/weekly/${state.weekly[index]._id}/complete`
       )
 
       commit('SET_GOAL_IS_COMPLETE', {
         index,
-        isCompleted: res.isCompleted,
+        isCompleted: true,
       })
       commit('SET_MESSAGE_ERROR', null)
-      switch (res.code) {
-        case 'COMPLETED':
-          commit(
-            'SET_MESSAGE_SUCCESS',
-            `Goal has been marked as ${
-              res.isCompleted ? 'completed' : 'not completed'
-            }`
-          )
+      commit('SET_MESSAGE_SUCCESS', 'Goal has been marked as completed')
+    } catch (e) {
+      commit('SET_MESSAGE_SUCCESS', null)
+      switch (e.response.data.code) {
+        case 'NON_EXISTENT':
+          commit('SET_MESSAGE_ERROR', 'Goal is not found.')
           break
         default:
+          commit('SET_MESSAGE_ERROR', 'Oops.. Something Went Wrong..')
           break
       }
+    }
+  },
+  async MODIFY_GOAL_IS_NOT_COMPLETE({ state, commit }, index) {
+    try {
+      await this.$axios.$put(
+        `/api/goals/weekly/${state.weekly[index]._id}/not-complete`
+      )
+
+      commit('SET_GOAL_IS_COMPLETE', {
+        index,
+        isCompleted: false,
+      })
+      commit('SET_MESSAGE_ERROR', null)
+      commit('SET_MESSAGE_SUCCESS', 'Goal has been marked as not completed')
     } catch (e) {
       commit('SET_MESSAGE_SUCCESS', null)
       switch (e.response.data.code) {
