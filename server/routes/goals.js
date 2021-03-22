@@ -87,7 +87,7 @@ router.post(
 /**
  * @route /goals/weekly/:goal_id/complete
  * @method PUT
- * @description Allows a logged in user to complete a weekly goal as complete
+ * @description Allows a logged in user to mark a weekly goal as complete
  */
 router.put(
   '/weekly/:goal_id/complete',
@@ -105,11 +105,9 @@ router.put(
         });
       }
 
-      goal.isCompleted = !goal.isCompleted;
+      goal.isCompleted = true;
       await goal.save();
-      res
-        .status(200)
-        .json({ code: 'COMPLETED', isCompleted: goal.isCompleted });
+      res.status(200).json({ code: 'COMPLETED', isCompleted: true });
     } catch (err) {
       console.log(err);
       res.status(500).json({
