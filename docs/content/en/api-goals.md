@@ -112,7 +112,7 @@ curl --location --request POST 'https://www.example.com/api/goals/weekly' \
 
 ## Complete Weekly Goal
 
-Allows a logged in user to complete a weekly goal as complete
+Allows a logged in user to mark a weekly goal as complete
 
 #### Path
 
@@ -147,8 +147,8 @@ curl --location --request DELETE 'https://www.example.com/api/goals/weekly/5f527
 
 ```json
 {
-  "code": 200,
-  "message": "Goal has been removed."
+  "code": "COMPLETED",
+  "isCompleted": true
 }
 ```
 
