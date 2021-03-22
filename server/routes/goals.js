@@ -119,6 +119,40 @@ router.put(
 );
 
 /**
+ * @route /goals/weekly/:goal_id/not-complete
+ * @method PUT
+ * @description Allows a logged in user to mark a weekly goal as not complete
+ */
+router.put(
+  '/weekly/:goal_id/not-complete',
+  requireAuth,
+  isSessionValid,
+  isAccountActivated,
+  async (req, res) => {
+    try {
+      const goal = await WeeklyGoal.findById(req.params.goal_id);
+
+      if (!goal) {
+        return res.status(404).json({
+          code: 'NON_EXISTENT',
+          error: 'Goal could not be found.'
+        });
+      }
+
+      goal.isCompleted = false;
+      await goal.save();
+      res.status(200).json({ code: 'NOT_COMPLETED', isCompleted: false });
+    } catch (e) {
+      console.log(err);
+      res.status(500).json({
+        code: 'INTERNAL_SERVER_ERROR',
+        error: 'Internal Server Error.'
+      });
+    }
+  }
+);
+
+/**
  * @route /goals/weekly
  * @method DELETE
  * @description Allows a logged in user to delete a weekly goal

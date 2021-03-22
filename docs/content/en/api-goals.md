@@ -137,7 +137,7 @@ Allows a logged in user to mark a weekly goal as complete
   <code-block label="Request" active>
 
 ```sh
-curl --location --request DELETE 'https://www.example.com/api/goals/weekly/5f527f5bf9c58a11103b39c9/complete' \
+curl --location --request PUT 'https://www.example.com/api/goals/weekly/5f527f5bf9c58a11103b39c9/complete' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjRiZmYxMjEwMzdlNDI0YTE3YTNlYmMiLCJpYXQiOjE1OTkyNDE1OTMsImV4cCI6MTU5OTI0MzM5M30.FuLUNEc_lE8jI2KEur0KsQzZFjIh5kymnLdR0Udycxk' \
 ```
 
@@ -149,6 +149,51 @@ curl --location --request DELETE 'https://www.example.com/api/goals/weekly/5f527
 {
   "code": "COMPLETED",
   "isCompleted": true
+}
+```
+
+  </code-block>
+</code-group>
+
+## Not Complete Weekly Goal
+
+Allows a logged in user to mark a weekly goal as not complete
+
+#### Path
+
+`PUT /goals/weekly/:goal_id/not-complete`
+
+#### Headers
+
+| Field         | Type   | Description                       |
+| :------------ | :----- | :-------------------------------- |
+| Content-Type  | string | application/x-www-form-urlencoded |
+| Authorization | string | JWT access token.                 |
+
+#### Params
+
+| Field        | Type   | Description       |
+| :----------- | :----- | :---------------- |
+| weeklyGoalId | string | id of weekly goal |
+
+#### Example
+
+<code-group>
+  <code-block label="Request" active>
+
+```sh
+curl --location --request PUT 'https://www.example.com/api/goals/weekly/5f527f5bf9c58a11103b39c9/not-complete' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjRiZmYxMjEwMzdlNDI0YTE3YTNlYmMiLCJpYXQiOjE1OTkyNDE1OTMsImV4cCI6MTU5OTI0MzM5M30.FuLUNEc_lE8jI2KEur0KsQzZFjIh5kymnLdR0Udycxk' \
+```
+
+  </code-block>
+  <code-block label="Response
+">
+
+```json
+{
+  "code": "NOT_COMPLETED",
+  "isCompleted": false
 }
 ```
 
