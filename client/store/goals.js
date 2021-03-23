@@ -96,7 +96,7 @@ export const actions = {
     try {
       const res = await this.$axios.$post('/api/goals/weekly', goal)
       commit('SET_MESSAGE_ERROR', null)
-      commit('SET_MESSAGE_SUCCESS', res.code)
+      commit('SET_MESSAGE_SUCCESS', 'Goal has been added.')
       commit('PUSH_WEEKLY_GOAL', res.goal)
     } catch (e) {
       commit('SET_MESSAGE_SUCCESS', null)
