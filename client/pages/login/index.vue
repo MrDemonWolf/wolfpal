@@ -15,6 +15,7 @@
           Sign in to your account
         </h2>
         <p
+          v-if="$config.registration"
           class="mt-2 text-sm text-center text-gray-600 max-w dark:text-gray-200 font-roboto"
         >
           Or
