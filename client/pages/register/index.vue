@@ -15,7 +15,6 @@
           class="mt-2 text-sm text-center text-gray-600 max-w dark:text-gray-200 font-roboto"
         >
           Or
-          <!-- space -->
           <nuxt-link
             class="font-medium text-primary-500 hover:text-primary-600 dark:text-primary-400 dark:hover:text-primary-300 font-roboto"
             to="/login"

@@ -109,55 +109,6 @@
           </button>
         </div>
       </form>
-
-      <div class="mt-6">
-        <div class="relative">
-          <div class="absolute inset-0 flex items-center">
-            <div class="w-full border-t border-gray-300"></div>
-          </div>
-          <div class="relative flex justify-center text-sm">
-            <span class="px-2 text-gray-500 bg-white"> Or continue with </span>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-3 gap-3 mt-6">
-          <div>
-            <a
-              href="#"
-              class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50"
-            >
-              <span class="sr-only">Sign in with Google</span>
-              <fa
-                :icon="['fab', 'google']"
-                class="w-5 h-5 text-brand-googlePlus"
-              />
-            </a>
-          </div>
-
-          <div>
-            <a
-              href="#"
-              class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50"
-            >
-              <span class="sr-only">Sign in with Twitter</span>
-              <fa
-                :icon="['fab', 'twitter']"
-                class="w-5 h-5 text-brand-twitter"
-              />
-            </a>
-          </div>
-
-          <div>
-            <a
-              href="#"
-              class="inline-flex justify-center w-full px-4 py-2 text-sm font-medium text-gray-500 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50"
-            >
-              <span class="sr-only">Sign in with GitHub</span>
-              <fa :icon="['fab', 'github']" class="w-5 h-5 text-brand-github" />
-            </a>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 </template>
