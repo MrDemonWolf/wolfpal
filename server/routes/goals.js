@@ -191,6 +191,24 @@ router.delete(
 
 /**
  * @route /goals/yearly
+ * @method GET
+ * @description Allows a logged in user to get yearly goals
+ */
+router.get('/yearly', requireAuth, isSessionValid, async (req, res) => {
+  try {
+    const goals = await YearlyGoal.find({ user: req.user.id });
+    res.status(200).json({ goals, total: goals.length });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({
+      code: 'INTERNAL_SERVER_ERROR',
+      error: 'Internal Server Error.'
+    });
+  }
+});
+
+/**
+ * @route /goals/yearly
  * @method POST
  * @description Allows a logged in user create a new yearly goal.
  */

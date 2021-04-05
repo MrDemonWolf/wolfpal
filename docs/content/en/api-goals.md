@@ -245,6 +245,79 @@ curl --location --request DELETE 'https://www.example.com/api/goals/weekly/5f527
   </code-block>
 </code-group>
 
+## Get Yearly Goals
+
+Allows a logged in user to get yearly goals
+
+#### Path
+
+`GET /goals/yearly`
+
+#### Headers
+
+| Field         | Type   | Description                       |
+| :------------ | :----- | :-------------------------------- |
+| Content-Type  | string | application/x-www-form-urlencoded |
+| Authorization | string | JWT access token.                 |
+
+#### Example
+
+<code-group>
+  <code-block label="Request" active>
+
+```sh
+curl --location --request GET 'https://www.example.com/api/goals/yearly' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjRiZmYxMjEwMzdlNDI0YTE3YTNlYmMiLCJpYXQiOjE1OTkyNDE1OTMsImV4cCI6MTU5OTI0MzM5M30.FuLUNEc_lE8jI2KEur0KsQzZFjIh5kymnLdR0Udycxk'
+```
+
+  </code-block>
+  <code-block label="Response
+">
+
+```json
+{
+  "goals": [
+    {
+      "isCompleted": false,
+      "weekly": [],
+      "_id": "606b327ba29add0ce3f7e96e",
+      "user": "5f4bff121037e424a17a3ebc",
+      "title": "Get a dub in Fortnite",
+      "completeBy": "2021-12-30T06:00:00.000Z",
+      "createdAt": "2021-04-05T15:53:31.964Z",
+      "updatedAt": "2021-04-05T15:53:31.964Z",
+      "__v": 0
+    },
+    {
+      "isCompleted": false,
+      "weekly": [],
+      "_id": "606b3288a29add0ce3f7e96f",
+      "user": "5f4bff121037e424a17a3ebc",
+      "title": "Get a dub in Fortnite",
+      "completeBy": "2022-12-30T06:00:00.000Z",
+      "createdAt": "2021-04-05T15:53:44.226Z",
+      "updatedAt": "2021-04-05T15:53:44.226Z",
+      "__v": 0
+    },
+    {
+      "isCompleted": false,
+      "weekly": [],
+      "_id": "606b33282b8ffa0d512a7993",
+      "user": "5f4bff121037e424a17a3ebc",
+      "title": "Get a dub in Fortnite",
+      "completeBy": "2022-12-30T06:00:00.000Z",
+      "createdAt": "2021-04-05T15:56:24.973Z",
+      "updatedAt": "2021-04-05T15:56:24.973Z",
+      "__v": 0
+    }
+  ],
+  "total": 3
+}
+```
+
+  </code-block>
+</code-group>
+
 ## Create Yearly Goal
 
 Allows a logged in user create a new yearly goal.
