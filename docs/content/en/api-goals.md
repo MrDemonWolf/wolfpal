@@ -318,6 +318,58 @@ curl --location --request GET 'https://www.example.com/api/goals/yearly' \
   </code-block>
 </code-group>
 
+## Get Yearly Goal
+
+Allows a logged in user to get a single yearly goal
+
+#### Path
+
+`GET /goals/yearly/:goal_id`
+
+#### Headers
+
+| Field         | Type   | Description                       |
+| :------------ | :----- | :-------------------------------- |
+| Content-Type  | string | application/x-www-form-urlencoded |
+| Authorization | string | JWT access token.                 |
+
+#### Params
+
+| Field        | Type   | Description       |
+| :----------- | :----- | :---------------- |
+| yearlyGoalId | string | id of yearly goal |
+
+#### Example
+
+<code-group>
+  <code-block label="Request" active>
+
+```sh
+curl --location --request GET 'https://www.example.com/api/goals/yearly/606b33282b8ffa0d512a7993' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjRiZmYxMjEwMzdlNDI0YTE3YTNlYmMiLCJpYXQiOjE1OTkyNDE1OTMsImV4cCI6MTU5OTI0MzM5M30.FuLUNEc_lE8jI2KEur0KsQzZFjIh5kymnLdR0Udycxk' \
+```
+
+  </code-block>
+  <code-block label="Response
+">
+
+```json
+{
+  "isCompleted": false,
+  "weekly": [],
+  "_id": "606b33282b8ffa0d512a7993",
+  "user": "5f4bff121037e424a17a3ebc",
+  "title": "Get a dub in Fortnite",
+  "completeBy": "2022-12-30T06:00:00.000Z",
+  "createdAt": "2021-04-05T15:56:24.973Z",
+  "updatedAt": "2021-04-05T15:56:24.973Z",
+  "__v": 0
+}
+```
+
+  </code-block>
+</code-group>
+
 ## Create Yearly Goal
 
 Allows a logged in user create a new yearly goal.
@@ -396,7 +448,7 @@ Allows a logged in user to delete a yearly goal
 
 | Field        | Type   | Description       |
 | :----------- | :----- | :---------------- |
-| weeklyGoalId | string | id of yearly goal |
+| yearlyGoalId | string | id of yearly goal |
 
 #### Example
 

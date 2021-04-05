@@ -145,7 +145,7 @@ router.put(
       goal.isCompleted = false;
       await goal.save();
       res.status(200).json({ code: 'NOT_COMPLETED', isCompleted: false });
-    } catch (e) {
+    } catch (err) {
       console.log(err);
       res.status(500).json({
         code: 'INTERNAL_SERVER_ERROR',
@@ -206,6 +206,38 @@ router.get('/yearly', requireAuth, isSessionValid, async (req, res) => {
     });
   }
 });
+
+/**
+ * @route /goals/yearly/:goal_id
+ * @method GET
+ * @description Allows a logged in user to get a single yearly goal
+ */
+router.get(
+  '/yearly/:goal_id',
+  requireAuth,
+  isSessionValid,
+  isAccountActivated,
+  async (req, res) => {
+    try {
+      const goal = await YearlyGoal.findById(req.params.goal_id);
+
+      if (!goal) {
+        return res.status(404).json({
+          code: 'NON_EXISTENT',
+          error: 'Goal could not be found.'
+        });
+      }
+
+      res.status(200).json({ goal });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({
+        code: 'INTERNAL_SERVER_ERROR',
+        error: 'Internal Server Error.'
+      });
+    }
+  }
+);
 
 /**
  * @route /goals/yearly
