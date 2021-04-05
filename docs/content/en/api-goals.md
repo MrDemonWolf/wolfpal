@@ -244,3 +244,62 @@ curl --location --request DELETE 'https://www.example.com/api/goals/weekly/5f527
 
   </code-block>
 </code-group>
+
+## Create Yearly Goal
+
+Allows a logged in user create a new yearly goal.
+
+#### Path
+
+`POST /goals/yearly`
+
+#### Headers
+
+| Field         | Type   | Description                       |
+| :------------ | :----- | :-------------------------------- |
+| Content-Type  | string | application/x-www-form-urlencoded |
+| Authorization | string | JWT access token.                 |
+
+#### Body
+
+| Field      | Type   | Description                 |
+| :--------- | :----- | :-------------------------- |
+| title      | string | Title of the new goal       |
+| completeBy | string | completeBy date of new goal |
+
+#### Example
+
+<code-group>
+  <code-block label="Request" active>
+
+```sh
+curl --location --request POST 'https://www.example.com/api/goals/yearly' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjRiZmYxMjEwMzdlNDI0YTE3YTNlYmMiLCJpYXQiOjE1OTkyNDE1OTMsImV4cCI6MTU5OTI0MzM5M30.FuLUNEc_lE8jI2KEur0KsQzZFjIh5kymnLdR0Udycxk' \
+--header 'Content-Type: application/x-www-form-urlencoded' \
+--data-urlencode 'title=Win at life'
+--data-urlencode 'completeBy=12/30/2025'
+```
+
+  </code-block>
+  <code-block label="Response
+">
+
+```json
+{
+  "goal": {
+    "isCompleted": false,
+    "weekly": [],
+    "_id": "606b33282b8ffa0d512a7993",
+    "user": "5f4bff121037e424a17a3ebc",
+    "title": "Get a dub.",
+    "completeBy": "2022-12-30T06:00:00.000Z",
+    "createdAt": "2021-04-05T15:56:24.973Z",
+    "updatedAt": "2021-04-05T15:56:24.973Z",
+    "__v": 0
+  },
+  "message": "Added yearly goal."
+}
+```
+
+  </code-block>
+</code-group>
