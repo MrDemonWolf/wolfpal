@@ -1,5 +1,6 @@
 const express = require('express');
 const passport = require('passport');
+const moment = require('moment');
 
 const router = express.Router();
 
@@ -7,6 +8,7 @@ const router = express.Router();
  * Load MongoDB models.
  */
 const WeeklyGoal = require('../models/Goals/Weekly');
+const YearlyGoal = require('../models/Goals/Yearly');
 
 /**
  * Load middlewares
@@ -18,6 +20,7 @@ const isAccountActivated = require('../middleware/isAccountActivated');
  * Load input validators.
  */
 const validateNewWeeklyGoalInput = require('../validation/goals/weekly/newGoal');
+const validateNewYearlyGoalInput = require('../validation/goals/weekly/newGoal');
 
 /**
  * Require authentication middleware.
@@ -176,6 +179,48 @@ router.delete(
       res
         .status(200)
         .json({ code: 'REMOVED', message: 'Goal has been removed.' });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({
+        code: 'INTERNAL_SERVER_ERROR',
+        error: 'Internal Server Error.'
+      });
+    }
+  }
+);
+
+/**
+ * @route /goals/yearly
+ * @method POST
+ * @description Allows a logged in user create a new yearly goal.
+ */
+router.post(
+  '/yearly',
+  requireAuth,
+  isSessionValid,
+  isAccountActivated,
+  async (req, res) => {
+    try {
+      /**
+       * validate the goal important for title
+       */
+      const { codes, errors, isValid } = validateNewYearlyGoalInput(req.body);
+
+      if (!isValid) {
+        return res.status(400).json({ codes, errors });
+      }
+
+      const { title, completeBy } = req.body;
+      const goal = new YearlyGoal({
+        user: req.user.id,
+        title,
+        completeBy: moment(completeBy),
+        weekly: []
+      });
+      await goal.save();
+      res
+        .status(201)
+        .json({ code: 'ADDED', goal, message: 'Added Yearly goal.' });
     } catch (err) {
       console.log(err);
       res.status(500).json({
