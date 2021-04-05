@@ -249,4 +249,38 @@ router.post(
   }
 );
 
+/**
+ * @route /goals/yearly
+ * @method DELETE
+ * @description Allows a logged in user to delete a yearly goal
+ */
+router.delete(
+  '/yearly/:goal_id',
+  requireAuth,
+  isSessionValid,
+  isAccountActivated,
+  async (req, res) => {
+    try {
+      const goal = await YearlyGoal.findByIdAndDelete(req.params.goal_id);
+
+      if (!goal) {
+        return res.status(404).json({
+          code: 'NON_EXISTENT',
+          error: 'Goal could not be found.'
+        });
+      }
+
+      res
+        .status(200)
+        .json({ code: 'REMOVED', message: 'Goal has been removed.' });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({
+        code: 'INTERNAL_SERVER_ERROR',
+        error: 'Internal Server Error.'
+      });
+    }
+  }
+);
+
 module.exports = router;
