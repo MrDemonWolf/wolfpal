@@ -20,7 +20,7 @@ const isAccountActivated = require('../middleware/isAccountActivated');
  * Load input validators.
  */
 const validateNewWeeklyGoalInput = require('../validation/goals/weekly/newGoal');
-const validateNewYearlyGoalInput = require('../validation/goals/weekly/newGoal');
+const validateNewYearlyGoalInput = require('../validation/goals/yearly/newGoal');
 
 /**
  * Require authentication middleware.
