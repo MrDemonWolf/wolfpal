@@ -376,3 +376,48 @@ curl --location --request POST 'https://www.example.com/api/goals/yearly' \
 
   </code-block>
 </code-group>
+
+## Delete Yearly Goal
+
+Allows a logged in user to delete a yearly goal
+
+#### Path
+
+`DELETE /goals/yearly`
+
+#### Headers
+
+| Field         | Type   | Description                       |
+| :------------ | :----- | :-------------------------------- |
+| Content-Type  | string | application/x-www-form-urlencoded |
+| Authorization | string | JWT access token.                 |
+
+#### Params
+
+| Field        | Type   | Description       |
+| :----------- | :----- | :---------------- |
+| weeklyGoalId | string | id of yearly goal |
+
+#### Example
+
+<code-group>
+  <code-block label="Request" active>
+
+```sh
+curl --location --request DELETE 'https://www.example.com/api/goals/yearly/606b33282b8ffa0d512a7993' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjRiZmYxMjEwMzdlNDI0YTE3YTNlYmMiLCJpYXQiOjE1OTkyNDE1OTMsImV4cCI6MTU5OTI0MzM5M30.FuLUNEc_lE8jI2KEur0KsQzZFjIh5kymnLdR0Udycxk' \
+```
+
+  </code-block>
+  <code-block label="Response
+">
+
+```json
+{
+  "code": "REMOVED",
+  "message": "Goal has been removed."
+}
+```
+
+  </code-block>
+</code-group>
