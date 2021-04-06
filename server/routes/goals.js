@@ -48,6 +48,38 @@ router.get('/weekly', requireAuth, isSessionValid, async (req, res) => {
 });
 
 /**
+ * @route /goals/weekly/:goal_id
+ * @method GET
+ * @description Allows a logged in user to get a single weekly goal
+ */
+router.get(
+  '/weekly/:goal_id',
+  requireAuth,
+  isSessionValid,
+  isAccountActivated,
+  async (req, res) => {
+    try {
+      const goal = await WeeklyGoal.findById(req.params.goal_id);
+
+      if (!goal) {
+        return res.status(404).json({
+          code: 'NON_EXISTENT',
+          error: 'Goal could not be found.'
+        });
+      }
+
+      res.status(200).json({ goal });
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({
+        code: 'INTERNAL_SERVER_ERROR',
+        error: 'Internal Server Error.'
+      });
+    }
+  }
+);
+
+/**
  * @route /goals/weekly
  * @method POST
  * @description Allows a logged in user create a new weekly goal.
