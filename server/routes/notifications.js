@@ -64,7 +64,10 @@ router.put('/email', requireAuth, isSessionValid, async (req, res) => {
 
     const user = await User.findById(req.user.id);
 
-    user.notifications.email.weeklyGoals = req.body.weeklyGoals;
+    const { weeklyGoals, yearlyGoals } = req.body;
+
+    user.notifications.email.weeklyGoals = weeklyGoals;
+    user.notifications.email.yearlyGoals = yearlyGoals;
     await user.save();
 
     res.status(200).json({

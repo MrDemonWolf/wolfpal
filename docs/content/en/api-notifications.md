@@ -25,6 +25,7 @@ Allows logged in user to enable or disable emails.
 | Field       | Type    | Description                            |
 | :---------- | :------ | :------------------------------------- |
 | weeklyGoals | boolean | Toggle notifications for weekly goals. |
+| yearlyGoals | boolean | Toggle notifications for yearly goals. |
 
 #### Example
 
@@ -35,7 +36,8 @@ Allows logged in user to enable or disable emails.
 curl --location --request GET 'https://www.example.com/api/notifications/email' \
 --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjRiZmYxMjEwMzdlNDI0YTE3YTNlYmMiLCJpYXQiOjE1OTkyNDE1OTMsImV4cCI6MTU5OTI0MzM5M30.FuLUNEc_lE8jI2KEur0KsQzZFjIh5kymnLdR0Udycxk' \
 --header 'Content-Type: application/x-www-form-urlencoded' \
---data-urlencode 'weeklyGoals=true'
+--data-urlencode 'weeklyGoals=true' \
+--data-urlencode 'yearlyGoals=true'
 ```
 
   </code-block>
