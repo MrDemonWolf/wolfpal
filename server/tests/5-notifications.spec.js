@@ -58,7 +58,8 @@ describe('✉ Notifications:', () => {
       .put('/notifications/email')
       .set('Authorization', `Bearer ${creds.user.accessToken}`)
       .send({
-        weeklyGoals: true
+        weeklyGoals: true,
+        yearlyGoals: true
       })
       .expect(200)
       .expect('Content-Type', /json/)
