@@ -54,6 +54,53 @@ curl --location --request GET 'https://www.example.com/api/goals/weekly' \
   </code-block>
 </code-group>
 
+## Get Weekly Goal
+
+Allows a logged in user to get a single weekly goal
+
+#### Path
+
+`GET /goals/weekly/:goal_id`
+
+#### Headers
+
+| Field         | Type   | Description                       |
+| :------------ | :----- | :-------------------------------- |
+| Content-Type  | string | application/x-www-form-urlencoded |
+| Authorization | string | JWT access token.                 |
+
+#### Params
+
+| Field        | Type   | Description       |
+| :----------- | :----- | :---------------- |
+| weeklyGoalId | string | id of weekly goal |
+
+#### Example
+
+<code-group>
+  <code-block label="Request" active>
+
+```sh
+curl --location --request GET 'https://www.example.com/api/goals/weekly/606b33282b8ffa0d512a7993' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZjRiZmYxMjEwMzdlNDI0YTE3YTNlYmMiLCJpYXQiOjE1OTkyNDE1OTMsImV4cCI6MTU5OTI0MzM5M30.FuLUNEc_lE8jI2KEur0KsQzZFjIh5kymnLdR0Udycxk' \
+```
+
+  </code-block>
+  <code-block label="Response
+">
+
+```json
+{
+  "isCompleted": false,
+  "_id": "5f5000b9bfe567344069882f",
+  "user": "5f4bff121037e424a17a3ebc",
+  "title": "Get a dub.",
+  "createdAt": "2020-09-02T20:29:45.225Z",
+  "updatedAt": "2020-09-02T20:29:45.225Z",
+  "__v": 0
+}
+```
+
 ## Create Weekly Goal
 
 Allows a logged in user create a new weekly goal.
