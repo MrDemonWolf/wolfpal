@@ -68,6 +68,10 @@ const UserSchema = new Schema(
         weeklyGoals: {
           type: Boolean,
           default: false
+        },
+        yearlyGoals: {
+          type: Boolean,
+          default: false
         }
       }
     },
