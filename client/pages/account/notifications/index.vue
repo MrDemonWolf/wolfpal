@@ -38,6 +38,27 @@
                     </div>
                   </div>
                 </div>
+                <div class="mt-4">
+                  <div class="flex items-start">
+                    <div class="flex items-center h-5">
+                      <input
+                        id="yearlyGoals"
+                        v-model="changeNotificationsEmail.yearlyGoals"
+                        type="checkbox"
+                        class="w-4 h-4 transition duration-150 ease-in-out text-primary-500 form-checkbox"
+                      />
+                    </div>
+                    <div class="pl-2 text-sm leading-5">
+                      <label for="yearlyGoals" class="font-medium text-gray-700"
+                        >Yearly Goals</label
+                      >
+                      <p class="text-gray-500">
+                        Received notifications number of completed yearly goals
+                        with percent.
+                      </p>
+                    </div>
+                  </div>
+                </div>
               </fieldset>
             </div>
             <div class="px-4 py-3 text-right bg-gray-50 sm:px-6">
@@ -65,7 +86,11 @@ export default {
     return {
       changeNotificationsEmail: {
         weeklyGoals: this.$auth.user.notifications.email.weeklyGoals,
-        errors: { weeklyGoals: null },
+        yearlyGoals: this.$auth.user.notifications.email.yearlyGoals,
+        errors: {
+          weeklyGoals: null,
+          yearlyGoals: null,
+        },
       },
     }
   },
@@ -76,12 +101,16 @@ export default {
         weekly:
           this.$auth.user.notifications.email.weeklyGoals !==
           this.changeNotificationsEmail.weeklyGoals,
+        yearly:
+          this.$auth.user.notifications.email.yearlyGoals !==
+          this.changeNotificationsEmail.yearlyGoals,
       }
 
-      if (email.weekly) {
+      if (email.weekly || email.yearly) {
         try {
           const res = await this.$axios.$put('/api/notifications/email', {
             weeklyGoals: this.changeNotificationsEmail.weeklyGoals,
+            yearlyGoals: this.changeNotificationsEmail.yearlyGoals,
           })
           await this.$auth.fetchUser()
           switch (res.code) {
