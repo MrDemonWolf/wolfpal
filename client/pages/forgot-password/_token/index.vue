@@ -124,20 +124,47 @@ export default {
           `/api/user/reset-password/${this.$route.params.token}`,
           this.forgotPassword
         )
-        this.success = res.message
-        this.error = null
-        this.errors = { password: null, comfirmPassword: null }
+        this.success = 'Redirecting in 5 seconeds to login'
 
         setTimeout(() => this.$router.push({ path: '/login' }), 1000 * 5)
       } catch (e) {
-        if (e.response.data.error) {
-          this.error = e.response.data.error
-          this.errors = { password: null, comfirmPassword: null }
-        } else {
-          this.errors = e.response.data.errors
-          this.error = null
-        }
+        this.error = null
         this.success = null
+        this.resetPassword.errors.password = null
+        this.resetPassword.errors.comfirmPassword = null
+        if (e.response.data.codes) {
+          const { password, comfirmPassword } = e.response.data.codes
+          if (password) {
+            switch (password) {
+              case 'REQUIRED':
+                this.resetPassword.errors.password = 'Password is required.'
+                break
+              case 'NOT_LONG_ENOUGH':
+                this.resetPassword.errors.password =
+                  'Password must be between 8 and 56 characters long'
+                break
+              case 'NO_MATCH':
+                this.resetPassword.errors.password =
+                  'Both passwords must match.'
+                break
+              default:
+            }
+          }
+          if (comfirmPassword) {
+            switch (comfirmPassword) {
+              case 'MUST_CONFIRM':
+                this.resetPassword.errors.comfirmPassword =
+                  'You must comfirm your new password.'
+                break
+              case 'NO_MATCH':
+                this.resetPassword.errors.comfirmPassword =
+                  'Both passwords must match.'
+                break
+
+              default:
+            }
+          }
+        }
       }
     },
   },
