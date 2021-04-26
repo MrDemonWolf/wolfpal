@@ -34,13 +34,13 @@
                 aria-label="Email address"
                 name="email"
                 type="email"
-                :class="{ 'border-red-500': errors.email }"
+                :class="{ 'border-red-500': forgotPassword.errors.email }"
                 class="block w-full px-3 py-2 placeholder-gray-400 transition duration-150 ease-in-out border border-gray-300 rounded-md appearance-none focus:outline-none focus:ring-blue focus:border-blue-300 sm:text-sm sm:leading-5"
                 novalidate
               />
             </div>
-            <span v-if="errors.email" class="text-red-500">{{
-              errors.email
+            <span v-if="forgotPassword.errors.email" class="text-red-500">{{
+              forgotPassword.errors.email
             }}</span>
           </div>
 
@@ -78,28 +78,59 @@ export default {
     return {
       forgotPassword: {
         email: '',
+        errors: { email: null },
       },
       error: null,
-      errors: { email: null },
       success: null,
     }
   },
   methods: {
     async userForgotPassword() {
       try {
-        const res = await this.$axios.$post(
-          '/api/user/forgot-password/',
-          this.forgotPassword
-        )
-        this.success = res.message
-        if (this.error) {
-          this.error = null
-        }
+        this.success = null
+        this.error = null
+        await this.$axios.$post('/api/user/forgot-password/', {
+          email: this.forgotPassword.email,
+        })
+        this.success =
+          'An Email has been sent to your email with further instructions on how to reset your password. Please check your email account.'
       } catch (e) {
-        this.error = e.response.data.error
-        if (this.success) {
-          this.success = null
+        this.success = null
+        this.error = null
+
+        if (e.response.data.codes) {
+          const { email } = e.response.data.codes
+          if (email) {
+            switch (email) {
+              case 'INVALID':
+                this.forgotPassword.errors.email = 'Email is invalid.'
+                break
+              case 'REQUIRED':
+                this.forgotPassword.errors.email = 'Email is required.'
+                break
+              default:
+                break
+            }
+          }
+          return
         }
+
+        if (e.response.data.code) {
+          switch (e.response.data.code) {
+            case 'NON_EXISTENT':
+              this.error = 'There is no account with that email.'
+              break
+            case 429:
+              this.error =
+                'You either requested or changed your password recently.  Please try again later.'
+              break
+            default:
+              break
+          }
+          return
+        }
+
+        this.error = 'Oops.. Something Went Wrong..'
       }
     },
   },
