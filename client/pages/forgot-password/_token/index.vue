@@ -120,7 +120,7 @@ export default {
           os: this.$ua.os(),
           browser: this.$ua.browser(),
         }
-        const res = await this.$axios.$post(
+        await this.$axios.$post(
           `/api/user/reset-password/${this.$route.params.token}`,
           this.forgotPassword
         )
