@@ -1,4 +1,5 @@
 const request = require('supertest');
+const moment = require('moment');
 
 const server = require('../index');
 
@@ -91,6 +92,53 @@ describe('Goals 🥅', () => {
       request(server)
         // eslint-disable-next-line no-underscore-dangle
         .delete(`/goals/weekly/${this.weeklyGoal._id}`)
+        .set('Authorization', `Bearer ${creds.user.accessToken}`)
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .end((err, res) => {
+          if (err) {
+            return done(err);
+          }
+          done();
+        });
+    });
+  });
+  describe('Yearly Goals', () => {
+    it('Create yearly goal', done => {
+      request(server)
+        .post('/goals/yearly')
+        .set('Authorization', `Bearer ${creds.user.accessToken}`)
+        .send({
+          title: 'Get WolfPal done.',
+          completeBy: moment().add(180, 'days')
+        })
+        .expect(201)
+        .expect('Content-Type', /json/)
+        .end((err, res) => {
+          if (err) {
+            return done(err);
+          }
+          module.exports.yearlyGoal = res.body.goal;
+          done();
+        });
+    });
+    it('Get list of yearly goals', done => {
+      request(server)
+        .get('/goals/yearly')
+        .set('Authorization', `Bearer ${creds.user.accessToken}`)
+        .expect(200)
+        .expect('Content-Type', /json/)
+        .end((err, res) => {
+          if (err) {
+            return done(err);
+          }
+          done();
+        });
+    });
+    it('Remove yearly goal', done => {
+      request(server)
+        // eslint-disable-next-line no-underscore-dangle
+        .delete(`/goals/yearly/${this.yearlyGoal._id}`)
         .set('Authorization', `Bearer ${creds.user.accessToken}`)
         .expect(200)
         .expect('Content-Type', /json/)
