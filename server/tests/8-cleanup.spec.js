@@ -1,6 +1,7 @@
 const User = require('../models/User');
 const Session = require('../models/Session');
 const WeeklyGoal = require('../models/Goals/Weekly');
+const YearlyGoal = require('../models/Goals/Yearly');
 
 /**
  * Load Configs
@@ -28,5 +29,8 @@ describe('🧹 Clean up:', () => {
   });
   it('Remove all weekly goals', async () => {
     await WeeklyGoal.deleteMany({});
+  });
+  it('Remove all yearly goals', async () => {
+    await YearlyGoal.deleteMany({});
   });
 });
