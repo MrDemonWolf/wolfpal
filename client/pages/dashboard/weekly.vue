@@ -11,7 +11,7 @@ export default {
   middleware: ['auth'],
 
   async fetch({ store }) {
-    await store.dispatch('goals/FETCH_WEEKLY_GOALS')
+    await store.dispatch('goals/weekly/FETCH_GOALS')
   },
 
   head() {
@@ -22,7 +22,7 @@ export default {
 
   computed: {
     weeklyGoals() {
-      return this.$store.state.goals.weekly
+      return this.$store.state.goals.weekly.goals
     },
   },
 }

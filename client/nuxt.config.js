@@ -7,7 +7,7 @@ export default {
 
   server: {
     port: process.env.PORT || 3000, // default: 3000
-    host: process.env.IP || '127.0.0.1', // default: localhost
+    host: process.env.IP || '127.0.0.1' // default: localhost
   },
 
   /*
@@ -24,10 +24,10 @@ export default {
         name: 'description',
         content:
           process.env.SITE_DESCRIPTION ||
-          'A wolf to guide you to your end goals by helping keep you on track weely, bi-weekly or even monthly and yearly goals.',
-      },
+          'A wolf to guide you to your end goals by helping keep you on track weely, bi-weekly or even monthly and yearly goals.'
+      }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
 
   loading: false,
@@ -48,7 +48,7 @@ export default {
     { src: '~/plugins/is-empty' },
     { src: '~/plugins/vue-content-loader' },
     { src: '~/plugins/vue-loading-overlay', ssr: false },
-    { src: '~/plugins/vue-click-outside', srr: false },
+    { src: '~/plugins/vue-click-outside', srr: false }
   ],
   /*
    ** Auto import components
@@ -86,20 +86,21 @@ export default {
             'faArrowLeft',
             'faCircle',
             'faHome',
+            'faExclamationTriangle'
           ],
-          brands: ['faGoogle', 'faTwitter', 'faGithub'],
-        },
-      },
+          brands: ['faGoogle', 'faTwitter', 'faGithub']
+        }
+      }
     ],
     [
       '@nuxtjs/google-fonts',
       {
         families: {
           Roboto: [100, 300, 400, 500, 700, 900],
-          Montserrat: [100, 300, 400, 500, 700, 900],
-        },
-      },
-    ],
+          Montserrat: [100, 300, 400, 500, 700, 900]
+        }
+      }
+    ]
   ],
   /*
    ** Nuxt.js modules
@@ -115,7 +116,7 @@ export default {
     '@nuxtjs/toast',
     'nuxt-user-agent',
     'portal-vue/nuxt',
-    '@nuxtjs/dayjs',
+    '@nuxtjs/dayjs'
   ],
   /*
    ** Axios module configuration
@@ -124,15 +125,15 @@ export default {
   axios: {
     proxy: true,
     https: false,
-    credentials: true,
+    credentials: true
   },
   proxy: {
     '/api/': {
       target: process.env.API_URI || 'http://localhost:8080',
       pathRewrite: {
-        '^/api/': '/',
-      },
-    },
+        '^/api/': '/'
+      }
+    }
   },
 
   /*
@@ -140,7 +141,7 @@ export default {
    */
   auth: {
     redirect: {
-      home: '/dashboard',
+      home: '/dashboard'
     },
     strategies: {
       local: {
@@ -148,33 +149,33 @@ export default {
         token: {
           property: 'access_token',
           maxAge: 1000 * 60 * 5, //  5 mins
-          type: 'Bearer',
+          type: 'Bearer'
         },
         refreshToken: {
           property: 'refresh_token',
           data: 'refresh_token',
-          maxAge: 1000 * 60 * 60 * 24 * 14, // Two Weeks
+          maxAge: 1000 * 60 * 60 * 24 * 14 // Two Weeks
         },
         user: {
           property: 'user',
-          autoFetch: true,
+          autoFetch: true
         },
         endpoints: {
           login: { url: '/api/auth/login', method: 'post' },
           refresh: { url: '/api/auth/refresh', method: 'post' },
           user: { url: '/api/account', method: 'get' },
-          logout: { url: '/api/auth/logout', method: 'post' },
+          logout: { url: '/api/auth/logout', method: 'post' }
         },
-        autoLogout: false,
-      },
-    },
+        autoLogout: false
+      }
+    }
   },
 
   /*
    ** dayjs configuration
    */
   dayjs: {
-    plugins: ['localizedFormat'],
+    plugins: ['localizedFormat']
   },
 
   /*
@@ -182,14 +183,21 @@ export default {
    */
   toast: {
     position: 'top-right',
-    duration: 6500,
+    duration: 6500
   },
 
   /*
    ** Color mode configuration
    */
   colorMode: {
-    classSuffix: '',
+    classSuffix: ''
+  },
+
+  /*
+   ** Tailwindcssconfiguration
+   */
+  tailwindcss: {
+    mode: 'jit'
   },
 
   /*
@@ -213,24 +221,29 @@ export default {
         description:
           process.env.LANDING_FEATURES_DESCRIPTION ||
           `Includes all the tools to help motivate you to complete your goals in
-          life. One Wolf at a time.`,
-      },
+          life. One Wolf at a time.`
+      }
     },
     mission:
       process.env.SITE_MISSION ||
-      'Our Mission is to help you achieve life goals to motivate you to be a better you.',
+      'Our Mission is to help you achieve life goals to motivate you to be a better you.'
   },
 
   /**
    * purgeCSS configuration
    */
   purgeCSS: {
-    whitelist: ['dark'],
+    whitelist: ['dark']
   },
 
   /*
    ** Build configuration
    ** See https://nuxtjs.org/api/configuration-build/
    */
-  build: {},
+  build: {
+    // TODO Remove this once fix
+    babel: {
+      plugins: [['@babel/plugin-proposal-private-methods', { loose: true }]]
+    }
+  }
 }
