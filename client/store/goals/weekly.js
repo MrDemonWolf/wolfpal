@@ -1,5 +1,5 @@
 export const state = () => ({
-  weekly: [],
+  goals: [],
   messages: {
     success: null,
     error: null,
@@ -10,12 +10,11 @@ export const state = () => ({
 })
 
 export const actions = {
-  async FETCH_WEEKLY_GOALS({ commit }) {
+  async FETCH_GOALS({ commit }) {
     try {
       const res = await this.$axios.$get('/api/goals/weekly')
-      commit('SET_WEEKLY_GOALS', res.goals)
+      commit('SET_GOALS', res.goals)
     } catch (e) {
-      commit('SET_WEEKLY_GOALS', [])
       commit('SET_MESSAGE_SUCCESS', null)
       commit('SET_MESSAGE_ERROR', 'Oops.. Something Went Wrong..')
     }
@@ -23,7 +22,7 @@ export const actions = {
   async MODIFY_GOAL_IS_COMPLETE({ state, commit }, index) {
     try {
       await this.$axios.$put(
-        `/api/goals/weekly/${state.weekly[index]._id}/complete`
+        `/api/goals/weekly/${state.goals[index]._id}/complete`
       )
 
       commit('SET_GOAL_IS_COMPLETE', {
@@ -47,7 +46,7 @@ export const actions = {
   async MODIFY_GOAL_IS_NOT_COMPLETE({ state, commit }, index) {
     try {
       await this.$axios.$put(
-        `/api/goals/weekly/${state.weekly[index]._id}/not-complete`
+        `/api/goals/weekly/${state.goals[index]._id}/not-complete`
       )
 
       commit('SET_GOAL_IS_COMPLETE', {
@@ -68,10 +67,10 @@ export const actions = {
       }
     }
   },
-  async REMOVE_WEEKLY_GOAL({ state, commit }, index) {
+  async REMOVE_GOAL({ state, commit }, index) {
     try {
       const res = await this.$axios.$delete(
-        `/api/goals/weekly/${state.weekly[index]._id}`
+        `/api/goals/weekly/${state.goals[index]._id}`
       )
       commit('SET_MESSAGE_ERROR', null)
       switch (res.code) {
@@ -80,7 +79,7 @@ export const actions = {
           break
         default:
       }
-      commit('DELETE_WEEKLY_GOAL', index)
+      commit('DELETE_GOAL', index)
     } catch (e) {
       commit('SET_MESSAGE_SUCCESS', null)
       switch (e.response.data.code) {
@@ -92,12 +91,12 @@ export const actions = {
       }
     }
   },
-  async ADD_WEEKLY_GOAL({ commit }, goal) {
+  async ADD_GOAL({ commit }, goal) {
     try {
       const res = await this.$axios.$post('/api/goals/weekly', goal)
       commit('SET_MESSAGE_ERROR', null)
       commit('SET_MESSAGE_SUCCESS', 'Goal has been added.')
-      commit('PUSH_WEEKLY_GOAL', res.goal)
+      commit('PUSH_GOAL', res.goal)
     } catch (e) {
       commit('SET_MESSAGE_SUCCESS', null)
       if (e.response.data.codes) {
@@ -116,18 +115,18 @@ export const actions = {
 }
 
 export const mutations = {
-  SET_WEEKLY_GOALS(state, goals) {
-    return (state.weekly = goals)
+  SET_GOALS(state, goals) {
+    return (state.goals = goals)
   },
   SET_GOAL_IS_COMPLETE(state, { index, isCompleted }) {
-    return (state.weekly[index].isCompleted = isCompleted)
+    return (state.goals[index].isCompleted = isCompleted)
   },
 
-  DELETE_WEEKLY_GOAL: (state, index) => {
-    return state.weekly.splice(index, 1)
+  DELETE_GOAL: (state, index) => {
+    return state.goals.splice(index, 1)
   },
-  PUSH_WEEKLY_GOAL: (state, goal) => {
-    return state.weekly.push(goal)
+  PUSH_GOAL: (state, goal) => {
+    return state.goals.push(goal)
   },
   SET_MESSAGE_SUCCESS: (state, success) => {
     return (state.messages.success = success)
@@ -141,8 +140,8 @@ export const mutations = {
 }
 
 export const getters = {
-  WEEKLY_GOALS: (state) => {
-    return state.weeky
+  GOALS: (state) => {
+    return state.goals
   },
   MESSAGE_SUCCESS: (state) => {
     return state.messages.success

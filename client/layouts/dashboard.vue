@@ -47,7 +47,7 @@ import HeroIconOutLineMenuAlt2 from '@/assets/vectors/heroicon/outline/menu-alt-
 
 export default {
   components: {
-    HeroIconOutLineMenuAlt2,
+    HeroIconOutLineMenuAlt2
   },
 
   data() {
@@ -55,13 +55,13 @@ export default {
       links: [
         {
           url: '/dashboard',
-          text: 'Dashboard',
+          text: 'Dashboard'
         },
         {
-          url: '/dashboard/goals/weekly',
-          text: 'Weekly Goals',
-        },
-      ],
+          url: '/dashboard/weekly',
+          text: 'Weekly Goals'
+        }
+      ]
     }
   },
 
@@ -71,7 +71,7 @@ export default {
         await this.$store.commit('dashboard/SET_SIDEBAR_OPEN', false)
       } catch (e) {
         this.$toast.error('Oops.. Something Went Wrong..', {
-          position: 'bottom-right',
+          position: 'bottom-right'
         })
       }
     },
@@ -81,10 +81,10 @@ export default {
         await this.$store.commit('dashboard/SET_SIDEBAR_OPEN', true)
       } catch (e) {
         this.$toast.error('Oops.. Something Went Wrong..', {
-          position: 'bottom-right',
+          position: 'bottom-right'
         })
       }
-    },
-  },
+    }
+  }
 }
 </script>

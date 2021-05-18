@@ -79,21 +79,21 @@ export default {
   methods: {
     async addGoal() {
       try {
-        await this.$store.dispatch('goals/ADD_WEEKLY_GOAL', this.newGoal)
-        if (this.$store.state.goals.messages.success) {
+        await this.$store.dispatch('goals/weekly/ADD_GOAL', this.newGoal)
+        if (this.$store.state.goals.weekly.messages.success) {
           this.newGoal.title = ''
           this.newGoal.isCompleted = false
-          return this.$toast.success(this.$store.state.goals.messages.success, {
+          return this.$toast.success(this.$store.state.goals.weekly.messages.success, {
             position: 'bottom-right',
           })
         }
-        if (this.$store.state.goals.messages.error) {
-          return this.$toast.error(this.$store.state.goals.messages.error, {
+        if (this.$store.state.goals.weekly.messages.error) {
+          return this.$toast.error(this.$store.state.goals.weekly.messages.error, {
             position: 'bottom-right',
           })
         }
-        if (this.$store.state.goals.messages.errors) {
-          const { title } = this.$store.state.goals.messages.errors
+        if (this.$store.state.goals.weekly.messages.errors) {
+          const { title } = this.$store.state.goals.weekly.messages.errors
           if (title) {
             return this.$toast.error(title, {
               position: 'bottom-right',
@@ -108,14 +108,14 @@ export default {
     },
     async removeGoal(index) {
       try {
-        await this.$store.dispatch('goals/REMOVE_WEEKLY_GOAL', index)
+        await this.$store.dispatch('goals/weekly/REMOVE_GOAL', index)
 
-        if (this.$store.state.goals.messages.success) {
-          return this.$toast.success(this.$store.state.goals.messages.success, {
+        if (this.$store.state.goals.weekly.messages.success) {
+          return this.$toast.success(this.$store.state.goals.weekly.messages.success, {
             position: 'bottom-right',
           })
         }
-        this.$toast.error(this.$store.state.goals.messages.error, {
+        this.$toast.error(this.$store.state.goals.weekly.messages.error, {
           position: 'bottom-right',
         })
       } catch (e) {
@@ -126,13 +126,16 @@ export default {
     },
     async markGoalComplete(index) {
       try {
-        await this.$store.dispatch('goals/MODIFY_GOAL_IS_COMPLETE', index)
-        if (this.$store.state.goals.messages.success) {
-          this.$toast.success(this.$store.state.goals.messages.success, {
+        await this.$store.dispatch(
+          'goals/weekly/MODIFY_GOAL_IS_COMPLETE',
+          index
+        )
+        if (this.$store.state.goals.weekly.messages.success) {
+          this.$toast.success(this.$store.state.goals.weekly.messages.success, {
             position: 'bottom-right',
           })
         }
-        this.$toast.error(this.$store.state.goals.messages.error, {
+        this.$toast.error(this.$store.state.goals.weekly.messages.error, {
           position: 'bottom-right',
         })
       } catch (e) {
@@ -143,13 +146,16 @@ export default {
     },
     async markGoalNotComplete(index) {
       try {
-        await this.$store.dispatch('goals/MODIFY_GOAL_IS_NOT_COMPLETE', index)
-        if (this.$store.state.goals.messages.success) {
-          this.$toast.success(this.$store.state.goals.messages.success, {
+        await this.$store.dispatch(
+          'goals/weekly/MODIFY_GOAL_IS_NOT_COMPLETE',
+          index
+        )
+        if (this.$store.state.goals.weekly.messages.success) {
+          this.$toast.success(this.$store.state.goals.weekly.messages.success, {
             position: 'bottom-right',
           })
         }
-        this.$toast.error(this.$store.state.goals.messages.error, {
+        this.$toast.error(this.$store.state.goals.weekly.messages.error, {
           position: 'bottom-right',
         })
       } catch (e) {
