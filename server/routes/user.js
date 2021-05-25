@@ -3,7 +3,7 @@ const moment = require('moment');
 
 const { customAlphabet } = require('nanoid');
 
-const mailer= require('../utils/mailer');
+const mailer = require('../utils/mailer');
 
 const router = express.Router();
 
@@ -11,6 +11,7 @@ const router = express.Router();
  * Load MongoDB models.
  */
 const User = require('../models/User');
+const Session = require('../models/Session');
 
 /**
  * Setup nanoid
@@ -189,6 +190,10 @@ router.post('/reset-password/:reset_token', async (req, res) => {
     user.password = req.body.password;
     user.passwordResetToken = undefined;
     user.passwordResetTokenExpire = undefined;
+
+    await Session.deleteMany({
+      user: user.id
+    });
 
     await user.save();
 
