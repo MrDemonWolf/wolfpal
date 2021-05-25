@@ -13,7 +13,7 @@
       <SharedAlert
         v-if="success"
         type="success"
-        :message="`${success} You will be redirected in a few moments....`"
+        :message="success"
         class="mb-4"
       />
       <div
@@ -105,12 +105,12 @@ export default {
         comfirmPassword: '',
         device: {
           os: '',
-          browser: '',
-        },
+          browser: ''
+        }
       },
       error: null,
       errors: { password: null, comfirmPassword: null },
-      success: null,
+      success: null
     }
   },
   methods: {
@@ -118,7 +118,7 @@ export default {
       try {
         this.forgotPassword.device = {
           os: this.$ua.os(),
-          browser: this.$ua.browser(),
+          browser: this.$ua.browser()
         }
         await this.$axios.$post(
           `/api/user/reset-password/${this.$route.params.token}`,
@@ -166,7 +166,7 @@ export default {
           }
         }
       }
-    },
-  },
+    }
+  }
 }
 </script>
