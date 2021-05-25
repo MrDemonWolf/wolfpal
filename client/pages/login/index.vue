@@ -50,7 +50,7 @@ import Logo from '@/assets/vectors/logo.svg?inline'
 
 export default {
   components: {
-    Logo,
+    Logo
   },
 
   middleware: ['alreadyAuthenticated'],
@@ -62,10 +62,13 @@ export default {
         {
           hid: 'description',
           name: 'description',
-          content: `Already have a ${title} account?  You can login to your current account here.`,
-        },
-      ],
+          content: `Already have a ${title} account?  You can login to your current account here.`
+        }
+      ]
     }
   },
+  mounted() {
+    this.$store.dispatch('login/RESET_MESSAGES')
+  }
 }
 </script>
