@@ -4,9 +4,9 @@ export const state = () => ({
     success: null,
     error: null,
     errors: {
-      title: null,
-    },
-  },
+      title: null
+    }
+  }
 })
 
 export const actions = {
@@ -27,13 +27,19 @@ export const actions = {
 
       commit('SET_GOAL_IS_COMPLETE', {
         index,
-        isCompleted: true,
+        isCompleted: true
       })
       commit('SET_MESSAGE_ERROR', null)
       commit('SET_MESSAGE_SUCCESS', 'Goal has been marked as completed')
     } catch (e) {
       commit('SET_MESSAGE_SUCCESS', null)
       switch (e.response.data.code) {
+        case 'PENDING_CONFIRMATION':
+          commit(
+            'SET_MESSAGE_ERROR',
+            'Your account must be activated before you can do that. Please check your email you signed up with.'
+          )
+          break
         case 'NON_EXISTENT':
           commit('SET_MESSAGE_ERROR', 'Goal is not found.')
           break
@@ -51,13 +57,19 @@ export const actions = {
 
       commit('SET_GOAL_IS_COMPLETE', {
         index,
-        isCompleted: false,
+        isCompleted: false
       })
       commit('SET_MESSAGE_ERROR', null)
       commit('SET_MESSAGE_SUCCESS', 'Goal has been marked as not completed')
     } catch (e) {
       commit('SET_MESSAGE_SUCCESS', null)
       switch (e.response.data.code) {
+        case 'PENDING_CONFIRMATION':
+          commit(
+            'SET_MESSAGE_ERROR',
+            'Your account must be activated before you can do that. Please check your email you signed up with.'
+          )
+          break
         case 'NON_EXISTENT':
           commit('SET_MESSAGE_ERROR', 'Goal is not found.')
           break
@@ -83,6 +95,12 @@ export const actions = {
     } catch (e) {
       commit('SET_MESSAGE_SUCCESS', null)
       switch (e.response.data.code) {
+        case 'PENDING_CONFIRMATION':
+          commit(
+            'SET_MESSAGE_ERROR',
+            'Your account must be activated before you can do that. Please check your email you signed up with.'
+          )
+          break
         case 'NON_EXISTENT':
           commit('SET_MESSAGE_ERROR', 'Goal is might be already deleted.')
           break
@@ -99,6 +117,21 @@ export const actions = {
       commit('PUSH_GOAL', res.goal)
     } catch (e) {
       commit('SET_MESSAGE_SUCCESS', null)
+      if (e.response.data.code) {
+        switch (e.response.data.code) {
+          case 'PENDING_CONFIRMATION':
+            commit(
+              'SET_MESSAGE_ERROR',
+              'Your account must be activated before you can do that. Please check your email you signed up with.'
+            )
+            break
+
+          default:
+            commit('SET_MESSAGE_ERROR', 'Oops.. Something Went Wrong..')
+            break
+        }
+        return
+      }
       if (e.response.data.codes) {
         if (e.response.data.codes.title)
           switch (e.response.data.codes.title) {
@@ -111,7 +144,7 @@ export const actions = {
         commit('SET_MESSAGE_ERROR', 'Oops.. Something Went Wrong..')
       }
     }
-  },
+  }
 }
 
 export const mutations = {
@@ -136,7 +169,7 @@ export const mutations = {
   },
   SET_MESSAGE_ERRORS_TITLE: (state, message) => {
     return (state.messages.errors.title = message)
-  },
+  }
 }
 
 export const getters = {
@@ -151,5 +184,5 @@ export const getters = {
   },
   MESSAGE_ERRORS_TITLE: (state) => {
     return state.messages.errors.title
-  },
+  }
 }
