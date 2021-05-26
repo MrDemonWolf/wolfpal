@@ -4,9 +4,19 @@
       class="flex h-screen overflow-hidden bg-gray-100 dark:bg-gray-900"
       @keydown.escape="sidebarHide"
     >
-      <AccountMobileSidebar :links="links" />
+      <AccountMobileSidebar
+      :links="links"
+      :backto="true"
+      backto-link="/dashboard"
+      backto-text="Back to Dashboard"
+      />
 
-      <AccountDesktopSidebar :links="links" />
+      <AccountDesktopSidebar
+      :links="links"
+      :backto="true"
+      backto-link="/dashboard"
+      backto-text="Back to Dashboard"
+      />
 
       <div class="flex flex-col flex-1 w-0 overflow-hidden">
         <div class="relative z-10 flex flex-shrink-0 h-16 bg-white">
@@ -47,7 +57,7 @@ import HeroIconOutLineMenuAlt2 from '@/assets/vectors/heroicon/outline/menu-alt-
 
 export default {
   components: {
-    HeroIconOutLineMenuAlt2,
+    HeroIconOutLineMenuAlt2
   },
 
   data() {
@@ -55,25 +65,25 @@ export default {
       links: [
         {
           url: '/account',
-          text: 'Profile',
+          text: 'Profile'
         },
         {
           url: '/account/personal-information',
-          text: 'Personal Information',
+          text: 'Personal Information'
         },
         {
           url: '/account/security',
-          text: 'Security',
+          text: 'Security'
         },
         {
           url: '/account/notifications',
-          text: 'Notifications',
+          text: 'Notifications'
         },
         {
           url: '/account/devices',
-          text: 'Devices',
-        },
-      ],
+          text: 'Devices'
+        }
+      ]
     }
   },
 
@@ -83,7 +93,7 @@ export default {
         await this.$store.commit('account/SET_SIDEBAR_OPEN', false)
       } catch (e) {
         this.$toast.error('Oops.. Something Went Wrong..', {
-          position: 'bottom-right',
+          position: 'bottom-right'
         })
       }
     },
@@ -93,10 +103,10 @@ export default {
         await this.$store.commit('account/SET_SIDEBAR_OPEN', true)
       } catch (e) {
         this.$toast.error('Oops.. Something Went Wrong..', {
-          position: 'bottom-right',
+          position: 'bottom-right'
         })
       }
-    },
-  },
+    }
+  }
 }
 </script>
