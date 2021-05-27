@@ -82,17 +82,20 @@
               </nuxt-link>
             </nav>
           </div>
-          <div class="flex flex-shrink-0 pt-2 pl-2 border-t border-gray-200">
+       <div
+            v-if="backto"
+            class="flex w-full px-2 pt-2 border-t border-gray-200"
+          >
             <nuxt-link
-              to="/dashboard"
-              class="flex-shrink-0 block px-2 text-gray-600 rounded-md group dark:text-white dark:hover:text-gray-900 hover:bg-gray-50 hover:text-gray-900"
+              :to="backtoLink"
+              class="flex-1 rounded-md blocktext-gray-600 group dark:text-white dark:hover:text-gray-900 hover:bg-gray-50 hover:text-gray-900"
             >
               <div class="flex items-center">
                 <fa
                   :icon="['fas', 'arrow-left']"
                   class="inline-block w-10 h-10 mr-2 text-lg"
                 />
-                <div class="ml-3">Back to Dashboard</div>
+                <div class="ml-3">{{ backtoText }}</div>
               </div>
             </nuxt-link>
           </div>
@@ -108,14 +111,26 @@ import Logo from '@/assets/vectors/logo.svg?inline'
 
 export default {
   components: {
-    Logo,
+    Logo
   },
 
   props: {
     links: {
       type: Array,
-      required: true,
+      required: true
     },
+    backto: {
+      type: Boolean,
+      default: false
+    },
+    backtoLink: {
+      type: String,
+      default: ''
+    },
+    backtoText: {
+      type: String,
+      default: ''
+    }
   },
 
   methods: {
@@ -124,7 +139,7 @@ export default {
         await this.$store.commit('account/SET_SIDEBAR_OPEN', true)
       } catch (e) {
         this.$toast.error('Oops.. Something Went Wrong..', {
-          position: 'bottom-right',
+          position: 'bottom-right'
         })
       }
     },
@@ -134,11 +149,11 @@ export default {
         await this.$store.commit('account/SET_SIDEBAR_OPEN', false)
       } catch (e) {
         this.$toast.error('Oops.. Something Went Wrong..', {
-          position: 'bottom-right',
+          position: 'bottom-right'
         })
       }
-    },
-  },
+    }
+  }
 }
 </script>
 
