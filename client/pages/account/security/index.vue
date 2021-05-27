@@ -1,6 +1,6 @@
 <template>
   <div
-    class="container w-full px-2 mx-auto my-0 overflow-auto shadow-md md:px-8 md:my-6 bg-gray-50 lg:w-3/5 dark:bg-gray-200"
+    class="container w-full px-2 mx-auto overflow-auto shadow-md md:px-8 bg-gray-50 lg:w-9/12 dark:bg-gray-200"
   >
     <div class="my-0 sm:my-5">
       <div class="mt-5 md:mt-0">
