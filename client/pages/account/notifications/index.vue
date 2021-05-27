@@ -1,6 +1,6 @@
 <template>
-  <div
-    class="container w-full px-2 mx-auto my-0 overflow-auto shadow-md md:px-8 md:my-6 bg-gray-50 lg:w-3/5 dark:bg-gray-200"
+<div
+    class="container w-full px-2 mx-auto overflow-auto shadow-md md:px-8 bg-gray-50 lg:w-9/12 dark:bg-gray-200"
   >
     <div class="my-0 sm:my-5">
       <div class="mt-5 md:mt-0">
@@ -89,9 +89,9 @@ export default {
         yearlyGoals: this.$auth.user.notifications.email.yearlyGoals,
         errors: {
           weeklyGoals: null,
-          yearlyGoals: null,
-        },
-      },
+          yearlyGoals: null
+        }
+      }
     }
   },
 
@@ -103,14 +103,14 @@ export default {
           this.changeNotificationsEmail.weeklyGoals,
         yearly:
           this.$auth.user.notifications.email.yearlyGoals !==
-          this.changeNotificationsEmail.yearlyGoals,
+          this.changeNotificationsEmail.yearlyGoals
       }
 
       if (email.weekly || email.yearly) {
         try {
           const res = await this.$axios.$put('/api/notifications/email', {
             weeklyGoals: this.changeNotificationsEmail.weeklyGoals,
-            yearlyGoals: this.changeNotificationsEmail.yearlyGoals,
+            yearlyGoals: this.changeNotificationsEmail.yearlyGoals
           })
           await this.$auth.fetchUser()
           switch (res.code) {
@@ -118,7 +118,7 @@ export default {
               this.$toast.success(
                 'Your notifications preferences for email has been changed.',
                 {
-                  position: 'bottom-right',
+                  position: 'bottom-right'
                 }
               )
               break
@@ -126,11 +126,11 @@ export default {
           }
         } catch (e) {
           this.$toast.error('Oops.. Something Went Wrong..', {
-            position: 'bottom-right',
+            position: 'bottom-right'
           })
         }
       }
-    },
-  },
+    }
+  }
 }
 </script>
