@@ -2,6 +2,8 @@
     <img src="logo.png"/>
 </p>
 
+**It is with sadness that we announce the sunset of our Github repository. We want to thank you for your contributions, code submissions and feedback that have helped make this project what it is today.**
+
 ![GitHub release](https://img.shields.io/github/release/mrdemonwolf/wolfpal.svg?include_prereleases&style=for-the-badge)
 [![GitHub last commit](https://img.shields.io/github/last-commit/mrdemonwolf/wolfpal.svg?logo=git&style=for-the-badge)](https://github.com/mrdemonwolf/share)
 ![Travis (.com)](https://img.shields.io/travis/mrdemonwolf/wolfpal?style=for-the-badge)
